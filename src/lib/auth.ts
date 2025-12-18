@@ -107,7 +107,7 @@ export async function requireAuth(request?: Request | any): Promise<User> {
       const cookieHeader = request.headers?.get('cookie')
       if (cookieHeader) {
         const cookies = Object.fromEntries(
-          cookieHeader.split('; ').map(c => {
+          cookieHeader.split('; ').map((c: string) => {
             const [key, ...rest] = c.split('=')
             return [key, rest.join('=')]
           })
@@ -127,7 +127,8 @@ export async function requireAuth(request?: Request | any): Promise<User> {
   // attempt to read the cookie via Next.js server headers.
   if (!token) {
     try {
-      token = nextCookies().get('auth-token')?.value
+      const cookieStore = await nextCookies()
+      token = cookieStore.get('auth-token')?.value
     } catch {
       // Not in a Next.js server context; ignore.
     }
