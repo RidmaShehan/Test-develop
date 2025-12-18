@@ -37,6 +37,10 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
+# Vercel env import files (contain secrets)
+vercel.env
+vercel.env.*
+
 # Keep these files for setup reference
 !.env.example
 !.env.development
