@@ -1,0 +1,1185 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                   String               @id @default(cuid())
+  clerkId              String?              @unique
+  name                 String
+  email                String               @unique
+  password             String?
+  role                 UserRole
+  isActive             Boolean              @default(true)
+  createdAt            DateTime             @default(now())
+  updatedAt            DateTime             @updatedAt
+  assignedSeekers      Assignment[]
+  followUpTasks        FollowUpTask[]
+  interactions         Interaction[]
+  createdSeekers       Seeker[]             @relation("SeekerCreatedBy")
+  deletedSeekers       Seeker[]             @relation("SeekerDeletedBy")
+  userRoles            UserRoleAssignment[]
+  createdCampaigns     Campaign[]           @relation("CampaignCreatedBy")
+  createdCampaignTypes CampaignType[]       @relation("CampaignTypeCreatedBy")
+  taskActionHistory    TaskActionHistory[]
+  activityLogs         UserActivityLog[]
+  whatsappMessages     WhatsAppMessage[]
+  whatsappTemplates    WhatsAppTemplate[]
+  emailMessages        EmailMessage[]
+  createdMeetings      Meeting[]            @relation("MeetingCreatedBy")
+  assignedMeetings     Meeting[]            @relation("MeetingAssignedTo")
+
+  // Enhanced project management relations
+  createdProjects    Project[]        @relation("ProjectCreatedBy")
+  projectMemberships ProjectMember[]  @relation("ProjectMembers")
+  createdTasks       Task[]           @relation("TaskCreatedBy")
+  assignedTasks      Task[]           @relation("TaskAssignedTo")
+  taskAttachments    TaskAttachment[] @relation("TaskAttachments")
+  taskComments       TaskComment[]    @relation("TaskComments")
+  taskTimeEntries    TaskTimeEntry[]  @relation("TaskTimeEntries")
+  createdDeals       Deal[]           @relation("DealCreatedBy")
+  assignedDeals      Deal[]           @relation("DealAssignedTo")
+  dealActivities     DealActivity[]   @relation("DealActivities")
+  createdClients     Client[]         @relation("ClientCreatedBy")
+
+  // Post approval system relations
+  createdPosts  SocialMediaPost[] @relation("PostCreatedBy")
+  postApprovals PostApproval[]    @relation("PostApprover")
+  postComments  PostComment[]     @relation("PostCommenter")
+  notifications Notification[]    @relation("UserNotifications")
+
+  // Notebook system relations
+  createdNotebooks Notebook[] @relation("NotebookCreatedBy")
+  createdNotes     Note[]     @relation("NoteCreatedBy")
+
+  @@map("users")
+}
+
+model Role {
+  id          String               @id @default(cuid())
+  name        String               @unique
+  description String?
+  isActive    Boolean              @default(true)
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  permissions RolePermission[]
+  users       UserRoleAssignment[]
+
+  @@map("roles")
+}
+
+model PermissionModel {
+  id          String           @id @default(cuid())
+  name        Permission       @unique
+  description String?
+  createdAt   DateTime         @default(now())
+  roles       RolePermission[]
+
+  @@map("permissions")
+}
+
+model UserRoleAssignment {
+  id         String   @id @default(cuid())
+  userId     String
+  roleId     String
+  assignedAt DateTime @default(now())
+  assignedBy String?
+  role       Role     @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, roleId])
+  @@map("user_role_assignments")
+}
+
+model RolePermission {
+  id           String          @id @default(cuid())
+  roleId       String
+  permissionId String
+  permission   PermissionModel @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+  role         Role            @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@unique([roleId, permissionId])
+  @@map("role_permissions")
+}
+
+model Level {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  description String?
+  isVisible   Boolean   @default(true)
+  sortOrder   Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  programs    Program[]
+
+  @@map("levels")
+}
+
+model Program {
+  id               String            @id @default(cuid())
+  name             String
+  levelId          String?
+  level            String?
+  campus           String
+  nextIntakeDate   DateTime?
+  description      String?           // Rich text description
+  imageUrl         String?           // Program image URL
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  levelRelation    Level?            @relation(fields: [levelId], references: [id])
+  seekers          Seeker[] // Keep for backward compatibility
+  preferredBy      SeekerProgram[] // New many-to-many relationship
+  socialMediaPosts SocialMediaPost[]
+  qaItems          ProgramQA[]
+
+  @@map("programs")
+}
+
+model Seeker {
+  id                   String              @id @default(cuid())
+  fullName             String
+  phone                String              @unique
+  whatsapp             Boolean             @default(false)
+  whatsappNumber       String?
+  notAnswering         Boolean             @default(false)
+  email                String?
+  emailNotAnswering    Boolean             @default(false)
+  city                 String?
+  ageBand              String?
+  guardianPhone        String?
+  programInterestId    String? // Keep for backward compatibility
+  marketingSource      String
+  campaignId           String?
+  preferredContactTime String?
+  preferredStatus      Int?
+  followUpAgain        Boolean             @default(false)
+  followUpDate         String?
+  followUpTime         String?
+  description          String?
+  stage                SeekerStage         @default(NEW)
+  consent              Boolean             @default(false)
+  registerNow          Boolean             @default(false)
+  isDeleted            Boolean             @default(false)
+  deletedAt            DateTime?
+  createdAt            DateTime            @default(now())
+  updatedAt            DateTime            @updatedAt
+  createdById          String?
+  deletedById          String?
+  assignments          Assignment[]
+  followUpTasks        FollowUpTask[]
+  interactions         Interaction[]
+  meetings             Meeting[]
+  createdBy            User?               @relation("SeekerCreatedBy", fields: [createdById], references: [id])
+  deletedBy            User?               @relation("SeekerDeletedBy", fields: [deletedById], references: [id])
+  programInterest      Program?            @relation(fields: [programInterestId], references: [id])
+  preferredPrograms    SeekerProgram[] // New many-to-many relationship
+  campaigns            CampaignSeeker[]
+  whatsappRecipients   WhatsAppRecipient[]
+  emailRecipients      EmailRecipient[]
+
+  @@map("seekers")
+}
+
+model Interaction {
+  id        String             @id @default(cuid())
+  seekerId  String
+  userId    String
+  channel   InteractionChannel
+  outcome   InteractionOutcome
+  notes     String?
+  createdAt DateTime           @default(now())
+  user      User               @relation(fields: [userId], references: [id])
+  seeker    Seeker             @relation(fields: [seekerId], references: [id], onDelete: Cascade)
+
+  @@map("interactions")
+}
+
+model FollowUpTask {
+  id            String              @id @default(cuid())
+  seekerId      String
+  assignedTo    String
+  dueAt         DateTime
+  purpose       FollowUpPurpose
+  status        FollowUpStatus      @default(OPEN)
+  notes         String?
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+  user          User                @relation(fields: [assignedTo], references: [id])
+  seeker        Seeker              @relation(fields: [seekerId], references: [id], onDelete: Cascade)
+  actionHistory TaskActionHistory[]
+
+  @@map("follow_up_tasks")
+}
+
+model TaskActionHistory {
+  id         String          @id @default(cuid())
+  taskId     String
+  fromStatus FollowUpStatus?
+  toStatus   FollowUpStatus
+  actionBy   String
+  actionAt   DateTime        @default(now())
+  notes      String?
+  task       FollowUpTask    @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  user       User            @relation(fields: [actionBy], references: [id])
+
+  @@map("task_action_history")
+}
+
+model Assignment {
+  id            String   @id @default(cuid())
+  seekerId      String
+  coordinatorId String
+  assignedAt    DateTime @default(now())
+  coordinator   User     @relation(fields: [coordinatorId], references: [id])
+  seeker        Seeker   @relation(fields: [seekerId], references: [id], onDelete: Cascade)
+
+  @@unique([seekerId, coordinatorId])
+  @@map("assignments")
+}
+
+enum UserRole {
+  ADMINISTRATOR
+  ADMIN
+  DEVELOPER
+  COORDINATOR
+  VIEWER
+  SYSTEM
+}
+
+enum Permission {
+  // User Management
+  CREATE_USER
+  READ_USER
+  UPDATE_USER
+  DELETE_USER
+  ASSIGN_ROLE
+  MANAGE_USER_ROLES
+
+  // Role Management
+  CREATE_ROLE
+  READ_ROLE
+  UPDATE_ROLE
+  DELETE_ROLE
+  MANAGE_ROLE_PERMISSIONS
+
+  // Seeker Management
+  CREATE_SEEKER
+  READ_SEEKER
+  UPDATE_SEEKER
+  DELETE_SEEKER
+
+  // Task Management
+  CREATE_TASK
+  READ_TASK
+  UPDATE_TASK
+  DELETE_TASK
+  ASSIGN_TASK
+
+  // Program Management
+  CREATE_PROGRAM
+  READ_PROGRAM
+  UPDATE_PROGRAM
+  DELETE_PROGRAM
+
+  // Campaign Management
+  CREATE_CAMPAIGN
+  READ_CAMPAIGN
+  UPDATE_CAMPAIGN
+  DELETE_CAMPAIGN
+  MANAGE_CAMPAIGN_ANALYTICS
+
+  // Inquiry Management
+  CREATE_INQUIRY
+  READ_INQUIRY
+  UPDATE_INQUIRY
+  DELETE_INQUIRY
+  MANAGE_INQUIRY_INTERACTIONS
+
+  // Reports & Analytics
+  READ_REPORTS
+  EXPORT_REPORTS
+  VIEW_ANALYTICS
+
+  // System Settings
+  READ_SETTINGS
+  UPDATE_SETTINGS
+  MANAGE_SYSTEM_CONFIG
+
+  // Project Management
+  CREATE_PROJECT
+  READ_PROJECT
+  UPDATE_PROJECT
+  DELETE_PROJECT
+  MANAGE_PROJECT_MEMBERS
+
+  // Enhanced Task Management
+  MANAGE_TASK_CHECKLISTS
+  MANAGE_TASK_ATTACHMENTS
+  MANAGE_TASK_COMMENTS
+  MANAGE_TASK_TIME_ENTRIES
+  CREATE_SUBTASKS
+
+  // Deal Management
+  CREATE_DEAL
+  READ_DEAL
+  UPDATE_DEAL
+  DELETE_DEAL
+  MANAGE_DEAL_ACTIVITIES
+
+  // Client Management
+  CREATE_CLIENT
+  READ_CLIENT
+  UPDATE_CLIENT
+  DELETE_CLIENT
+
+  // Notebook Management
+  CREATE_NOTEBOOK
+  READ_NOTEBOOK
+  UPDATE_NOTEBOOK
+  DELETE_NOTEBOOK
+  CREATE_NOTE
+  READ_NOTE
+  UPDATE_NOTE
+  DELETE_NOTE
+
+  // Special Permissions
+  DELETE_ADMINISTRATOR
+  MANAGE_ALL_USERS
+  SYSTEM_ADMINISTRATION
+}
+
+enum InteractionChannel {
+  CALL
+  WHATSAPP
+  EMAIL
+  WALK_IN
+}
+
+enum InteractionOutcome {
+  CONNECTED_INTERESTED
+  NO_ANSWER
+  NOT_INTERESTED
+  APPOINTMENT_BOOKED
+  WRONG_NUMBER
+  DO_NOT_CONTACT
+}
+
+enum FollowUpPurpose {
+  CALLBACK
+  SEND_SYLLABUS
+  FEE_DISCUSSION
+  CAMPUS_TOUR
+}
+
+enum FollowUpStatus {
+  OPEN
+  TODO
+  OVERDUE
+  IN_PROGRESS
+  ON_HOLD
+  DONE
+  COMPLETED
+}
+
+model Campaign {
+  id             String         @id @default(cuid())
+  name           String
+  description    String?
+  type           String // Changed from CampaignType enum to String
+  targetAudience String
+  startDate      DateTime
+  endDate        DateTime?
+  budget         Float?
+  reach          Int? // Number of people reached by the campaign
+  imageUrl       String? // S3 image URL
+  status         CampaignStatus @default(DRAFT)
+  isDeleted      Boolean        @default(false)
+  deletedAt      DateTime?
+
+  // Analytics fields
+  views             Int?  @default(0)
+  netFollows        Int?  @default(0)
+  totalWatchTime    Int?  @default(0) // in seconds
+  averageWatchTime  Int?  @default(0) // in seconds
+  audienceRetention Json? // Store retention data as JSON
+
+  // Interaction analytics
+  totalInteractions Int? @default(0)
+  reactions         Int? @default(0)
+  comments          Int? @default(0)
+  shares            Int? @default(0)
+  saves             Int? @default(0)
+  linkClicks        Int? @default(0)
+
+  // Traffic source analytics
+  trafficSources Json? // Store traffic source data as JSON
+
+  // Audience demographics
+  audienceDemographics Json? // Store age/gender data as JSON
+
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  createdById     String?
+  createdBy       User?             @relation("CampaignCreatedBy", fields: [createdById], references: [id])
+  seekers         CampaignSeeker[]
+  campaignType    CampaignType?     @relation(fields: [type], references: [name])
+  SocialMediaPost SocialMediaPost[]
+
+  @@map("campaigns")
+}
+
+model CampaignType {
+  id          String     @id @default(cuid())
+  name        String     @unique
+  description String?
+  color       String? // For UI display (hex color)
+  icon        String? // Icon name for UI
+  isActive    Boolean    @default(true)
+  isDefault   Boolean    @default(false) // System default types
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  createdById String?
+  createdBy   User?      @relation("CampaignTypeCreatedBy", fields: [createdById], references: [id])
+  campaigns   Campaign[]
+
+  @@map("campaign_types")
+}
+
+model CampaignSeeker {
+  id         String   @id @default(cuid())
+  campaignId String
+  seekerId   String
+  addedAt    DateTime @default(now())
+  campaign   Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  seeker     Seeker   @relation(fields: [seekerId], references: [id], onDelete: Cascade)
+
+  @@unique([campaignId, seekerId])
+  @@map("campaign_seekers")
+}
+
+enum CampaignStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  COMPLETED
+  CANCELLED
+}
+
+enum SeekerStage {
+  NEW
+  ATTEMPTING_CONTACT
+  CONNECTED
+  QUALIFIED
+  COUNSELING_SCHEDULED
+  CONSIDERING
+  READY_TO_REGISTER
+  LOST
+}
+
+enum ActivityType {
+  LOGIN
+  LOGOUT
+  SESSION_TIMEOUT
+  PASSWORD_CHANGE
+  PROFILE_UPDATE
+  SYSTEM_ACCESS
+  CREATE_INQUIRY
+  UPDATE_INQUIRY
+  DELETE_INQUIRY
+}
+
+model UserActivityLog {
+  id            String       @id @default(cuid())
+  userId        String
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  activityType  ActivityType
+  timestamp     DateTime     @default(now())
+  ipAddress     String?
+  userAgent     String?
+  location      Json? // { country, city, region, latitude, longitude }
+  sessionId     String?
+  deviceInfo    Json? // { browser, os, device }
+  isSuccessful  Boolean      @default(true)
+  failureReason String?
+  metadata      Json? // Additional activity-specific data
+  createdAt     DateTime     @default(now())
+
+  @@map("user_activity_logs")
+}
+
+model SystemSettings {
+  id              String   @id @default(cuid())
+  key             String   @unique
+  value           String
+  description     String?
+  isActive        Boolean  @default(true)
+  requiresRestart Boolean  @default(false)
+  updatedBy       String?
+  updatedAt       DateTime @updatedAt
+  createdAt       DateTime @default(now())
+
+  @@map("system_settings")
+}
+
+// Junction table for many-to-many relationship between Seekers and Programs
+model SeekerProgram {
+  id        String   @id @default(cuid())
+  seekerId  String
+  programId String
+  createdAt DateTime @default(now())
+
+  seeker  Seeker  @relation(fields: [seekerId], references: [id], onDelete: Cascade)
+  program Program @relation(fields: [programId], references: [id], onDelete: Cascade)
+
+  @@unique([seekerId, programId])
+  @@map("seeker_programs")
+}
+
+model WhatsAppMessage {
+  id             String   @id @default(cuid())
+  message        String
+  mediaType      String?
+  mediaFilename  String?
+  mediaFilePath  String?
+  mediaSize      Int?
+  recipientCount Int
+  sentCount      Int
+  failedCount    Int
+  sentAt         DateTime
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  userId     String
+  campaignId String?
+
+  user       User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recipients WhatsAppRecipient[]
+
+  @@map("whatsapp_messages")
+}
+
+model WhatsAppTemplate {
+  id        String   @id @default(cuid())
+  name      String
+  content   String
+  mediaType     String?
+  mediaFilename String?
+  mediaFilePath String?
+  mediaSize     Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, name])
+  @@index([userId])
+  @@map("whatsapp_templates")
+}
+
+model WhatsAppRecipient {
+  id           String         @id @default(cuid())
+  phoneNumber  String
+  status       WhatsAppStatus @default(PENDING)
+  errorMessage String?
+  sentAt       DateTime?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  whatsappMessageId String
+  seekerId          String
+
+  whatsappMessage WhatsAppMessage @relation(fields: [whatsappMessageId], references: [id], onDelete: Cascade)
+  seeker          Seeker          @relation(fields: [seekerId], references: [id], onDelete: Cascade)
+
+  @@map("whatsapp_recipients")
+}
+
+enum WhatsAppStatus {
+  PENDING
+  SENT
+  FAILED
+  DELIVERED
+  READ
+}
+
+model EmailMessage {
+  id             String   @id @default(cuid())
+  subject        String
+  message        String
+  recipientCount Int
+  sentCount      Int
+  failedCount    Int
+  sentAt         DateTime
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  userId     String
+  campaignId String?
+
+  user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recipients  EmailRecipient[]
+  attachments EmailAttachment[]
+
+  @@map("email_messages")
+}
+
+model EmailRecipient {
+  id           String      @id @default(cuid())
+  email        String
+  status       EmailStatus @default(PENDING)
+  errorMessage String?
+  sentAt       DateTime?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  emailMessageId String
+  seekerId       String
+
+  emailMessage EmailMessage @relation(fields: [emailMessageId], references: [id], onDelete: Cascade)
+  seeker       Seeker       @relation(fields: [seekerId], references: [id], onDelete: Cascade)
+
+  @@map("email_recipients")
+}
+
+model EmailAttachment {
+  id        String   @id @default(cuid())
+  filename  String
+  mimeType  String
+  size      Int
+  content   String // Base64 encoded
+  createdAt DateTime @default(now())
+
+  emailMessageId String
+  emailMessage   EmailMessage @relation(fields: [emailMessageId], references: [id], onDelete: Cascade)
+
+  @@map("email_attachments")
+}
+
+enum EmailStatus {
+  PENDING
+  SENT
+  FAILED
+  DELIVERED
+  READ
+}
+
+model Meeting {
+  id              String        @id @default(cuid())
+  title           String
+  description     String?
+  location        String?
+  notes           String?
+  startTime       DateTime
+  endTime         DateTime
+  status          MeetingStatus @default(SCHEDULED)
+  meetingType     MeetingType   @default(IN_PERSON)
+  meetingLink     String?
+  meetingId       String? // Meeting ID for video calls (Zoom ID, etc.)
+  meetingPassword String? // Meeting password if required
+  agenda          String? // Meeting agenda
+  attendees       String? // JSON string of attendee emails
+  reminderSent    Boolean       @default(false)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  // Relations
+  createdById  String
+  assignedToId String
+  seekerId     String?
+
+  createdBy  User    @relation("MeetingCreatedBy", fields: [createdById], references: [id])
+  assignedTo User    @relation("MeetingAssignedTo", fields: [assignedToId], references: [id])
+  seeker     Seeker? @relation(fields: [seekerId], references: [id], onDelete: Cascade)
+
+  @@map("meetings")
+}
+
+enum MeetingStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  RESCHEDULED
+}
+
+enum MeetingType {
+  IN_PERSON
+  ZOOM
+  GOOGLE_MEET
+  MICROSOFT_TEAMS
+  PHONE_CALL
+  OTHER
+}
+
+// Enhanced Project Management Models
+model Project {
+  id          String          @id @default(cuid())
+  name        String
+  description String?
+  status      ProjectStatus   @default(ACTIVE)
+  priority    ProjectPriority @default(MEDIUM)
+  startDate   DateTime?
+  endDate     DateTime?
+  budget      Float?
+  progress    Int             @default(0) // 0-100 percentage
+  color       String? // Hex color for visual identification
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  // Relations
+  createdById String
+  createdBy   User   @relation("ProjectCreatedBy", fields: [createdById], references: [id])
+
+  // Project members and tasks
+  members ProjectMember[]
+  tasks   Task[]
+  deals   Deal[]
+
+  @@map("projects")
+}
+
+enum ProjectStatus {
+  PLANNING
+  ACTIVE
+  ON_HOLD
+  COMPLETED
+  CANCELLED
+}
+
+enum ProjectPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+model ProjectMember {
+  id       String   @id @default(cuid())
+  role     String // e.g., "Project Manager", "Developer", "Designer"
+  joinedAt DateTime @default(now())
+
+  // Relations
+  projectId String
+  userId    String
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User    @relation("ProjectMembers", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, userId])
+  @@map("project_members")
+}
+
+// Enhanced Task Model
+model Task {
+  id             String       @id @default(cuid())
+  title          String
+  description    String?
+  status         TaskStatus   @default(OPEN)
+  priority       TaskPriority @default(MEDIUM)
+  dueDate        DateTime?
+  estimatedHours Float?
+  actualHours    Float?
+  progress       Int          @default(0) // 0-100 percentage
+  tags           String? // JSON array of tags
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  // Relations
+  createdById  String
+  assignedToId String?
+  projectId    String?
+  parentTaskId String? // For subtasks
+
+  createdBy  User     @relation("TaskCreatedBy", fields: [createdById], references: [id])
+  assignedTo User?    @relation("TaskAssignedTo", fields: [assignedToId], references: [id])
+  project    Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  parentTask Task?    @relation("SubTasks", fields: [parentTaskId], references: [id])
+  subtasks   Task[]   @relation("SubTasks")
+
+  // Task components
+  checklists  TaskChecklist[]
+  attachments TaskAttachment[]
+  comments    TaskComment[]
+  timeEntries TaskTimeEntry[]
+
+  @@map("tasks")
+}
+
+enum TaskStatus {
+  OPEN
+  TODO
+  IN_PROGRESS
+  ON_HOLD
+  DONE
+  COMPLETED
+  CANCELLED
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+model TaskChecklist {
+  id        String   @id @default(cuid())
+  title     String
+  completed Boolean  @default(false)
+  order     Int
+  createdAt DateTime @default(now())
+
+  // Relations
+  taskId String
+  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@map("task_checklists")
+}
+
+model TaskAttachment {
+  id           String   @id @default(cuid())
+  filename     String
+  originalName String
+  fileSize     Int
+  mimeType     String
+  url          String
+  uploadedAt   DateTime @default(now())
+
+  // Relations
+  taskId       String
+  uploadedById String
+
+  task       Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  uploadedBy User @relation("TaskAttachments", fields: [uploadedById], references: [id])
+
+  @@map("task_attachments")
+}
+
+model TaskComment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  taskId   String
+  authorId String
+
+  task   Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  author User @relation("TaskComments", fields: [authorId], references: [id])
+
+  @@map("task_comments")
+}
+
+model TaskTimeEntry {
+  id          String    @id @default(cuid())
+  description String?
+  startTime   DateTime
+  endTime     DateTime?
+  duration    Int? // Duration in minutes
+  createdAt   DateTime  @default(now())
+
+  // Relations
+  taskId String
+  userId String
+
+  task Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  user User @relation("TaskTimeEntries", fields: [userId], references: [id])
+
+  @@map("task_time_entries")
+}
+
+// Deal/Pipeline Management
+model Deal {
+  id                String    @id @default(cuid())
+  title             String
+  description       String?
+  value             Float?
+  currency          String    @default("USD")
+  stage             DealStage @default(LEAD)
+  probability       Int       @default(10) // 0-100 percentage
+  expectedCloseDate DateTime?
+  actualCloseDate   DateTime?
+  source            String? // Lead source
+  tags              String? // JSON array of tags
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  // Relations
+  createdById  String
+  assignedToId String?
+  projectId    String?
+  clientId     String?
+
+  createdBy  User     @relation("DealCreatedBy", fields: [createdById], references: [id])
+  assignedTo User?    @relation("DealAssignedTo", fields: [assignedToId], references: [id])
+  project    Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  client     Client?  @relation(fields: [clientId], references: [id], onDelete: SetNull)
+
+  // Deal activities
+  activities DealActivity[]
+
+  @@map("deals")
+}
+
+enum DealStage {
+  LEAD
+  CONTACTED
+  QUALIFIED
+  PROPOSAL
+  NEGOTIATION
+  WON
+  LOST
+}
+
+model DealActivity {
+  id          String           @id @default(cuid())
+  type        DealActivityType
+  title       String
+  description String?
+  date        DateTime         @default(now())
+  duration    Int? // Duration in minutes for calls/meetings
+
+  // Relations
+  dealId String
+  userId String
+
+  deal Deal @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  user User @relation("DealActivities", fields: [userId], references: [id])
+
+  @@map("deal_activities")
+}
+
+enum DealActivityType {
+  CALL
+  EMAIL
+  MEETING
+  NOTE
+  TASK
+  PROPOSAL_SENT
+  CONTRACT_SIGNED
+}
+
+// Enhanced Client Management
+model Client {
+  id        String   @id @default(cuid())
+  name      String
+  email     String?
+  phone     String?
+  company   String?
+  website   String?
+  address   String?
+  industry  String?
+  size      String? // Company size
+  notes     String?
+  tags      String? // JSON array of tags
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  createdById String
+  createdBy   User   @relation("ClientCreatedBy", fields: [createdById], references: [id])
+
+  deals Deal[]
+
+  @@map("clients")
+}
+
+// ========================================
+// SOCIAL MEDIA POST APPROVAL SYSTEM
+// ========================================
+
+// Social Media Post Model
+model SocialMediaPost {
+  id        String     @id @default(cuid())
+  caption   String
+  imageUrl  String?
+  budget    Float?
+  startDate DateTime
+  endDate   DateTime
+  status    PostStatus @default(DRAFT)
+
+  // Relations
+  programId String?
+  program   Program? @relation(fields: [programId], references: [id])
+
+  campaignId String?
+  campaign   Campaign? @relation(fields: [campaignId], references: [id])
+
+  createdById String
+  createdBy   User   @relation("PostCreatedBy", fields: [createdById], references: [id])
+
+  // Approval workflow
+  approvals     PostApproval[]
+  comments      PostComment[]
+  notifications Notification[] @relation("PostNotifications")
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  publishedAt DateTime?
+
+  @@map("social_media_posts")
+}
+
+// Post Approval Model (for approval chain)
+model PostApproval {
+  id String @id @default(cuid())
+
+  postId String
+  post   SocialMediaPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  approverId String
+  approver   User   @relation("PostApprover", fields: [approverId], references: [id])
+
+  status  ApprovalStatus @default(PENDING)
+  order   Int // 1 for first approver, 2 for second, etc.
+  comment String?
+
+  approvedAt DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@unique([postId, approverId])
+  @@map("post_approvals")
+}
+
+// Post Comment Model
+model PostComment {
+  id String @id @default(cuid())
+
+  postId String
+  post   SocialMediaPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation("PostCommenter", fields: [userId], references: [id])
+
+  comment   String
+  createdAt DateTime @default(now())
+
+  @@map("post_comments")
+}
+
+enum PostStatus {
+  DRAFT
+  PENDING_APPROVAL
+  APPROVED
+  REJECTED
+  PUBLISHED
+  SCHEDULED
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+// Notification System
+model Notification {
+  id        String           @id @default(cuid())
+  type      NotificationType
+  title     String
+  message   String
+  read      Boolean          @default(false)
+  createdAt DateTime         @default(now())
+
+  // Relations
+  userId String
+  user   User   @relation("UserNotifications", fields: [userId], references: [id], onDelete: Cascade)
+
+  // Optional reference to related entities
+  postId String?
+  post   SocialMediaPost? @relation("PostNotifications", fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([userId, read])
+  @@index([createdAt])
+  @@map("notifications")
+}
+
+enum NotificationType {
+  POST_APPROVAL_REQUEST
+  POST_APPROVED
+  POST_REJECTED
+  POST_FULLY_APPROVED
+  SYSTEM
+  REMINDER
+}
+
+// Q&A Section Model (Program-wise)
+model ProgramQA {
+  id        String   @id @default(cuid())
+  programId String
+  question  String
+  answer    String
+  order     Int      @default(0) // For sorting questions
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  program Program @relation(fields: [programId], references: [id], onDelete: Cascade)
+
+  @@map("program_qa")
+}
+
+// ========================================
+// NOTEBOOK SYSTEM (Notion-like)
+// ========================================
+
+// Notebook Model (like Notion workspace/page)
+model Notebook {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  icon        String?  // Emoji or icon identifier
+  color       String?  // Hex color for visual identification
+  isArchived  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  createdById String
+  createdBy   User   @relation("NotebookCreatedBy", fields: [createdById], references: [id])
+
+  // Notes in this notebook
+  notes Note[]
+
+  @@map("notebooks")
+}
+
+// Note Model (like Notion page/block)
+model Note {
+  id          String   @id @default(cuid())
+  title       String
+  content     String?  // Rich text content (JSON or Markdown)
+  icon        String?  // Emoji or icon identifier
+  coverImage  String?  // Cover image URL
+  isArchived  Boolean  @default(false)
+  isFavorite  Boolean  @default(false)
+  order       Int      @default(0) // For sorting notes
+  
+  // Reminder fields (Google Reminder-like)
+  hasReminder Boolean  @default(false)
+  reminderDate DateTime? // Date and time for the reminder
+  reminderSent Boolean  @default(false) // Track if reminder has been sent
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  notebookId  String?
+  notebook    Notebook? @relation(fields: [notebookId], references: [id], onDelete: Cascade)
+  
+  parentNoteId String? // For nested notes (hierarchical structure)
+  parentNote   Note?   @relation("NoteHierarchy", fields: [parentNoteId], references: [id], onDelete: Cascade)
+  childNotes   Note[]  @relation("NoteHierarchy")
+
+  createdById String
+  createdBy   User   @relation("NoteCreatedBy", fields: [createdById], references: [id])
+
+  @@map("notes")
+}
