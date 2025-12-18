@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import jwt from 'jsonwebtoken'
+import { jwtVerify } from 'jose'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production'
 
@@ -18,15 +18,27 @@ function isPublicRoute(pathname: string): boolean {
 }
 
 // Verify JWT token
-function verifyToken(token: string): { id: string; email: string; role: string } | null {
+async function verifyToken(token: string): Promise<{ id: string; email: string; role: string } | null> {
   try {
-    return jwt.verify(token, JWT_SECRET) as { id: string; email: string; role: string }
+    const secret = new TextEncoder().encode(JWT_SECRET)
+    const { payload } = await jwtVerify(token, secret, { algorithms: ['HS256'] })
+
+    // We only support the payload we generate elsewhere in the app.
+    const id = payload.id
+    const email = payload.email
+    const role = payload.role
+
+    if (typeof id !== 'string' || typeof email !== 'string' || typeof role !== 'string') {
+      return null
+    }
+
+    return { id, email, role }
   } catch {
     return null
   }
 }
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // Allow public routes
@@ -45,18 +57,20 @@ export function middleware(request: NextRequest) {
   }
 
   // Verify token and extract user info
-  const decoded = verifyToken(token)
+  const decoded = await verifyToken(token)
   
   if (decoded) {
-    // Create a new response
-    const response = NextResponse.next()
-    
-    // Set user headers for API routes to use
-    response.headers.set('x-user-id', decoded.id)
-    response.headers.set('x-user-email', decoded.email)
-    response.headers.set('x-user-role', decoded.role)
-    
-    return response
+    // Forward user info to downstream handlers via request headers.
+    const requestHeaders = new Headers(request.headers)
+    requestHeaders.set('x-user-id', decoded.id)
+    requestHeaders.set('x-user-email', decoded.email)
+    requestHeaders.set('x-user-role', decoded.role)
+
+    return NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    })
   }
 
   // Invalid token - continue (let API routes handle auth errors)
