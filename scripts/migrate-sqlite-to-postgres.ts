@@ -1,4 +1,5 @@
 import { PrismaClient as PostgresPrismaClient, Prisma as PostgresPrisma } from '@prisma/client'
+import fs from 'node:fs'
 
 // Generated from `prisma/schema.sqlite.prisma`:
 //   npx prisma generate --schema prisma/schema.sqlite.prisma
@@ -148,7 +149,8 @@ function topoSortSelfRows<T extends { id: string }>(
 }
 
 async function main() {
-  const sqliteUrl = process.env.SQLITE_DATABASE_URL ?? 'file:./prisma/dev.db'
+  const defaultSqliteUrl = fs.existsSync('./prisma/dev.db.backup') ? 'file:./prisma/dev.db.backup' : 'file:./prisma/dev.db'
+  const sqliteUrl = process.env.SQLITE_DATABASE_URL ?? defaultSqliteUrl
   const batchSize = Number(process.env.MIGRATION_BATCH_SIZE ?? '500')
 
   if (!process.env.DATABASE_URL) {

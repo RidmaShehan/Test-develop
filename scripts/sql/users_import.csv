@@ -1,0 +1,4 @@
+id,clerkId,name,email,password,role,isActive,createdAt,updatedAt
+__USER_ID__,,Admin User,admin@educationcrm.com,__BCRYPT_PASSWORD_HASH__,ADMIN,true,2025-12-18T00:00:00.000Z,2025-12-18T00:00:00.000Z
+
+
