@@ -4,7 +4,10 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
 }
 
-// Ensure Prisma client is properly initialized
+// Ensure Prisma client is properly initialized with connection pooling for serverless
+// Note: Connection pooling is configured via DATABASE_URL parameters:
+// - Use transaction pooling (port 6543) instead of session pooling (port 5432)
+// - Add ?pgbouncer=true&connection_limit=1 to DATABASE_URL
 function createPrismaClient() {
   try {
     return new PrismaClient({
@@ -26,6 +29,11 @@ const isStale =
 
 export const prisma = !cached || isStale ? createPrismaClient() : cached
 
-if (process.env.NODE_ENV !== 'production') {
+// In production (Vercel), also cache on globalThis to prevent multiple instances
+// This is critical for serverless environments where each function invocation
+// might otherwise create a new Prisma client instance
+if (process.env.NODE_ENV === 'production') {
+  globalForPrisma.prisma = prisma
+} else {
   globalForPrisma.prisma = prisma
 }
