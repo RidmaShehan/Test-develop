@@ -23,8 +23,10 @@ import {
   Sun,
   Moon,
   Check,
-  AlertCircle
+  AlertCircle,
+  Plug
 } from 'lucide-react'
+import { IntegrationsSettings } from './IntegrationsSettings'
 
 export function SettingsDashboard() {
   const { 
@@ -134,7 +136,7 @@ export function SettingsDashboard() {
   return (
     <div className="space-y-6">
       <Tabs defaultValue="profile" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="profile" className="flex items-center gap-2">
             <User className="h-4 w-4" />
             Profile
@@ -150,6 +152,10 @@ export function SettingsDashboard() {
           <TabsTrigger value="system" className="flex items-center gap-2">
             <Shield className="h-4 w-4" />
             System
+          </TabsTrigger>
+          <TabsTrigger value="integrations" className="flex items-center gap-2">
+            <Plug className="h-4 w-4" />
+            Integrations
           </TabsTrigger>
         </TabsList>
 
@@ -429,6 +435,11 @@ export function SettingsDashboard() {
               </div>
             </CardContent>
           </Card>
+        </TabsContent>
+
+        {/* Integrations */}
+        <TabsContent value="integrations" className="space-y-6">
+          <IntegrationsSettings />
         </TabsContent>
       </Tabs>
 

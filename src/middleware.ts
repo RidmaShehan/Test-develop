@@ -7,8 +7,13 @@ import { getJwtSecretOrNull } from '@/lib/get-jwt-secret'
 const publicRoutes = [
   '/sign-in',
   '/sign-up',
+  '/forgot-password',
+  '/reset-password',
   '/api/auth/login',
   '/api/auth/register',
+  '/api/auth/forgot-password',
+  '/api/auth/reset-password',
+  '/portal',
 ]
 
 // Check if route is public

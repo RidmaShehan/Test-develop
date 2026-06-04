@@ -7,9 +7,13 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { Phone, MessageSquare, Mail, Calendar, User, MapPin, Clock, Sparkles, HelpCircle, FileText } from 'lucide-react'
+import { Phone, MessageSquare, Mail, Calendar, User, MapPin, Clock, Sparkles, HelpCircle, FileText, Mic, UserCheck } from 'lucide-react'
 import { LogInteractionDialog } from '@/components/inquiries/log-interaction-dialog'
 import { SanitizedHtml } from '@/components/ui/sanitized-html'
+import { VoiceRecorder } from '@/components/inquiries/voice-recorder'
+import { LeadScoreBadge } from '@/components/inquiries/lead-score-badge'
+import { DocChecklist } from '@/components/documents/DocChecklist'
+import { toast } from 'sonner'
 
 interface Inquiry {
   id: string
@@ -104,6 +108,54 @@ export function InquiryViewDialog({ inquiry, open, onOpenChange }: InquiryViewDi
   const [loading, setLoading] = useState(false)
   const [loadingQA, setLoadingQA] = useState(false)
   const [showLogInteraction, setShowLogInteraction] = useState(false)
+  const [voiceNotes, setVoiceNotes] = useState<any[]>([])
+  const [leadScore, setLeadScore] = useState<{ score: number; tier: string } | null>(null)
+  const [isConvertingToAlumni, setIsConvertingToAlumni] = useState(false)
+
+  const convertToAlumni = async () => {
+    setIsConvertingToAlumni(true)
+    try {
+      const res = await fetch('/api/alumni', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ seekerId: inquiry.id }),
+      })
+      const data = await res.json()
+      if (data.success) {
+        toast.success(`${inquiry.fullName} has been added to Alumni`)
+      } else {
+        toast.error(data.error || 'Failed to convert to alumni')
+      }
+    } catch {
+      toast.error('Failed to convert to alumni')
+    } finally {
+      setIsConvertingToAlumni(false)
+    }
+  }
+
+  const fetchVoiceNotes = async () => {
+    try {
+      const res = await fetch(`/api/inquiries/${inquiry.id}/voice`)
+      if (res.ok) {
+        const data = await res.json()
+        setVoiceNotes(data.data || [])
+      }
+    } catch {}
+  }
+
+  const fetchLeadScore = async () => {
+    try {
+      const res = await fetch(`/api/leads/score`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ seekerId: inquiry.id }),
+      })
+      if (res.ok) {
+        const data = await res.json()
+        setLeadScore(data.data ? { score: data.data.score, tier: data.data.tier } : null)
+      }
+    } catch {}
+  }
 
   const latestCallDurationMinutes = (() => {
     const call = interactions.find(
@@ -204,6 +256,8 @@ export function InquiryViewDialog({ inquiry, open, onOpenChange }: InquiryViewDi
     if (open && inquiry) {
       fetchInquiryDetails()
       fetchQAItems()
+      fetchVoiceNotes()
+      fetchLeadScore()
     }
   }, [open, inquiry?.id])
 
@@ -257,13 +311,57 @@ export function InquiryViewDialog({ inquiry, open, onOpenChange }: InquiryViewDi
           </DialogHeader>
 
           <Tabs defaultValue="overview" className="w-full space-y-4 sm:space-y-6">
-            <TabsList className="grid w-full grid-cols-2 sm:grid-cols-5 h-auto">
+            <div className="flex items-center justify-between gap-3 flex-wrap">
+              <div className="flex items-center gap-3">
+                {leadScore && <LeadScoreBadge score={leadScore.score} tier={leadScore.tier} size="md" />}
+              </div>
+              {inquiry.stage === 'READY_TO_REGISTER' && (
+                <Button size="sm" variant="outline" className="gap-2 text-emerald-700 border-emerald-300 hover:bg-emerald-50" onClick={convertToAlumni} disabled={isConvertingToAlumni}>
+                  <UserCheck className="w-4 h-4" />
+                  {isConvertingToAlumni ? 'Converting...' : 'Convert to Alumni'}
+                </Button>
+              )}
+            </div>
+            <TabsList className="grid w-full grid-cols-4 sm:grid-cols-7 h-auto">
               <TabsTrigger value="overview" className="text-xs sm:text-sm">Overview</TabsTrigger>
+              <TabsTrigger value="voice" className="text-xs sm:text-sm flex items-center gap-1">
+                <Mic className="w-3 h-3" />Voice
+              </TabsTrigger>
+              <TabsTrigger value="documents" className="text-xs sm:text-sm flex items-center gap-1">
+                <FileText className="w-3 h-3" />Docs
+              </TabsTrigger>
               <TabsTrigger value="qa" className="text-xs sm:text-sm">Q&A</TabsTrigger>
               <TabsTrigger value="interactions" className="text-xs sm:text-sm">Interactions</TabsTrigger>
               <TabsTrigger value="tasks" className="text-xs sm:text-sm">Tasks</TabsTrigger>
               <TabsTrigger value="timeline" className="text-xs sm:text-sm">Timeline</TabsTrigger>
             </TabsList>
+
+            <TabsContent value="voice" className="space-y-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <Mic className="w-4 h-4" />
+                    Voice Notes
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <VoiceRecorder
+                    seekerId={inquiry.id}
+                    notes={voiceNotes}
+                    onNoteAdded={fetchVoiceNotes}
+                  />
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="documents" className="space-y-4">
+              <DocChecklist
+                seekerId={inquiry.id}
+                programId={inquiry.programInterest?.id}
+                studentName={inquiry.fullName}
+                studentEmail={inquiry.email}
+              />
+            </TabsContent>
 
             <TabsContent value="overview" className="space-y-4 sm:space-y-6 w-full overflow-x-hidden">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">

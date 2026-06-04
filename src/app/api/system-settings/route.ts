@@ -1,76 +1,54 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { requirePermission, ForbiddenError } from '@/lib/authorization'
 import { prisma } from '@/lib/prisma'
-import { isAdminRole, requireAuth } from '@/lib/auth'
+import { AuthenticationError } from '@/lib/auth'
 
-export async function GET(request: NextRequest) {
+export async function GET(req: NextRequest) {
   try {
-    const user = await requireAuth(request)
-    
-    // Only ADMIN/ADMINISTRATOR/DEVELOPER can view system settings
-    if (!isAdminRole(user.role)) {
-      return NextResponse.json(
-        { error: 'Access denied. Admin privileges required.' },
-        { status: 403 }
-      )
-    }
+    await requirePermission('READ_SETTINGS', req)
 
+    const group = req.nextUrl.searchParams.get('group') || ''
     const settings = await prisma.systemSettings.findMany({
-      orderBy: { key: 'asc' }
+      where: group ? { key: { startsWith: group + '.' } } : {},
+      orderBy: { key: 'asc' },
     })
 
-    return NextResponse.json(settings)
-  } catch (error) {
-    console.error('Error fetching system settings:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    // Convert to object map
+    const map: Record<string, string> = {}
+    for (const s of settings) {
+      map[s.key] = s.value
+    }
+
+    return NextResponse.json({ success: true, data: map })
+  } catch (err: any) {
+    if (err instanceof AuthenticationError) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    if (err instanceof ForbiddenError) return NextResponse.json({ error: err.message }, { status: 403 })
+    return NextResponse.json({ error: 'Failed to fetch settings' }, { status: 500 })
   }
 }
 
-export async function PUT(request: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
-    const user = await requireAuth(request)
-    
-    // Only ADMIN/ADMINISTRATOR/DEVELOPER can update system settings
-    if (!isAdminRole(user.role)) {
-      return NextResponse.json(
-        { error: 'Access denied. Admin privileges required.' },
-        { status: 403 }
+    const user = await requirePermission('UPDATE_SETTINGS', req)
+    const body = await req.json()
+
+    // body is a flat key-value map
+    const entries = Object.entries(body as Record<string, string>)
+
+    await prisma.$transaction(
+      entries.map(([key, value]) =>
+        prisma.systemSettings.upsert({
+          where: { key },
+          update: { value, updatedBy: user.id },
+          create: { key, value, updatedBy: user.id },
+        })
       )
-    }
-
-    const { key, value, description } = await request.json()
-
-    if (!key || value === undefined) {
-      return NextResponse.json(
-        { error: 'Key and value are required' },
-        { status: 400 }
-      )
-    }
-
-    const setting = await prisma.systemSettings.upsert({
-      where: { key },
-      update: {
-        value,
-        description,
-        updatedBy: user.id,
-        updatedAt: new Date()
-      },
-      create: {
-        key,
-        value,
-        description,
-        updatedBy: user.id
-      }
-    })
-
-    return NextResponse.json(setting)
-  } catch (error) {
-    console.error('Error updating system setting:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
     )
+
+    return NextResponse.json({ success: true, message: 'Settings saved' })
+  } catch (err: any) {
+    if (err instanceof AuthenticationError) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    if (err instanceof ForbiddenError) return NextResponse.json({ error: err.message }, { status: 403 })
+    return NextResponse.json({ error: 'Failed to save settings' }, { status: 500 })
   }
 }

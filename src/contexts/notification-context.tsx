@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import { SafeNotification } from '@/lib/notification-utils'
 import { PushNotificationClient } from '@/lib/push-notification-client'
+import { useNotificationStream, type StreamNotification } from '@/hooks/use-notification-stream'
 
 export interface Notification {
   id: string
@@ -43,6 +44,24 @@ const NotificationContext = createContext<NotificationContextType | undefined>(u
 export function NotificationProvider({ children }: { children: React.ReactNode }) {
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [isNotificationSupported, setIsNotificationSupported] = useState(false)
+
+  // Wire in SSE-based real-time notifications
+  useNotificationStream(useCallback((incoming: StreamNotification[]) => {
+    setNotifications((prev) => {
+      const existingIds = new Set(prev.map((n) => n.id))
+      const newOnes = incoming
+        .filter((n) => !existingIds.has(n.id))
+        .map((n) => ({
+          id: n.id,
+          title: n.title || 'Notification',
+          message: n.message || '',
+          type: (n.type as Notification['type']) || 'info',
+          timestamp: new Date(n.createdAt),
+          read: n.read ?? false,
+        }))
+      return newOnes.length > 0 ? [...newOnes, ...prev] : prev
+    })
+  }, []))
   const [isPushSupported, setIsPushSupported] = useState(false)
   const [isPushSubscribed, setIsPushSubscribed] = useState(false)
   const [isClient, setIsClient] = useState(false)

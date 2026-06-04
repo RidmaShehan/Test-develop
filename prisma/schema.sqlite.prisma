@@ -55,8 +55,30 @@ model User {
   notifications Notification[]    @relation("UserNotifications")
 
   // Notebook system relations
-  createdNotebooks Notebook[] @relation("NotebookCreatedBy")
-  createdNotes     Note[]     @relation("NoteCreatedBy")
+  createdNotebooks      Notebook[]      @relation("NotebookCreatedBy")
+  createdNotes          Note[]          @relation("NoteCreatedBy")
+  createdPromotionCodes PromotionCode[] @relation("PromotionCodeCreatedBy")
+
+  // Sprint A — Auth
+  passwordResetTokens PasswordResetToken[]
+
+  // Sprint B — Voice Notes
+  voiceNotes VoiceNote[] @relation("VoiceNoteUploader")
+
+  // Sprint C — Documents
+  documentsUploaded Document[]        @relation("DocumentUploader")
+  documentsVerified Document[]        @relation("DocumentVerifier")
+  documentVersions  DocumentVersion[] @relation("VersionUploader")
+  documentRequests  DocumentRequest[] @relation("DocumentRequester")
+
+  // Sprint D — Payments
+  recordedPayments Payment[] @relation("PaymentRecorder")
+
+  // Sprint E — Events
+  createdEvents Event[] @relation("EventCreatedBy")
+
+  // Sprint F — SMS
+  smsMessages SMSMessage[] @relation("SMSMessageCreator")
 
   @@map("users")
 }
@@ -132,11 +154,13 @@ model Program {
   imageUrl         String?           // Program image URL
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
-  levelRelation    Level?            @relation(fields: [levelId], references: [id])
-  seekers          Seeker[] // Keep for backward compatibility
-  preferredBy      SeekerProgram[] // New many-to-many relationship
-  socialMediaPosts SocialMediaPost[]
-  qaItems          ProgramQA[]
+  levelRelation        Level?                       @relation(fields: [levelId], references: [id])
+  seekers              Seeker[] // Keep for backward compatibility
+  preferredBy          SeekerProgram[] // New many-to-many relationship
+  socialMediaPosts     SocialMediaPost[]
+  qaItems              ProgramQA[]
+  documentRequirements ProgramDocumentRequirement[]
+  alumni               Alumni[]
 
   @@map("programs")
 }
@@ -182,6 +206,25 @@ model Seeker {
   campaigns            CampaignSeeker[]
   whatsappRecipients   WhatsAppRecipient[]
   emailRecipients      EmailRecipient[]
+  promotionCodeId      String?
+  promotionCode        PromotionCode?      @relation(fields: [promotionCodeId], references: [id])
+
+  // Sprint B — Lead Scoring & Voice Notes
+  leadScore   LeadScore?
+  voiceNotes  VoiceNote[]
+
+  // Sprint C — Documents
+  documents        Document[]
+  documentRequests DocumentRequest[]
+
+  // Sprint D — Invoices
+  invoices Invoice[]
+
+  // Sprint E — Events
+  eventRegistrations EventRegistration[]
+
+  // Sprint G — Alumni
+  alumni Alumni?
 
   @@map("seekers")
 }
@@ -352,6 +395,28 @@ enum Permission {
   DELETE_ADMINISTRATOR
   MANAGE_ALL_USERS
   SYSTEM_ADMINISTRATION
+
+  // Reports (alias)
+  VIEW_REPORTS
+
+  // Document Management (Sprint C)
+  READ_DOCUMENTS
+  MANAGE_DOCUMENTS
+
+  // Payment Management (Sprint D)
+  READ_PAYMENTS
+  MANAGE_PAYMENTS
+
+  // Event Management (Sprint E)
+  READ_EVENT
+  MANAGE_EVENT
+
+  // Alumni Management (Sprint G)
+  READ_ALUMNI
+  MANAGE_ALUMNI
+
+  // SMS (Sprint F)
+  SEND_SMS
 }
 
 enum InteractionChannel {
@@ -1189,4 +1254,329 @@ model Note {
   createdBy   User   @relation("NoteCreatedBy", fields: [createdById], references: [id])
 
   @@map("notes")
+}
+
+// ========================================
+// PROMOTION CODES (if not already in SQLite schema)
+// ========================================
+
+model PromotionCode {
+  id                 String   @id @default(cuid())
+  code               String   @unique
+  promoterName       String
+  promoterAddress    String
+  promoterPhone      String
+  promoterIdNumber   String
+  discountAmountLKR  Float
+  paymentAmountLKR   Float
+  isActive           Boolean  @default(true)
+  totalInquiries     Int      @default(0)
+  totalRegistrations Int      @default(0)
+  totalPaidLKR       Float    @default(0)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  createdById        String?
+  createdBy          User?    @relation("PromotionCodeCreatedBy", fields: [createdById], references: [id])
+  seekers            Seeker[]
+
+  @@map("promotion_codes")
+}
+
+// ========================================
+// SPRINT A — PASSWORD RESET
+// ========================================
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  token     String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+
+  @@map("password_reset_tokens")
+}
+
+// ========================================
+// SPRINT B — LEAD SCORING & VOICE NOTES
+// ========================================
+
+model LeadScore {
+  id        String   @id @default(cuid())
+  seekerId  String   @unique
+  score     Int      @default(0)
+  breakdown String   // JSON stored as string in SQLite
+  tier      String   @default("COLD")
+  seeker    Seeker   @relation(fields: [seekerId], references: [id], onDelete: Cascade)
+  updatedAt DateTime @updatedAt
+
+  @@map("lead_scores")
+}
+
+model VoiceNote {
+  id            String   @id @default(cuid())
+  seekerId      String
+  uploadedById  String
+  cloudinaryId  String
+  cloudinaryUrl String
+  durationSec   Int
+  transcription String?
+  seeker        Seeker   @relation(fields: [seekerId], references: [id], onDelete: Cascade)
+  uploadedBy    User     @relation("VoiceNoteUploader", fields: [uploadedById], references: [id])
+  createdAt     DateTime @default(now())
+
+  @@map("voice_notes")
+}
+
+// ========================================
+// SPRINT C — DOCUMENT MANAGEMENT
+// ========================================
+
+model DocumentType {
+  id               String                       @id @default(cuid())
+  name             String
+  code             String                       @unique
+  category         String
+  description      String?
+  isRequired       Boolean                      @default(true)
+  acceptedFormats  String                       @default("pdf,jpg,png")
+  maxSizeMb        Int                          @default(5)
+  hasExpiry        Boolean                      @default(false)
+  programs         ProgramDocumentRequirement[]
+  documents        Document[]
+  documentRequests DocumentRequest[]
+  createdAt        DateTime                     @default(now())
+
+  @@map("document_types")
+}
+
+model ProgramDocumentRequirement {
+  id             String       @id @default(cuid())
+  programId      String
+  documentTypeId String
+  isRequired     Boolean      @default(true)
+  notes          String?
+  program        Program      @relation(fields: [programId], references: [id], onDelete: Cascade)
+  documentType   DocumentType @relation(fields: [documentTypeId], references: [id])
+
+  @@unique([programId, documentTypeId])
+  @@map("program_document_requirements")
+}
+
+model Document {
+  id              String            @id @default(cuid())
+  seekerId        String
+  documentTypeId  String
+  uploadedById    String
+  verifiedById    String?
+  cloudinaryId    String
+  cloudinaryUrl   String
+  thumbnailUrl    String?
+  fileName        String
+  fileSize        Int
+  fileFormat      String
+  folder          String
+  status          String            @default("PENDING")
+  rejectionReason String?
+  notes           String?
+  expiryDate      DateTime?
+  deletedAt       DateTime?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  seeker          Seeker            @relation(fields: [seekerId], references: [id], onDelete: Cascade)
+  documentType    DocumentType      @relation(fields: [documentTypeId], references: [id])
+  uploadedBy      User              @relation("DocumentUploader", fields: [uploadedById], references: [id])
+  verifiedBy      User?             @relation("DocumentVerifier", fields: [verifiedById], references: [id])
+  versions        DocumentVersion[]
+
+  @@map("documents")
+}
+
+model DocumentVersion {
+  id            String   @id @default(cuid())
+  documentId    String
+  versionNumber Int
+  cloudinaryId  String
+  cloudinaryUrl String
+  fileSize      Int
+  uploadedById  String
+  notes         String?
+  document      Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  uploadedBy    User     @relation("VersionUploader", fields: [uploadedById], references: [id])
+  createdAt     DateTime @default(now())
+
+  @@map("document_versions")
+}
+
+model DocumentRequest {
+  id             String       @id @default(cuid())
+  seekerId       String
+  documentTypeId String
+  requestedById  String
+  message        String?
+  dueDate        DateTime?
+  fulfilled      Boolean      @default(false)
+  reminderCount  Int          @default(0)
+  lastReminderAt DateTime?
+  seeker         Seeker       @relation(fields: [seekerId], references: [id], onDelete: Cascade)
+  documentType   DocumentType @relation(fields: [documentTypeId], references: [id])
+  requestedBy    User         @relation("DocumentRequester", fields: [requestedById], references: [id])
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@map("document_requests")
+}
+
+// ========================================
+// SPRINT D — PAYMENTS & INVOICING
+// ========================================
+
+model Invoice {
+  id         String    @id @default(cuid())
+  seekerId   String
+  invoiceNo  String    @unique
+  issuedDate DateTime  @default(now())
+  dueDate    DateTime?
+  subtotal   Float
+  discount   Float     @default(0)
+  total      Float
+  status     String    @default("PENDING")
+  notes      String?
+  seeker     Seeker    @relation(fields: [seekerId], references: [id])
+  items      InvoiceItem[]
+  payments   Payment[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@map("invoices")
+}
+
+model InvoiceItem {
+  id          String  @id @default(cuid())
+  invoiceId   String
+  description String
+  qty         Int     @default(1)
+  unitPrice   Float
+  total       Float
+  invoice     Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@map("invoice_items")
+}
+
+model Payment {
+  id           String    @id @default(cuid())
+  invoiceId    String
+  amount       Float
+  method       String
+  reference    String?
+  paidAt       DateTime  @default(now())
+  recordedById String
+  notes        String?
+  invoice      Invoice   @relation(fields: [invoiceId], references: [id])
+  recordedBy   User      @relation("PaymentRecorder", fields: [recordedById], references: [id])
+
+  @@map("payments")
+}
+
+// ========================================
+// SPRINT E — EVENTS MANAGEMENT
+// ========================================
+
+model Event {
+  id            String              @id @default(cuid())
+  title         String
+  description   String?
+  type          String
+  status        String              @default("UPCOMING")
+  startAt       DateTime
+  endAt         DateTime
+  venue         String?
+  onlineLink    String?
+  maxAttendees  Int?
+  imageUrl      String?
+  createdById   String
+  createdBy     User                @relation("EventCreatedBy", fields: [createdById], references: [id])
+  registrations EventRegistration[]
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+
+  @@map("events")
+}
+
+model EventRegistration {
+  id        String   @id @default(cuid())
+  eventId   String
+  seekerId  String?
+  name      String
+  email     String
+  phone     String?
+  attended  Boolean  @default(false)
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  seeker    Seeker?  @relation(fields: [seekerId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@map("event_registrations")
+}
+
+// ========================================
+// SPRINT F — SMS CAMPAIGNS
+// ========================================
+
+model SMSMessage {
+  id         String         @id @default(cuid())
+  userId     String
+  body       String
+  sender     String
+  createdBy  User           @relation("SMSMessageCreator", fields: [userId], references: [id])
+  recipients SMSRecipient[]
+  createdAt  DateTime       @default(now())
+
+  @@map("sms_messages")
+}
+
+model SMSRecipient {
+  id        String     @id @default(cuid())
+  messageId String
+  phone     String
+  status    String     @default("QUEUED")
+  sentAt    DateTime?
+  message   SMSMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@map("sms_recipients")
+}
+
+// ========================================
+// SPRINT G — ALUMNI MANAGEMENT
+// ========================================
+
+model Alumni {
+  id          String             @id @default(cuid())
+  seekerId    String             @unique
+  graduatedAt DateTime
+  programId   String?
+  currentRole String?
+  employer    String?
+  status      String             @default("UNKNOWN")
+  linkedinUrl String?
+  testimonial String?
+  isPublic    Boolean            @default(false)
+  seeker      Seeker             @relation(fields: [seekerId], references: [id])
+  program     Program?           @relation(fields: [programId], references: [id])
+  engagements AlumniEngagement[]
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+
+  @@map("alumni")
+}
+
+model AlumniEngagement {
+  id        String   @id @default(cuid())
+  alumniId  String
+  type      String
+  notes     String?
+  alumni    Alumni   @relation(fields: [alumniId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@map("alumni_engagements")
 }

@@ -2,6 +2,7 @@
 
 import { useState, Suspense, startTransition } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -95,6 +96,11 @@ function SignInForm() {
                 required
               />
             </div>
+            <div className="flex items-center justify-end">
+              <Link href="/forgot-password" className="text-sm text-primary hover:underline">
+                Forgot password?
+              </Link>
+            </div>
             <Button
               type="submit"
               className="w-full"
@@ -103,12 +109,6 @@ function SignInForm() {
               {isLoading ? 'Signing in...' : 'Sign In'}
             </Button>
           </form>
-          <div className="mt-4 text-center text-sm">
-            <p className="text-gray-600">
-              For development, you can use any email/password combination.
-              The system will use the default admin user.
-            </p>
-          </div>
         </CardContent>
       </Card>
     </div>

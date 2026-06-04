@@ -33,6 +33,9 @@ import {
   Ticket,
   ClipboardList,
   Database,
+  CreditCard,
+  CalendarCheck,
+  UserCheck,
 } from 'lucide-react'
 import { NotificationBell } from '@/components/notifications/notification-bell'
 import { Button } from '@/components/ui/button'
@@ -77,6 +80,36 @@ const navigation: NavigationItem[] = [
     href: '/meetings', 
     icon: Calendar,
     permissions: ['READ_TASK'] // Using task permissions for now
+  },
+  { 
+    name: 'Appointments', 
+    href: '/appointments', 
+    icon: CalendarCheck,
+    permissions: ['READ_TASK']
+  },
+  { 
+    name: 'Documents', 
+    href: '/documents', 
+    icon: FileText,
+    permissions: ['READ_DOCUMENTS']
+  },
+  { 
+    name: 'Payments', 
+    href: '/payments', 
+    icon: CreditCard,
+    permissions: ['READ_PAYMENTS']
+  },
+  { 
+    name: 'Events', 
+    href: '/events', 
+    icon: CalendarDays,
+    permissions: ['READ_EVENT']
+  },
+  { 
+    name: 'Alumni', 
+    href: '/alumni', 
+    icon: UserCheck,
+    permissions: ['READ_ALUMNI']
   },
   { 
     name: 'Projects', 
@@ -393,6 +426,29 @@ export function Sidebar() {
             )} />
             {!isCollapsed && (
               <span className="text-green-700 dark:text-green-300 font-medium">WhatsApp Campaign</span>
+            )}
+          </button>
+        )}
+
+        {/* SMS Campaign Button */}
+        {hasAnyPermission(['SEND_SMS']) && (
+          <button
+            onClick={() => startTransition(() => router.push('/sms-campaign'))}
+            className={cn(
+              'group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors w-full',
+              'text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
+              'bg-purple-50 dark:bg-purple-950/20 hover:bg-purple-100 dark:hover:bg-purple-950/30 border border-purple-200 dark:border-purple-800/50 hover:border-purple-300 dark:hover:border-purple-700/50',
+              pathname === '/sms-campaign' && 'bg-purple-100 dark:bg-purple-950/30 border-purple-300 dark:border-purple-700/50',
+              isCollapsed && "justify-center"
+            )}
+            title={isCollapsed ? "SMS Campaign" : undefined}
+          >
+            <MessageSquare className={cn(
+              "h-5 w-5 flex-shrink-0 text-purple-600 dark:text-purple-400",
+              !isCollapsed && "mr-3"
+            )} />
+            {!isCollapsed && (
+              <span className="text-purple-700 dark:text-purple-300 font-medium">SMS Campaign</span>
             )}
           </button>
         )}

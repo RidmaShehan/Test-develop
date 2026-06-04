@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import { useAuth } from '@/hooks/use-auth'
 import { usePermissions } from '@/hooks/use-permissions'
@@ -26,9 +27,29 @@ const RequestInquiriesTable = dynamic(
   { loading: TableLoader, ssr: false }
 )
 
+const InquiryPipeline = dynamic(
+  () => import('@/components/inquiries/inquiry-pipeline').then((m) => ({ default: m.InquiryPipeline })),
+  { loading: TableLoader, ssr: false }
+)
+
 export default function InquiriesPage() {
   const { user, loading: authLoading } = useAuth()
   const { hasPermission } = usePermissions()
+  const [pipelineData, setPipelineData] = useState<any>(null)
+  const [pipelineLoading, setPipelineLoading] = useState(false)
+
+  const fetchPipeline = async () => {
+    setPipelineLoading(true)
+    try {
+      const res = await fetch('/api/inquiries/pipeline')
+      const data = await res.json()
+      if (data.success) setPipelineData(data.data)
+    } catch {
+      // pipeline fetch failure is non-critical
+    } finally {
+      setPipelineLoading(false)
+    }
+  }
 
   if (authLoading) {
     return (
@@ -82,13 +103,25 @@ export default function InquiriesPage() {
           {hasPermission('CREATE_SEEKER') && <NewInquiryButton />}
         </div>
         
-        <Tabs defaultValue="inquiries" className="w-full">
+        <Tabs defaultValue="inquiries" className="w-full" onValueChange={(v) => { if (v === 'pipeline' && !pipelineData) fetchPipeline() }}>
           <TabsList>
             <TabsTrigger value="inquiries">All Inquiries</TabsTrigger>
+            <TabsTrigger value="pipeline">Pipeline</TabsTrigger>
             <TabsTrigger value="requests">Request Inquiries</TabsTrigger>
           </TabsList>
           <TabsContent value="inquiries" className="mt-4">
             <InquiriesTable />
+          </TabsContent>
+          <TabsContent value="pipeline" className="mt-4">
+            {pipelineLoading ? (
+              <TableLoader />
+            ) : pipelineData ? (
+              <InquiryPipeline data={pipelineData} onRefresh={fetchPipeline} />
+            ) : (
+              <div className="text-center py-12 text-muted-foreground">
+                <p>Click the Pipeline tab to load the board.</p>
+              </div>
+            )}
           </TabsContent>
           <TabsContent value="requests" className="mt-4">
             <RequestInquiriesTable />
