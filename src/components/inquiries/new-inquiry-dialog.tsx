@@ -448,14 +448,20 @@ export function NewInquiryDialog({ open, onOpenChange, initialData, onInquiryCre
   const fetchCampaignsByType = async (campaignType: string) => {
     setCampaignsLoading(true)
     try {
-      // Use forInquiry=true to allow all users to see all ACTIVE campaigns
-      const response = await fetch(`/api/campaigns?type=${campaignType}&limit=100&forInquiry=true`)
+      // Fetch active campaigns for inquiry, then match source case-insensitively.
+      // This prevents mismatches like "Facebook" vs "FACEBOOK".
+      const response = await fetch('/api/campaigns?limit=500&forInquiry=true')
       if (response.ok) {
         const data = await response.json()
-        // Handle new paginated response structure
         const campaigns = data.campaigns || (Array.isArray(data) ? data : [])
-        // Filter to only show ACTIVE campaigns (API already filters, but double-check)
-        setCampaigns(campaigns.filter((campaign: Campaign) => campaign.status === 'ACTIVE'))
+        const normalizedType = String(campaignType || '').trim().toLowerCase()
+        const filtered = campaigns.filter((campaign: any) => {
+          if (campaign.status !== 'ACTIVE') return false
+          const campaignTypeName = String(campaign.type || '').trim().toLowerCase()
+          const linkedTypeName = String(campaign.campaignType?.name || '').trim().toLowerCase()
+          return campaignTypeName === normalizedType || linkedTypeName === normalizedType
+        })
+        setCampaigns(filtered)
       }
     } catch (error) {
       console.error('Error fetching campaigns:', error)
@@ -482,10 +488,23 @@ export function NewInquiryDialog({ open, onOpenChange, initialData, onInquiryCre
     
     const fetchCampaignTypes = async () => {
       try {
-        const res = await fetch('/api/campaign-types')
+        const res = await fetch('/api/campaign-types?forInquiry=true')
         if (res.ok) {
-          const data = await res.json()
-          setCampaignTypes(data.filter((type: CampaignType) => type.isActive))
+          let data = await res.json()
+          if (!Array.isArray(data)) data = []
+          // Exhibition conversions preset this source; keep it selectable if not returned by API
+          if (!data.some((t: CampaignType) => t.name === 'EXHIBITION')) {
+            data = [
+              ...data,
+              {
+                id: 'type-exhibition-fallback',
+                name: 'EXHIBITION',
+                isActive: true,
+                isDefault: true,
+              },
+            ]
+          }
+          setCampaignTypes(data)
         }
       } catch (e) {
         console.error('Failed to load campaign types', e)

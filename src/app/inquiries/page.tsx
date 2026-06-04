@@ -6,6 +6,7 @@ import { useAuth } from '@/hooks/use-auth'
 import { usePermissions } from '@/hooks/use-permissions'
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { NewInquiryButton } from '@/components/inquiries/new-inquiry-button'
+import { ImportInquiriesToolbar } from '@/components/inquiries/import-inquiries-toolbar'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 // Lazy-load heavy tables to reduce INP and initial bundle (target INP ≤200ms)
@@ -35,6 +36,7 @@ const InquiryPipeline = dynamic(
 export default function InquiriesPage() {
   const { user, loading: authLoading } = useAuth()
   const { hasPermission } = usePermissions()
+<<<<<<< HEAD
   const [pipelineData, setPipelineData] = useState<any>(null)
   const [pipelineLoading, setPipelineLoading] = useState(false)
 
@@ -50,6 +52,10 @@ export default function InquiriesPage() {
       setPipelineLoading(false)
     }
   }
+=======
+  const canReadInquiries = hasPermission('READ_SEEKER')
+  const canCreateInquiry = hasPermission('CREATE_SEEKER')
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
 
   if (authLoading) {
     return (
@@ -66,19 +72,8 @@ export default function InquiriesPage() {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900">Access Denied</h1>
-          <p className="mt-2 text-gray-600">Please sign in to access inquiries.</p>
-        </div>
-      </div>
-    )
-  }
-
-  if (!hasPermission('READ_SEEKER')) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900">Access Denied</h1>
-          <p className="mt-2 text-gray-600">You don't have permission to view inquiries.</p>
+          <h1 className="text-2xl font-bold text-foreground">Access Denied</h1>
+          <p className="mt-2 text-muted-foreground">Please sign in to access inquiries.</p>
         </div>
       </div>
     )
@@ -88,29 +83,55 @@ export default function InquiriesPage() {
     <DashboardLayout>
       <div className="space-y-6">
         {/* Professional Header */}
-        <div className="flex justify-between items-center pb-4 border-b border-gray-200">
+        <div className="flex justify-between items-center pb-4 border-b border-border/60">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">Inquiries</h1>
-            <p className="text-sm text-gray-600">
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">Inquiries</h1>
+            <p className="text-sm text-muted-foreground">
               Manage all student inquiries and leads
-              {hasPermission('CREATE_SEEKER') && (
-                <span className="ml-2 text-xs text-gray-500">
+              {canCreateInquiry && (
+                <span className="ml-2 text-xs text-muted-foreground">
                   • Press <kbd className="px-1.5 py-0.5 bg-gray-100 border border-gray-300 rounded text-xs font-mono">⌘↵</kbd> or <kbd className="px-1.5 py-0.5 bg-gray-100 border border-gray-300 rounded text-xs font-mono">Ctrl↵</kbd> to create new inquiry
                 </span>
               )}
             </p>
           </div>
-          {hasPermission('CREATE_SEEKER') && <NewInquiryButton />}
+          {canCreateInquiry && (
+            <div className="flex flex-wrap items-center gap-2">
+              <ImportInquiriesToolbar />
+              <NewInquiryButton />
+            </div>
+          )}
         </div>
+<<<<<<< HEAD
         
         <Tabs defaultValue="inquiries" className="w-full" onValueChange={(v) => { if (v === 'pipeline' && !pipelineData) fetchPipeline() }}>
           <TabsList>
             <TabsTrigger value="inquiries">All Inquiries</TabsTrigger>
             <TabsTrigger value="pipeline">Pipeline</TabsTrigger>
             <TabsTrigger value="requests">Request Inquiries</TabsTrigger>
+=======
+
+        {!canReadInquiries ? (
+          <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-amber-800">
+            You are logged in, but your role does not have `READ_SEEKER` permission.
+            Ask an administrator to enable inquiry access.
+          </div>
+        ) : null}
+
+        <Tabs defaultValue="inquiries" className="w-full">
+          <TabsList>
+            <TabsTrigger value="inquiries" disabled={!canReadInquiries}>All Inquiries</TabsTrigger>
+            <TabsTrigger value="requests" disabled={!canReadInquiries}>Request Inquiries</TabsTrigger>
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
           </TabsList>
           <TabsContent value="inquiries" className="mt-4">
-            <InquiriesTable />
+            {canReadInquiries ? (
+              <InquiriesTable />
+            ) : (
+              <div className="rounded-lg border p-8 text-sm text-muted-foreground">
+                Inquiry list is disabled for your current role.
+              </div>
+            )}
           </TabsContent>
           <TabsContent value="pipeline" className="mt-4">
             {pipelineLoading ? (
@@ -124,7 +145,13 @@ export default function InquiriesPage() {
             )}
           </TabsContent>
           <TabsContent value="requests" className="mt-4">
-            <RequestInquiriesTable />
+            {canReadInquiries ? (
+              <RequestInquiriesTable />
+            ) : (
+              <div className="rounded-lg border p-8 text-sm text-muted-foreground">
+                Request inquiry list is disabled for your current role.
+              </div>
+            )}
           </TabsContent>
         </Tabs>
       </div>

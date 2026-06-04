@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { requireAuth } from '@/lib/auth'
+import { requireAuth, AuthenticationError } from '@/lib/auth'
 import { notifyApprovalRequest } from '@/lib/notification-service'
 
 // POST /api/posts/[id]/resubmit - Resubmit a rejected post (reverse process: back to approval chain)
@@ -96,6 +96,9 @@ export async function POST(
     return NextResponse.json(updatedPost)
   } catch (error) {
     console.error('Error resubmitting post:', error)
+    if (error instanceof AuthenticationError) {
+      return NextResponse.json({ error: error.message }, { status: 401 })
+    }
     return NextResponse.json(
       { error: error instanceof Error ? error.message : 'Failed to resubmit post' },
       { status: 500 }

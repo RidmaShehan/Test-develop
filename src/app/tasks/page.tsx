@@ -33,9 +33,9 @@ export default function TasksPage() {
   return (
     <DashboardLayout>
       <div className="space-y-6">
-        <div className="pb-4 border-b border-gray-200">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">Tasks</h1>
-          <p className="text-sm text-gray-600">Manage and track all your tasks and follow-ups</p>
+        <div className="pb-4 border-b border-border/60">
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">Tasks</h1>
+          <p className="text-sm text-muted-foreground">Manage and track all your tasks and follow-ups</p>
         </div>
 
         <Tabs defaultValue="followups" className="w-full">

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { requireAuth } from '@/lib/auth'
+import { requireAuth, AuthenticationError } from '@/lib/auth'
 
 // POST /api/posts/[id]/comments - Add a comment to a post
 export async function POST(
@@ -47,6 +47,9 @@ export async function POST(
     return NextResponse.json(newComment, { status: 201 })
   } catch (error) {
     console.error('Error adding comment:', error)
+    if (error instanceof AuthenticationError) {
+      return NextResponse.json({ error: error.message }, { status: 401 })
+    }
     return NextResponse.json(
       { error: error instanceof Error ? error.message : 'Failed to add comment' },
       { status: 500 }

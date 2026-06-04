@@ -22,8 +22,13 @@ const campaignSchema = z.object({
   endDate: z.string().optional(),
   budget: z.string().optional(),
   reach: z.string().optional(),
-  imageUrl: z.string().optional(),
+  imageUrl: z
+    .string()
+    .url('Please enter a valid image URL')
+    .optional()
+    .or(z.literal('')),
   status: z.enum(['DRAFT', 'ACTIVE', 'PAUSED', 'COMPLETED', 'CANCELLED']),
+  coordinatorId: z.string().optional().nullable(),
 }).refine((data) => {
   if (data.endDate && data.startDate) {
     return new Date(data.endDate) >= new Date(data.startDate)
@@ -48,6 +53,7 @@ interface Campaign {
   reach?: number
   imageUrl?: string
   status: string
+  coordinatorId?: string | null
 }
 
 interface EditCampaignDialogProps {
@@ -66,10 +72,20 @@ interface CampaignType {
   isActive: boolean
 }
 
+interface UserOption {
+  id: string
+  name: string | null
+  email: string | null
+}
+
 export function EditCampaignDialog({ open, onOpenChange, campaign, onSuccess }: EditCampaignDialogProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [campaignTypes, setCampaignTypes] = useState<CampaignType[]>([])
-  const [imageUrl, setImageUrl] = useState<string | null>(null)
+  // Stored uploaded image (base64 / storage output)
+  const [uploadedImage, setUploadedImage] = useState<string | null>(null)
+  // Live preview for URL-based image
+  const [urlPreview, setUrlPreview] = useState<string | null>(null)
+  const [users, setUsers] = useState<UserOption[]>([])
   
   const form = useForm<CampaignFormData>({
     resolver: zodResolver(campaignSchema),
@@ -89,6 +105,7 @@ export function EditCampaignDialog({ open, onOpenChange, campaign, onSuccess }: 
   useEffect(() => {
     if (open) {
       fetchCampaignTypes()
+      fetchUsers()
     }
   }, [open])
 
@@ -101,6 +118,18 @@ export function EditCampaignDialog({ open, onOpenChange, campaign, onSuccess }: 
       }
     } catch (error) {
       console.error('Error fetching campaign types:', error)
+    }
+  }
+
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch('/api/users?role=COORDINATOR')
+      if (response.ok) {
+        const data = await response.json()
+        setUsers(data)
+      }
+    } catch (error) {
+      console.error('Error fetching users for coordinators:', error)
     }
   }
 
@@ -118,8 +147,10 @@ export function EditCampaignDialog({ open, onOpenChange, campaign, onSuccess }: 
         reach: campaign.reach?.toString() || '',
         imageUrl: campaign.imageUrl || '',
         status: campaign.status as any,
+        coordinatorId: campaign.coordinatorId || null,
       })
-      setImageUrl(campaign.imageUrl || null)
+      setUploadedImage(campaign.imageUrl || null)
+      setUrlPreview(campaign.imageUrl || null)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [campaign])
@@ -131,6 +162,12 @@ export function EditCampaignDialog({ open, onOpenChange, campaign, onSuccess }: 
     
     setIsLoading(true)
     try {
+      // Prefer a manually entered URL when present; otherwise fall back to uploaded image
+      const finalImageUrl =
+        data.imageUrl && data.imageUrl.trim() !== ''
+          ? data.imageUrl.trim()
+          : uploadedImage || null
+
       // Convert dates to ISO strings and handle budget
       const submitData = {
         ...data,
@@ -138,7 +175,8 @@ export function EditCampaignDialog({ open, onOpenChange, campaign, onSuccess }: 
         endDate: data.endDate ? new Date(data.endDate).toISOString() : null,
         budget: data.budget && data.budget !== '' ? Number(data.budget) : null,
         reach: data.reach && data.reach !== '' ? Number(data.reach) : null,
-        imageUrl: imageUrl || null,
+        imageUrl: finalImageUrl,
+        coordinatorId: data.coordinatorId || null,
       }
       
       const response = await fetch(`/api/campaigns/${campaign.id}`, {
@@ -251,6 +289,25 @@ export function EditCampaignDialog({ open, onOpenChange, campaign, onSuccess }: 
             </div>
 
             <div className="space-y-2">
+              <Label htmlFor="coordinatorId">Coordinator</Label>
+              <Select
+                value={form.watch('coordinatorId') ?? undefined}
+                onValueChange={(value) => form.setValue('coordinatorId', value)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select coordinator (optional)" />
+                </SelectTrigger>
+                <SelectContent>
+                  {users.map((user) => (
+                    <SelectItem key={user.id} value={user.id}>
+                      {user.name || user.email || 'Unnamed user'}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
               <Label htmlFor="budget">Budget ($)</Label>
               <Input
                 id="budget"
@@ -275,11 +332,57 @@ export function EditCampaignDialog({ open, onOpenChange, campaign, onSuccess }: 
             </div>
 
             <div className="space-y-2 md:col-span-2">
-              <ImageUpload
-                value={imageUrl}
-                onChange={setImageUrl}
-                disabled={isLoading}
-              />
+              <Label>Campaign Image</Label>
+              <p className="text-xs text-muted-foreground mb-1">
+                You can either upload an image file or paste a direct image URL. If both are provided, the URL will be used.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="space-y-2">
+                  <Label className="text-xs">Upload image</Label>
+                  <ImageUpload
+                    value={uploadedImage}
+                    onChange={setUploadedImage}
+                    disabled={isLoading}
+                    storageMode="base64"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="imageUrl" className="text-xs">
+                    Or paste image URL
+                  </Label>
+                  <Input
+                    id="imageUrl"
+                    placeholder="https://example.com/your-image.jpg"
+                    {...form.register('imageUrl')}
+                    onChange={(e) => {
+                      form.setValue('imageUrl', e.target.value)
+                      const v = e.target.value.trim()
+                      if (!v) {
+                        setUrlPreview(null)
+                      } else if (v.startsWith('http://') || v.startsWith('https://') || v.startsWith('data:')) {
+                        setUrlPreview(v)
+                      } else {
+                        setUrlPreview(null)
+                      }
+                    }}
+                  />
+                  {form.formState.errors.imageUrl && (
+                    <p className="text-sm text-red-600">
+                      {form.formState.errors.imageUrl.message}
+                    </p>
+                  )}
+                  {urlPreview && (
+                    <div className="mt-2 border rounded-md overflow-hidden">
+                      <img
+                        src={urlPreview}
+                        alt="Campaign image preview"
+                        className="w-full h-40 object-cover"
+                        onError={() => setUrlPreview(null)}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
 
             <div className="space-y-2">

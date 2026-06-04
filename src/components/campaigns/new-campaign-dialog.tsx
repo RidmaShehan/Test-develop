@@ -21,8 +21,14 @@ const campaignSchema = z.object({
   startDate: z.string().min(1, 'Start date is required'),
   endDate: z.string().optional(),
   budget: z.string().optional(),
-  imageUrl: z.string().optional(),
+  // URL entered manually (optional)
+  imageUrl: z
+    .string()
+    .url('Please enter a valid image URL')
+    .optional()
+    .or(z.literal('')),
   status: z.enum(['DRAFT', 'ACTIVE', 'PAUSED', 'COMPLETED', 'CANCELLED']),
+  coordinatorId: z.string().optional().nullable(),
 }).refine((data) => {
   if (data.endDate && data.startDate) {
     return new Date(data.endDate) >= new Date(data.startDate)
@@ -50,10 +56,20 @@ interface CampaignType {
   isActive: boolean
 }
 
+interface UserOption {
+  id: string
+  name: string | null
+  email: string | null
+}
+
 export function NewCampaignDialog({ open, onOpenChange, onSuccess }: NewCampaignDialogProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [campaignTypes, setCampaignTypes] = useState<CampaignType[]>([])
-  const [imageUrl, setImageUrl] = useState<string | null>(null)
+  // Stores uploaded image (base64 / storage output)
+  const [uploadedImage, setUploadedImage] = useState<string | null>(null)
+  // Local preview for URL-based image (so we can show a live preview even before submit)
+  const [urlPreview, setUrlPreview] = useState<string | null>(null)
+  const [users, setUsers] = useState<UserOption[]>([])
   
   const form = useForm<CampaignFormData>({
     resolver: zodResolver(campaignSchema),
@@ -66,6 +82,7 @@ export function NewCampaignDialog({ open, onOpenChange, onSuccess }: NewCampaign
   useEffect(() => {
     if (open) {
       fetchCampaignTypes()
+      fetchUsers()
     }
   }, [open])
 
@@ -81,6 +98,18 @@ export function NewCampaignDialog({ open, onOpenChange, onSuccess }: NewCampaign
     }
   }
 
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch('/api/users?role=COORDINATOR')
+      if (response.ok) {
+        const data = await response.json()
+        setUsers(data)
+      }
+    } catch (error) {
+      console.error('Error fetching users for coordinators:', error)
+    }
+  }
+
   const onSubmit = async (data: CampaignFormData) => {
     // Prevent multiple submissions
     if (isLoading) {
@@ -90,12 +119,19 @@ export function NewCampaignDialog({ open, onOpenChange, onSuccess }: NewCampaign
     setIsLoading(true)
     try {
       // Convert dates to ISO strings and handle budget
+      // Prefer a manually entered URL when present; otherwise fall back to uploaded image
+      const finalImageUrl =
+        data.imageUrl && data.imageUrl.trim() !== ''
+          ? data.imageUrl.trim()
+          : uploadedImage || null
+
       const submitData = {
         ...data,
         startDate: new Date(data.startDate).toISOString(),
         endDate: data.endDate ? new Date(data.endDate).toISOString() : null,
         budget: data.budget && data.budget !== '' ? Number(data.budget) : null,
-        imageUrl: imageUrl || null,
+        imageUrl: finalImageUrl,
+        coordinatorId: data.coordinatorId || null,
       }
       
       const response = await fetch('/api/campaigns', {
@@ -137,7 +173,8 @@ export function NewCampaignDialog({ open, onOpenChange, onSuccess }: NewCampaign
 
       toast.success('Campaign created successfully')
       form.reset()
-      setImageUrl(null)
+      setUploadedImage(null)
+      setUrlPreview(null)
       onOpenChange(false)
       onSuccess?.()
     } catch (error) {
@@ -212,6 +249,25 @@ export function NewCampaignDialog({ open, onOpenChange, onSuccess }: NewCampaign
             </div>
 
             <div className="space-y-2">
+              <Label htmlFor="coordinatorId">Coordinator</Label>
+              <Select
+                value={form.watch('coordinatorId') ?? undefined}
+                onValueChange={(value) => form.setValue('coordinatorId', value)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select coordinator (optional)" />
+                </SelectTrigger>
+                <SelectContent>
+                  {users.map((user) => (
+                    <SelectItem key={user.id} value={user.id}>
+                      {user.name || user.email || 'Unnamed user'}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
               <Label htmlFor="budget">Budget ($)</Label>
               <Input
                 id="budget"
@@ -224,11 +280,58 @@ export function NewCampaignDialog({ open, onOpenChange, onSuccess }: NewCampaign
             </div>
 
             <div className="space-y-2 md:col-span-2">
-              <ImageUpload
-                value={imageUrl}
-                onChange={setImageUrl}
-                disabled={isLoading}
-              />
+              <Label>Campaign Image</Label>
+              <p className="text-xs text-muted-foreground mb-1">
+                You can either upload an image file or paste a direct image URL. If both are provided, the URL will be used.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="space-y-2">
+                  <Label className="text-xs">Upload image</Label>
+                  <ImageUpload
+                    value={uploadedImage}
+                    onChange={setUploadedImage}
+                    disabled={isLoading}
+                    storageMode="base64"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="imageUrl" className="text-xs">
+                    Or paste image URL
+                  </Label>
+                  <Input
+                    id="imageUrl"
+                    placeholder="https://example.com/your-image.jpg"
+                    {...form.register('imageUrl')}
+                    onChange={(e) => {
+                      form.setValue('imageUrl', e.target.value)
+                      const v = e.target.value.trim()
+                      // Basic check to avoid showing broken preview on empty/obviously invalid values
+                      if (!v) {
+                        setUrlPreview(null)
+                      } else if (v.startsWith('http://') || v.startsWith('https://') || v.startsWith('data:')) {
+                        setUrlPreview(v)
+                      } else {
+                        setUrlPreview(null)
+                      }
+                    }}
+                  />
+                  {form.formState.errors.imageUrl && (
+                    <p className="text-sm text-red-600">
+                      {form.formState.errors.imageUrl.message}
+                    </p>
+                  )}
+                  {urlPreview && (
+                    <div className="mt-2 border rounded-md overflow-hidden">
+                      <img
+                        src={urlPreview}
+                        alt="Campaign image preview"
+                        className="w-full h-40 object-cover"
+                        onError={() => setUrlPreview(null)}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
 
             <div className="space-y-2">

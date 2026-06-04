@@ -38,7 +38,7 @@ async function saveMediaFileLocally(file: File): Promise<{ filePath: string; fil
   }
 }
 
-interface Seeker {
+interface BulkRecipient {
   id: string
   fullName: string
   phone: string
@@ -48,9 +48,11 @@ interface Seeker {
   city?: string
   marketingSource: string
   campaignId?: string
+  /** When set, recipient is a promotion promoter (not an inquiry) */
+  recipientSource?: 'inquiry' | 'promotion'
+  promotionCodeId?: string
+  promotionCode?: string
 }
-
-// Removed unused interface
 
 export async function POST(request: NextRequest) {
   try {
@@ -116,7 +118,8 @@ export async function POST(request: NextRequest) {
     }
 
     const recipientLogs: Array<{
-      seekerId: string
+      seekerId?: string | null
+      promotionCodeId?: string | null
       phoneNumber: string
       status: 'SENT' | 'FAILED'
       errorMessage?: string
@@ -145,16 +148,18 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Process each seeker
-    for (const seeker of seekers) {
+    // Process each recipient (inquiry or promotion promoter)
+    for (const seeker of seekers as BulkRecipient[]) {
       try {
-        // Skip non-WhatsApp inquiries (UI should filter, but backend must still guard)
-        if (!seeker?.whatsapp) {
+        const isPromotion = seeker.recipientSource === 'promotion'
+
+        if (!isPromotion && !seeker?.whatsapp) {
           results.failedCount++
           const errorMessage = 'This inquiry is not marked as WhatsApp-enabled'
           results.errors.push(`Failed to send to ${seeker.fullName}: ${errorMessage}`)
           recipientLogs.push({
             seekerId: seeker.id,
+            promotionCodeId: null,
             phoneNumber: seeker.whatsappNumber || seeker.phone || '',
             status: 'FAILED',
             errorMessage,
@@ -162,32 +167,45 @@ export async function POST(request: NextRequest) {
           continue
         }
 
-        // Determine the phone number to use
         const phoneNumber = seeker.whatsappNumber || seeker.phone
-        
-        // Clean phone number (remove spaces, dashes, etc.)
+        if (!phoneNumber?.trim()) {
+          results.failedCount++
+          const errorMessage = 'No phone number on file'
+          results.errors.push(`Failed to send to ${seeker.fullName}: ${errorMessage}`)
+          recipientLogs.push({
+            seekerId: isPromotion ? null : seeker.id,
+            promotionCodeId: isPromotion ? seeker.promotionCodeId || seeker.id : null,
+            phoneNumber: '',
+            status: 'FAILED',
+            errorMessage,
+          })
+          continue
+        }
+
         const cleanPhone = phoneNumber.replace(/[\s\-\(\)]/g, '')
-        
-        // Add country code if not present (assuming Sri Lanka +94)
-        const formattedPhone = cleanPhone.startsWith('+') 
-          ? cleanPhone 
-          : cleanPhone.startsWith('94') 
+
+        const formattedPhone = cleanPhone.startsWith('+')
+          ? cleanPhone
+          : cleanPhone.startsWith('94')
             ? `+${cleanPhone}`
             : `+94${cleanPhone}`
 
-        console.log('Processing seeker:', {
+        console.log('Processing recipient:', {
           name: seeker.fullName,
           originalPhone: phoneNumber,
-          cleanPhone: cleanPhone,
-          formattedPhone: formattedPhone,
-          whatsapp: seeker.whatsapp
+          cleanPhone,
+          formattedPhone,
+          isPromotion,
         })
 
-        // Prepare request body based on whether media is included
+        const referenceId = isPromotion
+          ? `campaign_${campaignId || 'bulk'}_promo_${seeker.promotionCodeId || seeker.id}`
+          : `campaign_${campaignId || 'bulk'}_${seeker.id}`
+
         let requestBody: Record<string, any> = {
           to: formattedPhone,
           priority: 10,
-          referenceId: `campaign_${campaignId || 'bulk'}_${seeker.id}`
+          referenceId,
         }
 
         if (mediaFile) {
@@ -230,36 +248,41 @@ export async function POST(request: NextRequest) {
 
         // Check if the response is successful and doesn't contain errors
         if (response.ok && !responseData.error) {
-          // Log the interaction in the database
-          const interactionNotes = mediaFile 
-            ? `Bulk WhatsApp message with media sent via campaign. Media: ${mediaFile.name}${message ? `, Message: "${message.substring(0, 50)}${message.length > 50 ? '...' : ''}"` : ''}`
-            : `Bulk WhatsApp message sent via campaign. Message: "${message.substring(0, 100)}${message.length > 100 ? '...' : ''}"`
-            
-          await prisma.interaction.create({
-            data: {
-              seekerId: seeker.id,
-              userId: user.id,
-              channel: 'WHATSAPP',
-              outcome: 'CONNECTED_INTERESTED', // Default outcome for sent messages
-              notes: interactionNotes
-            }
-          })
+          if (!isPromotion) {
+            const interactionNotes = mediaFile
+              ? `Bulk WhatsApp message with media sent via campaign. Media: ${mediaFile.name}${message ? `, Message: "${message.substring(0, 50)}${message.length > 50 ? '...' : ''}"` : ''}`
+              : `Bulk WhatsApp message sent via campaign. Message: "${message.substring(0, 100)}${message.length > 100 ? '...' : ''}"`
+
+            await prisma.interaction.create({
+              data: {
+                seekerId: seeker.id,
+                userId: user.id,
+                channel: 'WHATSAPP',
+                outcome: 'CONNECTED_INTERESTED',
+                notes: interactionNotes,
+              },
+            })
+          }
 
           results.sentCount++
           recipientLogs.push({
-            seekerId: seeker.id,
+            seekerId: isPromotion ? null : seeker.id,
+            promotionCodeId: isPromotion ? seeker.promotionCodeId || seeker.id : null,
             phoneNumber: formattedPhone,
             status: 'SENT',
             sentAt: new Date(),
           })
         } else {
           results.failedCount++
-          const errorMessage = responseData.error 
-            ? (Array.isArray(responseData.error) ? responseData.error[0]?.message || responseData.error[0] : responseData.error.message || responseData.error)
+          const errorMessage = responseData.error
+            ? (Array.isArray(responseData.error)
+                ? responseData.error[0]?.message || responseData.error[0]
+                : responseData.error.message || responseData.error)
             : (responseData.message || 'Unknown error')
           results.errors.push(`Failed to send to ${seeker.fullName}: ${errorMessage}`)
           recipientLogs.push({
-            seekerId: seeker.id,
+            seekerId: isPromotion ? null : seeker.id,
+            promotionCodeId: isPromotion ? seeker.promotionCodeId || seeker.id : null,
             phoneNumber: formattedPhone,
             status: 'FAILED',
             errorMessage: String(errorMessage),
@@ -270,8 +293,10 @@ export async function POST(request: NextRequest) {
         results.failedCount++
         const errorMessage = error instanceof Error ? error.message : 'Unknown error'
         results.errors.push(`Error sending to ${seeker.fullName}: ${errorMessage}`)
+        const isPromotion = (seeker as BulkRecipient).recipientSource === 'promotion'
         recipientLogs.push({
-          seekerId: seeker.id,
+          seekerId: isPromotion ? null : seeker.id,
+          promotionCodeId: isPromotion ? (seeker as BulkRecipient).promotionCodeId || seeker.id : null,
           phoneNumber: seeker?.whatsappNumber || seeker?.phone || '',
           status: 'FAILED',
           errorMessage,
@@ -295,13 +320,14 @@ export async function POST(request: NextRequest) {
         campaignId: campaignId || 'bulk',
         recipients: {
           create: recipientLogs.map((r) => ({
-            seekerId: r.seekerId,
+            seekerId: r.seekerId ?? undefined,
+            promotionCodeId: r.promotionCodeId ?? undefined,
             phoneNumber: r.phoneNumber,
             status: r.status,
             errorMessage: r.errorMessage,
             sentAt: r.sentAt,
-          }))
-        }
+          })),
+        },
       }
     })
 

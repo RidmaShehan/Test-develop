@@ -52,6 +52,13 @@ interface EnhancedTask {
   projectId?: string
 }
 
+interface ComplianceSummary {
+  breachThresholdHours: number
+  summary: {
+    totalBreaches: number
+  }
+}
+
 export function useUnifiedReminderService() {
   const { addNotification, requestNotificationPermission } = useNotifications()
   const { user } = useAuth()
@@ -309,7 +316,7 @@ export function useUnifiedReminderService() {
                 ? `/notebooks/${note.notebookId}/notes/${note.id}`
                 : `/notebooks`,
               actionText: 'View Note',
-              entityType: 'meeting', // Using meeting as placeholder, could add 'note' type
+              entityType: 'note',
               entityId: note.id
             })
 
@@ -332,6 +339,39 @@ export function useUnifiedReminderService() {
     }
   }
 
+  const checkCoordinatorComplianceAlerts = async () => {
+    if (!user) return
+    const isAdminUser = ['ADMIN', 'ADMINISTRATOR', 'DEVELOPER'].includes(user.role)
+    if (!isAdminUser) return
+
+    try {
+      const response = await fetch('/api/tasks/compliance?hours=48')
+      if (!response.ok) return
+      const data = (await response.json()) as ComplianceSummary
+      const totalBreaches = data?.summary?.totalBreaches || 0
+      if (totalBreaches <= 0) return
+
+      const reminderKey = `compliance-breach-${totalBreaches}`
+      if (checkedRemindersRef.current.has(reminderKey)) return
+
+      checkedRemindersRef.current.add(reminderKey)
+      addNotification({
+        title: 'Coordinator Follow-up Breach Alert',
+        message: `${totalBreaches} inquiry follow-ups have crossed ${data.breachThresholdHours} hours without activity.`,
+        type: 'warning',
+        actionUrl: '/dashboard',
+        actionText: 'View Compliance',
+        entityType: 'task',
+      })
+
+      setTimeout(() => {
+        checkedRemindersRef.current.delete(reminderKey)
+      }, 60 * 60 * 1000)
+    } catch (error) {
+      console.error('Error checking coordinator compliance alerts:', error)
+    }
+  }
+
   const checkAllReminders = async () => {
     if (!user) return
 
@@ -340,7 +380,8 @@ export function useUnifiedReminderService() {
         checkMeetingReminders(),
         checkFollowUpTaskReminders(),
         checkEnhancedTaskReminders(),
-        checkNotebookReminders()
+        checkNotebookReminders(),
+        checkCoordinatorComplianceAlerts(),
       ])
     } catch (error) {
       console.error('Error in unified reminder service:', error)
@@ -363,7 +404,7 @@ export function useUnifiedReminderService() {
       }
       clearTimeout(initialTimeout)
     }
-  }, [user])
+  }, [user, checkAllReminders])
 
   return {
     checkAllReminders

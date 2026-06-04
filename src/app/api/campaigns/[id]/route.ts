@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { isAdminRole, requireAuth } from '@/lib/auth'
+import { notifyCampaignStarted, notifyCampaignClosed } from '@/lib/notification-service'
 
 // GET /api/campaigns/[id] - Get a specific campaign
 export async function GET(
@@ -72,7 +73,28 @@ export async function GET(
       )
     }
 
-    return NextResponse.json(campaign)
+    const [inquiryCount, registeredCount] = await Promise.all([
+      prisma.campaignSeeker.count({
+        where: {
+          campaignId: id,
+          seeker: { NOT: { isDeleted: true } },
+        },
+      }),
+      prisma.campaignSeeker.count({
+        where: {
+          campaignId: id,
+          seeker: { NOT: { isDeleted: true }, registerNow: true },
+        },
+      }),
+    ])
+
+    return NextResponse.json({
+      ...campaign,
+      inquiryAttribution: {
+        inquiryCount,
+        registeredCount,
+      },
+    })
   } catch (error) {
     console.error('Error fetching campaign:', error)
     return NextResponse.json(
@@ -149,6 +171,9 @@ export async function PUT(
     if (body.reach !== undefined) updateData.reach = body.reach ? parseInt(body.reach) : null
     if (body.imageUrl !== undefined) updateData.imageUrl = body.imageUrl
     if (body.status !== undefined) updateData.status = body.status
+    if (body.coordinatorId !== undefined) {
+      updateData.coordinatorId = body.coordinatorId || null
+    }
     
     // Analytics fields
     if (body.views !== undefined) updateData.views = body.views
@@ -164,6 +189,8 @@ export async function PUT(
     if (body.linkClicks !== undefined) updateData.linkClicks = body.linkClicks
     if (body.trafficSources !== undefined) updateData.trafficSources = body.trafficSources
     if (body.audienceDemographics !== undefined) updateData.audienceDemographics = body.audienceDemographics
+
+    const previousStatus = existingCampaign.status
 
     const campaign = await prisma.campaign.update({
       where: { id },
@@ -184,6 +211,13 @@ export async function PUT(
             icon: true
           }
         },
+        coordinator: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
         _count: {
           select: {
             seekers: true
@@ -191,6 +225,29 @@ export async function PUT(
         }
       }
     })
+
+    const newStatus = campaign.status
+    const coordinatorId = campaign.coordinatorId
+
+    if (coordinatorId) {
+      const becameActive = previousStatus !== 'ACTIVE' && newStatus === 'ACTIVE'
+      const becameClosed =
+        previousStatus === 'ACTIVE' &&
+        (newStatus === 'COMPLETED' ||
+          newStatus === 'CANCELLED' ||
+          newStatus === 'PAUSED')
+
+      if (becameActive) {
+        await notifyCampaignStarted(coordinatorId, campaign.id, campaign.name)
+      } else if (becameClosed) {
+        await notifyCampaignClosed(
+          coordinatorId,
+          campaign.id,
+          campaign.name,
+          newStatus
+        )
+      }
+    }
 
     return NextResponse.json(campaign)
   } catch (error) {

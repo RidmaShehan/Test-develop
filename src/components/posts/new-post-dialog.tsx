@@ -73,8 +73,9 @@ interface NewPostDialogProps {
 
 export function NewPostDialog({ open, onOpenChange, onPostCreated }: NewPostDialogProps) {
   const [submitting, setSubmitting] = useState(false)
-  const [isUploadingImage, setIsUploadingImage] = useState(false)
   const [isCompressingImage, setIsCompressingImage] = useState(false)
+  const [isEncodingImage, setIsEncodingImage] = useState(false)
+  const [isDecodingImage, setIsDecodingImage] = useState(false)
   const [isDragOver, setIsDragOver] = useState(false)
   const [programs, setPrograms] = useState<Program[]>([])
   const [campaigns, setCampaigns] = useState<Campaign[]>([])
@@ -110,7 +111,11 @@ export function NewPostDialog({ open, onOpenChange, onPostCreated }: NewPostDial
   const fetchPrograms = async () => {
     try {
       const response = await fetch('/api/programs')
-      if (response.ok) setPrograms(await response.json())
+      if (response.ok) {
+        setPrograms(await response.json())
+      } else if (response.status === 401) {
+        setUploadError('Session expired. Please sign in again.')
+      }
     } catch (error) {
       console.error('Error fetching programs:', error)
     }
@@ -122,6 +127,8 @@ export function NewPostDialog({ open, onOpenChange, onPostCreated }: NewPostDial
       if (response.ok) {
         const data = await response.json()
         setCampaigns(data.campaigns || [])
+      } else if (response.status === 401) {
+        setUploadError('Session expired. Please sign in again.')
       }
     } catch (error) {
       console.error('Error fetching campaigns:', error)
@@ -131,7 +138,11 @@ export function NewPostDialog({ open, onOpenChange, onPostCreated }: NewPostDial
   const fetchUsers = async () => {
     try {
       const response = await fetch('/api/users')
-      if (response.ok) setUsers(await response.json())
+      if (response.ok) {
+        setUsers(await response.json())
+      } else if (response.status === 401) {
+        setUploadError('Session expired. Please sign in again.')
+      }
     } catch (error) {
       console.error('Error fetching users:', error)
     }
@@ -147,7 +158,7 @@ export function NewPostDialog({ open, onOpenChange, onPostCreated }: NewPostDial
 
     let processedFile = file
     const maxSize = 5 * 1024 * 1024
-    const safeForRequest = 1024 * 1024 // 1 MB — stay under typical server body limit
+    const safeForRequest = 1024 * 1024 // 1 MB — keep JSON payload practical
 
     if (file.size > maxSize) {
       setIsCompressingImage(true)
@@ -188,51 +199,48 @@ export function NewPostDialog({ open, onOpenChange, onPostCreated }: NewPostDial
       }
     }
 
-    const objectUrl = URL.createObjectURL(processedFile)
-    setImagePreview(objectUrl)
-    setIsUploadingImage(true)
-
     try {
-      const formDataUpload = new FormData()
-      formDataUpload.append('file', processedFile)
-      formDataUpload.append('folder', 'posts')
-
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: formDataUpload,
-      })
-
-      const data = await response.json().catch(() => ({}))
-      if (response.ok) {
-        setFormData(prev => ({ ...prev, imageUrl: data.url, videoUrl: '', mediaType: 'image' }))
-        setUploadError(null)
-        toast.success('Image uploaded successfully')
-      } else {
-        let message = data?.error || 'Failed to upload image.'
-        if (response.status === 413) {
-          message = 'Image too large for server. Use a smaller image (under 1 MB) or paste an image link instead.'
-        } else if (response.status === 401) {
-          message = 'Please sign in to upload images.'
+      setIsEncodingImage(true)
+      const dataUrl = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader()
+        reader.onload = () => {
+          if (typeof reader.result === 'string') {
+            resolve(reader.result)
+          } else {
+            reject(new Error('Failed to encode image as base64'))
+          }
         }
-        setUploadError(message)
-        toast.error(message)
-        URL.revokeObjectURL(objectUrl)
-        setImagePreview(null)
-        setFormData(prev => ({ ...prev, imageUrl: '', videoUrl: '', mediaType: '' }))
-      }
+        reader.onerror = () => reject(new Error('Failed to encode image as base64'))
+        reader.readAsDataURL(processedFile)
+      })
+      setIsEncodingImage(false)
+
+      setIsDecodingImage(true)
+      await new Promise<void>((resolve, reject) => {
+        const img = new Image()
+        img.onload = () => resolve()
+        img.onerror = () => reject(new Error('Failed to decode image preview'))
+        img.src = dataUrl
+      })
+      setIsDecodingImage(false)
+
+      setImagePreview(dataUrl)
+      setFormData(prev => ({ ...prev, imageUrl: dataUrl, videoUrl: '', mediaType: 'image' }))
+      setUploadError(null)
+      toast.success('Image converted to base64 successfully')
     } catch (error) {
-      console.error('Error uploading image:', error)
+      console.error('Error processing image:', error)
       const message =
         error instanceof Error
           ? error.message
-          : 'Upload failed. If the image is large, try a smaller file or use an image link instead.'
+          : 'Image processing failed. If the image is large, try a smaller file or use an image link.'
       setUploadError(message)
-      toast.error('Failed to upload image')
-      URL.revokeObjectURL(objectUrl)
+      toast.error('Failed to process image')
       setImagePreview(null)
       setFormData(prev => ({ ...prev, imageUrl: '', videoUrl: '', mediaType: '' }))
     } finally {
-      setIsUploadingImage(false)
+      setIsEncodingImage(false)
+      setIsDecodingImage(false)
       if (fileInputRef.current) fileInputRef.current.value = ''
     }
   }, [])
@@ -403,7 +411,11 @@ export function NewPostDialog({ open, onOpenChange, onPostCreated }: NewPostDial
         resetForm()
       } else {
         const error = await response.json()
-        toast.error(error.error || 'Failed to create post')
+        if (response.status === 401) {
+          toast.error('Session expired. Please sign in again.')
+        } else {
+          toast.error(error.error || 'Failed to create post')
+        }
       }
     } catch (error) {
       console.error('Error creating post:', error)
@@ -413,7 +425,7 @@ export function NewPostDialog({ open, onOpenChange, onPostCreated }: NewPostDial
     }
   }
 
-  const isImageBusy = isUploadingImage || isCompressingImage
+  const isImageBusy = isCompressingImage || isEncodingImage || isDecodingImage
 
   const hasMedia = !!(formData.imageUrl || formData.videoUrl)
   const showVideoPreview = formData.mediaType === 'video' && formData.videoUrl
@@ -578,10 +590,20 @@ export function NewPostDialog({ open, onOpenChange, onPostCreated }: NewPostDial
                               <Zap className="w-7 h-7 text-yellow-400 animate-pulse" />
                               <p className="text-white text-sm font-medium">Compressing image…</p>
                             </>
+                          ) : isEncodingImage ? (
+                            <>
+                              <Loader2 className="w-7 h-7 text-white animate-spin" />
+                              <p className="text-white text-sm font-medium">Encoding base64…</p>
+                            </>
+                          ) : isDecodingImage ? (
+                            <>
+                              <Loader2 className="w-7 h-7 text-white animate-spin" />
+                              <p className="text-white text-sm font-medium">Decoding preview…</p>
+                            </>
                           ) : (
                             <>
                               <Loader2 className="w-7 h-7 text-white animate-spin" />
-                              <p className="text-white text-sm font-medium">Uploading…</p>
+                              <p className="text-white text-sm font-medium">Processing image…</p>
                             </>
                           )}
                         </div>
@@ -591,7 +613,7 @@ export function NewPostDialog({ open, onOpenChange, onPostCreated }: NewPostDial
                         <div className="absolute top-2 left-2">
                           <Badge className="bg-emerald-500/90 text-white border-0 gap-1 text-xs">
                             <CheckCircle2 className="w-3 h-3" />
-                            {formData.imageUrl.startsWith('http') ? 'Image link' : 'Uploaded'}
+                            {formData.imageUrl.startsWith('http') ? 'Image link' : formData.imageUrl.startsWith('data:') ? 'Base64 image' : 'Uploaded'}
                           </Badge>
                         </div>
                       )}
@@ -656,7 +678,9 @@ export function NewPostDialog({ open, onOpenChange, onPostCreated }: NewPostDial
                             <p className="text-sm font-medium">
                               {isDragOver ? 'Drop image here' : 'Upload image or add link below'}
                             </p>
-                            <p className="text-xs text-muted-foreground">PNG, JPG, GIF · Auto-compressed if &gt;5 MB</p>
+                            <p className="text-xs text-muted-foreground">
+                              PNG, JPG, GIF · Auto-compressed if &gt;5 MB · stored as base64
+                            </p>
                           </div>
                         </div>
                       </div>

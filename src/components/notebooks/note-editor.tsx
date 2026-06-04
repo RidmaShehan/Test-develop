@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { RichTextEditor } from '@/components/ui/rich-text-editor'
+import { NoteQuillEditor } from '@/components/notebooks/note-quill-editor'
 import { Switch } from '@/components/ui/switch'
 import { Calendar } from '@/components/ui/calendar'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
@@ -46,6 +46,48 @@ export function NoteEditor({ notebookId, noteId }: NoteEditorProps) {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const spaceSaveTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  const handleExportPdf = async () => {
+    const editorEl = document.querySelector('.ql-editor') as HTMLElement | null
+    if (!editorEl) return
+
+    try {
+      const jsPDFModule = await import('jspdf')
+      const JsPdfCtor = (jsPDFModule as any).jsPDF || (jsPDFModule as any).default
+      if (!JsPdfCtor) return
+
+      const pdfDoc = new JsPdfCtor('p', 'pt', 'a4')
+      ;(pdfDoc as any).html(editorEl, {
+        x: 24,
+        y: 24,
+        html2canvas: { scale: 0.8 },
+        callback: (doc: any) => {
+          const safeTitle = title?.trim() || 'note'
+          doc.save(`${safeTitle}.pdf`)
+        },
+      })
+    } catch (error) {
+      console.error('Error exporting PDF:', error)
+      alert('Failed to export PDF')
+    }
+  }
+
+  const handleExportDoc = () => {
+    const htmlContent = content || ''
+    const safeTitle = title?.trim() || 'note'
+    const fullHtml = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>${safeTitle}</title></head><body>${htmlContent}</body></html>`
+
+    const blob = new Blob([fullHtml], { type: 'application/msword' })
+    const url = URL.createObjectURL(blob)
+
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `${safeTitle}.doc`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+  }
 
   useEffect(() => {
     fetchNote()
@@ -195,9 +237,10 @@ export function NoteEditor({ notebookId, noteId }: NoteEditorProps) {
       if (e.key === ' ' && !e.ctrlKey && !e.metaKey && !e.altKey) {
         const target = e.target as HTMLElement
         // Only trigger save if typing in the content editor (not in title input)
-        const isInEditor = target.closest('[contenteditable="true"]') || 
-                          target.closest('.rich-text-editor') ||
-                          (target.tagName === 'DIV' && target.contentEditable === 'true')
+        const isInEditor =
+          target.closest('.ql-editor') ||
+          target.closest('[data-note-quill-editor]') ||
+          target.closest('[contenteditable="true"]')
         
         if (isInEditor) {
           // Clear any pending space save
@@ -276,6 +319,20 @@ export function NoteEditor({ notebookId, noteId }: NoteEditorProps) {
             />
           </Button>
           <Button
+            variant="outline"
+            size="sm"
+            onClick={handleExportPdf}
+          >
+            PDF
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleExportDoc}
+          >
+            DOC
+          </Button>
+          <Button
             onClick={handleSave}
             disabled={saving}
             data-save-button
@@ -303,12 +360,12 @@ export function NoteEditor({ notebookId, noteId }: NoteEditorProps) {
         </div>
       </div>
 
-      <div className="border rounded-lg min-h-[500px] bg-background">
-        <RichTextEditor
+      <div className="min-h-[500px]">
+        <NoteQuillEditor
           value={content}
           onChange={setContent}
           placeholder="Start writing your note..."
-          className="min-h-[500px] p-6"
+          editorMinHeightClass="min-h-[480px]"
         />
       </div>
 

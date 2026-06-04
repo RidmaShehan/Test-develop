@@ -78,10 +78,10 @@ export default function NotebooksPage() {
               <BookOpen className="h-8 w-8 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+              <h1 className="text-3xl font-bold text-foreground">
                 Notebooks
               </h1>
-              <p className="text-gray-500 mt-1">
+              <p className="text-muted-foreground mt-1">
                 Organize your thoughts and ideas like Notion
               </p>
             </div>

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { requireAuth, isAdminRole } from '@/lib/auth'
+import { requireAuth } from '@/lib/auth'
+import { canViewAllInquiries } from '@/lib/inquiry-visibility'
 import * as XLSX from 'xlsx'
 
 export async function GET(request: NextRequest) {
@@ -14,8 +15,7 @@ export async function GET(request: NextRequest) {
       NOT: { isDeleted: true },
     }
     
-    // Non-admin users can only export inquiries they created
-    if (!isAdminRole(user.role)) {
+    if (!(await canViewAllInquiries(user.id, user.role))) {
       where.createdById = user.id
     }
 

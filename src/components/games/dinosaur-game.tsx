@@ -233,7 +233,7 @@ export function DinosaurGame() {
           {!isNightMode && (
             <>
               <div className="absolute top-10 left-20 w-16 h-8 bg-white bg-opacity-50 rounded-full" />
-              <div className="absolute top-15 left-40 w-12 h-6 bg-white bg-opacity-50 rounded-full" />
+              <div className="absolute top-14 left-40 w-12 h-6 bg-white bg-opacity-50 rounded-full" />
             </>
           )}
 
@@ -241,7 +241,7 @@ export function DinosaurGame() {
           {isNightMode && (
             <>
               <div className="absolute top-10 left-20 w-1 h-1 bg-white rounded-full" />
-              <div className="absolute top-15 left-40 w-1 h-1 bg-white rounded-full" />
+              <div className="absolute top-14 left-40 w-1 h-1 bg-white rounded-full" />
               <div className="absolute top-20 left-60 w-1 h-1 bg-white rounded-full" />
               <div className="absolute top-12 left-80 w-1 h-1 bg-white rounded-full" />
             </>
@@ -354,7 +354,7 @@ export function DinosaurGame() {
         </div>
       )}
 
-      <div className="text-center text-sm text-gray-600">
+      <div className="text-center text-sm text-muted-foreground">
         <p>Press Space or Arrow Up to jump! Game speed increases with score.</p>
         {score > 100 && (
           <p className="text-yellow-600 mt-1">Night mode activated! Watch out for birds!</p>

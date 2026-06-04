@@ -13,7 +13,19 @@ export async function GET(request: NextRequest) {
     const isAdmin = isAdminRole(user.role)
 
     // Get recent activities from various sources
-    const activities: any[] = []
+    const activities: Array<{
+      id: string
+      type: string
+      title: string
+      description: string
+      timestamp: Date
+      userId?: string
+      userName: string
+      userEmail: string
+      entityType: string
+      entityId: string
+      entityName: string
+    }> = []
 
     // Task activities
     const recentTasks = await prisma.task.findMany({

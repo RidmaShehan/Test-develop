@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/button'
-import { RotateCcw, Timer } from 'lucide-react'
+import { RotateCcw } from 'lucide-react'
 
 type GameState = 'waiting' | 'ready' | 'click' | 'too-early' | 'result'
 
@@ -10,7 +10,6 @@ export function ReactionGame() {
   const [gameState, setGameState] = useState<GameState>('waiting')
   const [reactionTime, setReactionTime] = useState<number | null>(null)
   const [times, setTimes] = useState<number[]>([])
-  const [countdown, setCountdown] = useState(0)
   const startTimeRef = useRef<number>(0)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -45,6 +44,11 @@ export function ReactionGame() {
       setReactionTime(time)
       setTimes(prev => [...prev, time])
       setGameState('result')
+      return
+    }
+
+    if (gameState === 'result' || gameState === 'too-early') {
+      startRound()
     }
   }
 
@@ -93,7 +97,7 @@ export function ReactionGame() {
         <div className="w-full max-w-md">
           <button
             onClick={gameState === 'waiting' ? startRound : handleClick}
-            className={`w-full h-96 rounded-lg text-white text-3xl font-bold transition-all ${getColor()}`}
+            className={`w-full h-72 sm:h-96 rounded-lg text-white text-2xl sm:text-3xl font-bold transition-all ${getColor()}`}
           >
             {getText()}
           </button>
@@ -109,7 +113,7 @@ export function ReactionGame() {
           }`}>
             {reactionTime}ms
           </div>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-muted-foreground">
             {reactionTime < 200 ? 'Excellent!' :
              reactionTime < 300 ? 'Good!' :
              reactionTime < 400 ? 'Average' :
@@ -125,7 +129,7 @@ export function ReactionGame() {
             {times.map((time, index) => (
               <span
                 key={index}
-                className="px-3 py-1 bg-gray-100 rounded-full text-sm"
+                className="px-3 py-1 bg-muted rounded-full text-sm"
               >
                 {time}ms
               </span>
@@ -141,7 +145,7 @@ export function ReactionGame() {
         </Button>
       </div>
 
-      <div className="text-center text-sm text-gray-600">
+      <div className="text-center text-sm text-muted-foreground">
         <p>Click when the box turns green! Test your reaction speed.</p>
       </div>
     </div>

@@ -8,8 +8,8 @@ export default function UsersPage() {
       <div className="space-y-6">
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Users</h1>
-            <p className="text-gray-600">Manage system users and their roles</p>
+            <h1 className="text-2xl font-bold text-foreground">Users</h1>
+            <p className="text-muted-foreground">Manage system users and their roles</p>
           </div>
           <NewUserButton />
         </div>

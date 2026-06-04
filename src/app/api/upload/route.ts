@@ -1,32 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/auth'
-import { uploadToS3 } from '@/lib/s3'
-import { writeFile, mkdir } from 'fs/promises'
-import { join } from 'path'
-import { randomUUID } from 'crypto'
 import { validateImageFile } from '@/lib/file-type-validation'
 
-// Media storage configuration
-// Note: If uploads fail with no clear error, common causes are:
-// - Request body > 1MB (Next.js default). Use client-side compression or next.config serverActions.bodySizeLimit.
-// - Not signed in (401). User must be authenticated.
-// - File type: only JPEG, PNG, GIF, WebP (validated by magic bytes).
-const MEDIA_UPLOAD_DIR = join(process.cwd(), 'public', 'uploads', 'campaigns')
+// Note: This endpoint now returns a base64 data URL instead of writing to S3/local disk.
+// Use client-side compression to keep payloads small.
 const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024 // 10 MB
-
-async function saveMediaFileLocally(
-  buffer: Buffer,
-  fileExtension: string
-): Promise<{ filePath: string; fileName: string }> {
-  await mkdir(MEDIA_UPLOAD_DIR, { recursive: true })
-  const uniqueFileName = `${randomUUID()}.${fileExtension}`
-  const filePath = join(MEDIA_UPLOAD_DIR, uniqueFileName)
-  await writeFile(filePath, buffer)
-  return {
-    filePath: `/uploads/campaigns/${uniqueFileName}`,
-    fileName: uniqueFileName,
-  }
-}
 
 export async function POST(request: NextRequest) {
   try {
@@ -59,37 +37,15 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Try S3 first, fallback to local storage
-    let result: { filePath: string; fileName: string; s3Key?: string }
-    
-    try {
-      const s3Result = await uploadToS3(file, 'campaigns')
-      result = {
-        filePath: s3Result.filePath,
-        fileName: s3Result.fileName,
-        s3Key: s3Result.s3Key,
-      }
-    } catch (s3Error) {
-      console.warn('S3 upload failed, falling back to local storage:', s3Error)
-      try {
-        const buffer = Buffer.from(await file.arrayBuffer())
-        const localResult = await saveMediaFileLocally(buffer, detected.ext)
-        result = {
-          filePath: localResult.filePath,
-          fileName: localResult.fileName,
-        }
-      } catch (localError) {
-        console.error('Both S3 and local storage failed:', { s3Error, localError })
-        return NextResponse.json(
-          { error: 'Failed to upload file. Please try again later.' },
-          { status: 500 }
-        )
-      }
-    }
+    // Convert file to base64 data URL (no S3 / filesystem)
+    const buffer = Buffer.from(await file.arrayBuffer())
+    const base64 = buffer.toString('base64')
+    const mimeType = detected.mime || file.type || 'application/octet-stream'
+    const dataUrl = `data:${mimeType};base64,${base64}`
 
     return NextResponse.json({
-      url: result.filePath,
-      key: result.s3Key || result.fileName,
+      url: dataUrl,
+      key: `inline:${detected.ext}`,
     })
   } catch (error) {
     console.error('Error uploading file:', error)

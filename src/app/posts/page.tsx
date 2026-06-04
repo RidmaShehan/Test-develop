@@ -399,8 +399,8 @@ export default function PostsPage() {
       <DashboardLayout>
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900">Access Denied</h1>
-            <p className="mt-2 text-gray-600">Please sign in to access social media posts.</p>
+            <h1 className="text-2xl font-bold text-foreground">Access Denied</h1>
+            <p className="mt-2 text-muted-foreground">Please sign in to access social media posts.</p>
           </div>
         </div>
       </DashboardLayout>
@@ -409,12 +409,12 @@ export default function PostsPage() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
+        <div className="space-y-6">
         {/* Professional Header */}
-        <div className="flex justify-between items-center pb-4 border-b border-gray-200">
+        <div className="flex justify-between items-center pb-4 border-b border-border/60">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Social Media Posts</h1>
-            <p className="text-sm text-gray-600 mt-1">
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Social Media Posts</h1>
+            <p className="text-sm text-muted-foreground mt-1">
               Create and manage social media posts with approval workflow
             </p>
           </div>

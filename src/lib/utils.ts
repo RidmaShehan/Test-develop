@@ -47,3 +47,30 @@ export async function safeJsonParse<T = any>(response: Response): Promise<T> {
     throw new Error(`Failed to parse JSON response: ${error instanceof Error ? error.message : 'Unknown error'}`)
   }
 }
+
+/**
+ * Convert a data URL (e.g. data:image/png;base64,...) to a File for FormData uploads.
+ * Prefer this over fetch(dataUrl) for template images — more reliable across browsers.
+ */
+export function dataUrlToFile(dataUrl: string, filename: string, fallbackMime?: string): File {
+  const comma = dataUrl.indexOf(',')
+  if (comma === -1) {
+    throw new Error('Invalid data URL')
+  }
+  const header = dataUrl.slice(0, comma)
+  const base64 = dataUrl.slice(comma + 1).replace(/\s/g, '')
+  const mimeMatch = header.match(/^data:([^;,]+)/i)
+  const mime = mimeMatch?.[1]?.trim() || fallbackMime || 'application/octet-stream'
+  let binary: string
+  try {
+    binary = atob(base64)
+  } catch {
+    throw new Error('Invalid base64 in data URL')
+  }
+  const len = binary.length
+  const bytes = new Uint8Array(len)
+  for (let i = 0; i < len; i++) {
+    bytes[i] = binary.charCodeAt(i)
+  }
+  return new File([bytes], filename, { type: mime })
+}

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { requireAuth } from '@/lib/auth'
+import { requireAuth, AuthenticationError } from '@/lib/auth'
 import { notifyNextApprover, notifyPostApproved, notifyPostFullyApproved } from '@/lib/notification-service'
 
 // POST /api/posts/[id]/approve - Approve a post
@@ -156,6 +156,9 @@ export async function POST(
     return NextResponse.json(updatedPost)
   } catch (error) {
     console.error('Error approving post:', error)
+    if (error instanceof AuthenticationError) {
+      return NextResponse.json({ error: error.message }, { status: 401 })
+    }
     return NextResponse.json(
       { error: error instanceof Error ? error.message : 'Failed to approve post' },
       { status: 500 }

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { requireAuth } from '@/lib/auth'
+import { requireAuth, AuthenticationError } from '@/lib/auth'
 
 // GET /api/posts/pending - Get posts pending approval for current user
 export async function GET(request: NextRequest) {
@@ -73,6 +73,9 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ posts: pendingForUser, count: pendingForUser.length })
   } catch (error) {
     console.error('Error fetching pending approvals:', error)
+    if (error instanceof AuthenticationError) {
+      return NextResponse.json({ error: error.message }, { status: 401 })
+    }
     return NextResponse.json(
       { error: error instanceof Error ? error.message : 'Failed to fetch pending approvals' },
       { status: 500 }

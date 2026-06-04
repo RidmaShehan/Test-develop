@@ -170,6 +170,25 @@ export function canPerformAction(userPermissions: string[], action: string, reso
   return hasPermission(userPermissions, permission)
 }
 
+/**
+ * Professional CRUD permission helpers
+ */
+export function canCreate(userPermissions: string[], resource: string): boolean {
+  return hasPermission(userPermissions, `CREATE_${resource.toUpperCase()}`)
+}
+
+export function canRead(userPermissions: string[], resource: string): boolean {
+  return hasPermission(userPermissions, `READ_${resource.toUpperCase()}`)
+}
+
+export function canUpdate(userPermissions: string[], resource: string): boolean {
+  return hasPermission(userPermissions, `UPDATE_${resource.toUpperCase()}`)
+}
+
+export function canDelete(userPermissions: string[], resource: string): boolean {
+  return hasPermission(userPermissions, `DELETE_${resource.toUpperCase()}`)
+}
+
 // Get user's effective permissions from roles
 export function getUserPermissions(userRoles: Array<{ role: { permissions: Array<{ permission: { name: string } }> } }>): string[] {
   const permissions = new Set<string>()

@@ -31,11 +31,19 @@ export async function GET(request: NextRequest) {
               select: {
                 id: true,
                 fullName: true,
-                phone: true
-              }
-            }
-          }
-        }
+                phone: true,
+              },
+            },
+            promotionCode: {
+              select: {
+                id: true,
+                code: true,
+                promoterName: true,
+                promoterPhone: true,
+              },
+            },
+          },
+        },
       },
       orderBy: {
         sentAt: 'desc'

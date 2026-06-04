@@ -52,7 +52,7 @@ function SignInForm() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-muted/20 py-12 px-4 sm:px-6 lg:px-8">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <div className="flex justify-center">
@@ -109,6 +109,15 @@ function SignInForm() {
               {isLoading ? 'Signing in...' : 'Sign In'}
             </Button>
           </form>
+<<<<<<< HEAD
+=======
+          <div className="mt-4 text-center text-sm">
+            <p className="text-muted-foreground">
+              For development, you can use any email/password combination.
+              The system will use the default admin user.
+            </p>
+          </div>
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
         </CardContent>
       </Card>
     </div>
@@ -119,7 +128,7 @@ export default function SignInPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="min-h-screen flex items-center justify-center bg-muted/20">
           <div className="animate-spin rounded-full h-8 w-8 border-2 border-primary border-t-transparent" />
         </div>
       }

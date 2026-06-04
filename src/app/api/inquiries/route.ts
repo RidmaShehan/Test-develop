@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { requireAuth, isAdminRole } from '@/lib/auth'
-import { logUserActivity } from '@/lib/activity-logger'
+import { requireAuth, AuthenticationError } from '@/lib/auth'
+import { createInquiryFromBody } from '@/lib/inquiry-create-internal'
+import { canViewAllInquiries } from '@/lib/inquiry-visibility'
 
 export async function GET(request: NextRequest) {
   try {
@@ -22,20 +23,23 @@ export async function GET(request: NextRequest) {
       )
     }
     
-    // Build where clause based on user role
-    // Only ADMIN/ADMINISTRATOR/DEVELOPER can see all inquiries
-    // Other users can only see inquiries they created
+    // Build where clause: admins (role or permission-based) see all inquiries; others only their own
     // Treat legacy rows where isDeleted might be NULL as "not deleted"
     // (Some older DB rows may have NULL even if Prisma schema is non-nullable)
-    const where: any = {
+    const where: Record<string, any> = {
       NOT: { isDeleted: true },
     }
     
-    if (!isAdminRole(_user.role)) {
-      // Non-admin users can only see inquiries they created
+    if (!(await canViewAllInquiries(_user.id, _user.role))) {
       where.createdById = _user.id
     }
-    
+
+    // Optional: only inquiries linked to a promotion code (e.g. WhatsApp campaign "Promo" filter)
+    const hasPromotionCodeParam = searchParams.get('hasPromotionCode')
+    if (hasPromotionCodeParam === 'true' || hasPromotionCodeParam === '1') {
+      where.promotionCodeId = { not: null }
+    }
+
     // Use transaction to fetch data and count in parallel for better performance
     const [seekers, totalInquiries] = await prisma.$transaction([
       prisma.seeker.findMany({
@@ -129,281 +133,28 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     console.log('Received body:', body)
 
-    // Check for duplicate phone number (skip if allowDuplicatePhone is true)
-    // This is useful when creating multiple inquiries for the same person with different programs
-    if (!body.allowDuplicatePhone) {
-      const existingSeeker = await prisma.seeker.findUnique({
-        where: {
-          phone: body.phone,
-        },
-      })
+    // Duplicate phone numbers are allowed so teams can log multiple inquiries
+    // for the same contact (e.g. different programs/campaigns/follow-ups).
 
-      if (existingSeeker) {
-        return NextResponse.json(
-          { error: 'An inquiry with this phone number already exists' },
-          { status: 400 }
-        )
-      }
-    }
-
-    console.log('Creating seeker with data:', {
-      ...body,
-      createdById: _user.id,
+    const seeker = await createInquiryFromBody({
+      body,
+      userId: _user.id,
+      request,
     })
-    
-    // Build data object - temporarily exclude registerNow until Prisma client is regenerated
-    const seekerData: any = {
-      fullName: body.fullName,
-      phone: body.phone,
-      whatsapp: body.whatsapp || false,
-      whatsappNumber: body.whatsappNumber || null,
-      notAnswering: body.notAnswering || false,
-      email: body.email || null,
-      emailNotAnswering: body.emailNotAnswering || false,
-      city: body.city || null,
-      ageBand: body.ageBand || null,
-      guardianPhone: body.guardianPhone || null,
-      marketingSource: body.marketingSource,
-      campaignId: body.campaignId || null,
-      preferredContactTime: body.preferredContactTime || null,
-      preferredStatus: body.preferredStatus || null,
-      followUpAgain: body.followUpAgain || false,
-      followUpDate: body.followUpDate || null,
-      followUpTime: body.followUpTime || null,
-      description: body.description || null,
-      consent: body.consent || false,
-      promotionCodeId: body.promotionCodeId || null,
-      createdById: _user.id,
-      // Create many-to-many relationships for preferred programs
-      preferredPrograms: {
-        create: (body.preferredProgramIds || []).map((programId: string) => ({
-          programId: programId,
-        })),
-      },
-    }
-
-    const seeker = await prisma.seeker.create({
-      data: seekerData,
-      include: {
-        programInterest: true,
-        preferredPrograms: {
-          include: {
-            program: true,
-          },
-        },
-        createdBy: {
-          select: {
-            name: true,
-          },
-        },
-        campaigns: {
-          include: {
-            campaign: {
-              select: {
-                id: true,
-                name: true,
-                type: true,
-              },
-            },
-          },
-        },
-      },
-    })
-    
-    console.log('Seeker created successfully:', seeker)
-
-    // Update registerNow field if provided (workaround until Prisma client is regenerated)
-    if (body.registerNow !== undefined) {
-      try {
-        // Use Prisma's update with type assertion as workaround
-        await (prisma.seeker.update as any)({
-          where: { id: seeker.id },
-          data: { registerNow: body.registerNow || false },
-        })
-        // Update the seeker object to include registerNow in response
-        ;(seeker as any).registerNow = body.registerNow || false
-      } catch (updateError) {
-        console.warn('Could not update registerNow field (Prisma client may need regeneration):', updateError)
-        // Continue without failing the request
-      }
-    }
-
-    // Log initial CALL interaction with calculated duration (stored in notes)
-    // This allows showing Call Duration in Overview without DB schema changes.
-    try {
-      if (
-        !body.notAnswering &&
-        body.callStartTime &&
-        body.callDurationMinutes !== undefined &&
-        body.callDurationMinutes !== null
-      ) {
-        const outcome = body.notAnswering ? 'NO_ANSWER' : 'CONNECTED_INTERESTED'
-        await prisma.interaction.create({
-          data: {
-            seekerId: seeker.id,
-            userId: _user.id,
-            channel: 'CALL',
-            outcome,
-            notes: `Call Start Time: ${body.callStartTime}; Call Duration: ${Number(body.callDurationMinutes)} minutes`,
-          },
-        })
-      }
-    } catch (interactionError) {
-      console.error('Error creating initial call interaction:', interactionError)
-      // Don't fail the inquiry creation if interaction logging fails
-    }
-
-    // Create CampaignSeeker relationship if campaignId is provided
-    if (body.campaignId && body.campaignId.trim() !== '') {
-      try {
-        await prisma.campaignSeeker.create({
-          data: {
-            seekerId: seeker.id,
-            campaignId: body.campaignId,
-          },
-        })
-        console.log('CampaignSeeker relationship created successfully')
-        
-        // Fetch the updated seeker with campaigns included
-        const updatedSeeker = await prisma.seeker.findUnique({
-          where: { id: seeker.id },
-          include: {
-            programInterest: true,
-            preferredPrograms: {
-              include: {
-                program: true,
-              },
-            },
-            createdBy: {
-              select: {
-                name: true,
-              },
-            },
-            campaigns: {
-              include: {
-                campaign: {
-                  select: {
-                    id: true,
-                    name: true,
-                    type: true,
-                  },
-                },
-              },
-            },
-          },
-        })
-        
-        if (updatedSeeker) {
-          // Use the updated seeker with campaigns for the response
-          Object.assign(seeker, updatedSeeker)
-        }
-      } catch (campaignError) {
-        console.error('Error creating CampaignSeeker relationship:', campaignError)
-        // Don't fail the inquiry creation if campaign relationship creation fails
-      }
-    }
-
-    // Log activity: Inquiry created by user
-    try {
-      await logUserActivity({
-        userId: _user.id,
-        activityType: 'CREATE_INQUIRY',
-        request,
-        isSuccessful: true,
-        metadata: {
-          seekerId: seeker.id,
-          seekerName: seeker.fullName,
-          seekerPhone: seeker.phone,
-        },
-      })
-    } catch (logError) {
-      console.error('Error logging inquiry creation activity:', logError)
-      // Don't fail the inquiry creation if logging fails
-    }
-
-    // Automatically create 2 follow-up tasks for every new inquiry (as planned)
-    // First follow-up: 3 days, Second follow-up: 7 days — so all inquiries get consistent follow-up reminders
-    try {
-      const now = new Date()
-
-      // First follow-up: 3 days from now at 10 AM
-      const firstDueDate = new Date(now)
-      firstDueDate.setDate(firstDueDate.getDate() + 3)
-      firstDueDate.setHours(10, 0, 0, 0)
-
-      // Second follow-up: 7 days from now at 10 AM
-      const secondDueDate = new Date(now)
-      secondDueDate.setDate(secondDueDate.getDate() + 7)
-      secondDueDate.setHours(10, 0, 0, 0)
-
-      const firstFollowUpTask = await prisma.followUpTask.create({
-        data: {
-          seekerId: seeker.id,
-          assignedTo: _user.id,
-          dueAt: firstDueDate,
-          purpose: 'CALLBACK',
-          notes: `Automatic follow-up #1: Initial contact follow-up for inquiry - ${seeker.fullName} (${seeker.phone})`,
-          status: 'OPEN',
-        },
-      })
-
-      const secondFollowUpTask = await prisma.followUpTask.create({
-        data: {
-          seekerId: seeker.id,
-          assignedTo: _user.id,
-          dueAt: secondDueDate,
-          purpose: 'CALLBACK',
-          notes: `Automatic follow-up #2: Secondary follow-up for inquiry - ${seeker.fullName} (${seeker.phone})`,
-          status: 'OPEN',
-        },
-      })
-
-      await Promise.all([
-        prisma.taskActionHistory.create({
-          data: {
-            taskId: firstFollowUpTask.id,
-            fromStatus: null,
-            toStatus: 'OPEN',
-            actionBy: _user.id,
-            notes: 'Task created automatically from new inquiry - First follow-up (3 days)',
-          },
-        }),
-        prisma.taskActionHistory.create({
-          data: {
-            taskId: secondFollowUpTask.id,
-            fromStatus: null,
-            toStatus: 'OPEN',
-            actionBy: _user.id,
-            notes: 'Task created automatically from new inquiry - Second follow-up (7 days)',
-          },
-        }),
-      ])
-
-      console.log('Automatic follow-up tasks created for new inquiry:', {
-        seekerId: seeker.id,
-        first: firstFollowUpTask.id,
-        second: secondFollowUpTask.id,
-      })
-    } catch (taskError) {
-      console.error('Error creating automatic follow-up tasks:', taskError)
-      // Don't fail the inquiry creation if task creation fails
-    }
 
     return NextResponse.json(seeker, { status: 201 })
   } catch (error) {
+    if (error instanceof AuthenticationError) {
+      return NextResponse.json({ error: error.message }, { status: 401 })
+    }
+
     console.error('Error creating inquiry:', error)
-    
+
     // Return proper JSON error response
     if (error instanceof Error) {
-      return NextResponse.json(
-        { error: error.message },
-        { status: 500 }
-      )
+      return NextResponse.json({ error: error.message }, { status: 500 })
     }
-    
-    return NextResponse.json(
-      { error: 'Failed to create inquiry' },
-      { status: 500 }
-    )
+
+    return NextResponse.json({ error: 'Failed to create inquiry' }, { status: 500 })
   }
 }

@@ -10,8 +10,8 @@ export default function PromotionCodesPage() {
       <div className="space-y-6">
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Promotion Codes</h1>
-            <p className="text-gray-600">Manage promotion codes and track promoter payments</p>
+            <h1 className="text-2xl font-bold text-foreground">Promotion Codes</h1>
+            <p className="text-muted-foreground">Manage promotion codes and track promoter payments</p>
           </div>
           <NewPromotionCodeButton />
         </div>

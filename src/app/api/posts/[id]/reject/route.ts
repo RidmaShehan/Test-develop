@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { requireAuth } from '@/lib/auth'
+import { requireAuth, AuthenticationError } from '@/lib/auth'
 import { notifyPostRejected, notifyPostRejectedAssignedToYou } from '@/lib/notification-service'
 
 // POST /api/posts/[id]/reject - Reject a post
@@ -179,6 +179,9 @@ export async function POST(
     return NextResponse.json(updatedPost)
   } catch (error) {
     console.error('Error rejecting post:', error)
+    if (error instanceof AuthenticationError) {
+      return NextResponse.json({ error: error.message }, { status: 401 })
+    }
     return NextResponse.json(
       { error: error instanceof Error ? error.message : 'Failed to reject post' },
       { status: 500 }

@@ -3,7 +3,12 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import { SafeNotification } from '@/lib/notification-utils'
 import { PushNotificationClient } from '@/lib/push-notification-client'
+<<<<<<< HEAD
 import { useNotificationStream, type StreamNotification } from '@/hooks/use-notification-stream'
+=======
+import { realtimeService } from '@/lib/realtime'
+import { useAuth } from '@/hooks/use-auth'
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
 
 export interface Notification {
   id: string
@@ -14,7 +19,7 @@ export interface Notification {
   read: boolean
   actionUrl?: string
   actionText?: string
-  entityType?: 'task' | 'project' | 'deal' | 'meeting' | 'comment' | 'mention'
+  entityType?: 'task' | 'project' | 'deal' | 'meeting' | 'comment' | 'mention' | 'inquiry' | 'note'
   entityId?: string
   fromUser?: {
     id: string
@@ -42,6 +47,7 @@ interface NotificationContextType {
 const NotificationContext = createContext<NotificationContextType | undefined>(undefined)
 
 export function NotificationProvider({ children }: { children: React.ReactNode }) {
+  const { user } = useAuth()
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [isNotificationSupported, setIsNotificationSupported] = useState(false)
 
@@ -107,6 +113,7 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
     }
   }, [notifications])
 
+
   const unreadCount = notifications.filter(n => !n.read).length
 
   // Favicon badge is updated by NotificationBadgeSync from API count when on dashboard
@@ -120,6 +127,25 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
     }
 
     setNotifications(prev => [newNotification, ...prev])
+
+    // Persist to API-backed notifications so it survives refresh/login/device.
+    // Fire-and-forget to keep UI snappy; failures should not block local UX.
+    if (typeof window !== 'undefined') {
+      fetch('/api/notifications', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: notification.title,
+          message: notification.message,
+          entityType: notification.entityType,
+          postId: undefined,
+        }),
+      }).catch((error) => {
+        console.error('Failed to persist notification:', error)
+      })
+    }
 
     // Show browser notification when side panel shows notification (only in browser environment)
     if (isClient && isNotificationSupported) {
@@ -301,6 +327,45 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
       return false
     }
   }, [isClient])
+
+  // Realtime subscriptions with Supabase
+  useEffect(() => {
+    if (!user?.id || typeof window === 'undefined') return
+
+    console.log('Setting up realtime subscriptions for user:', user.id)
+
+    // Subscribe to new inquiries
+        realtimeService.subscribeToInquiries(user.id, (newInquiry: any) => {
+      addNotification({
+        title: 'New Inquiry',
+        message: `New inquiry from ${newInquiry.fullName || 'a lead'}`,
+        type: 'info',
+        entityType: 'inquiry',
+        entityId: newInquiry.id,
+        actionUrl: `/inquiries`,
+        actionText: 'View Inquiry'
+      })
+    })
+
+    // Subscribe to task updates
+    realtimeService.subscribeToTasks(user.id, (task: any) => {
+      if (task) {
+        addNotification({
+          title: task.status === 'COMPLETED' ? 'Task Completed' : 'Task Updated',
+          message: task.title || 'A task has been updated',
+          type: task.status === 'COMPLETED' ? 'success' : 'info',
+          entityType: 'task',
+          entityId: task.id,
+          actionUrl: `/tasks`,
+          actionText: 'View Tasks'
+        })
+      }
+    })
+
+    return () => {
+      realtimeService.unsubscribeAll()
+    }
+  }, [user?.id, addNotification])
 
   const value: NotificationContextType = {
     notifications,

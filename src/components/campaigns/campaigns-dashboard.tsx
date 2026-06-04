@@ -30,9 +30,15 @@ interface Campaign {
   reach?: number
   imageUrl?: string
   createdAt: string
+  coordinator?: {
+    id: string
+    name: string | null
+    email: string | null
+  } | null
   _count: {
     seekers: number
   }
+  registeredCount?: number
 }
 
 export function CampaignsDashboard() {

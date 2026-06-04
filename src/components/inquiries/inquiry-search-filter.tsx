@@ -1,16 +1,19 @@
 'use client'
 
 import React, { useState, useMemo } from 'react'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Calendar } from '@/components/ui/calendar'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { CalendarIcon, Search, Filter, X, User, GraduationCap, Megaphone, MapPin, Clock } from 'lucide-react'
+import { CalendarIcon, Search, Filter, X, User, GraduationCap, Megaphone, MapPin, Clock, Save, Trash2, Download } from 'lucide-react'
 import { format } from 'date-fns'
 import { cn } from '@/lib/utils'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useAuth } from '@/hooks/use-auth'
+import { toast } from 'sonner'
 
 interface Inquiry {
   id: string
@@ -68,6 +71,17 @@ interface InquirySearchFilterProps {
   className?: string
 }
 
+interface SavedFilter {
+  id: string
+  name: string
+  description?: string
+  filterData: any
+  entityType: string
+  isDefault: boolean
+  createdAt: string
+  updatedAt: string
+}
+
 interface FilterState {
   searchQuery: string
   stages: string[]
@@ -108,6 +122,9 @@ const ageBandOptions = [
 ]
 
 export function InquirySearchFilter({ inquiries, programs, campaigns, onFilteredInquiries, className }: InquirySearchFilterProps) {
+  const { user } = useAuth()
+  const queryClient = useQueryClient()
+
   const [filters, setFilters] = useState<FilterState>({
     searchQuery: '',
     stages: [],
@@ -130,6 +147,99 @@ export function InquirySearchFilter({ inquiries, programs, campaigns, onFiltered
   })
 
   const [showFilters, setShowFilters] = useState(false)
+  const [newFilterName, setNewFilterName] = useState('')
+  const [showSaveDialog, setShowSaveDialog] = useState(false)
+
+  // Server-side Saved Filters
+  const { data: savedFiltersData } = useQuery({
+    queryKey: ['saved-filters', user?.id],
+    queryFn: async () => {
+      const res = await fetch('/api/saved-filters?entityType=inquiry')
+      if (!res.ok) throw new Error('Failed to fetch saved filters')
+      const data = await res.json()
+      return data.filters as SavedFilter[]
+    },
+    enabled: !!user?.id,
+  })
+
+  const savedFilters = savedFiltersData || []
+
+  // Save current filter
+  const saveCurrentFilter = async () => {
+    if (!newFilterName.trim() || !user) {
+      toast.error('Please enter a filter name')
+      return
+    }
+
+    try {
+      const response = await fetch('/api/saved-filters', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: newFilterName.trim(),
+          description: `Saved filter for ${newFilterName}`,
+          filterData: filters,
+          entityType: 'inquiry'
+        }),
+      })
+
+      if (response.ok) {
+        toast.success('Filter saved successfully!')
+        setNewFilterName('')
+        setShowSaveDialog(false)
+        queryClient.invalidateQueries({ queryKey: ['saved-filters', user.id] })
+      } else {
+        toast.error('Failed to save filter')
+      }
+    } catch (error) {
+      toast.error('Failed to save filter')
+    }
+  }
+
+  // Load a saved filter
+  const loadSavedFilter = (savedFilter: SavedFilter) => {
+    try {
+      const loadedFilters = savedFilter.filterData
+      
+      // Merge with current filter state to preserve any new fields
+      setFilters(prev => ({
+        ...prev,
+        ...loadedFilters,
+        // Preserve current search query if not in saved filter
+        searchQuery: loadedFilters.searchQuery !== undefined ? loadedFilters.searchQuery : prev.searchQuery,
+      }))
+      
+      // Trigger re-filtering with a small delay to ensure state is updated
+      setTimeout(() => {
+        onFilteredInquiries(inquiries)
+      }, 10)
+      
+      toast.success(`Loaded filter: ${savedFilter.name}`)
+    } catch (error) {
+      console.error('Error loading filter:', error)
+      toast.error('Failed to load filter')
+    }
+  }
+
+  // Delete a saved filter
+  const deleteSavedFilter = async (filterId: string, filterName: string) => {
+    if (!confirm(`Delete filter "${filterName}"?`)) return
+
+    try {
+      const response = await fetch(`/api/saved-filters?id=${filterId}`, {
+        method: 'DELETE',
+      })
+
+      if (response.ok) {
+        toast.success('Filter deleted')
+        queryClient.invalidateQueries({ queryKey: ['saved-filters', user?.id] })
+      } else {
+        toast.error('Failed to delete filter')
+      }
+    } catch (error) {
+      toast.error('Failed to delete filter')
+    }
+  }
 
   // Get unique values from inquiries for filter options
   const uniqueMarketingSources = useMemo(() => {
@@ -1005,6 +1115,84 @@ export function InquirySearchFilter({ inquiries, programs, campaigns, onFiltered
           </div>
         </div>
       </CardContent>
+
+      <Card className="mt-4">
+        <CardContent className="pt-6">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="font-medium text-sm flex items-center gap-2">
+                <Save className="h-4 w-4" />
+                Saved Filters
+              </h3>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowSaveDialog(true)}
+                className="h-8"
+              >
+                <Save className="h-4 w-4 mr-1" />
+                Save Current
+              </Button>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {savedFilters.map((filter) => (
+                <div
+                  key={filter.id}
+                  className="group flex items-center bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-md px-3 py-1.5 text-sm cursor-pointer transition-all"
+                  onClick={() => loadSavedFilter(filter)}
+                >
+                  <span className="font-medium text-gray-700">{filter.name}</span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-5 w-5 p-0 ml-2 opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-500"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      deleteSavedFilter(filter.id, filter.name)
+                    }}
+                  >
+                    <Trash2 className="h-3 w-3" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+        </CardContent>
+      </Card>
+
+      {/* Save Filter Dialog */}
+      {showSaveDialog && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md">
+            <h3 className="text-lg font-semibold mb-4">Save Current Filter</h3>
+            <Input
+              placeholder="Filter name (e.g. Hot Leads This Week)"
+              value={newFilterName}
+              onChange={(e) => setNewFilterName(e.target.value)}
+              className="mb-4"
+              autoFocus
+            />
+            <div className="flex gap-3">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setShowSaveDialog(false)
+                  setNewFilterName('')
+                }}
+                className="flex-1"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={saveCurrentFilter}
+                disabled={!newFilterName.trim()}
+                className="flex-1"
+              >
+                Save Filter
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </Card>
   )
 }

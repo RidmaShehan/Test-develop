@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { RichTextEditor } from '@/components/ui/rich-text-editor'
+import { NoteQuillEditor } from '@/components/notebooks/note-quill-editor'
 import { Switch } from '@/components/ui/switch'
 import { Calendar } from '@/components/ui/calendar'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
@@ -105,14 +105,12 @@ export function NoteForm({ note, onSave, onCancel, loading }: NoteFormProps) {
 
       <div className="space-y-2">
         <Label htmlFor="content">Content</Label>
-        <div className="border rounded-md min-h-[300px]">
-          <RichTextEditor
-            value={content}
-            onChange={setContent}
-            placeholder="Start writing your note..."
-            className="min-h-[300px] p-4"
-          />
-        </div>
+        <NoteQuillEditor
+          value={content}
+          onChange={setContent}
+          placeholder="Start writing your note..."
+          editorMinHeightClass="min-h-[280px]"
+        />
       </div>
 
       {/* Reminder Section */}

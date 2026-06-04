@@ -154,9 +154,9 @@ export function SnakeGame() {
         )}
       </div>
 
-      <div className="flex justify-center">
+      <div className="flex justify-center overflow-x-auto">
         <div
-          className="relative border-4 border-gray-800 bg-gray-100 rounded-lg"
+          className="relative border-4 border-gray-800 dark:border-gray-600 bg-gray-100 dark:bg-gray-900 rounded-lg min-w-[320px]"
           style={{ width: GRID_SIZE * CELL_SIZE, height: GRID_SIZE * CELL_SIZE }}
         >
           {/* Food */}
@@ -246,7 +246,7 @@ export function SnakeGame() {
         </Button>
       </div>
 
-      <div className="text-center text-sm text-gray-600">
+      <div className="text-center text-sm text-muted-foreground">
         <p>Use arrow keys or buttons to control the snake. Eat the red food to grow!</p>
         <p>Press Space to pause/resume</p>
       </div>

@@ -52,7 +52,9 @@
     "@radix-ui/react-switch": "^1.2.6",
     "@radix-ui/react-tabs": "^1.1.13",
     "@radix-ui/react-toast": "^1.2.15",
+    "@supabase/supabase-js": "^2.99.3",
     "@tanstack/react-query": "^5.87.1",
+    "@tanstack/react-query-devtools": "^5.91.3",
     "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/nodemailer": "^7.0.4",
@@ -77,11 +79,17 @@
     "next-themes": "^0.4.6",
     "nodemailer": "^7.0.11",
     "pg": "^8.16.3",
+<<<<<<< HEAD
     "radix-ui": "^1.4.3",
+=======
+    "prisma": "^6.16.2",
+    "quill": "^2.0.3",
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     "react": "^18.3.1",
     "react-day-picker": "^9.11.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.62.0",
+    "react-quill": "^2.0.0",
     "recharts": "^3.2.0",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.1",

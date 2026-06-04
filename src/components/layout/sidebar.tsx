@@ -197,7 +197,7 @@ const navigation: NavigationItem[] = [
     permissions: ['READ_PROGRAM']
   },
   { 
-    name: 'AI Chat', 
+    name: 'AI Assistant', 
     href: '/chat', 
     icon: Sparkles,
     permissions: [] // Available to all authenticated users
@@ -235,7 +235,7 @@ export function Sidebar() {
   const router = useRouter()
   const { sidebarCollapsed, mounted } = useTheme()
   const { logout } = useAuth()
-  const { hasAnyPermission } = usePermissions()
+  const { hasAnyPermission, canRead } = usePermissions()
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set())
 
   // Prevent hydration mismatch by using default state until mounted

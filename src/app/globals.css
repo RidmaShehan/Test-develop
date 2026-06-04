@@ -125,8 +125,129 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    text-rendering: optimizeLegibility;
   }
+
+  html {
+    height: 100%;
+    scroll-behavior: smooth;
+  }
+}
+
+/* Make scrolling feel more polished */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: oklch(0.709 0.01 56.259 / 0.6) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: color-mix(in oklch, var(--ring) 60%, transparent);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Better selection contrast */
+::selection {
+  background: color-mix(in oklch, var(--ring) 25%, transparent);
+}
+
+/*
+  Gray utility compatibility layer:
+  Some pages/components still use `text-gray-*`, `bg-gray-*`, `border-gray-*`.
+  Mapping them to theme tokens keeps the UI consistent (light/dark) even before
+  we fully refactor every page.
+*/
+.text-gray-900,
+.dark .dark\:text-gray-900 {
+  color: var(--foreground) !important;
+}
+.text-gray-800,
+.dark .dark\:text-gray-800 {
+  color: var(--foreground) !important;
+}
+.text-gray-700,
+.dark .dark\:text-gray-700,
+.text-gray-600,
+.dark .dark\:text-gray-600,
+.text-gray-500,
+.dark .dark\:text-gray-500,
+.text-gray-400,
+.dark .dark\:text-gray-400,
+.text-gray-300,
+.dark .dark\:text-gray-300 {
+  color: var(--muted-foreground) !important;
+}
+.text-gray-200,
+.dark .dark\:text-gray-200,
+.text-gray-100,
+.dark .dark\:text-gray-100 {
+  color: var(--muted-foreground) !important;
+}
+
+.bg-gray-50,
+.dark .dark\:bg-gray-50 {
+  background-color: var(--card) !important;
+}
+.bg-gray-100,
+.dark .dark\:bg-gray-100,
+.bg-gray-200,
+.dark .dark\:bg-gray-200,
+.bg-gray-300,
+.dark .dark\:bg-gray-300,
+.bg-gray-400,
+.dark .dark\:bg-gray-400,
+.bg-gray-500,
+.dark .dark\:bg-gray-500,
+.bg-gray-600,
+.dark .dark\:bg-gray-600 {
+  background-color: var(--muted) !important;
+}
+.bg-gray-700,
+.dark .dark\:bg-gray-700,
+.bg-gray-800,
+.dark .dark\:bg-gray-800 {
+  background-color: var(--card) !important;
+}
+.bg-gray-900,
+.dark .dark\:bg-gray-900 {
+  background-color: var(--background) !important;
+}
+
+.border-gray-100,
+.dark .dark\:border-gray-100,
+.border-gray-200,
+.dark .dark\:border-gray-200,
+.border-gray-300,
+.dark .dark\:border-gray-300,
+.border-gray-400,
+.dark .dark\:border-gray-400,
+.border-gray-500,
+.dark .dark\:border-gray-500 {
+  border-color: var(--border) !important;
+}
+
+.hover\:bg-gray-50:hover,
+.dark .dark\:hover\:bg-gray-50:hover {
+  background-color: var(--muted) !important;
+}
+.hover\:bg-gray-100:hover,
+.dark .dark\:hover\:bg-gray-100:hover {
+  background-color: var(--muted) !important;
+}
+.hover\:bg-gray-200:hover,
+.dark .dark\:hover\:bg-gray-200:hover {
+  background-color: var(--muted) !important;
 }
 
 /* Custom Toast Colors */
@@ -136,47 +257,48 @@
     color: white !important;
     border-color: #16a34a !important;
   }
-  
+
   [data-sonner-toaster] [data-type="error"] {
     background-color: #dc2626 !important;
     color: white !important;
     border-color: #dc2626 !important;
   }
-  
+
   [data-sonner-toaster] [data-type="warning"] {
     background-color: #ea580c !important;
     color: white !important;
     border-color: #ea580c !important;
   }
-  
+
   [data-sonner-toaster] [data-type="info"] {
     background-color: #2563eb !important;
     color: white !important;
     border-color: #2563eb !important;
   }
-  
+
   /* Dark mode toast colors */
   .dark [data-sonner-toaster] [data-type="success"] {
     background-color: #22c55e !important;
     color: white !important;
     border-color: #22c55e !important;
   }
-  
+
   .dark [data-sonner-toaster] [data-type="error"] {
     background-color: #ef4444 !important;
     color: white !important;
     border-color: #ef4444 !important;
   }
-  
+
   .dark [data-sonner-toaster] [data-type="warning"] {
     background-color: #f97316 !important;
     color: white !important;
     border-color: #f97316 !important;
   }
-  
+
   .dark [data-sonner-toaster] [data-type="info"] {
     background-color: #3b82f6 !important;
     color: white !important;
     border-color: #3b82f6 !important;
   }
 }
+

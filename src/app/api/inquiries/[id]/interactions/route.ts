@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { requireAuth, isAdminRole } from '@/lib/auth'
+import { requireAuth } from '@/lib/auth'
+import { canViewAllInquiries } from '@/lib/inquiry-visibility'
 
 export async function GET(
   request: NextRequest,
@@ -12,7 +13,7 @@ export async function GET(
 
     // Enforce RBAC: non-admins can only access interactions for inquiries they created
     const seekerWhere: any = { id, NOT: { isDeleted: true } }
-    if (!isAdminRole(_user.role)) {
+    if (!(await canViewAllInquiries(_user.id, _user.role))) {
       seekerWhere.createdById = _user.id
     }
     const seeker = await prisma.seeker.findFirst({ where: seekerWhere, select: { id: true } })
@@ -61,7 +62,7 @@ export async function POST(
 
     // Enforce RBAC: non-admins can only create interactions for inquiries they created
     const seekerWhere: any = { id, NOT: { isDeleted: true } }
-    if (!isAdminRole(_user.role)) {
+    if (!(await canViewAllInquiries(_user.id, _user.role))) {
       seekerWhere.createdById = _user.id
     }
     const seeker = await prisma.seeker.findFirst({ where: seekerWhere, select: { id: true } })

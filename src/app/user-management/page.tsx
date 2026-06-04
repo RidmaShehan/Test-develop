@@ -16,8 +16,8 @@ export default function UserManagementPage() {
     <DashboardLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">User Management</h1>
-          <p className="text-gray-600">Manage users, roles, and permissions across the system</p>
+          <h1 className="text-2xl font-bold text-foreground">User Management</h1>
+          <p className="text-muted-foreground">Manage users, roles, and permissions across the system</p>
         </div>
 
         <Tabs defaultValue="users" className="space-y-4">

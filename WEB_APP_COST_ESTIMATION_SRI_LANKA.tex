@@ -1,0 +1,602 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\geometry{margin=1in}
+\setlist{noitemsep, topsep=3pt}
+\title{Detailed Cost Estimation - Education CRM Web Application}
+\author{Sri Lankan IT Market Context}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Document Info}
+
+\begin{itemize}
+\item Project: Education CRM Web Application
+\item Estimation Type: Full detailed budget (development + deployment + operations)
+\item Market Context: Sri Lankan IT services company
+\item Currency: LKR (Sri Lankan Rupees)
+\item Version: 1.0
+\item Date: 2026-03-24
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section{1) Executive Summary}
+
+This document provides a full commercial and technical cost estimate for delivering and operating the Education CRM web application in Sri Lanka. The estimate includes:\\
+
+\begin{itemize}
+\item Discovery and planning
+\item UI/UX and frontend implementation
+\item Backend and API implementation
+\item Database and infrastructure setup
+\item Security and role/permission management
+\item Reporting and export modules (Excel/PDF)
+\item Notification and communication modules
+\item Testing and quality assurance
+\item Deployment, handover, and training
+\item Ongoing maintenance and support
+\end{itemize}
+
+\subsubsection{Total Project Investment (One-Time)}
+
+\begin{itemize}
+\item \\textbf{Lean delivery model:} \\texttt{LKR 3,450,000 - 4,950,000}
+\item \\textbf{Recommended standard model:} \\texttt{LKR 5,250,000 - 7,950,000}
+\item \\textbf{Enterprise quality model:} \\texttt{LKR 8,250,000 - 12,500,000}
+\end{itemize}
+
+\subsubsection{Monthly Ongoing Cost (Post Go-Live)}
+
+\begin{itemize}
+\item \\textbf{Basic hosting + maintenance:} \\texttt{LKR 95,000 - 180,000 / month}
+\item \\textbf{Standard managed support:} \\texttt{LKR 180,000 - 375,000 / month}
+\item \\textbf{Enterprise SLA support:} \\texttt{LKR 375,000 - 900,000 / month}
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section{2) Scope Covered in This Estimate}
+
+The estimate is based on a CRM system with the following functional areas:\\
+
+\begin{itemize}
+\item User authentication and session control
+\item Role-based access control (Administrator/Admin/Developer/Coordinator/Viewer)
+\item Inquiry/seeker management
+\item Campaign management
+\item Task/kanban workflow
+\item Dashboard with operational metrics
+\item Activity logging and audit
+\item Annual and operational reports
+\item Export features (Excel/PDF)
+\item System settings and configurations
+\item Basic documentation and training handover
+\end{itemize}
+
+\subsubsection{Optional/Advanced Scope (Can be Added)}
+
+\begin{itemize}
+\item WhatsApp integration (official APIs)
+\item SMS integrations
+\item Email marketing automation
+\item Multi-tenant architecture
+\item Advanced BI dashboard
+\item Native mobile apps
+\item AI-assisted insights
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section{3) Estimation Assumptions}
+
+\begin{enumerate}
+\item Existing codebase can be reused and stabilized.
+\item Delivery team is based in Sri Lanka.
+\item Tech stack: Next.js + TypeScript + Prisma + SQL DB + cloud deployment.
+\item Exports (Excel/PDF) are production-grade and validated.
+\item Security baseline includes auth, authorization, and audit logs.
+\item UAT participation is available from client stakeholders.
+\item Third-party API costs (SMS/WhatsApp/email) are billed separately.
+\item Estimate excludes statutory taxes unless otherwise noted.
+\end{enumerate}
+
+\bigskip\hrule\bigskip
+
+\section{4) Team Composition and Monthly Cost Benchmarks (Sri Lanka)}
+
+\begin{longtable}{p{0.22\textwidth} | p{0.22\textwidth} | p{0.22\textwidth}}
+\toprule
+Role & Typical Allocation & Monthly Cost Range (LKR) \\
+\midrule
+Project Manager & 40-100\% & 280,000 - 650,000 \\
+Business Analyst & 25-75\% & 220,000 - 500,000 \\
+UI/UX Designer & 25-60\% & 200,000 - 450,000 \\
+Senior Full-Stack Engineer & 100\% & 500,000 - 950,000 \\
+Mid Full-Stack Engineer & 100\% & 260,000 - 520,000 \\
+QA Engineer & 50-100\% & 180,000 - 380,000 \\
+DevOps/Cloud Engineer & 20-50\% & 260,000 - 650,000 \\
+Tech Lead / Architect & 20-50\% & 600,000 - 1,200,000 \\
+\bottomrule
+\end{longtable}
+
+\bigskip\hrule\bigskip
+
+\section{5) Work Breakdown Structure (WBS) and Cost Estimate}
+
+\section{5.1 Discovery and Planning}
+
+\subsubsection{Activities}
+
+\begin{itemize}
+\item Stakeholder workshops
+\item Requirement confirmation
+\item Feature prioritization (MVP vs phase-2)
+\item Technical architecture review
+\item Delivery plan and milestone definition
+\end{itemize}
+
+\subsubsection{Cost}
+
+\begin{itemize}
+\item \\textbf{Range:} \\texttt{LKR 250,000 - 650,000}
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section{5.2 UI/UX and Product Design}
+
+\subsubsection{Activities}
+
+\begin{itemize}
+\item Screen flow refinement
+\item Design system alignment
+\item Role-specific usability optimization
+\item Responsive behavior validation
+\item UAT prototype adjustments
+\end{itemize}
+
+\subsubsection{Cost}
+
+\begin{itemize}
+\item \\textbf{Range:} \\texttt{LKR 350,000 - 1,000,000}
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section{5.3 Frontend Engineering}
+
+\subsubsection{Activities}
+
+\begin{itemize}
+\item Dashboard pages and widgets
+\item Inquiry/campaign/task module screens
+\item Filter/search/table interactions
+\item Forms and validations
+\item Role-based view controls
+\item Export trigger and UX handling
+\end{itemize}
+
+\subsubsection{Cost}
+
+\begin{itemize}
+\item \\textbf{Range:} \\texttt{LKR 1,100,000 - 2,500,000}
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section{5.4 Backend/API Engineering}
+
+\subsubsection{Activities}
+
+\begin{itemize}
+\item API hardening and validation
+\item Auth/session logic improvements
+\item Permissions middleware
+\item Reporting APIs
+\item Export generation logic
+\item Error handling and observability
+\end{itemize}
+
+\subsubsection{Cost}
+
+\begin{itemize}
+\item \\textbf{Range:} \\texttt{LKR 1,250,000 - 2,850,000}
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section{5.5 Database and Data Layer}
+
+\subsubsection{Activities}
+
+\begin{itemize}
+\item Schema optimization
+\item Migration planning and execution
+\item Index tuning
+\item Backup strategy
+\item Data integrity and audit constraints
+\end{itemize}
+
+\subsubsection{Cost}
+
+\begin{itemize}
+\item \\textbf{Range:} \\texttt{LKR 300,000 - 900,000}
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section{5.6 Security and Compliance Baseline}
+
+\subsubsection{Activities}
+
+\begin{itemize}
+\item Access control policy validation
+\item Token/session hardening
+\item Activity logging review
+\item Input sanitization and API guards
+\item Secure config and secret handling
+\end{itemize}
+
+\subsubsection{Cost}
+
+\begin{itemize}
+\item \\textbf{Range:} \\texttt{LKR 250,000 - 850,000}
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section{5.7 QA, Testing, and Stabilization}
+
+\subsubsection{Activities}
+
+\begin{itemize}
+\item Test plan creation
+\item Functional test cycles
+\item Cross-browser checks
+\item Regression testing
+\item Bug triage and closure
+\end{itemize}
+
+\subsubsection{Cost}
+
+\begin{itemize}
+\item \\textbf{Range:} \\texttt{LKR 450,000 - 1,250,000}
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section{5.8 DevOps, Deployment, and Release}
+
+\subsubsection{Activities}
+
+\begin{itemize}
+\item Environment setup (dev/stage/prod)
+\item CI/CD configuration
+\item Domain, SSL, and DNS
+\item Cloud app + DB provisioning
+\item Monitoring and alert baseline
+\end{itemize}
+
+\subsubsection{Cost}
+
+\begin{itemize}
+\item \\textbf{Range:} \\texttt{LKR 250,000 - 950,000}
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section{5.9 Documentation, Training, and Handover}
+
+\subsubsection{Activities}
+
+\begin{itemize}
+\item Admin operation guide
+\item User onboarding manuals
+\item Troubleshooting handbook
+\item Team handover sessions
+\item Support process definition
+\end{itemize}
+
+\subsubsection{Cost}
+
+\begin{itemize}
+\item \\textbf{Range:} \\texttt{LKR 180,000 - 650,000}
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section{5.10 Contingency and Risk Buffer}
+
+Recommended contingency: \\textbf{10\% - 20\%} of implementation budget.\\
+
+\begin{itemize}
+\item \\textbf{Range:} \\texttt{LKR 550,000 - 1,800,000}
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section{6) Total One-Time Cost by Delivery Model}
+
+\begin{longtable}{p{0.22\textwidth} | p{0.22\textwidth} | p{0.22\textwidth}}
+\toprule
+Delivery Model & Typical Team Profile & Estimated Total (LKR) \\
+\midrule
+Lean & Small team, reduced customization & 3,450,000 - 4,950,000 \\
+Standard (Recommended) & Balanced team with QA + DevOps & 5,250,000 - 7,950,000 \\
+Enterprise & Strong architecture, high SLA readiness & 8,250,000 - 12,500,000 \\
+\bottomrule
+\end{longtable}
+
+\bigskip\hrule\bigskip
+
+\section{7) Timeline Estimation}
+
+\begin{longtable}{p{0.22\textwidth} | p{0.22\textwidth} | p{0.22\textwidth} | p{0.22\textwidth}}
+\toprule
+Phase & Lean & Standard & Enterprise \\
+\midrule
+Discovery and planning & 1-2 weeks & 2-3 weeks & 3-4 weeks \\
+Core implementation & 8-10 weeks & 10-14 weeks & 14-20 weeks \\
+QA and stabilization & 2-3 weeks & 3-5 weeks & 5-8 weeks \\
+Go-live and handover & 1 week & 1-2 weeks & 2-3 weeks \\
+\\textbf{Total} & \\textbf{12-16 weeks} & \\textbf{16-24 weeks} & \\textbf{24-35 weeks} \\
+\bottomrule
+\end{longtable}
+
+\bigskip\hrule\bigskip
+
+\section{8) Monthly Operational Cost (OPEX) After Go-Live}
+
+\section{8.1 Cloud and Infrastructure}
+
+\begin{longtable}{p{0.22\textwidth} | p{0.22\textwidth}}
+\toprule
+Item & Monthly Range (LKR) \\
+\midrule
+App hosting (web) & 12,000 - 85,000 \\
+Managed database & 18,000 - 140,000 \\
+Object storage / backups & 3,000 - 35,000 \\
+Monitoring/logging tools & 5,000 - 45,000 \\
+CDN / bandwidth overhead & 2,000 - 25,000 \\
+\bottomrule
+\end{longtable}
+
+\subsubsection{Infra subtotal}
+
+\begin{itemize}
+\item \\textbf{Range:} \\texttt{LKR 40,000 - 330,000 / month}
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section{8.2 Platform and Service Costs}
+
+\begin{longtable}{p{0.22\textwidth} | p{0.22\textwidth}}
+\toprule
+Item & Monthly Range (LKR) \\
+\midrule
+Domain + SSL (annualized) & 1,500 - 6,500 \\
+Transactional email service & 2,500 - 45,000 \\
+SMS/WhatsApp messaging & 5,000 - 200,000+ \\
+Security tools (optional) & 5,000 - 60,000 \\
+\bottomrule
+\end{longtable}
+
+\subsubsection{Services subtotal}
+
+\begin{itemize}
+\item \\textbf{Range:} \\texttt{LKR 14,000 - 311,500+ / month}
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section{8.3 Maintenance and Support Retainer}
+
+\begin{longtable}{p{0.22\textwidth} | p{0.22\textwidth} | p{0.22\textwidth}}
+\toprule
+Support Tier & Coverage & Monthly Cost (LKR) \\
+\midrule
+Basic & Bug fixes + minor support & 55,000 - 120,000 \\
+Standard & Bug fixes + minor enhancements + SLA & 120,000 - 300,000 \\
+Premium & Priority support + performance + security reviews & 300,000 - 900,000 \\
+\bottomrule
+\end{longtable}
+
+\bigskip\hrule\bigskip
+
+\section{8.4 OPEX Combined}
+
+\begin{itemize}
+\item \\textbf{Basic run-rate:} \\texttt{LKR 95,000 - 180,000 / month}
+\item \\textbf{Standard run-rate:} \\texttt{LKR 180,000 - 375,000 / month}
+\item \\textbf{Enterprise run-rate:} \\texttt{LKR 375,000 - 900,000+ / month}
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section{9) Proposed Commercial Structure (Client Quotation Ready)}
+
+\section{9.1 Milestone Payment Plan (Recommended)}
+
+Option A:\\
+
+\begin{itemize}
+\item 30\% - Project kickoff
+\item 30\% - Mid implementation delivery
+\item 25\% - UAT completion
+\item 15\% - Production go-live and handover
+\end{itemize}
+
+Option B:\\
+
+\begin{itemize}
+\item 40\% - Kickoff
+\item 40\% - UAT ready release
+\item 20\% - Final deployment
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section{9.2 Change Request (CR) Pricing}
+
+\begin{itemize}
+\item Minor change (up to 8 hours): \\texttt{LKR 25,000 - 80,000}
+\item Medium change (1-3 days): \\texttt{LKR 80,000 - 300,000}
+\item Major feature (1-4 weeks): \\texttt{LKR 300,000 - 1,500,000}
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section{9.3 Warranty and Defect Liability}
+
+Recommended:\\
+
+\begin{itemize}
+\item 30-60 days post go-live warranty for defects
+\item Excludes new feature requests
+\item Includes agreed bug-fix SLA by severity
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section{10) Risk Factors Affecting Cost}
+
+Factors that can increase budget:\\
+
+\begin{itemize}
+\item Frequent scope changes during development
+\item New third-party integrations not in initial scope
+\item Large legacy data migration requirements
+\item High compliance/security audit requirements
+\item Tight deadline with parallel team scaling
+\item Multi-language or multi-tenant refactoring
+\end{itemize}
+
+Factors that can reduce budget:\\
+
+\begin{itemize}
+\item Strict MVP scope control
+\item Reuse of existing stable modules
+\item Strong and fast client UAT participation
+\item Fewer environments and integrations
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section{11) Scenario-Based Cost Models}
+
+\section{11.1 Startup / Small Institute}
+
+\begin{itemize}
+\item Team: 1 mid full-stack, 1 part-time QA, 1 part-time PM
+\item Duration: 3-4 months
+\item Cost: \\texttt{LKR 3.4M - 5.0M}
+\item Monthly support: \\texttt{LKR 90K - 180K}
+\end{itemize}
+
+\section{11.2 Growing Education Group (Recommended)}
+
+\begin{itemize}
+\item Team: 1 senior + 1 mid full-stack, QA, PM, part-time DevOps
+\item Duration: 4-6 months
+\item Cost: \\texttt{LKR 5.2M - 8.0M}
+\item Monthly support: \\texttt{LKR 180K - 375K}
+\end{itemize}
+
+\section{11.3 Enterprise / Multi-Branch Organization}
+
+\begin{itemize}
+\item Team: tech lead, 2-4 engineers, QA team, DevOps, PM/BA
+\item Duration: 6-9 months
+\item Cost: \\texttt{LKR 8.2M - 12.5M+}
+\item Monthly support: \\texttt{LKR 375K - 900K+}
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section{12) Recommended Budget for This Application}
+
+Given the current scope and complexity of the CRM:\\
+
+\begin{itemize}
+\item \\textbf{Implementation budget recommendation:} \\texttt{LKR 6.0M - 8.5M}
+\item \\textbf{Go-live readiness target:} 4-6 months
+\item \\textbf{Monthly managed support target:} \\texttt{LKR 200K - 350K}
+\end{itemize}
+
+This range provides enough budget for:\\
+
+\begin{itemize}
+\item Proper QA and stabilization
+\item Security hardening
+\item Documentation and training
+\item Reliable deployment and monitoring
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section{13) Estimation Notes for Management Approval}
+
+\begin{enumerate}
+\item Approve baseline scope first (MVP + phase-2 list).
+\item Lock integrations before development starts.
+\item Allocate contingency reserve (minimum 12\%).
+\item Include 6-12 month support commitment in procurement.
+\item Define clear acceptance criteria for each milestone.
+\end{enumerate}
+
+\bigskip\hrule\bigskip
+
+\section{14) Optional Add-On Cost Menu}
+
+\begin{longtable}{p{0.22\textwidth} | p{0.22\textwidth} | p{0.22\textwidth}}
+\toprule
+Add-On & One-Time Cost (LKR) & Monthly Cost (LKR) \\
+\midrule
+WhatsApp official integration & 250,000 - 1,200,000 & 10,000 - 200,000+ usage \\
+SMS integration & 150,000 - 450,000 & 5,000 - 150,000+ usage \\
+Advanced BI dashboards & 450,000 - 1,800,000 & 15,000 - 120,000 \\
+SSO (Google/Microsoft/AD) & 300,000 - 1,500,000 & 0 - 50,000 \\
+Multi-branch multi-tenant support & 800,000 - 3,500,000 & 25,000 - 250,000 \\
+Mobile app (React Native) & 1,800,000 - 6,500,000 & 120,000 - 500,000 \\
+\bottomrule
+\end{longtable}
+
+\bigskip\hrule\bigskip
+
+\section{15) Final Commercial Summary}
+
+\begin{itemize}
+\item \\textbf{Best-fit one-time budget:} \\texttt{LKR 6.0M - 8.5M}
+\item \\textbf{Best-fit monthly support:} \\texttt{LKR 200K - 350K}
+\item \\textbf{Expected total first-year spend (implementation + 12 months support):}
+\item Low end: \\texttt{LKR 8.4M}
+\item Mid range: \\texttt{LKR 10.8M - 12.7M}
+\item High managed quality: \\texttt{LKR 15M+}
+\end{itemize}
+
+\bigskip\hrule\bigskip
+
+\section{16) Disclaimer}
+
+This estimate is prepared as a professional budgeting guide for Sri Lankan IT delivery conditions. Final quotation should be confirmed after:\\
+
+\begin{itemize}
+\item detailed requirement workshop,
+\item technical audit of current code/infrastructure,
+\item integration and data migration confirmation,
+\item agreed SLA and support scope.
+\end{itemize}
+
+\end{document}

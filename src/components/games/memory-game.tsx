@@ -127,12 +127,12 @@ export function MemoryGame() {
                 text-3xl font-bold
                 transition-all duration-300
                 ${card.flipped || card.matched
-                  ? 'bg-blue-100 border-blue-400'
-                  : 'bg-gray-200 border-gray-400 hover:bg-gray-300'
+                  ? 'bg-blue-100 dark:bg-blue-950/40 border-blue-400'
+                  : 'bg-muted border-border hover:bg-accent'
                 }
                 ${card.matched ? 'opacity-50' : ''}
                 disabled:cursor-not-allowed
-                transform ${card.flipped || card.matched ? 'rotateY(180deg)' : ''}
+                ${card.flipped || card.matched ? 'scale-[1.02]' : ''}
               `}
             >
               {card.flipped || card.matched ? EMOJIS[card.value] : '?'}
@@ -148,7 +148,7 @@ export function MemoryGame() {
         </Button>
       </div>
 
-      <div className="text-center text-sm text-gray-600">
+      <div className="text-center text-sm text-muted-foreground">
         <p>Click cards to flip them. Find matching pairs!</p>
       </div>
     </div>

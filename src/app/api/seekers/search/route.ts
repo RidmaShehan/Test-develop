@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { requireAuth, isAdminRole } from '@/lib/auth'
+import { requireAuth, AuthenticationError } from '@/lib/auth'
+import { canViewAllInquiries } from '@/lib/inquiry-visibility'
 
 export async function GET(request: NextRequest) {
   try {
@@ -22,8 +23,7 @@ export async function GET(request: NextRequest) {
       ],
     }
 
-    // If not admin, only show seekers created by current user
-    if (!isAdminRole(_user.role)) {
+    if (!(await canViewAllInquiries(_user.id, _user.role))) {
       where.createdById = _user.id
     }
 
@@ -35,6 +35,7 @@ export async function GET(request: NextRequest) {
         phone: true,
         whatsapp: true,
         whatsappNumber: true,
+        createdAt: true,
         email: true,
         city: true,
         ageBand: true,
@@ -76,6 +77,10 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ seekers })
   } catch (error) {
+    if (error instanceof AuthenticationError) {
+      return NextResponse.json({ error: error.message }, { status: 401 })
+    }
+
     console.error('Error searching seekers:', error)
     return NextResponse.json(
       { error: 'Failed to search seekers' },

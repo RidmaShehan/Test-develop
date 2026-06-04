@@ -274,8 +274,8 @@ export default function WeeklyReportsPage() {
       <DashboardLayout>
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900">Access Denied</h1>
-            <p className="mt-2 text-gray-600">Please sign in to access weekly reports.</p>
+            <h1 className="text-2xl font-bold text-foreground">Access Denied</h1>
+            <p className="mt-2 text-muted-foreground">Please sign in to access weekly reports.</p>
           </div>
         </div>
       </DashboardLayout>
@@ -289,9 +289,9 @@ export default function WeeklyReportsPage() {
       <div className="space-y-6">
 
         {/* ── Page Header ── */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-gray-200 dark:border-gray-800">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border/60">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Weekly Reports</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Weekly Reports</h1>
             <p className="text-sm text-muted-foreground mt-1">
               Create, submit, and track developer status reports in a standardised international format.
             </p>

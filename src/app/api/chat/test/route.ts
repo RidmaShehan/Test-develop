@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { requireAuth } from '@/lib/auth'
+import { isAdminRole, requireAuth } from '@/lib/auth'
 
 export async function GET(request: NextRequest) {
   try {
-    // Require authentication
     const user = await requireAuth(request)
-    
-    if (!user) {
+
+    if (!isAdminRole(user.role)) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -32,7 +31,6 @@ export async function GET(request: NextRequest) {
           status: 'error',
           message: `API request failed: ${response.status} ${response.statusText}`,
           apiKeySet: true,
-          apiKeyPrefix: apiKey.substring(0, 10) + '...',
           error: errorText,
           suggestion: response.status === 403 
             ? 'API key may be invalid or Generative Language API is not enabled'
@@ -55,7 +53,6 @@ export async function GET(request: NextRequest) {
           status: 'success',
           message: 'API is working correctly!',
           apiKeySet: true,
-          apiKeyPrefix: apiKey.substring(0, 10) + '...',
           availableModels: availableModels,
           totalModels: availableModels.length,
         })
@@ -65,7 +62,6 @@ export async function GET(request: NextRequest) {
         status: 'warning',
         message: 'API responded but no models found',
         apiKeySet: true,
-        apiKeyPrefix: apiKey.substring(0, 10) + '...',
         response: data,
       })
     } catch (fetchError: any) {
@@ -73,7 +69,6 @@ export async function GET(request: NextRequest) {
         status: 'error',
         message: 'Failed to connect to Gemini API',
         apiKeySet: true,
-        apiKeyPrefix: apiKey.substring(0, 10) + '...',
         error: fetchError.message,
       })
     }

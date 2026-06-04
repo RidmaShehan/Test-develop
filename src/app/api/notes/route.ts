@@ -52,13 +52,13 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(notes)
   } catch (error) {
-    console.error('Error fetching notes:', error)
     if (error instanceof AuthenticationError) {
       return NextResponse.json(
         { error: error.message },
         { status: 401 }
       )
     }
+    console.error('Error fetching notes:', error)
     return NextResponse.json(
       { error: 'Failed to fetch notes' },
       { status: 500 }
@@ -153,13 +153,13 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(note, { status: 201 })
   } catch (error) {
-    console.error('Error creating note:', error)
     if (error instanceof AuthenticationError) {
       return NextResponse.json(
         { error: error.message },
         { status: 401 }
       )
     }
+    console.error('Error creating note:', error)
     return NextResponse.json(
       { error: 'Failed to create note' },
       { status: 500 }

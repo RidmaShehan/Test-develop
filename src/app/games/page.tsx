@@ -4,7 +4,6 @@ import { useState, Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { Card, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 import { ErrorBoundary } from '@/components/ui/error-boundary'
 import { Gamepad2, Zap, Brain, Calculator, Scissors, Timer, Play, TreePine } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -111,18 +110,18 @@ export default function GamesPage() {
 
   return (
     <DashboardLayout>
-      <div className="flex h-[calc(100vh-4rem)]">
+      <div className="flex h-[calc(100vh-4rem)] flex-col lg:flex-row">
         {/* Sidebar Menu */}
-        <div className="w-64 border-r bg-gray-50 p-4 flex-shrink-0 overflow-y-auto">
+        <div className="w-full lg:w-64 border-b lg:border-b-0 lg:border-r border-border/60 bg-muted/20 p-4 flex-shrink-0 overflow-y-auto">
           <div className="mb-6">
             <h1 className="text-2xl font-bold mb-2 flex items-center gap-2">
               <Gamepad2 className="h-6 w-6" />
               Mini Games
             </h1>
-            <p className="text-sm text-gray-600">Brain training games</p>
+            <p className="text-sm text-muted-foreground">Brain training games</p>
           </div>
 
-          <div className="space-y-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2">
             {games.map((game) => {
               const Icon = game.icon
               const isActive = currentGame === game.id
@@ -131,14 +130,14 @@ export default function GamesPage() {
                   key={game.id}
                   onClick={() => setCurrentGame(game.id)}
                   className={cn(
-                    "w-full text-left p-3 rounded-lg transition-all flex items-center gap-3",
+                    "w-full text-left p-3 rounded-lg transition-all flex items-center gap-3 border-2",
                     isActive
-                      ? `${game.bgColor} ${game.color} border-2 border-current font-semibold`
-                      : "bg-white hover:bg-gray-100 text-gray-700 border-2 border-transparent"
+                      ? `${game.bgColor} ${game.color} border-current font-semibold`
+                      : "bg-card hover:bg-accent text-foreground border-transparent"
                   )}
                 >
                   <Icon className="h-5 w-5" />
-                  <span className="text-sm font-medium">{game.name}</span>
+                  <span className="text-sm font-medium leading-tight">{game.name}</span>
                 </button>
               )
             })}
@@ -150,15 +149,15 @@ export default function GamesPage() {
           {currentGame === null ? (
             <div className="flex items-center justify-center h-full">
               <div className="text-center">
-                <Gamepad2 className="h-16 w-16 mx-auto mb-4 text-gray-400" />
-                <h2 className="text-2xl font-bold text-gray-600 mb-2">Select a Game</h2>
-                <p className="text-gray-500">Choose a game from the sidebar to start playing!</p>
+                <Gamepad2 className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
+                <h2 className="text-2xl font-bold text-foreground mb-2">Select a Game</h2>
+                <p className="text-muted-foreground">Choose a game from the sidebar to start playing!</p>
               </div>
             </div>
           ) : (
-            <div className="p-6">
+            <div className="p-4 sm:p-6">
               <Card>
-                <CardContent className="p-6">
+                <CardContent className="p-4 sm:p-6">
                   <ErrorBoundary>
                     <Suspense fallback={<div className="text-center p-8">Loading game...</div>}>
                       {currentGame === 'snake' && <SnakeGame />}

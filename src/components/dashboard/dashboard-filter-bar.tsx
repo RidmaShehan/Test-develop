@@ -96,7 +96,7 @@ export function DashboardFilterBar({
     isCustomDateRange
 
   return (
-    <Card className={cn('shadow-sm border-gray-200', className)}>
+    <Card className={cn('shadow-sm', className)}>
       <CardContent className="p-4">
         <div className="space-y-4">
           <div className="flex flex-wrap items-center gap-2">
@@ -110,8 +110,8 @@ export function DashboardFilterBar({
                         variant="outline"
                         size="sm"
                         className={cn(
-                          'h-9 shadow-sm border-gray-300 hover:bg-gray-50',
-                          filters.preset === 'custom' && 'bg-blue-50 border-blue-200'
+                          'h-9 shadow-sm border-border/60 hover:bg-muted/50',
+                          filters.preset === 'custom' && 'bg-primary/10 border-primary/30'
                         )}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
@@ -145,8 +145,8 @@ export function DashboardFilterBar({
                   variant="outline"
                   size="sm"
                   className={cn(
-                    'h-9 shadow-sm border-gray-300 hover:bg-gray-50',
-                    filters.preset === preset && 'bg-blue-50 border-blue-200'
+                    'h-9 shadow-sm border-border/60 hover:bg-muted/50',
+                    filters.preset === preset && 'bg-primary/10 border-primary/30'
                   )}
                   onClick={() => setPreset(preset)}
                 >
@@ -158,12 +158,12 @@ export function DashboardFilterBar({
             <Button
               variant="outline"
               onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-2 h-9 shadow-sm border-gray-300 hover:bg-gray-50"
+              className="flex items-center gap-2 h-9 shadow-sm border-border/60 hover:bg-muted/50"
             >
               <Filter className="h-4 w-4" />
               <span className="font-medium">Filters</span>
               {activeFiltersCount > 0 && (
-                <Badge variant="secondary" className="ml-1 bg-blue-100 text-blue-700 border-blue-200">
+                <Badge variant="secondary" className="ml-1 font-normal">
                   {activeFiltersCount}
                 </Badge>
               )}
@@ -174,7 +174,7 @@ export function DashboardFilterBar({
                 variant="ghost"
                 size="sm"
                 onClick={clearAllFilters}
-                className="h-9 w-9 p-0 hover:bg-red-50 hover:text-red-600 transition-colors"
+                className="h-9 w-9 p-0 hover:bg-destructive/10 hover:text-destructive transition-colors"
                 title="Clear all filters"
               >
                 <X className="h-4 w-4" />
@@ -183,7 +183,7 @@ export function DashboardFilterBar({
           </div>
 
           {showFilters && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4 border-t border-gray-200">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4 border-t border-border/60">
               {isAdmin && users.length > 0 && (
                 <div className="space-y-2">
                   <label className="text-sm font-medium flex items-center gap-2">
@@ -199,7 +199,7 @@ export function DashboardFilterBar({
                       })
                     }
                   >
-                    <SelectTrigger className="w-full border-gray-300 shadow-sm">
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="All users" />
                     </SelectTrigger>
                     <SelectContent>
@@ -228,7 +228,7 @@ export function DashboardFilterBar({
                     })
                   }
                 >
-                  <SelectTrigger className="w-full border-gray-300 shadow-sm">
+                  <SelectTrigger className="w-full">
                     <SelectValue placeholder="All campaigns" />
                   </SelectTrigger>
                   <SelectContent>
@@ -245,7 +245,7 @@ export function DashboardFilterBar({
           )}
 
           {hasNonDefaultFilters && (
-            <div className="flex flex-wrap items-center gap-2 text-sm text-gray-600">
+            <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
               <span>Showing data for:</span>
               {filters.preset !== 'custom' && (
                 <Badge variant="secondary" className="font-normal">

@@ -5,11 +5,111 @@ import {
   HarmCategory,
   type SafetySetting,
 } from '@google/generative-ai'
-import { requireAuth } from '@/lib/auth'
+import { AuthenticationError, requireAuth } from '@/lib/auth'
+import { getClientIp, rateLimit } from '@/lib/rate-limit'
+import { getSafeErrorMessage } from '@/lib/safe-api-error'
+
+const MAX_MESSAGE_LENGTH = 4000
+const MAX_HISTORY_ITEMS = 20
+const MAX_HISTORY_MESSAGE_LENGTH = 2000
+const CHAT_RATE_LIMIT = { limit: 30, windowSeconds: 60 }
+
+const DEFAULT_MODELS: string[] = [process.env.GEMINI_PRIMARY_MODEL, process.env.GEMINI_FALLBACK_MODEL, 'gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-pro'].filter(
+  (m): m is string => Boolean(m)
+)
+
+type ModelCache = {
+  fetchedAt: number
+  generateModels: string[]
+  streamModels: string[]
+}
+
+const MODEL_CACHE_TTL_MS = 10 * 60 * 1000
+let modelCache: ModelCache | null = null
+
+async function discoverGeminiModels(apiKey: string) {
+  // Best-effort model discovery; the result is cached in-memory.
+  // In serverless, the cache may reset, but it still prevents repeated network calls.
+  const now = Date.now()
+  if (modelCache && now - modelCache.fetchedAt < MODEL_CACHE_TTL_MS) {
+    return modelCache
+  }
+
+  try {
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 5000)
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`,
+      { signal: controller.signal }
+    )
+    clearTimeout(timeout)
+
+    if (!response.ok) {
+      const text = await response.text().catch(() => '')
+      console.warn('chat.model_discovery_failed', { status: response.status, text: text.slice(0, 200) })
+      const empty: ModelCache = { fetchedAt: now, generateModels: [], streamModels: [] }
+      modelCache = empty
+      return empty
+    }
+
+    const data = await response.json()
+    const models: any[] = Array.isArray(data?.models) ? data.models : []
+
+    const generateModels = models
+      .filter((m) => Array.isArray(m?.supportedGenerationMethods) && m.supportedGenerationMethods.includes('generateContent'))
+      .map((m) => String(m.name).replace('models/', ''))
+
+    const streamModels = models
+      .filter(
+        (m) =>
+          Array.isArray(m?.supportedGenerationMethods) &&
+          m.supportedGenerationMethods.includes('streamGenerateContent')
+      )
+      .map((m) => String(m.name).replace('models/', ''))
+
+    const cache: ModelCache = {
+      fetchedAt: now,
+      generateModels,
+      streamModels,
+    }
+    modelCache = cache
+    return cache
+  } catch (e: any) {
+    console.warn('chat.model_discovery_exception', { message: e?.message || String(e) })
+    const empty: ModelCache = { fetchedAt: now, generateModels: [], streamModels: [] }
+    modelCache = empty
+    return empty
+  }
+}
+
+function buildModelPolicy(availableModels: string[]): string[] {
+  if (!availableModels.length) return DEFAULT_MODELS
+  const prioritized = DEFAULT_MODELS.filter((m) => availableModels.includes(m))
+  const remaining = availableModels.filter((m) => !prioritized.includes(m))
+  return [...prioritized, ...remaining]
+}
+
+function normalizeHistory(history: unknown) {
+  if (!Array.isArray(history)) return []
+  return history
+    .slice(-MAX_HISTORY_ITEMS)
+    .filter(
+      (msg): msg is { role: string; content: string } =>
+        !!msg &&
+        typeof msg === 'object' &&
+        typeof (msg as { role?: unknown }).role === 'string' &&
+        typeof (msg as { content?: unknown }).content === 'string'
+    )
+    .map((msg) => ({
+      role: msg.role === 'user' ? 'user' : 'model',
+      parts: [{ text: msg.content.slice(0, MAX_HISTORY_MESSAGE_LENGTH) }],
+    }))
+}
 
 export async function POST(request: NextRequest) {
+  const requestStart = Date.now()
   // Parse request body first (can only be read once)
-  let requestBody: { message: string; history?: any[] }
+  let requestBody: { message: string; history?: unknown; stream?: boolean }
   try {
     requestBody = await request.json()
   } catch {
@@ -19,66 +119,84 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  const { message, history = [] } = requestBody
-
-  // Keep this in outer scope so error handlers can reference it.
-  let availableModels: string[] = []
+  const { message, history = [], stream = false } = requestBody
 
   try {
-    // Check for API key first
+    const user = await requireAuth(request)
+    const clientIp = getClientIp(request)
+    const isAllowed = rateLimit(`chat:${user.id}:${clientIp}`, CHAT_RATE_LIMIT)
+    if (!isAllowed) {
+      return NextResponse.json(
+        { error: 'Too many requests. Please wait and try again.' },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': '60',
+          },
+        }
+      )
+    }
+
     const apiKey = process.env.GEMINI_API_KEY
     if (!apiKey || apiKey.trim() === '') {
       return NextResponse.json(
-        { error: 'Gemini API key is not configured. Please set GEMINI_API_KEY in your environment variables. See CHAT_SETUP.md for instructions.' },
+        { error: 'AI service is not configured.' },
         { status: 500 }
       )
     }
 
-    // Require authentication
-    const user = await requireAuth(request)
-    
-    if (!user) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      )
-    }
-
-    if (!message || typeof message !== 'string') {
+    if (typeof message !== 'string' || !message.trim()) {
       return NextResponse.json(
         { error: 'Message is required' },
         { status: 400 }
       )
     }
+    if (message.length > MAX_MESSAGE_LENGTH) {
+      return NextResponse.json(
+        { error: `Message is too long. Max ${MAX_MESSAGE_LENGTH} characters.` },
+        { status: 400 }
+      )
+    }
+    if (Array.isArray(history) && history.length > MAX_HISTORY_ITEMS * 2) {
+      return NextResponse.json(
+        { error: `History is too long. Max ${MAX_HISTORY_ITEMS * 2} items.` },
+        { status: 400 }
+      )
+    }
+    if (history && !Array.isArray(history)) {
+      return NextResponse.json(
+        { error: 'History must be an array.' },
+        { status: 400 }
+      )
+    }
 
     // Initialize Gemini with API key
-    let genAI
+    let genAI: GoogleGenerativeAI
     try {
       genAI = new GoogleGenerativeAI(apiKey)
     } catch (initError: any) {
       console.error('Failed to initialize GoogleGenerativeAI:', initError)
       return NextResponse.json(
-        { error: `Failed to initialize Gemini AI: ${initError.message || 'Unknown error'}` },
+        { error: 'Failed to initialize AI service.' },
         { status: 500 }
       )
     }
 
-    // First, try to list available models to see what's actually accessible
-    try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`)
-      if (response.ok) {
-        const data = await response.json()
-        if (data.models && Array.isArray(data.models)) {
-          availableModels = data.models
-            .filter((m: any) => m.supportedGenerationMethods?.includes('generateContent'))
-            .map((m: any) => m.name.replace('models/', ''))
-          console.log('Available models:', availableModels)
-        }
-      }
-    } catch (listError) {
-      console.warn('Could not list available models:', listError)
-      // Continue with default models if listing fails
-    }
+    const streamRequested = !!stream
+    const envModels = process.env.GEMINI_AVAILABLE_MODELS
+      ? process.env.GEMINI_AVAILABLE_MODELS.split(',').map((m) => m.trim()).filter(Boolean)
+      : []
+
+    // If env is not set, discover compatible models.
+    const discovered = envModels.length ? null : await discoverGeminiModels(apiKey)
+
+    const availableModels = envModels.length
+      ? envModels
+      : streamRequested
+        ? discovered?.streamModels?.length
+          ? discovered.streamModels
+          : discovered?.generateModels || []
+        : discovered?.generateModels || []
 
     // Safety settings
     const safetySettings: SafetySetting[] = [
@@ -108,28 +226,8 @@ export async function POST(request: NextRequest) {
       maxOutputTokens: 1024,
     }
 
-    // Build conversation history
-    const chatHistory = history.map((msg: { role: string; content: string }) => ({
-      role: msg.role === 'user' ? 'user' : 'model',
-      parts: [{ text: msg.content }],
-    }))
-
-    // Build list of models to try
-    // If we got available models from the API, use those first, otherwise use defaults
-    const defaultModels = [
-      'gemini-1.5-flash-002',
-      'gemini-1.5-flash-001',
-      'gemini-1.5-pro-002',
-      'gemini-1.5-pro-001',
-      'gemini-1.5-flash',
-      'gemini-1.5-pro',
-      'gemini-pro',
-    ]
-    
-    // If we have available models, prioritize those, then add defaults as fallback
-    const modelsToTry = availableModels.length > 0 
-      ? [...availableModels, ...defaultModels.filter(m => !availableModels.includes(m))]
-      : defaultModels
+    const chatHistory = normalizeHistory(history)
+    const modelsToTry = buildModelPolicy(availableModels)
 
     let lastError: any = null
 
@@ -145,13 +243,104 @@ export async function POST(request: NextRequest) {
           generationConfig,
         })
 
+        if (stream) {
+          const encoder = new TextEncoder()
+
+          // If streaming is not supported for this specific model, fall back to
+          // non-stream generation while still returning SSE events.
+          let resultStream: any = null
+          try {
+            resultStream = await chat.sendMessageStream(message)
+          } catch (streamInitError: any) {
+            const result = await chat.sendMessage(message)
+            const response2 = await result.response
+            const text2 = response2.text()
+
+            const streamBody = new ReadableStream({
+              start(controller) {
+                controller.enqueue(encoder.encode(`data: ${JSON.stringify({ token: text2 })}\n\n`))
+                controller.enqueue(encoder.encode('data: [DONE]\n\n'))
+                controller.close()
+                console.info('chat.stream.fallback_to_non_stream', {
+                  userId: user.id,
+                  model: modelName,
+                  latencyMs: Date.now() - requestStart,
+                  historyItems: chatHistory.length,
+                })
+              },
+            })
+
+            return new NextResponse(streamBody, {
+              headers: {
+                'Content-Type': 'text/event-stream',
+                'Cache-Control': 'no-cache, no-transform',
+                Connection: 'keep-alive',
+                'X-Model-Used': modelName,
+              },
+            })
+          }
+
+          const streamBody = new ReadableStream({
+            async start(controller) {
+              let fullText = ''
+              try {
+                for await (const chunk of resultStream.stream) {
+                  const chunkText = chunk.text()
+                  fullText += chunkText
+                  controller.enqueue(encoder.encode(`data: ${JSON.stringify({ token: chunkText })}\n\n`))
+                }
+                controller.enqueue(encoder.encode('data: [DONE]\n\n'))
+              } catch (streamError: any) {
+                controller.enqueue(
+                  encoder.encode(
+                    `data: ${JSON.stringify({ error: getSafeErrorMessage(streamError, 'Failed to stream response') })}\n\n`
+                  )
+                )
+              } finally {
+                controller.close()
+                console.info('chat.stream.complete', {
+                  userId: user.id,
+                  model: modelName,
+                  latencyMs: Date.now() - requestStart,
+                  historyItems: chatHistory.length,
+                })
+              }
+            },
+          })
+
+          return new NextResponse(streamBody, {
+            headers: {
+              'Content-Type': 'text/event-stream',
+              'Cache-Control': 'no-cache, no-transform',
+              Connection: 'keep-alive',
+              'X-Model-Used': modelName,
+            },
+          })
+        }
+
         const result = await chat.sendMessage(message)
         const response = await result.response
         const text = response.text()
 
-        return NextResponse.json({
-          message: text,
+        console.info('chat.response.complete', {
+          userId: user.id,
+          model: modelName,
+          latencyMs: Date.now() - requestStart,
+          historyItems: chatHistory.length,
+          outputChars: text.length,
         })
+
+        return NextResponse.json(
+          {
+            message: text,
+            model: modelName,
+          },
+          {
+            headers: {
+              'X-Model-Used': modelName,
+            },
+          }
+        )
       } catch (modelError: any) {
         lastError = modelError
         // If it's a 404, try next model
@@ -164,86 +353,33 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // If all models failed, throw the last error
+    console.error('chat.all_models_failed', {
+      userId: user.id,
+      modelsTried: modelsToTry,
+      error: lastError?.message || String(lastError),
+    })
     throw lastError || new Error('All models failed')
   } catch (error: any) {
     console.error('Chat API error:', error)
-    
-    // Extract error message from various error formats
-    const errorMessage = error?.message || error?.toString() || ''
-    const errorString = JSON.stringify(error).toLowerCase()
-    
-    // Handle API key errors (403, Forbidden, unregistered callers)
+
+    if (error instanceof AuthenticationError) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const errorMessage = error?.message || ''
     if (
-      errorMessage.includes('API_KEY') || 
-      errorMessage.includes('403') || 
-      errorMessage.includes('Forbidden') ||
-      errorMessage.includes('unregistered callers') ||
-      errorString.includes('403') ||
-      errorString.includes('forbidden') ||
-      errorString.includes('unregistered')
+      errorMessage.includes('403') ||
+      errorMessage.toLowerCase().includes('forbidden') ||
+      errorMessage.toLowerCase().includes('api_key')
     ) {
-      const apiKey = process.env.GEMINI_API_KEY
-      let errorMsg = 'Gemini API key is missing or invalid.\n\n'
-      
-      if (!apiKey || apiKey.trim() === '') {
-        errorMsg += '❌ GEMINI_API_KEY is not set in your environment variables.\n\n'
-        errorMsg += 'Steps to fix:\n'
-        errorMsg += '1. Create a .env file in the root directory (if it doesn\'t exist)\n'
-        errorMsg += '2. Add: GEMINI_API_KEY=your-api-key-here\n'
-        errorMsg += '3. Get your API key from: https://makersuite.google.com/app/apikey\n'
-        errorMsg += '4. Restart your development server (npm run dev)'
-      } else {
-        errorMsg += '⚠️ API key is set but appears to be invalid or doesn\'t have proper permissions.\n\n'
-        errorMsg += 'Please verify:\n'
-        errorMsg += '1. The API key is correct (no extra spaces or quotes)\n'
-        errorMsg += '2. The API key has Generative Language API enabled\n'
-        errorMsg += '3. You\'ve restarted the server after adding the key\n'
-        errorMsg += '4. See CHAT_SETUP.md for detailed instructions'
-      }
-      
-      return NextResponse.json(
-        { error: errorMsg },
-        { status: 500 }
-      )
+      return NextResponse.json({ error: 'AI service configuration error.' }, { status: 502 })
     }
 
-    // Handle model not found errors (404) - provide helpful guidance
-    if (errorMessage.includes('404') || errorMessage.includes('not found') || errorString.includes('404')) {
-      const apiKey = process.env.GEMINI_API_KEY
-      let errorMsg = `No available models found with your API key.\n\n`
-      
-      if (availableModels.length > 0) {
-        errorMsg += `Available models detected: ${availableModels.join(', ')}\n`
-        errorMsg += `But none of them worked. This might be a permissions issue.\n\n`
-      } else {
-        errorMsg += `Could not detect any available models. This usually means:\n\n`
-        errorMsg += `1. ❌ "Generative Language API" is NOT enabled in Google Cloud Console\n`
-        errorMsg += `2. ❌ Your API key doesn't have access to this API\n`
-        errorMsg += `3. ❌ The API key is from a project without the API enabled\n\n`
-        errorMsg += `📋 SOLUTION - Follow these steps:\n\n`
-        errorMsg += `Step 1: Go to https://console.cloud.google.com\n`
-        errorMsg += `Step 2: Select your project (where you created the API key)\n`
-        errorMsg += `Step 3: Go to "APIs & Services" > "Library"\n`
-        errorMsg += `Step 4: Search for "Generative Language API"\n`
-        errorMsg += `Step 5: Click "Enable"\n`
-        errorMsg += `Step 6: Wait 1-2 minutes, then restart your server\n\n`
-        errorMsg += `💡 Quick Link: https://console.cloud.google.com/apis/library/generativelanguage.googleapis.com\n\n`
-        errorMsg += `See ENABLE_GEMINI_API.md for detailed instructions with screenshots.\n\n`
-      }
-      
-      errorMsg += `Error: ${errorMessage.substring(0, 300)}`
-      
-      return NextResponse.json(
-        { error: errorMsg },
-        { status: 500 }
-      )
+    if (errorMessage.includes('404') || errorMessage.toLowerCase().includes('not found')) {
+      return NextResponse.json({ error: 'No available AI model found.' }, { status: 502 })
     }
 
-    return NextResponse.json(
-      { error: errorMessage || 'Failed to get response from AI' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: getSafeErrorMessage(error, 'Failed to get response from AI') }, { status: 500 })
   }
 }
 

@@ -327,10 +327,10 @@ export default function EmailCampaignPage() {
               <Mail className="h-6 w-6 text-blue-600" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-2xl font-bold text-foreground">
                 Email Campaign
               </h1>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Send bulk emails to inquiries via Gmail
               </p>
             </div>

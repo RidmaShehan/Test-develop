@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { requireAuth, isAdminRole } from '@/lib/auth'
+import { requireAuth } from '@/lib/auth'
+import { canViewAllInquiries } from '@/lib/inquiry-visibility'
 import { logUserActivity } from '@/lib/activity-logger'
 
 export async function GET(
@@ -16,8 +17,7 @@ export async function GET(
     // Treat legacy rows where isDeleted might be NULL as "not deleted"
     const where: any = { id, NOT: { isDeleted: true } }
     
-    // If not ADMIN/ADMINISTRATOR/DEVELOPER, only show user's own inquiries
-    if (!isAdminRole(_user.role)) {
+    if (!(await canViewAllInquiries(_user.id, _user.role))) {
       where.createdById = _user.id
     }
     
@@ -94,8 +94,7 @@ export async function PUT(
     // Check if user has permission to update this inquiry
     const where: any = { id, NOT: { isDeleted: true } }
     
-    // If not ADMIN/ADMINISTRATOR/DEVELOPER, only allow updating own inquiries
-    if (!isAdminRole(_user.role)) {
+    if (!(await canViewAllInquiries(_user.id, _user.role))) {
       where.createdById = _user.id
     }
     
@@ -108,14 +107,19 @@ export async function PUT(
       )
     }
     
-    // Never allow clients to spoof ownership/deletion fields
-    const {
-      createdById: _ignoredCreatedById,
-      deletedById: _ignoredDeletedById,
-      isDeleted: _ignoredIsDeleted,
-      deletedAt: _ignoredDeletedAt,
-      ...safeBody
-    } = (body || {}) as Record<string, unknown>
+    // Never allow clients to spoof ownership/deletion fields or change contact phones (edit form locks these)
+    const safeBody = { ...((body || {}) as Record<string, unknown>) }
+    for (const key of [
+      'createdById',
+      'deletedById',
+      'isDeleted',
+      'deletedAt',
+      'phone',
+      'whatsappNumber',
+      'whatsapp',
+    ] as const) {
+      delete safeBody[key]
+    }
 
     const seeker = await prisma.seeker.update({
       where: {
@@ -171,8 +175,7 @@ export async function PATCH(
     // Check if user has permission to update this inquiry
     const where: any = { id, NOT: { isDeleted: true } }
     
-    // If not ADMIN/ADMINISTRATOR/DEVELOPER, only allow updating own inquiries
-    if (!isAdminRole(_user.role)) {
+    if (!(await canViewAllInquiries(_user.id, _user.role))) {
       where.createdById = _user.id
     }
     
@@ -185,11 +188,15 @@ export async function PATCH(
       )
     }
     
-    // Handle relationships
-    const { preferredProgramIds, campaignId, ...updateData } = body
-    
-    // Build update data with nested operations for relations
-    const dataToUpdate: any = updateData
+    // Handle relationships; strip phone / WhatsApp — not editable via inquiry edit
+    const bodyPayload = body || {}
+    const { preferredProgramIds, campaignId } = bodyPayload
+    const dataToUpdate: any = { ...bodyPayload }
+    delete dataToUpdate.preferredProgramIds
+    delete dataToUpdate.campaignId
+    delete dataToUpdate.phone
+    delete dataToUpdate.whatsappNumber
+    delete dataToUpdate.whatsapp
     
     // Handle preferred programs if provided
     if (preferredProgramIds !== undefined && Array.isArray(preferredProgramIds)) {
@@ -328,8 +335,7 @@ export async function DELETE(
     // Check if user has permission to delete this inquiry
     const where: any = { id, NOT: { isDeleted: true } }
     
-    // If not ADMIN/ADMINISTRATOR/DEVELOPER, only allow deleting own inquiries
-    if (!isAdminRole(_user.role)) {
+    if (!(await canViewAllInquiries(_user.id, _user.role))) {
       where.createdById = _user.id
     }
     

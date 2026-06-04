@@ -57,6 +57,15 @@ interface Campaign {
   _count: {
     seekers: number
   }
+  inquiryAttribution?: {
+    inquiryCount: number
+    registeredCount: number
+  }
+  coordinator?: {
+    id: string
+    name: string | null
+    email: string | null
+  } | null
 }
 
 interface CampaignViewDialogProps {
@@ -225,6 +234,14 @@ export function CampaignViewDialog({ open, onOpenChange, campaignId }: CampaignV
                         <span className="text-sm text-gray-500">
                           Created {formatDate(campaign.createdAt)}
                         </span>
+                        {campaign.coordinator && (
+                          <span className="text-xs sm:text-sm text-gray-600">
+                            Coordinator:{' '}
+                            <span className="font-medium">
+                              {campaign.coordinator.name || campaign.coordinator.email}
+                            </span>
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -260,6 +277,18 @@ export function CampaignViewDialog({ open, onOpenChange, campaignId }: CampaignV
                       <p className="mt-1 text-sm">{campaign.endDate ? formatDate(campaign.endDate) : 'No end date'}</p>
                     </div>
                   </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-500">Coordinator</label>
+                    <p className="mt-1 text-sm">
+                      {campaign.coordinator
+                        ? `${campaign.coordinator.name || campaign.coordinator.email || ''}${
+                            campaign.coordinator.email && campaign.coordinator.name
+                              ? ` (${campaign.coordinator.email})`
+                              : ''
+                          }`
+                        : 'Not assigned'}
+                    </p>
+                  </div>
                   {campaign.budget && (
                     <div>
                       <label className="text-sm font-medium text-gray-500">Budget</label>
@@ -280,16 +309,27 @@ export function CampaignViewDialog({ open, onOpenChange, campaignId }: CampaignV
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div className="text-center p-3 bg-blue-50 rounded-lg">
                       <div className="text-2xl font-bold text-blue-600">{campaign.views?.toLocaleString() || 0}</div>
                       <div className="text-sm text-blue-600">Total Views</div>
                     </div>
                     <div className="text-center p-3 bg-green-50 rounded-lg">
-                      <div className="text-2xl font-bold text-green-600">{campaign._count?.seekers || 0}</div>
-                      <div className="text-sm text-green-600">Leads Generated</div>
+                      <div className="text-2xl font-bold text-green-600">
+                        {campaign.inquiryAttribution?.inquiryCount ?? campaign._count?.seekers ?? 0}
+                      </div>
+                      <div className="text-sm text-green-600">Inquiries (linked)</div>
+                    </div>
+                    <div className="text-center p-3 bg-emerald-50 rounded-lg border border-emerald-100">
+                      <div className="text-2xl font-bold text-emerald-700">
+                        {campaign.inquiryAttribution?.registeredCount ?? 0}
+                      </div>
+                      <div className="text-sm text-emerald-800">Registered (register now)</div>
                     </div>
                   </div>
+                  <p className="text-xs text-muted-foreground">
+                    Inquiry and registered counts exclude deleted records; registered uses the register now flag on each inquiry.
+                  </p>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="text-center p-3 bg-purple-50 rounded-lg">
                       <div className="text-2xl font-bold text-purple-600">

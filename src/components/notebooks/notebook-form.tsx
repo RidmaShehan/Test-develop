@@ -6,9 +6,19 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 
+interface Notebook {
+  id?: string
+  title: string
+  description?: string
+  icon?: string
+  color?: string
+  createdAt?: string
+  updatedAt?: string
+}
+
 interface NotebookFormProps {
-  notebook?: any
-  onSave: (data: any) => void
+  notebook?: Notebook
+  onSave: (data: Notebook) => void
   onCancel: () => void
   loading?: boolean
 }

@@ -42,13 +42,13 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(meetings)
   } catch (error) {
-    console.error('Error fetching meetings:', error)
     if (error instanceof AuthenticationError) {
       return NextResponse.json(
         { error: error.message },
         { status: 401 }
       )
     }
+    console.error('Error fetching meetings:', error)
     return NextResponse.json(
       { error: 'Failed to fetch meetings' },
       { status: 500 }
@@ -172,13 +172,13 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(meeting, { status: 201 })
   } catch (error) {
-    console.error('Error creating meeting:', error)
     if (error instanceof AuthenticationError) {
       return NextResponse.json(
         { error: error.message },
         { status: 401 }
       )
     }
+    console.error('Error creating meeting:', error)
     return NextResponse.json(
       { error: 'Failed to create meeting' },
       { status: 500 }

@@ -1,30 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, isAdminRole } from '@/lib/auth'
-import { uploadToS3 } from '@/lib/s3'
-import { writeFile, mkdir } from 'fs/promises'
-import { join } from 'path'
-import { randomUUID } from 'crypto'
 
-const TEMPLATE_MEDIA_UPLOAD_DIR = join(process.cwd(), 'public', 'uploads', 'whatsapp-templates')
-
-async function saveTemplateMediaLocally(file: File): Promise<{ filePath: string; fileName: string }> {
-  try {
-    await mkdir(TEMPLATE_MEDIA_UPLOAD_DIR, { recursive: true })
-    const fileExtension = file.name.split('.').pop() || ''
-    const uniqueFileName = `${randomUUID()}.${fileExtension}`
-    const filePath = join(TEMPLATE_MEDIA_UPLOAD_DIR, uniqueFileName)
-    const bytes = await file.arrayBuffer()
-    const buffer = Buffer.from(bytes)
-    await writeFile(filePath, buffer)
-    return {
-      filePath: `/uploads/whatsapp-templates/${uniqueFileName}`,
-      fileName: uniqueFileName,
-    }
-  } catch (error) {
-    console.error('Error saving template media locally:', error)
-    throw new Error('Failed to save template media locally')
-  }
+function fileToDataUrl(file: File, buffer: Buffer): string {
+  return `data:${file.type};base64,${buffer.toString('base64')}`
 }
 
 export async function GET(request: NextRequest) {
@@ -49,6 +28,7 @@ export async function GET(request: NextRequest) {
         mediaType: true,
         mediaFilename: true,
         mediaFilePath: true,
+        mediaBase64: true,
         mediaSize: true,
         userId: true,
         createdAt: true,
@@ -83,14 +63,23 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Only image files (e.g. JPEG, PNG, GIF) are supported for template images.' }, { status: 400 })
     }
 
-    // Save media (try S3 first, fallback to local)
-    let savedMediaFile: { filePath: string; fileName: string; s3Key?: string } | null = null
+    let mediaFields: {
+      mediaType: string | undefined
+      mediaFilename: string | undefined
+      mediaFilePath: null
+      mediaBase64: string
+      mediaSize: number | undefined
+    } | null = null
+
     if (mediaFile) {
-      try {
-        savedMediaFile = await uploadToS3(mediaFile, 'whatsapp-templates')
-      } catch (s3Error) {
-        console.warn('S3 upload failed for template media, falling back to local storage:', s3Error)
-        savedMediaFile = await saveTemplateMediaLocally(mediaFile)
+      const bytes = await mediaFile.arrayBuffer()
+      const buffer = Buffer.from(bytes)
+      mediaFields = {
+        mediaType: mediaFile.type,
+        mediaFilename: mediaFile.name,
+        mediaFilePath: null,
+        mediaBase64: fileToDataUrl(mediaFile, buffer),
+        mediaSize: mediaFile.size,
       }
     }
 
@@ -110,13 +99,8 @@ export async function POST(request: NextRequest) {
           where: { id: existing.id },
           data: {
             content,
-            ...(savedMediaFile
-              ? {
-                  mediaType: mediaFile?.type,
-                  mediaFilename: savedMediaFile.fileName || mediaFile?.name,
-                  mediaFilePath: savedMediaFile.filePath,
-                  mediaSize: mediaFile?.size,
-                }
+            ...(mediaFields
+              ? mediaFields
               : {}),
           },
           select: {
@@ -126,6 +110,7 @@ export async function POST(request: NextRequest) {
             mediaType: true,
             mediaFilename: true,
             mediaFilePath: true,
+            mediaBase64: true,
             mediaSize: true,
             userId: true,
             createdAt: true,
@@ -137,10 +122,7 @@ export async function POST(request: NextRequest) {
             userId: user.id,
             name,
             content,
-            mediaType: mediaFile?.type,
-            mediaFilename: savedMediaFile?.fileName || mediaFile?.name,
-            mediaFilePath: savedMediaFile?.filePath,
-            mediaSize: mediaFile?.size,
+            ...(mediaFields ?? {}),
           },
           select: {
             id: true,
@@ -149,6 +131,7 @@ export async function POST(request: NextRequest) {
             mediaType: true,
             mediaFilename: true,
             mediaFilePath: true,
+            mediaBase64: true,
             mediaSize: true,
             userId: true,
             createdAt: true,
@@ -162,5 +145,3 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Could not save template. Please try again.' }, { status: 500 })
   }
 }
-
-

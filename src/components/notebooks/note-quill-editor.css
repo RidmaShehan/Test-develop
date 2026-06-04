@@ -1,0 +1,46 @@
+/* Quill snow theme tuned for app layout + dark mode */
+.note-quill-editor .ql-toolbar {
+  border-top-left-radius: calc(var(--radius) - 2px);
+  border-top-right-radius: calc(var(--radius) - 2px);
+  border-color: var(--border);
+  background: var(--muted);
+}
+
+.note-quill-editor .ql-container {
+  border-bottom-left-radius: calc(var(--radius) - 2px);
+  border-bottom-right-radius: calc(var(--radius) - 2px);
+  border-color: var(--border);
+  font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+  font-size: 0.9375rem;
+}
+
+.note-quill-editor .ql-editor {
+  min-height: inherit;
+}
+
+.note-quill-editor .ql-editor.ql-blank::before {
+  color: var(--muted-foreground);
+  font-style: normal;
+}
+
+.dark .note-quill-editor .ql-toolbar {
+  background: color-mix(in oklch, var(--muted) 80%, transparent);
+}
+
+.dark .note-quill-editor .ql-stroke {
+  stroke: var(--foreground);
+}
+
+.dark .note-quill-editor .ql-fill {
+  fill: var(--foreground);
+}
+
+.dark .note-quill-editor .ql-picker-label {
+  color: var(--foreground);
+}
+
+.dark .note-quill-editor .ql-picker-options {
+  background: var(--popover);
+  border-color: var(--border);
+  color: var(--foreground);
+}

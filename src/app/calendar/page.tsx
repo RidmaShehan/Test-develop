@@ -206,7 +206,7 @@ export default function CalendarPage() {
       <div className="space-y-4 sm:space-y-6 px-4 sm:px-0">
         {/* Header Section */}
         <div className="space-y-1 sm:space-y-2">
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900">Calendar</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">Calendar</h1>
           <p className="text-sm sm:text-base text-muted-foreground">
             View all of your scheduled meetings, follow-ups, and tasks in one place.
           </p>
@@ -232,32 +232,32 @@ export default function CalendarPage() {
         {/* Full Calendar View */}
         <div className="grid gap-4 sm:gap-6 lg:grid-cols-[2fr,1fr]">
           {/* Full Calendar Grid */}
-          <Card className="shadow-sm border-gray-200">
-            <CardHeader className="bg-gray-50/50 border-b border-gray-200 pb-3">
+          <Card className="shadow-sm border-border/60">
+            <CardHeader className="bg-muted/20 border-b border-border/60 pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-base sm:text-lg font-semibold text-gray-900">
+                <CardTitle className="text-base sm:text-lg font-semibold text-foreground">
                   {format(currentMonth, 'MMMM yyyy')}
                 </CardTitle>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => navigateMonth('prev')}
-                    className="h-8 w-8 flex items-center justify-center rounded-md border border-gray-200 hover:bg-gray-100 transition-colors"
+                    className="h-8 w-8 flex items-center justify-center rounded-md border border-border/60 hover:bg-muted/30 transition-colors"
                     aria-label="Previous month"
                   >
-                    <span className="text-gray-600">‹</span>
+                    <span className="text-muted-foreground">‹</span>
                   </button>
                   <button
                     onClick={() => setCurrentMonth(new Date())}
-                    className="px-3 py-1.5 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-md hover:bg-gray-50 transition-colors"
+                    className="px-3 py-1.5 text-xs font-medium text-muted-foreground bg-card border border-border/60 rounded-md hover:bg-muted/30 transition-colors"
                   >
                     Today
                   </button>
                   <button
                     onClick={() => navigateMonth('next')}
-                    className="h-8 w-8 flex items-center justify-center rounded-md border border-gray-200 hover:bg-gray-100 transition-colors"
+                    className="h-8 w-8 flex items-center justify-center rounded-md border border-border/60 hover:bg-muted/30 transition-colors"
                     aria-label="Next month"
                   >
-                    <span className="text-gray-600">›</span>
+                    <span className="text-muted-foreground">›</span>
                   </button>
                 </div>
               </div>
@@ -268,7 +268,7 @@ export default function CalendarPage() {
                 {weekDays.map((day) => (
                   <div
                     key={day}
-                    className="text-center text-xs sm:text-sm font-semibold text-gray-600 py-2"
+                    className="text-center text-xs sm:text-sm font-semibold text-muted-foreground py-2"
                   >
                     {day}
                   </div>

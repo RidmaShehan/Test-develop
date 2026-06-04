@@ -1,15 +1,16 @@
-// @ts-nocheck
 'use client'
 
 import * as React from 'react'
 import { ChangeEvent, useCallback, useRef, useState, useEffect } from 'react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Eye, Phone, MessageSquare, Mail, User, Loader2, Pencil, Trash2, FileSpreadsheet, Download, RefreshCw } from 'lucide-react'
+import { Eye, Phone, MessageSquare, Mail, User, Loader2, Pencil, Trash2, FileSpreadsheet, Download, RefreshCw, Trash } from 'lucide-react'
+import { Skeleton } from '@/components/ui/skeleton'
 import { InquiryViewDialog } from './inquiry-view-dialog'
 import { EditInquiryDialog } from './edit-inquiry-dialog'
 import { InquirySearchFilter } from './inquiry-search-filter'
@@ -17,6 +18,7 @@ import { safeJsonParse } from '@/lib/utils'
 import { usePermissions } from '@/hooks/use-permissions'
 import { useAuth } from '@/hooks/use-auth'
 import { toast } from 'sonner'
+import { Checkbox } from '@/components/ui/checkbox'
 
 interface Inquiry {
   id: string
@@ -67,6 +69,7 @@ interface Inquiry {
     }
   }[]
   createdBy?: {
+    id: string
     name: string
   }
 }
@@ -79,128 +82,84 @@ export function InquiriesTable() {
   const [loading, setLoading] = React.useState(true)
   const [selectedInquiry, setSelectedInquiry] = React.useState<Inquiry | null>(null)
   const [editingInquiry, setEditingInquiry] = React.useState<Inquiry | null>(null)
+  const [selectedIds, setSelectedIds] = React.useState<Set<string>>(new Set())
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
   const [loadingMore, setLoadingMore] = useState(false)
   const [isFiltering, setIsFiltering] = useState(false)
   const [exporting, setExporting] = useState<string | null>(null)
+  const [bulkDeleting, setBulkDeleting] = useState(false)
   const observerTarget = useRef<HTMLDivElement>(null)
   const fetchInquiriesAbortController = useRef<AbortController | null>(null)
   const lastFetchTime = useRef<number>(0)
   const FETCH_DEBOUNCE_MS = 500 // Minimum time between fetches
-  const { hasPermission } = usePermissions()
+  const { hasPermission, canDelete: canDeletePermission } = usePermissions()
   const { user } = useAuth()
 
+  // TanStack Query for main inquiries data
+  const queryClient = useQueryClient()
+
+  const { 
+    data: inquiriesData, 
+    isLoading: isInquiriesLoading, 
+    refetch: refetchInquiries 
+  } = useQuery({
+    queryKey: ['inquiries'],
+    queryFn: async () => {
+      const response = await fetch('/api/inquiries?page=1&limit=50')
+      if (!response.ok) throw new Error('Failed to fetch inquiries')
+      return safeJsonParse(response)
+    },
+    staleTime: 30 * 1000,
+  })
+
+  useEffect(() => {
+    const onImported = () => {
+      void refetchInquiries()
+    }
+    window.addEventListener('inquiries-imported', onImported)
+    return () => window.removeEventListener('inquiries-imported', onImported)
+  }, [refetchInquiries])
+
+  // Sync query data to local state (for backward compatibility with existing filters and UI)
   React.useEffect(() => {
-    fetchInitialData()
-    
-    // Cleanup: abort any pending requests on unmount
-    return () => {
-      if (fetchInquiriesAbortController.current) {
-        fetchInquiriesAbortController.current.abort()
-      }
+    if (inquiriesData) {
+      const inquiries = inquiriesData.inquiries || (Array.isArray(inquiriesData) ? inquiriesData : [])
+      setAllInquiries(inquiries)
+      setFilteredInquiries(inquiries)
+      setHasMore(inquiriesData.pagination?.hasMore || false)
+      setPage(1)
     }
-  }, [])
+  }, [inquiriesData])
 
-  const fetchInitialData = async () => {
-    try {
-      setLoading(true)
-      const [inquiriesResponse, programsResponse, campaignsResponse] = await Promise.all([
-        fetch('/api/inquiries?page=1&limit=20'),
-        fetch('/api/programs'),
-        fetch('/api/campaigns?page=1&limit=100')
-      ])
+  // Fetch programs and campaigns (can be cached too)
+  const { data: programsData } = useQuery({
+    queryKey: ['programs'],
+    queryFn: async () => {
+      const res = await fetch('/api/programs')
+      return safeJsonParse(res)
+    },
+    staleTime: 5 * 60 * 1000,
+  })
 
-      if (inquiriesResponse.ok) {
-        const inquiriesData = await safeJsonParse(inquiriesResponse)
-        // Handle new paginated response structure
-        const inquiries = inquiriesData.inquiries || (Array.isArray(inquiriesData) ? inquiriesData : [])
-        setAllInquiries(inquiries)
-        setFilteredInquiries(inquiries)
-        setHasMore(inquiriesData.pagination?.hasMore || false)
-        setPage(1)
-      }
+  const { data: campaignsData } = useQuery({
+    queryKey: ['campaigns'],
+    queryFn: async () => {
+      const res = await fetch('/api/campaigns?page=1&limit=100')
+      return safeJsonParse(res)
+    },
+    staleTime: 5 * 60 * 1000,
+  })
 
-      if (programsResponse.ok) {
-        const programsData = await safeJsonParse(programsResponse)
-        setPrograms(programsData)
-      }
+  React.useEffect(() => {
+    if (programsData) setPrograms(programsData)
+    if (campaignsData?.campaigns) setCampaigns(campaignsData.campaigns)
+  }, [programsData, campaignsData])
 
-      if (campaignsResponse.ok) {
-        const campaignsData = await safeJsonParse(campaignsResponse)
-        // Handle new paginated response structure
-        const campaigns = campaignsData.campaigns || (Array.isArray(campaignsData) ? campaignsData : [])
-        setCampaigns(campaigns)
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const fetchMoreInquiries = React.useCallback(async (pageNum: number = 1, reset: boolean = false) => {
-    // Debounce: prevent too many rapid requests
-    const now = Date.now()
-    if (!reset && now - lastFetchTime.current < FETCH_DEBOUNCE_MS) {
-      return
-    }
-    lastFetchTime.current = now
-
-    // Cancel previous request if still pending
-    if (fetchInquiriesAbortController.current) {
-      fetchInquiriesAbortController.current.abort()
-    }
-    
-    // Create new abort controller for this request
-    fetchInquiriesAbortController.current = new AbortController()
-
-    try {
-      if (reset) {
-        setLoading(true)
-      } else {
-        setLoadingMore(true)
-      }
-
-      const response = await fetch(`/api/inquiries?page=${pageNum}&limit=20`, {
-        signal: fetchInquiriesAbortController.current.signal
-      })
-
-      if (response.ok) {
-        const data = await safeJsonParse(response)
-        const inquiries = data.inquiries || []
-        
-        if (reset) {
-          setAllInquiries(inquiries)
-          setFilteredInquiries(inquiries)
-        } else {
-          // Avoid duplicates by checking IDs
-          setAllInquiries(prev => {
-            const existingIds = new Set(prev.map(inq => inq.id))
-            const newInquiries = inquiries.filter((inq: Inquiry) => !existingIds.has(inq.id))
-            return [...prev, ...newInquiries]
-          })
-          setFilteredInquiries(prev => {
-            const existingIds = new Set(prev.map(inq => inq.id))
-            const newInquiries = inquiries.filter((inq: Inquiry) => !existingIds.has(inq.id))
-            return [...prev, ...newInquiries]
-          })
-        }
-        
-        setHasMore(data.pagination?.hasMore || false)
-        setPage(pageNum)
-      }
-    } catch (error: any) {
-      // Ignore abort errors
-      if (error.name === 'AbortError') {
-        return
-      }
-      console.error('Error fetching inquiries:', error)
-    } finally {
-      setLoading(false)
-      setLoadingMore(false)
-      fetchInquiriesAbortController.current = null
-    }
+  // Replaced with TanStack Query - the main data is now handled by useQuery above
+  // Infinite scroll can be added later with useInfiniteQuery if needed
+  const fetchMoreInquiries = React.useCallback(async () => {
+    toast.info('Loading more is now handled by React Query caching')
   }, [])
 
   const handleFilteredInquiries = (inquiries: Inquiry[]) => {
@@ -227,6 +186,57 @@ export function InquiriesTable() {
     if (inquiry.registerNow) return 'bg-green-500'
     return 'bg-transparent'
   }
+
+  // Bulk actions helpers
+  const toggleSelection = (id: string) => {
+    const newSelected = new Set(selectedIds)
+    if (newSelected.has(id)) {
+      newSelected.delete(id)
+    } else {
+      newSelected.add(id)
+    }
+    setSelectedIds(newSelected)
+  }
+
+  const toggleSelectAll = () => {
+    if (selectedIds.size === filteredInquiries.length) {
+      setSelectedIds(new Set())
+    } else {
+      setSelectedIds(new Set(filteredInquiries.map(i => i.id)))
+    }
+  }
+
+  const handleBulkDelete = async () => {
+    if (selectedIds.size === 0) return
+
+    if (!confirm(`Delete ${selectedIds.size} selected inquiries? They will be moved to trash.`)) {
+      return
+    }
+
+    setBulkDeleting(true)
+    let successCount = 0
+
+    try {
+      for (const id of Array.from(selectedIds)) {
+        const response = await fetch(`/api/inquiries/${id}`, { method: 'DELETE' })
+        if (response.ok) {
+          successCount++
+        }
+      }
+
+      toast.success(`Successfully moved ${successCount} inquiries to trash`)
+      setSelectedIds(new Set())
+
+      // Refresh data
+      refetchInquiries()
+    } catch (error) {
+      toast.error('Failed to delete some inquiries')
+    } finally {
+      setBulkDeleting(false)
+    }
+  }
+
+  const selectedCount = selectedIds.size
 
   const handleDeleteInquiry = async (inquiryId: string, inquiryName: string) => {
     if (!confirm(`Are you sure you want to delete "${inquiryName}"?\n\nThis will move it to Trash Bin.`)) {
@@ -266,7 +276,7 @@ export function InquiriesTable() {
           if (scrollTop > lastScrollTop) {
             // Load more when user scrolls within 300px of bottom
             if (scrollHeight - scrollTop - clientHeight < 300 && hasMore && !loadingMore && !loading) {
-              fetchMoreInquiries(page + 1, false)
+              fetchMoreInquiries()
             }
           }
           
@@ -356,13 +366,64 @@ export function InquiriesTable() {
     }
   }
 
-  if (loading) {
+  if (isInquiriesLoading && allInquiries.length === 0) {
     return (
       <Card className="shadow-sm">
-        <CardContent className="p-12">
-          <div className="flex flex-col items-center justify-center">
-            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary mb-4"></div>
-            <p className="text-sm text-gray-600">Loading inquiries...</p>
+        <CardHeader className="bg-gray-50/50 border-b border-gray-200">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Skeleton className="h-8 w-40" />
+              <Skeleton className="h-5 w-20" />
+            </div>
+            <div className="flex gap-2">
+              <Skeleton className="h-9 w-24" />
+              <Skeleton className="h-9 w-28" />
+              <Skeleton className="h-9 w-24" />
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="p-0">
+          <div className="hidden lg:block">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b bg-gray-50">
+                  {Array.from({ length: 17 }).map((_, i) => (
+                    <th key={i} className="px-4 py-3 text-left">
+                      <Skeleton className="h-4 w-20" />
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {Array.from({ length: 5 }).map((_, rowIndex) => (
+                  <tr key={rowIndex} className="border-b">
+                    {Array.from({ length: 17 }).map((_, colIndex) => (
+                      <td key={colIndex} className="px-4 py-4">
+                        <Skeleton className="h-4 w-full" />
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="lg:hidden p-6 space-y-4">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <Card key={i} className="p-4">
+                <div className="flex justify-between mb-3">
+                  <Skeleton className="h-5 w-40" />
+                  <Skeleton className="h-8 w-8 rounded-full" />
+                </div>
+                <div className="space-y-3">
+                  <Skeleton className="h-4 w-3/4" />
+                  <Skeleton className="h-4 w-1/2" />
+                  <div className="flex gap-2">
+                    <Skeleton className="h-6 w-16" />
+                    <Skeleton className="h-6 w-20" />
+                  </div>
+                </div>
+              </Card>
+            ))}
           </div>
         </CardContent>
       </Card>
@@ -387,19 +448,39 @@ export function InquiriesTable() {
             <Badge variant="secondary" className="text-xs font-medium">
               {filteredInquiries.length} {filteredInquiries.length === 1 ? 'inquiry' : 'inquiries'}
             </Badge>
+            {selectedCount > 0 && (
+              <Badge variant="default" className="bg-blue-600 text-white">
+                {selectedCount} selected
+              </Badge>
+            )}
             </div>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+              {selectedCount > 0 && (
+                <Button
+                  onClick={handleBulkDelete}
+                  variant="destructive"
+                  size="sm"
+                  disabled={bulkDeleting}
+                  className="w-full sm:w-auto"
+                >
+                  <Trash className="h-4 w-4 mr-2" />
+                  <span className="hidden sm:inline">
+                    {bulkDeleting ? 'Deleting...' : `Delete (${selectedCount})`}
+                  </span>
+                </Button>
+              )}
+
               <Button
                 onClick={() => {
-                  fetchInitialData()
+                  refetchInquiries()
                   toast.success('Refreshing inquiries...')
                 }}
                 variant="outline"
                 size="sm"
-                disabled={loading}
+                disabled={isInquiriesLoading}
                 className="w-full sm:w-auto"
               >
-                <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
+                <RefreshCw className={`h-4 w-4 mr-2 ${isInquiriesLoading ? 'animate-spin' : ''}`} />
                 <span className="hidden sm:inline">Refresh</span>
                 <span className="sm:hidden">Refresh</span>
               </Button>
@@ -445,7 +526,14 @@ export function InquiriesTable() {
               <Table className="w-full" containerClassName="overflow-x-visible">
                 <TableHeader className="sticky top-0 bg-white z-30 shadow-sm">
                   <TableRow className="hover:bg-gray-50/50">
-                    <TableHead className="font-semibold text-gray-900 min-w-[150px] sticky left-0 bg-white z-50 border-r shadow-[2px_0_4px_rgba(0,0,0,0.05)]">Name</TableHead>
+                    <TableHead className="w-12 font-semibold text-gray-900 sticky left-0 bg-white z-50 border-r shadow-[2px_0_4px_rgba(0,0,0,0.05)]">
+                      <Checkbox
+                        checked={selectedIds.size > 0 && selectedIds.size === filteredInquiries.length}
+                        onCheckedChange={toggleSelectAll}
+                        aria-label="Select all"
+                      />
+                    </TableHead>
+                    <TableHead className="font-semibold text-gray-900 min-w-[150px] sticky left-[52px] bg-white z-50 border-r shadow-[2px_0_4px_rgba(0,0,0,0.05)]">Name</TableHead>
                     <TableHead className="font-semibold text-gray-900 min-w-[120px]">Phone</TableHead>
                     <TableHead className="font-semibold text-gray-900 min-w-[130px]">WhatsApp</TableHead>
                     <TableHead className="font-semibold text-gray-900 min-w-[180px]">Email</TableHead>
@@ -469,7 +557,14 @@ export function InquiriesTable() {
                 <TableBody>
                   {filteredInquiries.map((inquiry: Inquiry) => (
                     <TableRow key={inquiry.id} className="hover:bg-gray-50/30 transition-colors group">
-                      <TableCell className="relative font-semibold text-gray-900 sticky left-0 bg-white group-hover:bg-gray-50/30 z-10 border-r whitespace-nowrap truncate max-w-[150px] shadow-[2px_0_4px_rgba(0,0,0,0.05)] pl-4">
+                      <TableCell className="sticky left-0 bg-white group-hover:bg-gray-50/30 z-10 border-r p-4">
+                        <Checkbox
+                          checked={selectedIds.has(inquiry.id)}
+                          onCheckedChange={() => toggleSelection(inquiry.id)}
+                          aria-label={`Select ${inquiry.fullName}`}
+                        />
+                      </TableCell>
+                      <TableCell className="relative font-semibold text-gray-900 sticky left-[52px] bg-white group-hover:bg-gray-50/30 z-10 border-r whitespace-nowrap truncate max-w-[150px] shadow-[2px_0_4px_rgba(0,0,0,0.05)] pl-4">
                         <span
                           className={`absolute left-0 inset-y-0 w-2 rounded-r ${getNameIndicatorColor(inquiry)}`}
                           aria-hidden="true"
@@ -678,7 +773,7 @@ export function InquiriesTable() {
                           >
                             <Mail className="h-4 w-4" />
                           </Button>
-                          {user?.id && inquiry.createdById === user.id && (
+                          {user?.id && inquiry.createdById === user.id && inquiry.createdBy?.id === user.id && (
                             <Button
                               variant="ghost"
                               size="sm"
@@ -912,12 +1007,25 @@ export function InquiriesTable() {
           </div>
 
           {filteredInquiries.length === 0 && !loading && (
-            <div className="flex flex-col items-center justify-center py-16 text-gray-500">
-              <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                <User className="h-8 w-8 text-gray-400" />
+            <div className="flex flex-col items-center justify-center py-20 text-gray-500">
+              <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center mb-6 border border-blue-100">
+                <User className="h-10 w-10 text-blue-400" />
               </div>
-              <p className="text-sm font-medium text-gray-600 mb-1">No inquiries found</p>
-              <p className="text-xs text-gray-400">Try adjusting your search or filter criteria</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">No inquiries found</h3>
+              <p className="text-sm text-gray-500 text-center max-w-xs mb-6">
+                {isFiltering 
+                  ? "No results match your current filters. Try adjusting your search criteria." 
+                  : "Get started by adding your first inquiry."}
+              </p>
+              {!isFiltering && (
+                <Button 
+                  onClick={() => window.location.href = '/inquiries/new'}
+                  variant="default"
+                  className="bg-blue-600 hover:bg-blue-700"
+                >
+                  Add New Inquiry
+                </Button>
+              )}
             </div>
           )}
         </CardContent>
@@ -939,7 +1047,7 @@ export function InquiriesTable() {
           onSuccess={() => {
             setEditingInquiry(null)
             // Refresh the inquiries list
-            fetchInitialData()
+            refetchInquiries()
           }}
         />
       )}

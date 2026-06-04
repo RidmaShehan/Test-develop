@@ -12,11 +12,11 @@ export default function ChatPage() {
   return (
     <DashboardLayout>
       <div className="space-y-6">
-        <div className="pb-4 border-b border-gray-200">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">
-            AI Chat Assistant
+        <div className="pb-4 border-b border-border/60">
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">
+            AI Assistant
           </h1>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-muted-foreground">
             Get instant help and answers from our AI assistant powered by Gemini
           </p>
         </div>

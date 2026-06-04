@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { AdvancedRichTextEditor } from '@/components/ui/advanced-rich-text-editor'
 import { ImageUpload } from '@/components/ui/image-upload'
-import { Loader2, FileText, Image as ImageIcon } from 'lucide-react'
+import { Loader2, FileText, Image as ImageIcon, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
 
 interface Program {
@@ -34,6 +34,7 @@ export function EditProgramDescriptionDialog({
   const [description, setDescription] = useState(program.description || '')
   const [imageUrl, setImageUrl] = useState<string | null>(program.imageUrl || null)
   const [loading, setLoading] = useState(false)
+  const [clearing, setClearing] = useState(false)
 
   useEffect(() => {
     if (open && program) {
@@ -103,6 +104,41 @@ export function EditProgramDescriptionDialog({
     }
   }
 
+  const handleClearDetails = async () => {
+    if (!window.confirm('Delete description and image for this program?')) return
+    setClearing(true)
+    try {
+      const response = await fetch(`/api/programs/${program.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: program.name,
+          level: program.level || null,
+          campus: program.campus,
+          description: null,
+          imageUrl: null,
+        }),
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ error: 'Failed to clear program details' }))
+        toast.error(errorData.error || 'Failed to clear program details')
+        return
+      }
+
+      setDescription('')
+      setImageUrl(null)
+      toast.success('Program details cleared successfully')
+      onSuccess()
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Failed to clear program details')
+    } finally {
+      setClearing(false)
+    }
+  }
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
@@ -150,9 +186,10 @@ export function EditProgramDescriptionDialog({
               value={imageUrl}
               onChange={(url) => setImageUrl(url ?? '')}
               disabled={loading}
+              storageMode="base64"
             />
             <p className="text-xs text-gray-500">
-              Optional: Upload a featured/cover image for this program (separate from inline images in description)
+              Optional: Upload a featured image as base64 for this program.
             </p>
           </div>
 
@@ -174,13 +211,23 @@ export function EditProgramDescriptionDialog({
           <div className="flex justify-end gap-2 pt-4">
             <Button
               type="button"
+              variant="destructive"
+              onClick={handleClearDetails}
+              disabled={loading || clearing}
+              className="mr-auto"
+            >
+              {clearing ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Trash2 className="h-4 w-4 mr-2" />}
+              Delete Details
+            </Button>
+            <Button
+              type="button"
               variant="outline"
               onClick={() => onOpenChange(false)}
-              disabled={loading}
+              disabled={loading || clearing}
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={loading}>
+            <Button type="submit" disabled={loading || clearing}>
               {loading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
               Save Description
             </Button>

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { requireAuth } from '@/lib/auth'
+import { requireAuth, AuthenticationError } from '@/lib/auth'
 
 // GET /api/programs - Get all programs
 // Accessible to all authenticated users regardless of role
@@ -33,6 +33,13 @@ export async function GET(request: NextRequest) {
       stack: error instanceof Error ? error.stack : undefined
     })
     
+    if (error instanceof AuthenticationError) {
+      return NextResponse.json(
+        { error: error.message, route: '/api/programs' },
+        { status: 401 }
+      )
+    }
+
     // Return proper JSON error response
     return NextResponse.json(
       { 
@@ -58,6 +65,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(program, { status: 201 })
   } catch (error) {
     console.error('Error creating program:', error)
+    if (error instanceof AuthenticationError) {
+      return NextResponse.json({ error: error.message }, { status: 401 })
+    }
     return NextResponse.json(
       { error: 'Failed to create program' },
       { status: 500 }

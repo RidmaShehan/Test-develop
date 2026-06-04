@@ -223,6 +223,7 @@ export type Notebook = $Result.DefaultSelection<Prisma.$NotebookPayload>
  * 
  */
 export type Note = $Result.DefaultSelection<Prisma.$NotePayload>
+<<<<<<< HEAD
 /**
  * Model PromotionCode
  * 
@@ -313,6 +314,8 @@ export type Alumni = $Result.DefaultSelection<Prisma.$AlumniPayload>
  * 
  */
 export type AlumniEngagement = $Result.DefaultSelection<Prisma.$AlumniEngagementPayload>
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
 
 /**
  * Enums
@@ -400,6 +403,7 @@ export const Permission: {
   DELETE_NOTE: 'DELETE_NOTE',
   DELETE_ADMINISTRATOR: 'DELETE_ADMINISTRATOR',
   MANAGE_ALL_USERS: 'MANAGE_ALL_USERS',
+<<<<<<< HEAD
   SYSTEM_ADMINISTRATION: 'SYSTEM_ADMINISTRATION',
   VIEW_REPORTS: 'VIEW_REPORTS',
   READ_DOCUMENTS: 'READ_DOCUMENTS',
@@ -411,6 +415,9 @@ export const Permission: {
   READ_ALUMNI: 'READ_ALUMNI',
   MANAGE_ALUMNI: 'MANAGE_ALUMNI',
   SEND_SMS: 'SEND_SMS'
+=======
+  SYSTEM_ADMINISTRATION: 'SYSTEM_ADMINISTRATION'
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
 };
 
 export type Permission = (typeof Permission)[keyof typeof Permission]
@@ -1275,6 +1282,7 @@ export class PrismaClient<
     * ```
     */
   get note(): Prisma.NoteDelegate<ExtArgs, ClientOptions>;
+<<<<<<< HEAD
 
   /**
    * `prisma.promotionCode`: Exposes CRUD operations for the **PromotionCode** model.
@@ -1455,6 +1463,8 @@ export class PrismaClient<
     * ```
     */
   get alumniEngagement(): Prisma.AlumniEngagementDelegate<ExtArgs, ClientOptions>;
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
 }
 
 export namespace Prisma {
@@ -1936,6 +1946,7 @@ export namespace Prisma {
     Notification: 'Notification',
     ProgramQA: 'ProgramQA',
     Notebook: 'Notebook',
+<<<<<<< HEAD
     Note: 'Note',
     PromotionCode: 'PromotionCode',
     PasswordResetToken: 'PasswordResetToken',
@@ -1955,6 +1966,9 @@ export namespace Prisma {
     SMSRecipient: 'SMSRecipient',
     Alumni: 'Alumni',
     AlumniEngagement: 'AlumniEngagement'
+=======
+    Note: 'Note'
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1973,7 +1987,11 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
+<<<<<<< HEAD
       modelProps: "user" | "role" | "permissionModel" | "userRoleAssignment" | "rolePermission" | "level" | "program" | "seeker" | "interaction" | "followUpTask" | "taskActionHistory" | "assignment" | "campaign" | "campaignType" | "campaignSeeker" | "userActivityLog" | "systemSettings" | "seekerProgram" | "whatsAppMessage" | "whatsAppTemplate" | "whatsAppRecipient" | "emailMessage" | "emailRecipient" | "emailAttachment" | "meeting" | "project" | "projectMember" | "task" | "taskChecklist" | "taskAttachment" | "taskComment" | "taskTimeEntry" | "deal" | "dealActivity" | "client" | "socialMediaPost" | "postApproval" | "postComment" | "notification" | "programQA" | "notebook" | "note" | "promotionCode" | "passwordResetToken" | "leadScore" | "voiceNote" | "documentType" | "programDocumentRequirement" | "document" | "documentVersion" | "documentRequest" | "invoice" | "invoiceItem" | "payment" | "event" | "eventRegistration" | "sMSMessage" | "sMSRecipient" | "alumni" | "alumniEngagement"
+=======
+      modelProps: "user" | "role" | "permissionModel" | "userRoleAssignment" | "rolePermission" | "level" | "program" | "seeker" | "interaction" | "followUpTask" | "taskActionHistory" | "assignment" | "campaign" | "campaignType" | "campaignSeeker" | "userActivityLog" | "systemSettings" | "seekerProgram" | "whatsAppMessage" | "whatsAppTemplate" | "whatsAppRecipient" | "emailMessage" | "emailRecipient" | "emailAttachment" | "meeting" | "project" | "projectMember" | "task" | "taskChecklist" | "taskAttachment" | "taskComment" | "taskTimeEntry" | "deal" | "dealActivity" | "client" | "socialMediaPost" | "postApproval" | "postComment" | "notification" | "programQA" | "notebook" | "note"
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -5085,6 +5103,7 @@ export namespace Prisma {
           }
         }
       }
+<<<<<<< HEAD
       PromotionCode: {
         payload: Prisma.$PromotionCodePayload<ExtArgs>
         fields: Prisma.PromotionCodeFieldRefs
@@ -6417,6 +6436,8 @@ export namespace Prisma {
           }
         }
       }
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     }
   } & {
     other: {
@@ -6555,6 +6576,7 @@ export namespace Prisma {
     programQA?: ProgramQAOmit
     notebook?: NotebookOmit
     note?: NoteOmit
+<<<<<<< HEAD
     promotionCode?: PromotionCodeOmit
     passwordResetToken?: PasswordResetTokenOmit
     leadScore?: LeadScoreOmit
@@ -6573,6 +6595,8 @@ export namespace Prisma {
     sMSRecipient?: SMSRecipientOmit
     alumni?: AlumniOmit
     alumniEngagement?: AlumniEngagementOmit
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   /* Types for Logging */
@@ -6686,6 +6710,7 @@ export namespace Prisma {
     notifications: number
     createdNotebooks: number
     createdNotes: number
+<<<<<<< HEAD
     createdPromotionCodes: number
     passwordResetTokens: number
     voiceNotes: number
@@ -6696,6 +6721,8 @@ export namespace Prisma {
     recordedPayments: number
     createdEvents: number
     smsMessages: number
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6732,6 +6759,7 @@ export namespace Prisma {
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
     createdNotebooks?: boolean | UserCountOutputTypeCountCreatedNotebooksArgs
     createdNotes?: boolean | UserCountOutputTypeCountCreatedNotesArgs
+<<<<<<< HEAD
     createdPromotionCodes?: boolean | UserCountOutputTypeCountCreatedPromotionCodesArgs
     passwordResetTokens?: boolean | UserCountOutputTypeCountPasswordResetTokensArgs
     voiceNotes?: boolean | UserCountOutputTypeCountVoiceNotesArgs
@@ -6742,6 +6770,8 @@ export namespace Prisma {
     recordedPayments?: boolean | UserCountOutputTypeCountRecordedPaymentsArgs
     createdEvents?: boolean | UserCountOutputTypeCountCreatedEventsArgs
     smsMessages?: boolean | UserCountOutputTypeCountSmsMessagesArgs
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   // Custom InputTypes
@@ -6986,6 +7016,7 @@ export namespace Prisma {
     where?: NoteWhereInput
   }
 
+<<<<<<< HEAD
   /**
    * UserCountOutputType without action
    */
@@ -7056,6 +7087,8 @@ export namespace Prisma {
     where?: SMSMessageWhereInput
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
 
   /**
    * Count Type RoleCountOutputType
@@ -7168,8 +7201,11 @@ export namespace Prisma {
     preferredBy: number
     socialMediaPosts: number
     qaItems: number
+<<<<<<< HEAD
     documentRequirements: number
     alumni: number
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7177,8 +7213,11 @@ export namespace Prisma {
     preferredBy?: boolean | ProgramCountOutputTypeCountPreferredByArgs
     socialMediaPosts?: boolean | ProgramCountOutputTypeCountSocialMediaPostsArgs
     qaItems?: boolean | ProgramCountOutputTypeCountQaItemsArgs
+<<<<<<< HEAD
     documentRequirements?: boolean | ProgramCountOutputTypeCountDocumentRequirementsArgs
     alumni?: boolean | ProgramCountOutputTypeCountAlumniArgs
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   // Custom InputTypes
@@ -7220,6 +7259,7 @@ export namespace Prisma {
     where?: ProgramQAWhereInput
   }
 
+<<<<<<< HEAD
   /**
    * ProgramCountOutputType without action
    */
@@ -7234,6 +7274,8 @@ export namespace Prisma {
     where?: AlumniWhereInput
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
 
   /**
    * Count Type SeekerCountOutputType
@@ -7248,11 +7290,14 @@ export namespace Prisma {
     campaigns: number
     whatsappRecipients: number
     emailRecipients: number
+<<<<<<< HEAD
     voiceNotes: number
     documents: number
     documentRequests: number
     invoices: number
     eventRegistrations: number
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7264,11 +7309,14 @@ export namespace Prisma {
     campaigns?: boolean | SeekerCountOutputTypeCountCampaignsArgs
     whatsappRecipients?: boolean | SeekerCountOutputTypeCountWhatsappRecipientsArgs
     emailRecipients?: boolean | SeekerCountOutputTypeCountEmailRecipientsArgs
+<<<<<<< HEAD
     voiceNotes?: boolean | SeekerCountOutputTypeCountVoiceNotesArgs
     documents?: boolean | SeekerCountOutputTypeCountDocumentsArgs
     documentRequests?: boolean | SeekerCountOutputTypeCountDocumentRequestsArgs
     invoices?: boolean | SeekerCountOutputTypeCountInvoicesArgs
     eventRegistrations?: boolean | SeekerCountOutputTypeCountEventRegistrationsArgs
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   // Custom InputTypes
@@ -7338,6 +7386,7 @@ export namespace Prisma {
     where?: EmailRecipientWhereInput
   }
 
+<<<<<<< HEAD
   /**
    * SeekerCountOutputType without action
    */
@@ -7373,6 +7422,8 @@ export namespace Prisma {
     where?: EventRegistrationWhereInput
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
 
   /**
    * Count Type FollowUpTaskCountOutputType
@@ -7837,6 +7888,7 @@ export namespace Prisma {
 
 
   /**
+<<<<<<< HEAD
    * Count Type PromotionCodeCountOutputType
    */
 
@@ -8081,6 +8133,8 @@ export namespace Prisma {
 
 
   /**
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
    * Models
    */
 
@@ -8313,6 +8367,7 @@ export namespace Prisma {
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     createdNotebooks?: boolean | User$createdNotebooksArgs<ExtArgs>
     createdNotes?: boolean | User$createdNotesArgs<ExtArgs>
+<<<<<<< HEAD
     createdPromotionCodes?: boolean | User$createdPromotionCodesArgs<ExtArgs>
     passwordResetTokens?: boolean | User$passwordResetTokensArgs<ExtArgs>
     voiceNotes?: boolean | User$voiceNotesArgs<ExtArgs>
@@ -8323,6 +8378,8 @@ export namespace Prisma {
     recordedPayments?: boolean | User$recordedPaymentsArgs<ExtArgs>
     createdEvents?: boolean | User$createdEventsArgs<ExtArgs>
     smsMessages?: boolean | User$smsMessagesArgs<ExtArgs>
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -8397,6 +8454,7 @@ export namespace Prisma {
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     createdNotebooks?: boolean | User$createdNotebooksArgs<ExtArgs>
     createdNotes?: boolean | User$createdNotesArgs<ExtArgs>
+<<<<<<< HEAD
     createdPromotionCodes?: boolean | User$createdPromotionCodesArgs<ExtArgs>
     passwordResetTokens?: boolean | User$passwordResetTokensArgs<ExtArgs>
     voiceNotes?: boolean | User$voiceNotesArgs<ExtArgs>
@@ -8407,6 +8465,8 @@ export namespace Prisma {
     recordedPayments?: boolean | User$recordedPaymentsArgs<ExtArgs>
     createdEvents?: boolean | User$createdEventsArgs<ExtArgs>
     smsMessages?: boolean | User$smsMessagesArgs<ExtArgs>
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -8448,6 +8508,7 @@ export namespace Prisma {
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
       createdNotebooks: Prisma.$NotebookPayload<ExtArgs>[]
       createdNotes: Prisma.$NotePayload<ExtArgs>[]
+<<<<<<< HEAD
       createdPromotionCodes: Prisma.$PromotionCodePayload<ExtArgs>[]
       passwordResetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[]
       voiceNotes: Prisma.$VoiceNotePayload<ExtArgs>[]
@@ -8458,6 +8519,8 @@ export namespace Prisma {
       recordedPayments: Prisma.$PaymentPayload<ExtArgs>[]
       createdEvents: Prisma.$EventPayload<ExtArgs>[]
       smsMessages: Prisma.$SMSMessagePayload<ExtArgs>[]
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8896,6 +8959,7 @@ export namespace Prisma {
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     createdNotebooks<T extends User$createdNotebooksArgs<ExtArgs> = {}>(args?: Subset<T, User$createdNotebooksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotebookPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     createdNotes<T extends User$createdNotesArgs<ExtArgs> = {}>(args?: Subset<T, User$createdNotesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+<<<<<<< HEAD
     createdPromotionCodes<T extends User$createdPromotionCodesArgs<ExtArgs> = {}>(args?: Subset<T, User$createdPromotionCodesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PromotionCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     passwordResetTokens<T extends User$passwordResetTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     voiceNotes<T extends User$voiceNotesArgs<ExtArgs> = {}>(args?: Subset<T, User$voiceNotesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VoiceNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -8906,6 +8970,8 @@ export namespace Prisma {
     recordedPayments<T extends User$recordedPaymentsArgs<ExtArgs> = {}>(args?: Subset<T, User$recordedPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     createdEvents<T extends User$createdEventsArgs<ExtArgs> = {}>(args?: Subset<T, User$createdEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     smsMessages<T extends User$smsMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$smsMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SMSMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10122,6 +10188,7 @@ export namespace Prisma {
   }
 
   /**
+<<<<<<< HEAD
    * User.createdPromotionCodes
    */
   export type User$createdPromotionCodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10362,6 +10429,8 @@ export namespace Prisma {
   }
 
   /**
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15983,8 +16052,11 @@ export namespace Prisma {
     preferredBy?: boolean | Program$preferredByArgs<ExtArgs>
     socialMediaPosts?: boolean | Program$socialMediaPostsArgs<ExtArgs>
     qaItems?: boolean | Program$qaItemsArgs<ExtArgs>
+<<<<<<< HEAD
     documentRequirements?: boolean | Program$documentRequirementsArgs<ExtArgs>
     alumni?: boolean | Program$alumniArgs<ExtArgs>
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     _count?: boolean | ProgramCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["program"]>
 
@@ -16036,8 +16108,11 @@ export namespace Prisma {
     preferredBy?: boolean | Program$preferredByArgs<ExtArgs>
     socialMediaPosts?: boolean | Program$socialMediaPostsArgs<ExtArgs>
     qaItems?: boolean | Program$qaItemsArgs<ExtArgs>
+<<<<<<< HEAD
     documentRequirements?: boolean | Program$documentRequirementsArgs<ExtArgs>
     alumni?: boolean | Program$alumniArgs<ExtArgs>
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     _count?: boolean | ProgramCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProgramIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16055,8 +16130,11 @@ export namespace Prisma {
       preferredBy: Prisma.$SeekerProgramPayload<ExtArgs>[]
       socialMediaPosts: Prisma.$SocialMediaPostPayload<ExtArgs>[]
       qaItems: Prisma.$ProgramQAPayload<ExtArgs>[]
+<<<<<<< HEAD
       documentRequirements: Prisma.$ProgramDocumentRequirementPayload<ExtArgs>[]
       alumni: Prisma.$AlumniPayload<ExtArgs>[]
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -16468,8 +16546,11 @@ export namespace Prisma {
     preferredBy<T extends Program$preferredByArgs<ExtArgs> = {}>(args?: Subset<T, Program$preferredByArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeekerProgramPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     socialMediaPosts<T extends Program$socialMediaPostsArgs<ExtArgs> = {}>(args?: Subset<T, Program$socialMediaPostsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SocialMediaPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     qaItems<T extends Program$qaItemsArgs<ExtArgs> = {}>(args?: Subset<T, Program$qaItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProgramQAPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+<<<<<<< HEAD
     documentRequirements<T extends Program$documentRequirementsArgs<ExtArgs> = {}>(args?: Subset<T, Program$documentRequirementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProgramDocumentRequirementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     alumni<T extends Program$alumniArgs<ExtArgs> = {}>(args?: Subset<T, Program$alumniArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AlumniPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -17018,6 +17099,7 @@ export namespace Prisma {
   }
 
   /**
+<<<<<<< HEAD
    * Program.documentRequirements
    */
   export type Program$documentRequirementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17066,6 +17148,8 @@ export namespace Prisma {
   }
 
   /**
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
    * Program without action
    */
   export type ProgramDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17134,7 +17218,10 @@ export namespace Prisma {
     updatedAt: Date | null
     createdById: string | null
     deletedById: string | null
+<<<<<<< HEAD
     promotionCodeId: string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerMaxAggregateOutputType = {
@@ -17167,7 +17254,10 @@ export namespace Prisma {
     updatedAt: Date | null
     createdById: string | null
     deletedById: string | null
+<<<<<<< HEAD
     promotionCodeId: string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerCountAggregateOutputType = {
@@ -17200,7 +17290,10 @@ export namespace Prisma {
     updatedAt: number
     createdById: number
     deletedById: number
+<<<<<<< HEAD
     promotionCodeId: number
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     _all: number
   }
 
@@ -17243,7 +17336,10 @@ export namespace Prisma {
     updatedAt?: true
     createdById?: true
     deletedById?: true
+<<<<<<< HEAD
     promotionCodeId?: true
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerMaxAggregateInputType = {
@@ -17276,7 +17372,10 @@ export namespace Prisma {
     updatedAt?: true
     createdById?: true
     deletedById?: true
+<<<<<<< HEAD
     promotionCodeId?: true
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerCountAggregateInputType = {
@@ -17309,7 +17408,10 @@ export namespace Prisma {
     updatedAt?: true
     createdById?: true
     deletedById?: true
+<<<<<<< HEAD
     promotionCodeId?: true
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     _all?: true
   }
 
@@ -17429,7 +17531,10 @@ export namespace Prisma {
     updatedAt: Date
     createdById: string | null
     deletedById: string | null
+<<<<<<< HEAD
     promotionCodeId: string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     _count: SeekerCountAggregateOutputType | null
     _avg: SeekerAvgAggregateOutputType | null
     _sum: SeekerSumAggregateOutputType | null
@@ -17481,7 +17586,10 @@ export namespace Prisma {
     updatedAt?: boolean
     createdById?: boolean
     deletedById?: boolean
+<<<<<<< HEAD
     promotionCodeId?: boolean
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: boolean | Seeker$assignmentsArgs<ExtArgs>
     followUpTasks?: boolean | Seeker$followUpTasksArgs<ExtArgs>
     interactions?: boolean | Seeker$interactionsArgs<ExtArgs>
@@ -17493,6 +17601,7 @@ export namespace Prisma {
     campaigns?: boolean | Seeker$campaignsArgs<ExtArgs>
     whatsappRecipients?: boolean | Seeker$whatsappRecipientsArgs<ExtArgs>
     emailRecipients?: boolean | Seeker$emailRecipientsArgs<ExtArgs>
+<<<<<<< HEAD
     promotionCode?: boolean | Seeker$promotionCodeArgs<ExtArgs>
     leadScore?: boolean | Seeker$leadScoreArgs<ExtArgs>
     voiceNotes?: boolean | Seeker$voiceNotesArgs<ExtArgs>
@@ -17501,6 +17610,8 @@ export namespace Prisma {
     invoices?: boolean | Seeker$invoicesArgs<ExtArgs>
     eventRegistrations?: boolean | Seeker$eventRegistrationsArgs<ExtArgs>
     alumni?: boolean | Seeker$alumniArgs<ExtArgs>
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     _count?: boolean | SeekerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["seeker"]>
 
@@ -17534,11 +17645,17 @@ export namespace Prisma {
     updatedAt?: boolean
     createdById?: boolean
     deletedById?: boolean
+<<<<<<< HEAD
     promotionCodeId?: boolean
     createdBy?: boolean | Seeker$createdByArgs<ExtArgs>
     deletedBy?: boolean | Seeker$deletedByArgs<ExtArgs>
     programInterest?: boolean | Seeker$programInterestArgs<ExtArgs>
     promotionCode?: boolean | Seeker$promotionCodeArgs<ExtArgs>
+=======
+    createdBy?: boolean | Seeker$createdByArgs<ExtArgs>
+    deletedBy?: boolean | Seeker$deletedByArgs<ExtArgs>
+    programInterest?: boolean | Seeker$programInterestArgs<ExtArgs>
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }, ExtArgs["result"]["seeker"]>
 
   export type SeekerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -17571,11 +17688,17 @@ export namespace Prisma {
     updatedAt?: boolean
     createdById?: boolean
     deletedById?: boolean
+<<<<<<< HEAD
     promotionCodeId?: boolean
     createdBy?: boolean | Seeker$createdByArgs<ExtArgs>
     deletedBy?: boolean | Seeker$deletedByArgs<ExtArgs>
     programInterest?: boolean | Seeker$programInterestArgs<ExtArgs>
     promotionCode?: boolean | Seeker$promotionCodeArgs<ExtArgs>
+=======
+    createdBy?: boolean | Seeker$createdByArgs<ExtArgs>
+    deletedBy?: boolean | Seeker$deletedByArgs<ExtArgs>
+    programInterest?: boolean | Seeker$programInterestArgs<ExtArgs>
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }, ExtArgs["result"]["seeker"]>
 
   export type SeekerSelectScalar = {
@@ -17608,10 +17731,16 @@ export namespace Prisma {
     updatedAt?: boolean
     createdById?: boolean
     deletedById?: boolean
+<<<<<<< HEAD
     promotionCodeId?: boolean
   }
 
   export type SeekerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "phone" | "whatsapp" | "whatsappNumber" | "notAnswering" | "email" | "emailNotAnswering" | "city" | "ageBand" | "guardianPhone" | "programInterestId" | "marketingSource" | "campaignId" | "preferredContactTime" | "preferredStatus" | "followUpAgain" | "followUpDate" | "followUpTime" | "description" | "stage" | "consent" | "registerNow" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt" | "createdById" | "deletedById" | "promotionCodeId", ExtArgs["result"]["seeker"]>
+=======
+  }
+
+  export type SeekerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "phone" | "whatsapp" | "whatsappNumber" | "notAnswering" | "email" | "emailNotAnswering" | "city" | "ageBand" | "guardianPhone" | "programInterestId" | "marketingSource" | "campaignId" | "preferredContactTime" | "preferredStatus" | "followUpAgain" | "followUpDate" | "followUpTime" | "description" | "stage" | "consent" | "registerNow" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt" | "createdById" | "deletedById", ExtArgs["result"]["seeker"]>
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type SeekerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     assignments?: boolean | Seeker$assignmentsArgs<ExtArgs>
     followUpTasks?: boolean | Seeker$followUpTasksArgs<ExtArgs>
@@ -17624,6 +17753,7 @@ export namespace Prisma {
     campaigns?: boolean | Seeker$campaignsArgs<ExtArgs>
     whatsappRecipients?: boolean | Seeker$whatsappRecipientsArgs<ExtArgs>
     emailRecipients?: boolean | Seeker$emailRecipientsArgs<ExtArgs>
+<<<<<<< HEAD
     promotionCode?: boolean | Seeker$promotionCodeArgs<ExtArgs>
     leadScore?: boolean | Seeker$leadScoreArgs<ExtArgs>
     voiceNotes?: boolean | Seeker$voiceNotesArgs<ExtArgs>
@@ -17632,19 +17762,27 @@ export namespace Prisma {
     invoices?: boolean | Seeker$invoicesArgs<ExtArgs>
     eventRegistrations?: boolean | Seeker$eventRegistrationsArgs<ExtArgs>
     alumni?: boolean | Seeker$alumniArgs<ExtArgs>
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     _count?: boolean | SeekerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SeekerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     createdBy?: boolean | Seeker$createdByArgs<ExtArgs>
     deletedBy?: boolean | Seeker$deletedByArgs<ExtArgs>
     programInterest?: boolean | Seeker$programInterestArgs<ExtArgs>
+<<<<<<< HEAD
     promotionCode?: boolean | Seeker$promotionCodeArgs<ExtArgs>
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
   export type SeekerIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     createdBy?: boolean | Seeker$createdByArgs<ExtArgs>
     deletedBy?: boolean | Seeker$deletedByArgs<ExtArgs>
     programInterest?: boolean | Seeker$programInterestArgs<ExtArgs>
+<<<<<<< HEAD
     promotionCode?: boolean | Seeker$promotionCodeArgs<ExtArgs>
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type $SeekerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17661,6 +17799,7 @@ export namespace Prisma {
       campaigns: Prisma.$CampaignSeekerPayload<ExtArgs>[]
       whatsappRecipients: Prisma.$WhatsAppRecipientPayload<ExtArgs>[]
       emailRecipients: Prisma.$EmailRecipientPayload<ExtArgs>[]
+<<<<<<< HEAD
       promotionCode: Prisma.$PromotionCodePayload<ExtArgs> | null
       leadScore: Prisma.$LeadScorePayload<ExtArgs> | null
       voiceNotes: Prisma.$VoiceNotePayload<ExtArgs>[]
@@ -17669,6 +17808,8 @@ export namespace Prisma {
       invoices: Prisma.$InvoicePayload<ExtArgs>[]
       eventRegistrations: Prisma.$EventRegistrationPayload<ExtArgs>[]
       alumni: Prisma.$AlumniPayload<ExtArgs> | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -17700,7 +17841,10 @@ export namespace Prisma {
       updatedAt: Date
       createdById: string | null
       deletedById: string | null
+<<<<<<< HEAD
       promotionCodeId: string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     }, ExtArgs["result"]["seeker"]>
     composites: {}
   }
@@ -18106,6 +18250,7 @@ export namespace Prisma {
     campaigns<T extends Seeker$campaignsArgs<ExtArgs> = {}>(args?: Subset<T, Seeker$campaignsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CampaignSeekerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     whatsappRecipients<T extends Seeker$whatsappRecipientsArgs<ExtArgs> = {}>(args?: Subset<T, Seeker$whatsappRecipientsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsAppRecipientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     emailRecipients<T extends Seeker$emailRecipientsArgs<ExtArgs> = {}>(args?: Subset<T, Seeker$emailRecipientsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailRecipientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+<<<<<<< HEAD
     promotionCode<T extends Seeker$promotionCodeArgs<ExtArgs> = {}>(args?: Subset<T, Seeker$promotionCodeArgs<ExtArgs>>): Prisma__PromotionCodeClient<$Result.GetResult<Prisma.$PromotionCodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     leadScore<T extends Seeker$leadScoreArgs<ExtArgs> = {}>(args?: Subset<T, Seeker$leadScoreArgs<ExtArgs>>): Prisma__LeadScoreClient<$Result.GetResult<Prisma.$LeadScorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     voiceNotes<T extends Seeker$voiceNotesArgs<ExtArgs> = {}>(args?: Subset<T, Seeker$voiceNotesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VoiceNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -18114,6 +18259,8 @@ export namespace Prisma {
     invoices<T extends Seeker$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, Seeker$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     eventRegistrations<T extends Seeker$eventRegistrationsArgs<ExtArgs> = {}>(args?: Subset<T, Seeker$eventRegistrationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventRegistrationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     alumni<T extends Seeker$alumniArgs<ExtArgs> = {}>(args?: Subset<T, Seeker$alumniArgs<ExtArgs>>): Prisma__AlumniClient<$Result.GetResult<Prisma.$AlumniPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -18172,7 +18319,10 @@ export namespace Prisma {
     readonly updatedAt: FieldRef<"Seeker", 'DateTime'>
     readonly createdById: FieldRef<"Seeker", 'String'>
     readonly deletedById: FieldRef<"Seeker", 'String'>
+<<<<<<< HEAD
     readonly promotionCodeId: FieldRef<"Seeker", 'String'>
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
     
 
@@ -18816,6 +18966,7 @@ export namespace Prisma {
   }
 
   /**
+<<<<<<< HEAD
    * Seeker.promotionCode
    */
   export type Seeker$promotionCodeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -18993,6 +19144,8 @@ export namespace Prisma {
   }
 
   /**
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
    * Seeker without action
    */
   export type SeekerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -58964,6 +59117,7 @@ export namespace Prisma {
 
 
   /**
+<<<<<<< HEAD
    * Model PromotionCode
    */
 
@@ -79784,6 +79938,8 @@ export namespace Prisma {
 
 
   /**
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
    * Enums
    */
 
@@ -79909,8 +80065,12 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     createdById: 'createdById',
+<<<<<<< HEAD
     deletedById: 'deletedById',
     promotionCodeId: 'promotionCodeId'
+=======
+    deletedById: 'deletedById'
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   };
 
   export type SeekerScalarFieldEnum = (typeof SeekerScalarFieldEnum)[keyof typeof SeekerScalarFieldEnum]
@@ -80469,6 +80629,7 @@ export namespace Prisma {
   export type NoteScalarFieldEnum = (typeof NoteScalarFieldEnum)[keyof typeof NoteScalarFieldEnum]
 
 
+<<<<<<< HEAD
   export const PromotionCodeScalarFieldEnum: {
     id: 'id',
     code: 'code',
@@ -80741,6 +80902,8 @@ export namespace Prisma {
   export type AlumniEngagementScalarFieldEnum = (typeof AlumniEngagementScalarFieldEnum)[keyof typeof AlumniEngagementScalarFieldEnum]
 
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -81039,6 +81202,7 @@ export namespace Prisma {
     notifications?: NotificationListRelationFilter
     createdNotebooks?: NotebookListRelationFilter
     createdNotes?: NoteListRelationFilter
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeListRelationFilter
     passwordResetTokens?: PasswordResetTokenListRelationFilter
     voiceNotes?: VoiceNoteListRelationFilter
@@ -81049,6 +81213,8 @@ export namespace Prisma {
     recordedPayments?: PaymentListRelationFilter
     createdEvents?: EventListRelationFilter
     smsMessages?: SMSMessageListRelationFilter
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserOrderByWithRelationInput = {
@@ -81094,6 +81260,7 @@ export namespace Prisma {
     notifications?: NotificationOrderByRelationAggregateInput
     createdNotebooks?: NotebookOrderByRelationAggregateInput
     createdNotes?: NoteOrderByRelationAggregateInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeOrderByRelationAggregateInput
     passwordResetTokens?: PasswordResetTokenOrderByRelationAggregateInput
     voiceNotes?: VoiceNoteOrderByRelationAggregateInput
@@ -81104,6 +81271,8 @@ export namespace Prisma {
     recordedPayments?: PaymentOrderByRelationAggregateInput
     createdEvents?: EventOrderByRelationAggregateInput
     smsMessages?: SMSMessageOrderByRelationAggregateInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -81152,6 +81321,7 @@ export namespace Prisma {
     notifications?: NotificationListRelationFilter
     createdNotebooks?: NotebookListRelationFilter
     createdNotes?: NoteListRelationFilter
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeListRelationFilter
     passwordResetTokens?: PasswordResetTokenListRelationFilter
     voiceNotes?: VoiceNoteListRelationFilter
@@ -81162,6 +81332,8 @@ export namespace Prisma {
     recordedPayments?: PaymentListRelationFilter
     createdEvents?: EventListRelationFilter
     smsMessages?: SMSMessageListRelationFilter
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }, "id" | "clerkId" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -81501,8 +81673,11 @@ export namespace Prisma {
     preferredBy?: SeekerProgramListRelationFilter
     socialMediaPosts?: SocialMediaPostListRelationFilter
     qaItems?: ProgramQAListRelationFilter
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementListRelationFilter
     alumni?: AlumniListRelationFilter
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramOrderByWithRelationInput = {
@@ -81521,8 +81696,11 @@ export namespace Prisma {
     preferredBy?: SeekerProgramOrderByRelationAggregateInput
     socialMediaPosts?: SocialMediaPostOrderByRelationAggregateInput
     qaItems?: ProgramQAOrderByRelationAggregateInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementOrderByRelationAggregateInput
     alumni?: AlumniOrderByRelationAggregateInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramWhereUniqueInput = Prisma.AtLeast<{
@@ -81544,8 +81722,11 @@ export namespace Prisma {
     preferredBy?: SeekerProgramListRelationFilter
     socialMediaPosts?: SocialMediaPostListRelationFilter
     qaItems?: ProgramQAListRelationFilter
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementListRelationFilter
     alumni?: AlumniListRelationFilter
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }, "id">
 
   export type ProgramOrderByWithAggregationInput = {
@@ -81613,7 +81794,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Seeker"> | Date | string
     createdById?: StringNullableFilter<"Seeker"> | string | null
     deletedById?: StringNullableFilter<"Seeker"> | string | null
+<<<<<<< HEAD
     promotionCodeId?: StringNullableFilter<"Seeker"> | string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentListRelationFilter
     followUpTasks?: FollowUpTaskListRelationFilter
     interactions?: InteractionListRelationFilter
@@ -81625,6 +81809,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerListRelationFilter
     whatsappRecipients?: WhatsAppRecipientListRelationFilter
     emailRecipients?: EmailRecipientListRelationFilter
+<<<<<<< HEAD
     promotionCode?: XOR<PromotionCodeNullableScalarRelationFilter, PromotionCodeWhereInput> | null
     leadScore?: XOR<LeadScoreNullableScalarRelationFilter, LeadScoreWhereInput> | null
     voiceNotes?: VoiceNoteListRelationFilter
@@ -81633,6 +81818,8 @@ export namespace Prisma {
     invoices?: InvoiceListRelationFilter
     eventRegistrations?: EventRegistrationListRelationFilter
     alumni?: XOR<AlumniNullableScalarRelationFilter, AlumniWhereInput> | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerOrderByWithRelationInput = {
@@ -81665,7 +81852,10 @@ export namespace Prisma {
     updatedAt?: SortOrder
     createdById?: SortOrderInput | SortOrder
     deletedById?: SortOrderInput | SortOrder
+<<<<<<< HEAD
     promotionCodeId?: SortOrderInput | SortOrder
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentOrderByRelationAggregateInput
     followUpTasks?: FollowUpTaskOrderByRelationAggregateInput
     interactions?: InteractionOrderByRelationAggregateInput
@@ -81677,6 +81867,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerOrderByRelationAggregateInput
     whatsappRecipients?: WhatsAppRecipientOrderByRelationAggregateInput
     emailRecipients?: EmailRecipientOrderByRelationAggregateInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeOrderByWithRelationInput
     leadScore?: LeadScoreOrderByWithRelationInput
     voiceNotes?: VoiceNoteOrderByRelationAggregateInput
@@ -81685,6 +81876,8 @@ export namespace Prisma {
     invoices?: InvoiceOrderByRelationAggregateInput
     eventRegistrations?: EventRegistrationOrderByRelationAggregateInput
     alumni?: AlumniOrderByWithRelationInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerWhereUniqueInput = Prisma.AtLeast<{
@@ -81720,7 +81913,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Seeker"> | Date | string
     createdById?: StringNullableFilter<"Seeker"> | string | null
     deletedById?: StringNullableFilter<"Seeker"> | string | null
+<<<<<<< HEAD
     promotionCodeId?: StringNullableFilter<"Seeker"> | string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentListRelationFilter
     followUpTasks?: FollowUpTaskListRelationFilter
     interactions?: InteractionListRelationFilter
@@ -81732,6 +81928,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerListRelationFilter
     whatsappRecipients?: WhatsAppRecipientListRelationFilter
     emailRecipients?: EmailRecipientListRelationFilter
+<<<<<<< HEAD
     promotionCode?: XOR<PromotionCodeNullableScalarRelationFilter, PromotionCodeWhereInput> | null
     leadScore?: XOR<LeadScoreNullableScalarRelationFilter, LeadScoreWhereInput> | null
     voiceNotes?: VoiceNoteListRelationFilter
@@ -81740,6 +81937,8 @@ export namespace Prisma {
     invoices?: InvoiceListRelationFilter
     eventRegistrations?: EventRegistrationListRelationFilter
     alumni?: XOR<AlumniNullableScalarRelationFilter, AlumniWhereInput> | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }, "id" | "phone">
 
   export type SeekerOrderByWithAggregationInput = {
@@ -81772,7 +81971,10 @@ export namespace Prisma {
     updatedAt?: SortOrder
     createdById?: SortOrderInput | SortOrder
     deletedById?: SortOrderInput | SortOrder
+<<<<<<< HEAD
     promotionCodeId?: SortOrderInput | SortOrder
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     _count?: SeekerCountOrderByAggregateInput
     _avg?: SeekerAvgOrderByAggregateInput
     _max?: SeekerMaxOrderByAggregateInput
@@ -81813,7 +82015,10 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Seeker"> | Date | string
     createdById?: StringNullableWithAggregatesFilter<"Seeker"> | string | null
     deletedById?: StringNullableWithAggregatesFilter<"Seeker"> | string | null
+<<<<<<< HEAD
     promotionCodeId?: StringNullableWithAggregatesFilter<"Seeker"> | string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type InteractionWhereInput = {
@@ -84772,6 +84977,7 @@ export namespace Prisma {
     createdById?: StringWithAggregatesFilter<"Note"> | string
   }
 
+<<<<<<< HEAD
   export type PromotionCodeWhereInput = {
     AND?: PromotionCodeWhereInput | PromotionCodeWhereInput[]
     OR?: PromotionCodeWhereInput[]
@@ -86215,6 +86421,8 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"AlumniEngagement"> | Date | string
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type UserCreateInput = {
     id?: string
     clerkId?: string | null
@@ -86258,6 +86466,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -86268,6 +86477,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateInput = {
@@ -86313,6 +86524,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -86323,6 +86535,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUpdateInput = {
@@ -86368,6 +86582,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -86378,6 +86593,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateInput = {
@@ -86423,6 +86640,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -86433,6 +86651,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateManyInput = {
@@ -86778,8 +86998,11 @@ export namespace Prisma {
     preferredBy?: SeekerProgramCreateNestedManyWithoutProgramInput
     socialMediaPosts?: SocialMediaPostCreateNestedManyWithoutProgramInput
     qaItems?: ProgramQACreateNestedManyWithoutProgramInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementCreateNestedManyWithoutProgramInput
     alumni?: AlumniCreateNestedManyWithoutProgramInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramUncheckedCreateInput = {
@@ -86797,8 +87020,11 @@ export namespace Prisma {
     preferredBy?: SeekerProgramUncheckedCreateNestedManyWithoutProgramInput
     socialMediaPosts?: SocialMediaPostUncheckedCreateNestedManyWithoutProgramInput
     qaItems?: ProgramQAUncheckedCreateNestedManyWithoutProgramInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementUncheckedCreateNestedManyWithoutProgramInput
     alumni?: AlumniUncheckedCreateNestedManyWithoutProgramInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramUpdateInput = {
@@ -86816,8 +87042,11 @@ export namespace Prisma {
     preferredBy?: SeekerProgramUpdateManyWithoutProgramNestedInput
     socialMediaPosts?: SocialMediaPostUpdateManyWithoutProgramNestedInput
     qaItems?: ProgramQAUpdateManyWithoutProgramNestedInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementUpdateManyWithoutProgramNestedInput
     alumni?: AlumniUpdateManyWithoutProgramNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramUncheckedUpdateInput = {
@@ -86835,8 +87064,11 @@ export namespace Prisma {
     preferredBy?: SeekerProgramUncheckedUpdateManyWithoutProgramNestedInput
     socialMediaPosts?: SocialMediaPostUncheckedUpdateManyWithoutProgramNestedInput
     qaItems?: ProgramQAUncheckedUpdateManyWithoutProgramNestedInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementUncheckedUpdateManyWithoutProgramNestedInput
     alumni?: AlumniUncheckedUpdateManyWithoutProgramNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramCreateManyInput = {
@@ -86915,6 +87147,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerCreateNestedManyWithoutSeekerInput
     whatsappRecipients?: WhatsAppRecipientCreateNestedManyWithoutSeekerInput
     emailRecipients?: EmailRecipientCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeCreateNestedOneWithoutSeekersInput
     leadScore?: LeadScoreCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutSeekerInput
@@ -86923,6 +87156,8 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationCreateNestedManyWithoutSeekerInput
     alumni?: AlumniCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedCreateInput = {
@@ -86955,7 +87190,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     createdById?: string | null
     deletedById?: string | null
+<<<<<<< HEAD
     promotionCodeId?: string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentUncheckedCreateNestedManyWithoutSeekerInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutSeekerInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutSeekerInput
@@ -86964,6 +87202,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUncheckedCreateNestedManyWithoutSeekerInput
     whatsappRecipients?: WhatsAppRecipientUncheckedCreateNestedManyWithoutSeekerInput
     emailRecipients?: EmailRecipientUncheckedCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutSeekerInput
     documents?: DocumentUncheckedCreateNestedManyWithoutSeekerInput
@@ -86971,6 +87210,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationUncheckedCreateNestedManyWithoutSeekerInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUpdateInput = {
@@ -87011,6 +87252,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUpdateManyWithoutSeekerNestedInput
     whatsappRecipients?: WhatsAppRecipientUpdateManyWithoutSeekerNestedInput
     emailRecipients?: EmailRecipientUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeUpdateOneWithoutSeekersNestedInput
     leadScore?: LeadScoreUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutSeekerNestedInput
@@ -87019,6 +87261,8 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedUpdateInput = {
@@ -87051,7 +87295,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedById?: NullableStringFieldUpdateOperationsInput | string | null
+<<<<<<< HEAD
     promotionCodeId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentUncheckedUpdateManyWithoutSeekerNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutSeekerNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutSeekerNestedInput
@@ -87060,6 +87307,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUncheckedUpdateManyWithoutSeekerNestedInput
     whatsappRecipients?: WhatsAppRecipientUncheckedUpdateManyWithoutSeekerNestedInput
     emailRecipients?: EmailRecipientUncheckedUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutSeekerNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutSeekerNestedInput
@@ -87067,6 +87315,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUncheckedUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerCreateManyInput = {
@@ -87099,7 +87349,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     createdById?: string | null
     deletedById?: string | null
+<<<<<<< HEAD
     promotionCodeId?: string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUpdateManyMutationInput = {
@@ -87161,7 +87414,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedById?: NullableStringFieldUpdateOperationsInput | string | null
+<<<<<<< HEAD
     promotionCodeId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type InteractionCreateInput = {
@@ -90346,6 +90602,7 @@ export namespace Prisma {
     createdById?: StringFieldUpdateOperationsInput | string
   }
 
+<<<<<<< HEAD
   export type PromotionCodeCreateInput = {
     id?: string
     code: string
@@ -91884,6 +92141,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -92103,6 +92362,7 @@ export namespace Prisma {
     none?: NoteWhereInput
   }
 
+<<<<<<< HEAD
   export type PromotionCodeListRelationFilter = {
     every?: PromotionCodeWhereInput
     some?: PromotionCodeWhereInput
@@ -92157,6 +92417,8 @@ export namespace Prisma {
     none?: SMSMessageWhereInput
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -92274,6 +92536,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+<<<<<<< HEAD
   export type PromotionCodeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -92310,6 +92573,8 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     clerkId?: SortOrder
@@ -92657,6 +92922,7 @@ export namespace Prisma {
     none?: ProgramQAWhereInput
   }
 
+<<<<<<< HEAD
   export type ProgramDocumentRequirementListRelationFilter = {
     every?: ProgramDocumentRequirementWhereInput
     some?: ProgramDocumentRequirementWhereInput
@@ -92669,6 +92935,8 @@ export namespace Prisma {
     none?: AlumniWhereInput
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type SeekerProgramOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -92677,6 +92945,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+<<<<<<< HEAD
   export type ProgramDocumentRequirementOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -92685,6 +92954,8 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type ProgramCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -92784,6 +93055,7 @@ export namespace Prisma {
     none?: EmailRecipientWhereInput
   }
 
+<<<<<<< HEAD
   export type PromotionCodeNullableScalarRelationFilter = {
     is?: PromotionCodeWhereInput | null
     isNot?: PromotionCodeWhereInput | null
@@ -92811,6 +93083,8 @@ export namespace Prisma {
     isNot?: AlumniWhereInput | null
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type CampaignSeekerOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -92823,6 +93097,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+<<<<<<< HEAD
   export type InvoiceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -92831,6 +93106,8 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type SeekerCountOrderByAggregateInput = {
     id?: SortOrder
     fullName?: SortOrder
@@ -92861,7 +93138,10 @@ export namespace Prisma {
     updatedAt?: SortOrder
     createdById?: SortOrder
     deletedById?: SortOrder
+<<<<<<< HEAD
     promotionCodeId?: SortOrder
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerAvgOrderByAggregateInput = {
@@ -92898,7 +93178,10 @@ export namespace Prisma {
     updatedAt?: SortOrder
     createdById?: SortOrder
     deletedById?: SortOrder
+<<<<<<< HEAD
     promotionCodeId?: SortOrder
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerMinOrderByAggregateInput = {
@@ -92931,7 +93214,10 @@ export namespace Prisma {
     updatedAt?: SortOrder
     createdById?: SortOrder
     deletedById?: SortOrder
+<<<<<<< HEAD
     promotionCodeId?: SortOrder
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerSumOrderByAggregateInput = {
@@ -95024,6 +95310,7 @@ export namespace Prisma {
     order?: SortOrder
   }
 
+<<<<<<< HEAD
   export type FloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[]
@@ -95876,6 +96163,8 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type AssignmentCreateNestedManyWithoutCoordinatorInput = {
     create?: XOR<AssignmentCreateWithoutCoordinatorInput, AssignmentUncheckedCreateWithoutCoordinatorInput> | AssignmentCreateWithoutCoordinatorInput[] | AssignmentUncheckedCreateWithoutCoordinatorInput[]
     connectOrCreate?: AssignmentCreateOrConnectWithoutCoordinatorInput | AssignmentCreateOrConnectWithoutCoordinatorInput[]
@@ -96107,6 +96396,7 @@ export namespace Prisma {
     connect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
   }
 
+<<<<<<< HEAD
   export type PromotionCodeCreateNestedManyWithoutCreatedByInput = {
     create?: XOR<PromotionCodeCreateWithoutCreatedByInput, PromotionCodeUncheckedCreateWithoutCreatedByInput> | PromotionCodeCreateWithoutCreatedByInput[] | PromotionCodeUncheckedCreateWithoutCreatedByInput[]
     connectOrCreate?: PromotionCodeCreateOrConnectWithoutCreatedByInput | PromotionCodeCreateOrConnectWithoutCreatedByInput[]
@@ -96177,6 +96467,8 @@ export namespace Prisma {
     connect?: SMSMessageWhereUniqueInput | SMSMessageWhereUniqueInput[]
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput = {
     create?: XOR<AssignmentCreateWithoutCoordinatorInput, AssignmentUncheckedCreateWithoutCoordinatorInput> | AssignmentCreateWithoutCoordinatorInput[] | AssignmentUncheckedCreateWithoutCoordinatorInput[]
     connectOrCreate?: AssignmentCreateOrConnectWithoutCoordinatorInput | AssignmentCreateOrConnectWithoutCoordinatorInput[]
@@ -96408,6 +96700,7 @@ export namespace Prisma {
     connect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
   }
 
+<<<<<<< HEAD
   export type PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput = {
     create?: XOR<PromotionCodeCreateWithoutCreatedByInput, PromotionCodeUncheckedCreateWithoutCreatedByInput> | PromotionCodeCreateWithoutCreatedByInput[] | PromotionCodeUncheckedCreateWithoutCreatedByInput[]
     connectOrCreate?: PromotionCodeCreateOrConnectWithoutCreatedByInput | PromotionCodeCreateOrConnectWithoutCreatedByInput[]
@@ -96478,6 +96771,8 @@ export namespace Prisma {
     connect?: SMSMessageWhereUniqueInput | SMSMessageWhereUniqueInput[]
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -96960,6 +97255,7 @@ export namespace Prisma {
     deleteMany?: NoteScalarWhereInput | NoteScalarWhereInput[]
   }
 
+<<<<<<< HEAD
   export type PromotionCodeUpdateManyWithoutCreatedByNestedInput = {
     create?: XOR<PromotionCodeCreateWithoutCreatedByInput, PromotionCodeUncheckedCreateWithoutCreatedByInput> | PromotionCodeCreateWithoutCreatedByInput[] | PromotionCodeUncheckedCreateWithoutCreatedByInput[]
     connectOrCreate?: PromotionCodeCreateOrConnectWithoutCreatedByInput | PromotionCodeCreateOrConnectWithoutCreatedByInput[]
@@ -97100,6 +97396,8 @@ export namespace Prisma {
     deleteMany?: SMSMessageScalarWhereInput | SMSMessageScalarWhereInput[]
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput = {
     create?: XOR<AssignmentCreateWithoutCoordinatorInput, AssignmentUncheckedCreateWithoutCoordinatorInput> | AssignmentCreateWithoutCoordinatorInput[] | AssignmentUncheckedCreateWithoutCoordinatorInput[]
     connectOrCreate?: AssignmentCreateOrConnectWithoutCoordinatorInput | AssignmentCreateOrConnectWithoutCoordinatorInput[]
@@ -97562,6 +97860,7 @@ export namespace Prisma {
     deleteMany?: NoteScalarWhereInput | NoteScalarWhereInput[]
   }
 
+<<<<<<< HEAD
   export type PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput = {
     create?: XOR<PromotionCodeCreateWithoutCreatedByInput, PromotionCodeUncheckedCreateWithoutCreatedByInput> | PromotionCodeCreateWithoutCreatedByInput[] | PromotionCodeUncheckedCreateWithoutCreatedByInput[]
     connectOrCreate?: PromotionCodeCreateOrConnectWithoutCreatedByInput | PromotionCodeCreateOrConnectWithoutCreatedByInput[]
@@ -97702,6 +98001,8 @@ export namespace Prisma {
     deleteMany?: SMSMessageScalarWhereInput | SMSMessageScalarWhereInput[]
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type RolePermissionCreateNestedManyWithoutRoleInput = {
     create?: XOR<RolePermissionCreateWithoutRoleInput, RolePermissionUncheckedCreateWithoutRoleInput> | RolePermissionCreateWithoutRoleInput[] | RolePermissionUncheckedCreateWithoutRoleInput[]
     connectOrCreate?: RolePermissionCreateOrConnectWithoutRoleInput | RolePermissionCreateOrConnectWithoutRoleInput[]
@@ -97972,6 +98273,7 @@ export namespace Prisma {
     connect?: ProgramQAWhereUniqueInput | ProgramQAWhereUniqueInput[]
   }
 
+<<<<<<< HEAD
   export type ProgramDocumentRequirementCreateNestedManyWithoutProgramInput = {
     create?: XOR<ProgramDocumentRequirementCreateWithoutProgramInput, ProgramDocumentRequirementUncheckedCreateWithoutProgramInput> | ProgramDocumentRequirementCreateWithoutProgramInput[] | ProgramDocumentRequirementUncheckedCreateWithoutProgramInput[]
     connectOrCreate?: ProgramDocumentRequirementCreateOrConnectWithoutProgramInput | ProgramDocumentRequirementCreateOrConnectWithoutProgramInput[]
@@ -97986,6 +98288,8 @@ export namespace Prisma {
     connect?: AlumniWhereUniqueInput | AlumniWhereUniqueInput[]
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type SeekerUncheckedCreateNestedManyWithoutProgramInterestInput = {
     create?: XOR<SeekerCreateWithoutProgramInterestInput, SeekerUncheckedCreateWithoutProgramInterestInput> | SeekerCreateWithoutProgramInterestInput[] | SeekerUncheckedCreateWithoutProgramInterestInput[]
     connectOrCreate?: SeekerCreateOrConnectWithoutProgramInterestInput | SeekerCreateOrConnectWithoutProgramInterestInput[]
@@ -98014,6 +98318,7 @@ export namespace Prisma {
     connect?: ProgramQAWhereUniqueInput | ProgramQAWhereUniqueInput[]
   }
 
+<<<<<<< HEAD
   export type ProgramDocumentRequirementUncheckedCreateNestedManyWithoutProgramInput = {
     create?: XOR<ProgramDocumentRequirementCreateWithoutProgramInput, ProgramDocumentRequirementUncheckedCreateWithoutProgramInput> | ProgramDocumentRequirementCreateWithoutProgramInput[] | ProgramDocumentRequirementUncheckedCreateWithoutProgramInput[]
     connectOrCreate?: ProgramDocumentRequirementCreateOrConnectWithoutProgramInput | ProgramDocumentRequirementCreateOrConnectWithoutProgramInput[]
@@ -98028,6 +98333,8 @@ export namespace Prisma {
     connect?: AlumniWhereUniqueInput | AlumniWhereUniqueInput[]
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
   }
@@ -98098,6 +98405,7 @@ export namespace Prisma {
     deleteMany?: ProgramQAScalarWhereInput | ProgramQAScalarWhereInput[]
   }
 
+<<<<<<< HEAD
   export type ProgramDocumentRequirementUpdateManyWithoutProgramNestedInput = {
     create?: XOR<ProgramDocumentRequirementCreateWithoutProgramInput, ProgramDocumentRequirementUncheckedCreateWithoutProgramInput> | ProgramDocumentRequirementCreateWithoutProgramInput[] | ProgramDocumentRequirementUncheckedCreateWithoutProgramInput[]
     connectOrCreate?: ProgramDocumentRequirementCreateOrConnectWithoutProgramInput | ProgramDocumentRequirementCreateOrConnectWithoutProgramInput[]
@@ -98126,6 +98434,8 @@ export namespace Prisma {
     deleteMany?: AlumniScalarWhereInput | AlumniScalarWhereInput[]
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type SeekerUncheckedUpdateManyWithoutProgramInterestNestedInput = {
     create?: XOR<SeekerCreateWithoutProgramInterestInput, SeekerUncheckedCreateWithoutProgramInterestInput> | SeekerCreateWithoutProgramInterestInput[] | SeekerUncheckedCreateWithoutProgramInterestInput[]
     connectOrCreate?: SeekerCreateOrConnectWithoutProgramInterestInput | SeekerCreateOrConnectWithoutProgramInterestInput[]
@@ -98182,6 +98492,7 @@ export namespace Prisma {
     deleteMany?: ProgramQAScalarWhereInput | ProgramQAScalarWhereInput[]
   }
 
+<<<<<<< HEAD
   export type ProgramDocumentRequirementUncheckedUpdateManyWithoutProgramNestedInput = {
     create?: XOR<ProgramDocumentRequirementCreateWithoutProgramInput, ProgramDocumentRequirementUncheckedCreateWithoutProgramInput> | ProgramDocumentRequirementCreateWithoutProgramInput[] | ProgramDocumentRequirementUncheckedCreateWithoutProgramInput[]
     connectOrCreate?: ProgramDocumentRequirementCreateOrConnectWithoutProgramInput | ProgramDocumentRequirementCreateOrConnectWithoutProgramInput[]
@@ -98210,6 +98521,8 @@ export namespace Prisma {
     deleteMany?: AlumniScalarWhereInput | AlumniScalarWhereInput[]
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type AssignmentCreateNestedManyWithoutSeekerInput = {
     create?: XOR<AssignmentCreateWithoutSeekerInput, AssignmentUncheckedCreateWithoutSeekerInput> | AssignmentCreateWithoutSeekerInput[] | AssignmentUncheckedCreateWithoutSeekerInput[]
     connectOrCreate?: AssignmentCreateOrConnectWithoutSeekerInput | AssignmentCreateOrConnectWithoutSeekerInput[]
@@ -98284,6 +98597,7 @@ export namespace Prisma {
     connect?: EmailRecipientWhereUniqueInput | EmailRecipientWhereUniqueInput[]
   }
 
+<<<<<<< HEAD
   export type PromotionCodeCreateNestedOneWithoutSeekersInput = {
     create?: XOR<PromotionCodeCreateWithoutSeekersInput, PromotionCodeUncheckedCreateWithoutSeekersInput>
     connectOrCreate?: PromotionCodeCreateOrConnectWithoutSeekersInput
@@ -98337,6 +98651,8 @@ export namespace Prisma {
     connect?: AlumniWhereUniqueInput
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type AssignmentUncheckedCreateNestedManyWithoutSeekerInput = {
     create?: XOR<AssignmentCreateWithoutSeekerInput, AssignmentUncheckedCreateWithoutSeekerInput> | AssignmentCreateWithoutSeekerInput[] | AssignmentUncheckedCreateWithoutSeekerInput[]
     connectOrCreate?: AssignmentCreateOrConnectWithoutSeekerInput | AssignmentCreateOrConnectWithoutSeekerInput[]
@@ -98393,6 +98709,7 @@ export namespace Prisma {
     connect?: EmailRecipientWhereUniqueInput | EmailRecipientWhereUniqueInput[]
   }
 
+<<<<<<< HEAD
   export type LeadScoreUncheckedCreateNestedOneWithoutSeekerInput = {
     create?: XOR<LeadScoreCreateWithoutSeekerInput, LeadScoreUncheckedCreateWithoutSeekerInput>
     connectOrCreate?: LeadScoreCreateOrConnectWithoutSeekerInput
@@ -98440,6 +98757,8 @@ export namespace Prisma {
     connect?: AlumniWhereUniqueInput
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
@@ -98594,6 +98913,7 @@ export namespace Prisma {
     deleteMany?: EmailRecipientScalarWhereInput | EmailRecipientScalarWhereInput[]
   }
 
+<<<<<<< HEAD
   export type PromotionCodeUpdateOneWithoutSeekersNestedInput = {
     create?: XOR<PromotionCodeCreateWithoutSeekersInput, PromotionCodeUncheckedCreateWithoutSeekersInput>
     connectOrCreate?: PromotionCodeCreateOrConnectWithoutSeekersInput
@@ -98694,6 +99014,8 @@ export namespace Prisma {
     update?: XOR<XOR<AlumniUpdateToOneWithWhereWithoutSeekerInput, AlumniUpdateWithoutSeekerInput>, AlumniUncheckedUpdateWithoutSeekerInput>
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type AssignmentUncheckedUpdateManyWithoutSeekerNestedInput = {
     create?: XOR<AssignmentCreateWithoutSeekerInput, AssignmentUncheckedCreateWithoutSeekerInput> | AssignmentCreateWithoutSeekerInput[] | AssignmentUncheckedCreateWithoutSeekerInput[]
     connectOrCreate?: AssignmentCreateOrConnectWithoutSeekerInput | AssignmentCreateOrConnectWithoutSeekerInput[]
@@ -98806,6 +99128,7 @@ export namespace Prisma {
     deleteMany?: EmailRecipientScalarWhereInput | EmailRecipientScalarWhereInput[]
   }
 
+<<<<<<< HEAD
   export type LeadScoreUncheckedUpdateOneWithoutSeekerNestedInput = {
     create?: XOR<LeadScoreCreateWithoutSeekerInput, LeadScoreUncheckedCreateWithoutSeekerInput>
     connectOrCreate?: LeadScoreCreateOrConnectWithoutSeekerInput
@@ -98896,6 +99219,8 @@ export namespace Prisma {
     update?: XOR<XOR<AlumniUpdateToOneWithWhereWithoutSeekerInput, AlumniUpdateWithoutSeekerInput>, AlumniUncheckedUpdateWithoutSeekerInput>
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type UserCreateNestedOneWithoutInteractionsInput = {
     create?: XOR<UserCreateWithoutInteractionsInput, UserUncheckedCreateWithoutInteractionsInput>
     connectOrCreate?: UserCreateOrConnectWithoutInteractionsInput
@@ -100822,6 +101147,7 @@ export namespace Prisma {
     deleteMany?: NoteScalarWhereInput | NoteScalarWhereInput[]
   }
 
+<<<<<<< HEAD
   export type UserCreateNestedOneWithoutCreatedPromotionCodesInput = {
     create?: XOR<UserCreateWithoutCreatedPromotionCodesInput, UserUncheckedCreateWithoutCreatedPromotionCodesInput>
     connectOrCreate?: UserCreateOrConnectWithoutCreatedPromotionCodesInput
@@ -101650,6 +101976,8 @@ export namespace Prisma {
     update?: XOR<XOR<AlumniUpdateToOneWithWhereWithoutEngagementsInput, AlumniUpdateWithoutEngagementsInput>, AlumniUncheckedUpdateWithoutEngagementsInput>
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -102276,6 +102604,7 @@ export namespace Prisma {
     _max?: NestedEnumNotificationTypeFilter<$PrismaModel>
   }
 
+<<<<<<< HEAD
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[]
@@ -102292,6 +102621,8 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type AssignmentCreateWithoutCoordinatorInput = {
     id?: string
     assignedAt?: Date | string
@@ -102410,6 +102741,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerCreateNestedManyWithoutSeekerInput
     whatsappRecipients?: WhatsAppRecipientCreateNestedManyWithoutSeekerInput
     emailRecipients?: EmailRecipientCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeCreateNestedOneWithoutSeekersInput
     leadScore?: LeadScoreCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutSeekerInput
@@ -102418,6 +102750,8 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationCreateNestedManyWithoutSeekerInput
     alumni?: AlumniCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedCreateWithoutCreatedByInput = {
@@ -102449,7 +102783,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedById?: string | null
+<<<<<<< HEAD
     promotionCodeId?: string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentUncheckedCreateNestedManyWithoutSeekerInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutSeekerInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutSeekerInput
@@ -102458,6 +102795,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUncheckedCreateNestedManyWithoutSeekerInput
     whatsappRecipients?: WhatsAppRecipientUncheckedCreateNestedManyWithoutSeekerInput
     emailRecipients?: EmailRecipientUncheckedCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutSeekerInput
     documents?: DocumentUncheckedCreateNestedManyWithoutSeekerInput
@@ -102465,6 +102803,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationUncheckedCreateNestedManyWithoutSeekerInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerCreateOrConnectWithoutCreatedByInput = {
@@ -102513,6 +102853,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerCreateNestedManyWithoutSeekerInput
     whatsappRecipients?: WhatsAppRecipientCreateNestedManyWithoutSeekerInput
     emailRecipients?: EmailRecipientCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeCreateNestedOneWithoutSeekersInput
     leadScore?: LeadScoreCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutSeekerInput
@@ -102521,6 +102862,8 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationCreateNestedManyWithoutSeekerInput
     alumni?: AlumniCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedCreateWithoutDeletedByInput = {
@@ -102552,7 +102895,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     createdById?: string | null
+<<<<<<< HEAD
     promotionCodeId?: string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentUncheckedCreateNestedManyWithoutSeekerInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutSeekerInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutSeekerInput
@@ -102561,6 +102907,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUncheckedCreateNestedManyWithoutSeekerInput
     whatsappRecipients?: WhatsAppRecipientUncheckedCreateNestedManyWithoutSeekerInput
     emailRecipients?: EmailRecipientUncheckedCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutSeekerInput
     documents?: DocumentUncheckedCreateNestedManyWithoutSeekerInput
@@ -102568,6 +102915,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationUncheckedCreateNestedManyWithoutSeekerInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerCreateOrConnectWithoutDeletedByInput = {
@@ -103697,6 +104046,7 @@ export namespace Prisma {
     data: NoteCreateManyCreatedByInput | NoteCreateManyCreatedByInput[]
   }
 
+<<<<<<< HEAD
   export type PromotionCodeCreateWithoutCreatedByInput = {
     id?: string
     code: string
@@ -104065,6 +104415,8 @@ export namespace Prisma {
     data: SMSMessageCreateManyCreatedByInput | SMSMessageCreateManyCreatedByInput[]
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type AssignmentUpsertWithWhereUniqueWithoutCoordinatorInput = {
     where: AssignmentWhereUniqueInput
     update: XOR<AssignmentUpdateWithoutCoordinatorInput, AssignmentUncheckedUpdateWithoutCoordinatorInput>
@@ -104200,7 +104552,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Seeker"> | Date | string
     createdById?: StringNullableFilter<"Seeker"> | string | null
     deletedById?: StringNullableFilter<"Seeker"> | string | null
+<<<<<<< HEAD
     promotionCodeId?: StringNullableFilter<"Seeker"> | string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUpsertWithWhereUniqueWithoutDeletedByInput = {
@@ -105089,6 +105444,7 @@ export namespace Prisma {
     createdById?: StringFilter<"Note"> | string
   }
 
+<<<<<<< HEAD
   export type PromotionCodeUpsertWithWhereUniqueWithoutCreatedByInput = {
     where: PromotionCodeWhereUniqueInput
     update: XOR<PromotionCodeUpdateWithoutCreatedByInput, PromotionCodeUncheckedUpdateWithoutCreatedByInput>
@@ -105398,6 +105754,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"SMSMessage"> | Date | string
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type RolePermissionCreateWithoutRoleInput = {
     id?: string
     permission: PermissionModelCreateNestedOneWithoutRolesInput
@@ -105583,6 +105941,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -105593,6 +105952,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutUserRolesInput = {
@@ -105637,6 +105998,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -105647,6 +106009,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutUserRolesInput = {
@@ -105738,6 +106102,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -105748,6 +106113,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutUserRolesInput = {
@@ -105792,6 +106159,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -105802,6 +106170,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type PermissionModelCreateWithoutRolesInput = {
@@ -105918,8 +106288,11 @@ export namespace Prisma {
     preferredBy?: SeekerProgramCreateNestedManyWithoutProgramInput
     socialMediaPosts?: SocialMediaPostCreateNestedManyWithoutProgramInput
     qaItems?: ProgramQACreateNestedManyWithoutProgramInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementCreateNestedManyWithoutProgramInput
     alumni?: AlumniCreateNestedManyWithoutProgramInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramUncheckedCreateWithoutLevelRelationInput = {
@@ -105936,8 +106309,11 @@ export namespace Prisma {
     preferredBy?: SeekerProgramUncheckedCreateNestedManyWithoutProgramInput
     socialMediaPosts?: SocialMediaPostUncheckedCreateNestedManyWithoutProgramInput
     qaItems?: ProgramQAUncheckedCreateNestedManyWithoutProgramInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementUncheckedCreateNestedManyWithoutProgramInput
     alumni?: AlumniUncheckedCreateNestedManyWithoutProgramInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramCreateOrConnectWithoutLevelRelationInput = {
@@ -106043,6 +106419,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerCreateNestedManyWithoutSeekerInput
     whatsappRecipients?: WhatsAppRecipientCreateNestedManyWithoutSeekerInput
     emailRecipients?: EmailRecipientCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeCreateNestedOneWithoutSeekersInput
     leadScore?: LeadScoreCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutSeekerInput
@@ -106051,6 +106428,8 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationCreateNestedManyWithoutSeekerInput
     alumni?: AlumniCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedCreateWithoutProgramInterestInput = {
@@ -106082,7 +106461,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     createdById?: string | null
     deletedById?: string | null
+<<<<<<< HEAD
     promotionCodeId?: string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentUncheckedCreateNestedManyWithoutSeekerInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutSeekerInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutSeekerInput
@@ -106091,6 +106473,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUncheckedCreateNestedManyWithoutSeekerInput
     whatsappRecipients?: WhatsAppRecipientUncheckedCreateNestedManyWithoutSeekerInput
     emailRecipients?: EmailRecipientUncheckedCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutSeekerInput
     documents?: DocumentUncheckedCreateNestedManyWithoutSeekerInput
@@ -106098,6 +106481,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationUncheckedCreateNestedManyWithoutSeekerInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerCreateOrConnectWithoutProgramInterestInput = {
@@ -106210,6 +106595,7 @@ export namespace Prisma {
     data: ProgramQACreateManyProgramInput | ProgramQACreateManyProgramInput[]
   }
 
+<<<<<<< HEAD
   export type ProgramDocumentRequirementCreateWithoutProgramInput = {
     id?: string
     isRequired?: boolean
@@ -106272,6 +106658,8 @@ export namespace Prisma {
     data: AlumniCreateManyProgramInput | AlumniCreateManyProgramInput[]
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type LevelUpsertWithoutProgramsInput = {
     update: XOR<LevelUpdateWithoutProgramsInput, LevelUncheckedUpdateWithoutProgramsInput>
     create: XOR<LevelCreateWithoutProgramsInput, LevelUncheckedCreateWithoutProgramsInput>
@@ -106391,6 +106779,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"ProgramQA"> | Date | string
   }
 
+<<<<<<< HEAD
   export type ProgramDocumentRequirementUpsertWithWhereUniqueWithoutProgramInput = {
     where: ProgramDocumentRequirementWhereUniqueInput
     update: XOR<ProgramDocumentRequirementUpdateWithoutProgramInput, ProgramDocumentRequirementUncheckedUpdateWithoutProgramInput>
@@ -106452,6 +106841,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Alumni"> | Date | string
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type AssignmentCreateWithoutSeekerInput = {
     id?: string
     assignedAt?: Date | string
@@ -106628,6 +107019,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -106638,6 +107030,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutCreatedSeekersInput = {
@@ -106682,6 +107076,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -106692,6 +107087,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutCreatedSeekersInput = {
@@ -106741,6 +107138,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -106751,6 +107149,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutDeletedSeekersInput = {
@@ -106795,6 +107195,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -106805,6 +107206,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutDeletedSeekersInput = {
@@ -106826,8 +107229,11 @@ export namespace Prisma {
     preferredBy?: SeekerProgramCreateNestedManyWithoutProgramInput
     socialMediaPosts?: SocialMediaPostCreateNestedManyWithoutProgramInput
     qaItems?: ProgramQACreateNestedManyWithoutProgramInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementCreateNestedManyWithoutProgramInput
     alumni?: AlumniCreateNestedManyWithoutProgramInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramUncheckedCreateWithoutSeekersInput = {
@@ -106844,8 +107250,11 @@ export namespace Prisma {
     preferredBy?: SeekerProgramUncheckedCreateNestedManyWithoutProgramInput
     socialMediaPosts?: SocialMediaPostUncheckedCreateNestedManyWithoutProgramInput
     qaItems?: ProgramQAUncheckedCreateNestedManyWithoutProgramInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementUncheckedCreateNestedManyWithoutProgramInput
     alumni?: AlumniUncheckedCreateNestedManyWithoutProgramInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramCreateOrConnectWithoutSeekersInput = {
@@ -106957,6 +107366,7 @@ export namespace Prisma {
     data: EmailRecipientCreateManySeekerInput | EmailRecipientCreateManySeekerInput[]
   }
 
+<<<<<<< HEAD
   export type PromotionCodeCreateWithoutSeekersInput = {
     id?: string
     code: string
@@ -107241,6 +107651,8 @@ export namespace Prisma {
     create: XOR<AlumniCreateWithoutSeekerInput, AlumniUncheckedCreateWithoutSeekerInput>
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type AssignmentUpsertWithWhereUniqueWithoutSeekerInput = {
     where: AssignmentWhereUniqueInput
     update: XOR<AssignmentUpdateWithoutSeekerInput, AssignmentUncheckedUpdateWithoutSeekerInput>
@@ -107358,6 +107770,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -107368,6 +107781,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutCreatedSeekersInput = {
@@ -107412,6 +107827,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -107422,6 +107838,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUpsertWithoutDeletedSeekersInput = {
@@ -107477,6 +107895,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -107487,6 +107906,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutDeletedSeekersInput = {
@@ -107531,6 +107952,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -107541,6 +107963,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramUpsertWithoutSeekersInput = {
@@ -107568,8 +107992,11 @@ export namespace Prisma {
     preferredBy?: SeekerProgramUpdateManyWithoutProgramNestedInput
     socialMediaPosts?: SocialMediaPostUpdateManyWithoutProgramNestedInput
     qaItems?: ProgramQAUpdateManyWithoutProgramNestedInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementUpdateManyWithoutProgramNestedInput
     alumni?: AlumniUpdateManyWithoutProgramNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramUncheckedUpdateWithoutSeekersInput = {
@@ -107586,8 +108013,11 @@ export namespace Prisma {
     preferredBy?: SeekerProgramUncheckedUpdateManyWithoutProgramNestedInput
     socialMediaPosts?: SocialMediaPostUncheckedUpdateManyWithoutProgramNestedInput
     qaItems?: ProgramQAUncheckedUpdateManyWithoutProgramNestedInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementUncheckedUpdateManyWithoutProgramNestedInput
     alumni?: AlumniUncheckedUpdateManyWithoutProgramNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerProgramUpsertWithWhereUniqueWithoutSeekerInput = {
@@ -107694,6 +108124,7 @@ export namespace Prisma {
     seekerId?: StringFilter<"EmailRecipient"> | string
   }
 
+<<<<<<< HEAD
   export type PromotionCodeUpsertWithoutSeekersInput = {
     update: XOR<PromotionCodeUpdateWithoutSeekersInput, PromotionCodeUncheckedUpdateWithoutSeekersInput>
     create: XOR<PromotionCodeCreateWithoutSeekersInput, PromotionCodeUncheckedCreateWithoutSeekersInput>
@@ -107921,6 +108352,8 @@ export namespace Prisma {
     engagements?: AlumniEngagementUncheckedUpdateManyWithoutAlumniNestedInput
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type UserCreateWithoutInteractionsInput = {
     id?: string
     clerkId?: string | null
@@ -107963,6 +108396,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -107973,6 +108407,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutInteractionsInput = {
@@ -108017,6 +108453,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -108027,6 +108464,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutInteractionsInput = {
@@ -108071,6 +108510,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerCreateNestedManyWithoutSeekerInput
     whatsappRecipients?: WhatsAppRecipientCreateNestedManyWithoutSeekerInput
     emailRecipients?: EmailRecipientCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeCreateNestedOneWithoutSeekersInput
     leadScore?: LeadScoreCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutSeekerInput
@@ -108079,6 +108519,8 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationCreateNestedManyWithoutSeekerInput
     alumni?: AlumniCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedCreateWithoutInteractionsInput = {
@@ -108111,7 +108553,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     createdById?: string | null
     deletedById?: string | null
+<<<<<<< HEAD
     promotionCodeId?: string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentUncheckedCreateNestedManyWithoutSeekerInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutSeekerInput
     meetings?: MeetingUncheckedCreateNestedManyWithoutSeekerInput
@@ -108119,6 +108564,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUncheckedCreateNestedManyWithoutSeekerInput
     whatsappRecipients?: WhatsAppRecipientUncheckedCreateNestedManyWithoutSeekerInput
     emailRecipients?: EmailRecipientUncheckedCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutSeekerInput
     documents?: DocumentUncheckedCreateNestedManyWithoutSeekerInput
@@ -108126,6 +108572,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationUncheckedCreateNestedManyWithoutSeekerInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerCreateOrConnectWithoutInteractionsInput = {
@@ -108186,6 +108634,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -108196,6 +108645,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutInteractionsInput = {
@@ -108240,6 +108691,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -108250,6 +108702,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUpsertWithoutInteractionsInput = {
@@ -108300,6 +108754,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUpdateManyWithoutSeekerNestedInput
     whatsappRecipients?: WhatsAppRecipientUpdateManyWithoutSeekerNestedInput
     emailRecipients?: EmailRecipientUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeUpdateOneWithoutSeekersNestedInput
     leadScore?: LeadScoreUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutSeekerNestedInput
@@ -108308,6 +108763,8 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedUpdateWithoutInteractionsInput = {
@@ -108340,7 +108797,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedById?: NullableStringFieldUpdateOperationsInput | string | null
+<<<<<<< HEAD
     promotionCodeId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentUncheckedUpdateManyWithoutSeekerNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutSeekerNestedInput
     meetings?: MeetingUncheckedUpdateManyWithoutSeekerNestedInput
@@ -108348,6 +108808,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUncheckedUpdateManyWithoutSeekerNestedInput
     whatsappRecipients?: WhatsAppRecipientUncheckedUpdateManyWithoutSeekerNestedInput
     emailRecipients?: EmailRecipientUncheckedUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutSeekerNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutSeekerNestedInput
@@ -108355,6 +108816,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUncheckedUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateWithoutFollowUpTasksInput = {
@@ -108399,6 +108862,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -108409,6 +108873,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutFollowUpTasksInput = {
@@ -108453,6 +108919,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -108463,6 +108930,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutFollowUpTasksInput = {
@@ -108507,6 +108976,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerCreateNestedManyWithoutSeekerInput
     whatsappRecipients?: WhatsAppRecipientCreateNestedManyWithoutSeekerInput
     emailRecipients?: EmailRecipientCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeCreateNestedOneWithoutSeekersInput
     leadScore?: LeadScoreCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutSeekerInput
@@ -108515,6 +108985,8 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationCreateNestedManyWithoutSeekerInput
     alumni?: AlumniCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedCreateWithoutFollowUpTasksInput = {
@@ -108547,7 +109019,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     createdById?: string | null
     deletedById?: string | null
+<<<<<<< HEAD
     promotionCodeId?: string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentUncheckedCreateNestedManyWithoutSeekerInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutSeekerInput
     meetings?: MeetingUncheckedCreateNestedManyWithoutSeekerInput
@@ -108555,6 +109030,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUncheckedCreateNestedManyWithoutSeekerInput
     whatsappRecipients?: WhatsAppRecipientUncheckedCreateNestedManyWithoutSeekerInput
     emailRecipients?: EmailRecipientUncheckedCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutSeekerInput
     documents?: DocumentUncheckedCreateNestedManyWithoutSeekerInput
@@ -108562,6 +109038,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationUncheckedCreateNestedManyWithoutSeekerInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerCreateOrConnectWithoutFollowUpTasksInput = {
@@ -108649,6 +109127,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -108659,6 +109138,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutFollowUpTasksInput = {
@@ -108703,6 +109184,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -108713,6 +109195,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUpsertWithoutFollowUpTasksInput = {
@@ -108763,6 +109247,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUpdateManyWithoutSeekerNestedInput
     whatsappRecipients?: WhatsAppRecipientUpdateManyWithoutSeekerNestedInput
     emailRecipients?: EmailRecipientUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeUpdateOneWithoutSeekersNestedInput
     leadScore?: LeadScoreUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutSeekerNestedInput
@@ -108771,6 +109256,8 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedUpdateWithoutFollowUpTasksInput = {
@@ -108803,7 +109290,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedById?: NullableStringFieldUpdateOperationsInput | string | null
+<<<<<<< HEAD
     promotionCodeId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentUncheckedUpdateManyWithoutSeekerNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutSeekerNestedInput
     meetings?: MeetingUncheckedUpdateManyWithoutSeekerNestedInput
@@ -108811,6 +109301,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUncheckedUpdateManyWithoutSeekerNestedInput
     whatsappRecipients?: WhatsAppRecipientUncheckedUpdateManyWithoutSeekerNestedInput
     emailRecipients?: EmailRecipientUncheckedUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutSeekerNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutSeekerNestedInput
@@ -108818,6 +109309,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUncheckedUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type TaskActionHistoryUpsertWithWhereUniqueWithoutTaskInput = {
@@ -108907,6 +109400,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -108917,6 +109411,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutTaskActionHistoryInput = {
@@ -108961,6 +109457,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -108971,6 +109468,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutTaskActionHistoryInput = {
@@ -109066,6 +109565,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -109076,6 +109576,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutTaskActionHistoryInput = {
@@ -109120,6 +109622,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -109130,6 +109633,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateWithoutAssignedSeekersInput = {
@@ -109174,6 +109679,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -109184,6 +109690,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutAssignedSeekersInput = {
@@ -109228,6 +109736,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -109238,6 +109747,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutAssignedSeekersInput = {
@@ -109282,6 +109793,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerCreateNestedManyWithoutSeekerInput
     whatsappRecipients?: WhatsAppRecipientCreateNestedManyWithoutSeekerInput
     emailRecipients?: EmailRecipientCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeCreateNestedOneWithoutSeekersInput
     leadScore?: LeadScoreCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutSeekerInput
@@ -109290,6 +109802,8 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationCreateNestedManyWithoutSeekerInput
     alumni?: AlumniCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedCreateWithoutAssignmentsInput = {
@@ -109322,7 +109836,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     createdById?: string | null
     deletedById?: string | null
+<<<<<<< HEAD
     promotionCodeId?: string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutSeekerInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutSeekerInput
     meetings?: MeetingUncheckedCreateNestedManyWithoutSeekerInput
@@ -109330,6 +109847,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUncheckedCreateNestedManyWithoutSeekerInput
     whatsappRecipients?: WhatsAppRecipientUncheckedCreateNestedManyWithoutSeekerInput
     emailRecipients?: EmailRecipientUncheckedCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutSeekerInput
     documents?: DocumentUncheckedCreateNestedManyWithoutSeekerInput
@@ -109337,6 +109855,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationUncheckedCreateNestedManyWithoutSeekerInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerCreateOrConnectWithoutAssignmentsInput = {
@@ -109397,6 +109917,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -109407,6 +109928,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutAssignedSeekersInput = {
@@ -109451,6 +109974,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -109461,6 +109985,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUpsertWithoutAssignmentsInput = {
@@ -109511,6 +110037,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUpdateManyWithoutSeekerNestedInput
     whatsappRecipients?: WhatsAppRecipientUpdateManyWithoutSeekerNestedInput
     emailRecipients?: EmailRecipientUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeUpdateOneWithoutSeekersNestedInput
     leadScore?: LeadScoreUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutSeekerNestedInput
@@ -109519,6 +110046,8 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedUpdateWithoutAssignmentsInput = {
@@ -109551,7 +110080,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedById?: NullableStringFieldUpdateOperationsInput | string | null
+<<<<<<< HEAD
     promotionCodeId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutSeekerNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutSeekerNestedInput
     meetings?: MeetingUncheckedUpdateManyWithoutSeekerNestedInput
@@ -109559,6 +110091,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUncheckedUpdateManyWithoutSeekerNestedInput
     whatsappRecipients?: WhatsAppRecipientUncheckedUpdateManyWithoutSeekerNestedInput
     emailRecipients?: EmailRecipientUncheckedUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutSeekerNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutSeekerNestedInput
@@ -109566,6 +110099,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUncheckedUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateWithoutCreatedCampaignsInput = {
@@ -109610,6 +110145,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -109620,6 +110156,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutCreatedCampaignsInput = {
@@ -109664,6 +110202,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -109674,6 +110213,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutCreatedCampaignsInput = {
@@ -109837,6 +110378,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -109847,6 +110389,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutCreatedCampaignsInput = {
@@ -109891,6 +110435,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -109901,6 +110446,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type CampaignSeekerUpsertWithWhereUniqueWithoutCampaignInput = {
@@ -110014,6 +110561,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -110024,6 +110572,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutCreatedCampaignTypesInput = {
@@ -110068,6 +110618,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -110078,6 +110629,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutCreatedCampaignTypesInput = {
@@ -110213,6 +110766,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -110223,6 +110777,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutCreatedCampaignTypesInput = {
@@ -110267,6 +110823,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -110277,6 +110834,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type CampaignUpsertWithWhereUniqueWithoutCampaignTypeInput = {
@@ -110403,6 +110962,7 @@ export namespace Prisma {
     preferredPrograms?: SeekerProgramCreateNestedManyWithoutSeekerInput
     whatsappRecipients?: WhatsAppRecipientCreateNestedManyWithoutSeekerInput
     emailRecipients?: EmailRecipientCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeCreateNestedOneWithoutSeekersInput
     leadScore?: LeadScoreCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutSeekerInput
@@ -110411,6 +110971,8 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationCreateNestedManyWithoutSeekerInput
     alumni?: AlumniCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedCreateWithoutCampaignsInput = {
@@ -110443,7 +111005,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     createdById?: string | null
     deletedById?: string | null
+<<<<<<< HEAD
     promotionCodeId?: string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentUncheckedCreateNestedManyWithoutSeekerInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutSeekerInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutSeekerInput
@@ -110451,6 +111016,7 @@ export namespace Prisma {
     preferredPrograms?: SeekerProgramUncheckedCreateNestedManyWithoutSeekerInput
     whatsappRecipients?: WhatsAppRecipientUncheckedCreateNestedManyWithoutSeekerInput
     emailRecipients?: EmailRecipientUncheckedCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutSeekerInput
     documents?: DocumentUncheckedCreateNestedManyWithoutSeekerInput
@@ -110458,6 +111024,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationUncheckedCreateNestedManyWithoutSeekerInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerCreateOrConnectWithoutCampaignsInput = {
@@ -110590,6 +111158,7 @@ export namespace Prisma {
     preferredPrograms?: SeekerProgramUpdateManyWithoutSeekerNestedInput
     whatsappRecipients?: WhatsAppRecipientUpdateManyWithoutSeekerNestedInput
     emailRecipients?: EmailRecipientUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeUpdateOneWithoutSeekersNestedInput
     leadScore?: LeadScoreUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutSeekerNestedInput
@@ -110598,6 +111167,8 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedUpdateWithoutCampaignsInput = {
@@ -110630,7 +111201,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedById?: NullableStringFieldUpdateOperationsInput | string | null
+<<<<<<< HEAD
     promotionCodeId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentUncheckedUpdateManyWithoutSeekerNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutSeekerNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutSeekerNestedInput
@@ -110638,6 +111212,7 @@ export namespace Prisma {
     preferredPrograms?: SeekerProgramUncheckedUpdateManyWithoutSeekerNestedInput
     whatsappRecipients?: WhatsAppRecipientUncheckedUpdateManyWithoutSeekerNestedInput
     emailRecipients?: EmailRecipientUncheckedUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutSeekerNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutSeekerNestedInput
@@ -110645,6 +111220,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUncheckedUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateWithoutActivityLogsInput = {
@@ -110689,6 +111266,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -110699,6 +111277,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutActivityLogsInput = {
@@ -110743,6 +111323,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -110753,6 +111334,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutActivityLogsInput = {
@@ -110813,6 +111396,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -110823,6 +111407,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutActivityLogsInput = {
@@ -110867,6 +111453,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -110877,6 +111464,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerCreateWithoutPreferredProgramsInput = {
@@ -110916,6 +111505,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerCreateNestedManyWithoutSeekerInput
     whatsappRecipients?: WhatsAppRecipientCreateNestedManyWithoutSeekerInput
     emailRecipients?: EmailRecipientCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeCreateNestedOneWithoutSeekersInput
     leadScore?: LeadScoreCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutSeekerInput
@@ -110924,6 +111514,8 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationCreateNestedManyWithoutSeekerInput
     alumni?: AlumniCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedCreateWithoutPreferredProgramsInput = {
@@ -110956,7 +111548,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     createdById?: string | null
     deletedById?: string | null
+<<<<<<< HEAD
     promotionCodeId?: string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentUncheckedCreateNestedManyWithoutSeekerInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutSeekerInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutSeekerInput
@@ -110964,6 +111559,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUncheckedCreateNestedManyWithoutSeekerInput
     whatsappRecipients?: WhatsAppRecipientUncheckedCreateNestedManyWithoutSeekerInput
     emailRecipients?: EmailRecipientUncheckedCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutSeekerInput
     documents?: DocumentUncheckedCreateNestedManyWithoutSeekerInput
@@ -110971,6 +111567,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationUncheckedCreateNestedManyWithoutSeekerInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerCreateOrConnectWithoutPreferredProgramsInput = {
@@ -110992,8 +111590,11 @@ export namespace Prisma {
     seekers?: SeekerCreateNestedManyWithoutProgramInterestInput
     socialMediaPosts?: SocialMediaPostCreateNestedManyWithoutProgramInput
     qaItems?: ProgramQACreateNestedManyWithoutProgramInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementCreateNestedManyWithoutProgramInput
     alumni?: AlumniCreateNestedManyWithoutProgramInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramUncheckedCreateWithoutPreferredByInput = {
@@ -111010,8 +111611,11 @@ export namespace Prisma {
     seekers?: SeekerUncheckedCreateNestedManyWithoutProgramInterestInput
     socialMediaPosts?: SocialMediaPostUncheckedCreateNestedManyWithoutProgramInput
     qaItems?: ProgramQAUncheckedCreateNestedManyWithoutProgramInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementUncheckedCreateNestedManyWithoutProgramInput
     alumni?: AlumniUncheckedCreateNestedManyWithoutProgramInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramCreateOrConnectWithoutPreferredByInput = {
@@ -111067,6 +111671,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUpdateManyWithoutSeekerNestedInput
     whatsappRecipients?: WhatsAppRecipientUpdateManyWithoutSeekerNestedInput
     emailRecipients?: EmailRecipientUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeUpdateOneWithoutSeekersNestedInput
     leadScore?: LeadScoreUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutSeekerNestedInput
@@ -111075,6 +111680,8 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedUpdateWithoutPreferredProgramsInput = {
@@ -111107,7 +111714,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedById?: NullableStringFieldUpdateOperationsInput | string | null
+<<<<<<< HEAD
     promotionCodeId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentUncheckedUpdateManyWithoutSeekerNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutSeekerNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutSeekerNestedInput
@@ -111115,6 +111725,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUncheckedUpdateManyWithoutSeekerNestedInput
     whatsappRecipients?: WhatsAppRecipientUncheckedUpdateManyWithoutSeekerNestedInput
     emailRecipients?: EmailRecipientUncheckedUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutSeekerNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutSeekerNestedInput
@@ -111122,6 +111733,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUncheckedUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramUpsertWithoutPreferredByInput = {
@@ -111149,8 +111762,11 @@ export namespace Prisma {
     seekers?: SeekerUpdateManyWithoutProgramInterestNestedInput
     socialMediaPosts?: SocialMediaPostUpdateManyWithoutProgramNestedInput
     qaItems?: ProgramQAUpdateManyWithoutProgramNestedInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementUpdateManyWithoutProgramNestedInput
     alumni?: AlumniUpdateManyWithoutProgramNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramUncheckedUpdateWithoutPreferredByInput = {
@@ -111167,8 +111783,11 @@ export namespace Prisma {
     seekers?: SeekerUncheckedUpdateManyWithoutProgramInterestNestedInput
     socialMediaPosts?: SocialMediaPostUncheckedUpdateManyWithoutProgramNestedInput
     qaItems?: ProgramQAUncheckedUpdateManyWithoutProgramNestedInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementUncheckedUpdateManyWithoutProgramNestedInput
     alumni?: AlumniUncheckedUpdateManyWithoutProgramNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateWithoutWhatsappMessagesInput = {
@@ -111213,6 +111832,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -111223,6 +111843,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutWhatsappMessagesInput = {
@@ -111267,6 +111889,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -111277,6 +111900,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutWhatsappMessagesInput = {
@@ -111368,6 +111993,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -111378,6 +112004,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutWhatsappMessagesInput = {
@@ -111422,6 +112050,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -111432,6 +112061,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type WhatsAppRecipientUpsertWithWhereUniqueWithoutWhatsappMessageInput = {
@@ -111492,6 +112123,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -111502,6 +112134,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutWhatsappTemplatesInput = {
@@ -111546,6 +112180,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -111556,6 +112191,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutWhatsappTemplatesInput = {
@@ -111616,6 +112253,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -111626,6 +112264,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutWhatsappTemplatesInput = {
@@ -111670,6 +112310,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -111680,6 +112321,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type WhatsAppMessageCreateWithoutRecipientsInput = {
@@ -111758,6 +112401,7 @@ export namespace Prisma {
     preferredPrograms?: SeekerProgramCreateNestedManyWithoutSeekerInput
     campaigns?: CampaignSeekerCreateNestedManyWithoutSeekerInput
     emailRecipients?: EmailRecipientCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeCreateNestedOneWithoutSeekersInput
     leadScore?: LeadScoreCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutSeekerInput
@@ -111766,6 +112410,8 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationCreateNestedManyWithoutSeekerInput
     alumni?: AlumniCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedCreateWithoutWhatsappRecipientsInput = {
@@ -111798,7 +112444,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     createdById?: string | null
     deletedById?: string | null
+<<<<<<< HEAD
     promotionCodeId?: string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentUncheckedCreateNestedManyWithoutSeekerInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutSeekerInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutSeekerInput
@@ -111806,6 +112455,7 @@ export namespace Prisma {
     preferredPrograms?: SeekerProgramUncheckedCreateNestedManyWithoutSeekerInput
     campaigns?: CampaignSeekerUncheckedCreateNestedManyWithoutSeekerInput
     emailRecipients?: EmailRecipientUncheckedCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutSeekerInput
     documents?: DocumentUncheckedCreateNestedManyWithoutSeekerInput
@@ -111813,6 +112463,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationUncheckedCreateNestedManyWithoutSeekerInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerCreateOrConnectWithoutWhatsappRecipientsInput = {
@@ -111913,6 +112565,7 @@ export namespace Prisma {
     preferredPrograms?: SeekerProgramUpdateManyWithoutSeekerNestedInput
     campaigns?: CampaignSeekerUpdateManyWithoutSeekerNestedInput
     emailRecipients?: EmailRecipientUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeUpdateOneWithoutSeekersNestedInput
     leadScore?: LeadScoreUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutSeekerNestedInput
@@ -111921,6 +112574,8 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedUpdateWithoutWhatsappRecipientsInput = {
@@ -111953,7 +112608,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedById?: NullableStringFieldUpdateOperationsInput | string | null
+<<<<<<< HEAD
     promotionCodeId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentUncheckedUpdateManyWithoutSeekerNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutSeekerNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutSeekerNestedInput
@@ -111961,6 +112619,7 @@ export namespace Prisma {
     preferredPrograms?: SeekerProgramUncheckedUpdateManyWithoutSeekerNestedInput
     campaigns?: CampaignSeekerUncheckedUpdateManyWithoutSeekerNestedInput
     emailRecipients?: EmailRecipientUncheckedUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutSeekerNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutSeekerNestedInput
@@ -111968,6 +112627,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUncheckedUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateWithoutEmailMessagesInput = {
@@ -112012,6 +112673,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -112022,6 +112684,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutEmailMessagesInput = {
@@ -112066,6 +112730,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -112076,6 +112741,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutEmailMessagesInput = {
@@ -112194,6 +112861,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -112204,6 +112872,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutEmailMessagesInput = {
@@ -112248,6 +112918,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -112258,6 +112929,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type EmailRecipientUpsertWithWhereUniqueWithoutEmailMessageInput = {
@@ -112377,6 +113050,7 @@ export namespace Prisma {
     preferredPrograms?: SeekerProgramCreateNestedManyWithoutSeekerInput
     campaigns?: CampaignSeekerCreateNestedManyWithoutSeekerInput
     whatsappRecipients?: WhatsAppRecipientCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeCreateNestedOneWithoutSeekersInput
     leadScore?: LeadScoreCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutSeekerInput
@@ -112385,6 +113059,8 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationCreateNestedManyWithoutSeekerInput
     alumni?: AlumniCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedCreateWithoutEmailRecipientsInput = {
@@ -112417,7 +113093,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     createdById?: string | null
     deletedById?: string | null
+<<<<<<< HEAD
     promotionCodeId?: string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentUncheckedCreateNestedManyWithoutSeekerInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutSeekerInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutSeekerInput
@@ -112425,6 +113104,7 @@ export namespace Prisma {
     preferredPrograms?: SeekerProgramUncheckedCreateNestedManyWithoutSeekerInput
     campaigns?: CampaignSeekerUncheckedCreateNestedManyWithoutSeekerInput
     whatsappRecipients?: WhatsAppRecipientUncheckedCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutSeekerInput
     documents?: DocumentUncheckedCreateNestedManyWithoutSeekerInput
@@ -112432,6 +113112,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationUncheckedCreateNestedManyWithoutSeekerInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerCreateOrConnectWithoutEmailRecipientsInput = {
@@ -112528,6 +113210,7 @@ export namespace Prisma {
     preferredPrograms?: SeekerProgramUpdateManyWithoutSeekerNestedInput
     campaigns?: CampaignSeekerUpdateManyWithoutSeekerNestedInput
     whatsappRecipients?: WhatsAppRecipientUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeUpdateOneWithoutSeekersNestedInput
     leadScore?: LeadScoreUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutSeekerNestedInput
@@ -112536,6 +113219,8 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedUpdateWithoutEmailRecipientsInput = {
@@ -112568,7 +113253,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedById?: NullableStringFieldUpdateOperationsInput | string | null
+<<<<<<< HEAD
     promotionCodeId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentUncheckedUpdateManyWithoutSeekerNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutSeekerNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutSeekerNestedInput
@@ -112576,6 +113264,7 @@ export namespace Prisma {
     preferredPrograms?: SeekerProgramUncheckedUpdateManyWithoutSeekerNestedInput
     campaigns?: CampaignSeekerUncheckedUpdateManyWithoutSeekerNestedInput
     whatsappRecipients?: WhatsAppRecipientUncheckedUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutSeekerNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutSeekerNestedInput
@@ -112583,6 +113272,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUncheckedUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type EmailMessageCreateWithoutAttachmentsInput = {
@@ -112703,6 +113394,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -112713,6 +113405,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutCreatedMeetingsInput = {
@@ -112757,6 +113451,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -112767,6 +113462,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutCreatedMeetingsInput = {
@@ -112816,6 +113513,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -112826,6 +113524,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutAssignedMeetingsInput = {
@@ -112870,6 +113570,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -112880,6 +113581,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutAssignedMeetingsInput = {
@@ -112924,6 +113627,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerCreateNestedManyWithoutSeekerInput
     whatsappRecipients?: WhatsAppRecipientCreateNestedManyWithoutSeekerInput
     emailRecipients?: EmailRecipientCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeCreateNestedOneWithoutSeekersInput
     leadScore?: LeadScoreCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutSeekerInput
@@ -112932,6 +113636,8 @@ export namespace Prisma {
     invoices?: InvoiceCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationCreateNestedManyWithoutSeekerInput
     alumni?: AlumniCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedCreateWithoutMeetingsInput = {
@@ -112964,7 +113670,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     createdById?: string | null
     deletedById?: string | null
+<<<<<<< HEAD
     promotionCodeId?: string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentUncheckedCreateNestedManyWithoutSeekerInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutSeekerInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutSeekerInput
@@ -112972,6 +113681,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUncheckedCreateNestedManyWithoutSeekerInput
     whatsappRecipients?: WhatsAppRecipientUncheckedCreateNestedManyWithoutSeekerInput
     emailRecipients?: EmailRecipientUncheckedCreateNestedManyWithoutSeekerInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedCreateNestedOneWithoutSeekerInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutSeekerInput
     documents?: DocumentUncheckedCreateNestedManyWithoutSeekerInput
@@ -112979,6 +113689,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedCreateNestedManyWithoutSeekerInput
     eventRegistrations?: EventRegistrationUncheckedCreateNestedManyWithoutSeekerInput
     alumni?: AlumniUncheckedCreateNestedOneWithoutSeekerInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerCreateOrConnectWithoutMeetingsInput = {
@@ -113039,6 +113751,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -113049,6 +113762,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutCreatedMeetingsInput = {
@@ -113093,6 +113808,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -113103,6 +113819,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUpsertWithoutAssignedMeetingsInput = {
@@ -113158,6 +113876,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -113168,6 +113887,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutAssignedMeetingsInput = {
@@ -113212,6 +113933,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -113222,6 +113944,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUpsertWithoutMeetingsInput = {
@@ -113272,6 +113996,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUpdateManyWithoutSeekerNestedInput
     whatsappRecipients?: WhatsAppRecipientUpdateManyWithoutSeekerNestedInput
     emailRecipients?: EmailRecipientUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeUpdateOneWithoutSeekersNestedInput
     leadScore?: LeadScoreUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutSeekerNestedInput
@@ -113280,6 +114005,8 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedUpdateWithoutMeetingsInput = {
@@ -113312,7 +114039,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedById?: NullableStringFieldUpdateOperationsInput | string | null
+<<<<<<< HEAD
     promotionCodeId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentUncheckedUpdateManyWithoutSeekerNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutSeekerNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutSeekerNestedInput
@@ -113320,6 +114050,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUncheckedUpdateManyWithoutSeekerNestedInput
     whatsappRecipients?: WhatsAppRecipientUncheckedUpdateManyWithoutSeekerNestedInput
     emailRecipients?: EmailRecipientUncheckedUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutSeekerNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutSeekerNestedInput
@@ -113327,6 +114058,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUncheckedUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateWithoutCreatedProjectsInput = {
@@ -113371,6 +114104,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -113381,6 +114115,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutCreatedProjectsInput = {
@@ -113425,6 +114161,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -113435,6 +114172,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutCreatedProjectsInput = {
@@ -113622,6 +114361,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -113632,6 +114372,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutCreatedProjectsInput = {
@@ -113676,6 +114418,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -113686,6 +114429,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProjectMemberUpsertWithWhereUniqueWithoutProjectInput = {
@@ -113819,6 +114564,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -113829,6 +114575,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutProjectMembershipsInput = {
@@ -113873,6 +114621,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -113883,6 +114632,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutProjectMembershipsInput = {
@@ -113990,6 +114741,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -114000,6 +114752,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutProjectMembershipsInput = {
@@ -114044,6 +114798,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -114054,6 +114809,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateWithoutCreatedTasksInput = {
@@ -114098,6 +114855,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -114108,6 +114866,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutCreatedTasksInput = {
@@ -114152,6 +114912,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -114162,6 +114923,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutCreatedTasksInput = {
@@ -114211,6 +114974,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -114221,6 +114985,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutAssignedTasksInput = {
@@ -114265,6 +115031,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -114275,6 +115042,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutAssignedTasksInput = {
@@ -114592,6 +115361,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -114602,6 +115372,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutCreatedTasksInput = {
@@ -114646,6 +115418,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -114656,6 +115429,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUpsertWithoutAssignedTasksInput = {
@@ -114711,6 +115486,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -114721,6 +115497,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutAssignedTasksInput = {
@@ -114765,6 +115543,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -114775,6 +115554,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProjectUpsertWithoutTasksInput = {
@@ -115174,6 +115955,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -115184,6 +115966,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutTaskAttachmentsInput = {
@@ -115228,6 +116012,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -115238,6 +116023,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutTaskAttachmentsInput = {
@@ -115355,6 +116142,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -115365,6 +116153,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutTaskAttachmentsInput = {
@@ -115409,6 +116199,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -115419,6 +116210,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type TaskCreateWithoutCommentsInput = {
@@ -115514,6 +116307,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -115524,6 +116318,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutTaskCommentsInput = {
@@ -115568,6 +116364,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -115578,6 +116375,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutTaskCommentsInput = {
@@ -115695,6 +116494,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -115705,6 +116505,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutTaskCommentsInput = {
@@ -115749,6 +116551,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -115759,6 +116562,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type TaskCreateWithoutTimeEntriesInput = {
@@ -115854,6 +116659,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -115864,6 +116670,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutTaskTimeEntriesInput = {
@@ -115908,6 +116716,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -115918,6 +116727,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutTaskTimeEntriesInput = {
@@ -116035,6 +116846,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -116045,6 +116857,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutTaskTimeEntriesInput = {
@@ -116089,6 +116903,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -116099,6 +116914,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateWithoutCreatedDealsInput = {
@@ -116143,6 +116960,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -116153,6 +116971,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutCreatedDealsInput = {
@@ -116197,6 +117017,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -116207,6 +117028,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutCreatedDealsInput = {
@@ -116256,6 +117079,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -116266,6 +117090,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutAssignedDealsInput = {
@@ -116310,6 +117136,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -116320,6 +117147,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutAssignedDealsInput = {
@@ -116489,6 +117318,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -116499,6 +117329,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutCreatedDealsInput = {
@@ -116543,6 +117375,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -116553,6 +117386,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUpsertWithoutAssignedDealsInput = {
@@ -116608,6 +117443,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -116618,6 +117454,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutAssignedDealsInput = {
@@ -116662,6 +117500,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -116672,6 +117511,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProjectUpsertWithoutDealsInput = {
@@ -116869,6 +117710,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -116879,6 +117721,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutDealActivitiesInput = {
@@ -116923,6 +117767,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -116933,6 +117778,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutDealActivitiesInput = {
@@ -117044,6 +117891,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -117054,6 +117902,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutDealActivitiesInput = {
@@ -117098,6 +117948,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -117108,6 +117959,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateWithoutCreatedClientsInput = {
@@ -117152,6 +118005,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -117162,6 +118016,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutCreatedClientsInput = {
@@ -117206,6 +118062,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -117216,6 +118073,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutCreatedClientsInput = {
@@ -117325,6 +118184,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -117335,6 +118195,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutCreatedClientsInput = {
@@ -117379,6 +118241,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -117389,6 +118252,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type DealUpsertWithWhereUniqueWithoutClientInput = {
@@ -117421,8 +118286,11 @@ export namespace Prisma {
     seekers?: SeekerCreateNestedManyWithoutProgramInterestInput
     preferredBy?: SeekerProgramCreateNestedManyWithoutProgramInput
     qaItems?: ProgramQACreateNestedManyWithoutProgramInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementCreateNestedManyWithoutProgramInput
     alumni?: AlumniCreateNestedManyWithoutProgramInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramUncheckedCreateWithoutSocialMediaPostsInput = {
@@ -117439,8 +118307,11 @@ export namespace Prisma {
     seekers?: SeekerUncheckedCreateNestedManyWithoutProgramInterestInput
     preferredBy?: SeekerProgramUncheckedCreateNestedManyWithoutProgramInput
     qaItems?: ProgramQAUncheckedCreateNestedManyWithoutProgramInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementUncheckedCreateNestedManyWithoutProgramInput
     alumni?: AlumniUncheckedCreateNestedManyWithoutProgramInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramCreateOrConnectWithoutSocialMediaPostsInput = {
@@ -117561,6 +118432,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -117571,6 +118443,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutCreatedPostsInput = {
@@ -117615,6 +118489,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -117625,6 +118500,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutCreatedPostsInput = {
@@ -117674,6 +118551,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -117684,6 +118562,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutPostsAssignedToInput = {
@@ -117728,6 +118608,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -117738,6 +118619,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutPostsAssignedToInput = {
@@ -117853,8 +118736,11 @@ export namespace Prisma {
     seekers?: SeekerUpdateManyWithoutProgramInterestNestedInput
     preferredBy?: SeekerProgramUpdateManyWithoutProgramNestedInput
     qaItems?: ProgramQAUpdateManyWithoutProgramNestedInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementUpdateManyWithoutProgramNestedInput
     alumni?: AlumniUpdateManyWithoutProgramNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramUncheckedUpdateWithoutSocialMediaPostsInput = {
@@ -117871,8 +118757,11 @@ export namespace Prisma {
     seekers?: SeekerUncheckedUpdateManyWithoutProgramInterestNestedInput
     preferredBy?: SeekerProgramUncheckedUpdateManyWithoutProgramNestedInput
     qaItems?: ProgramQAUncheckedUpdateManyWithoutProgramNestedInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementUncheckedUpdateManyWithoutProgramNestedInput
     alumni?: AlumniUncheckedUpdateManyWithoutProgramNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type CampaignUpsertWithoutSocialMediaPostInput = {
@@ -118005,6 +118894,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -118015,6 +118905,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutCreatedPostsInput = {
@@ -118059,6 +118951,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -118069,6 +118962,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUpsertWithoutPostsAssignedToInput = {
@@ -118124,6 +119019,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -118134,6 +119030,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutPostsAssignedToInput = {
@@ -118178,6 +119076,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -118188,6 +119087,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type PostApprovalUpsertWithWhereUniqueWithoutPostInput = {
@@ -118327,6 +119228,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -118337,6 +119239,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutPostApprovalsInput = {
@@ -118381,6 +119285,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -118391,6 +119296,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutPostApprovalsInput = {
@@ -118504,6 +119411,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -118514,6 +119422,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutPostApprovalsInput = {
@@ -118558,6 +119468,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -118568,6 +119479,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SocialMediaPostCreateWithoutCommentsInput = {
@@ -118659,6 +119572,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -118669,6 +119583,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutPostCommentsInput = {
@@ -118713,6 +119629,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -118723,6 +119640,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutPostCommentsInput = {
@@ -118836,6 +119755,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -118846,6 +119766,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutPostCommentsInput = {
@@ -118890,6 +119812,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -118900,6 +119823,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -118944,6 +119869,7 @@ export namespace Prisma {
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -118954,6 +119880,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -118998,6 +119926,7 @@ export namespace Prisma {
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -119008,6 +119937,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -119115,6 +120046,7 @@ export namespace Prisma {
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -119125,6 +120057,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -119169,6 +120103,7 @@ export namespace Prisma {
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -119179,6 +120114,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SocialMediaPostUpsertWithoutNotificationsInput = {
@@ -119248,8 +120185,11 @@ export namespace Prisma {
     seekers?: SeekerCreateNestedManyWithoutProgramInterestInput
     preferredBy?: SeekerProgramCreateNestedManyWithoutProgramInput
     socialMediaPosts?: SocialMediaPostCreateNestedManyWithoutProgramInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementCreateNestedManyWithoutProgramInput
     alumni?: AlumniCreateNestedManyWithoutProgramInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramUncheckedCreateWithoutQaItemsInput = {
@@ -119266,8 +120206,11 @@ export namespace Prisma {
     seekers?: SeekerUncheckedCreateNestedManyWithoutProgramInterestInput
     preferredBy?: SeekerProgramUncheckedCreateNestedManyWithoutProgramInput
     socialMediaPosts?: SocialMediaPostUncheckedCreateNestedManyWithoutProgramInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementUncheckedCreateNestedManyWithoutProgramInput
     alumni?: AlumniUncheckedCreateNestedManyWithoutProgramInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramCreateOrConnectWithoutQaItemsInput = {
@@ -119300,8 +120243,11 @@ export namespace Prisma {
     seekers?: SeekerUpdateManyWithoutProgramInterestNestedInput
     preferredBy?: SeekerProgramUpdateManyWithoutProgramNestedInput
     socialMediaPosts?: SocialMediaPostUpdateManyWithoutProgramNestedInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementUpdateManyWithoutProgramNestedInput
     alumni?: AlumniUpdateManyWithoutProgramNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramUncheckedUpdateWithoutQaItemsInput = {
@@ -119318,8 +120264,11 @@ export namespace Prisma {
     seekers?: SeekerUncheckedUpdateManyWithoutProgramInterestNestedInput
     preferredBy?: SeekerProgramUncheckedUpdateManyWithoutProgramNestedInput
     socialMediaPosts?: SocialMediaPostUncheckedUpdateManyWithoutProgramNestedInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementUncheckedUpdateManyWithoutProgramNestedInput
     alumni?: AlumniUncheckedUpdateManyWithoutProgramNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateWithoutCreatedNotebooksInput = {
@@ -119364,6 +120313,7 @@ export namespace Prisma {
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -119374,6 +120324,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutCreatedNotebooksInput = {
@@ -119418,6 +120370,7 @@ export namespace Prisma {
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -119428,6 +120381,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutCreatedNotebooksInput = {
@@ -119535,6 +120490,7 @@ export namespace Prisma {
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -119545,6 +120501,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutCreatedNotebooksInput = {
@@ -119589,6 +120547,7 @@ export namespace Prisma {
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -119599,6 +120558,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type NoteUpsertWithWhereUniqueWithoutNotebookInput = {
@@ -119778,6 +120739,7 @@ export namespace Prisma {
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
@@ -119788,6 +120750,8 @@ export namespace Prisma {
     recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedCreateWithoutCreatedNotesInput = {
@@ -119832,6 +120796,7 @@ export namespace Prisma {
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
@@ -119842,6 +120807,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
     createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
     smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserCreateOrConnectWithoutCreatedNotesInput = {
@@ -120002,6 +120969,7 @@ export namespace Prisma {
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
@@ -120012,6 +120980,8 @@ export namespace Prisma {
     recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
     createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
     smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserUncheckedUpdateWithoutCreatedNotesInput = {
@@ -120056,6 +121026,7 @@ export namespace Prisma {
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
+<<<<<<< HEAD
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -125258,6 +126229,8 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type AssignmentCreateManyCoordinatorInput = {
@@ -125315,7 +126288,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedById?: string | null
+<<<<<<< HEAD
     promotionCodeId?: string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerCreateManyDeletedByInput = {
@@ -125347,7 +126323,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     createdById?: string | null
+<<<<<<< HEAD
     promotionCodeId?: string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserRoleAssignmentCreateManyUserInput = {
@@ -125753,6 +126732,7 @@ export namespace Prisma {
     parentNoteId?: string | null
   }
 
+<<<<<<< HEAD
   export type PromotionCodeCreateManyCreatedByInput = {
     id?: string
     code: string
@@ -125887,6 +126867,8 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type AssignmentUpdateWithoutCoordinatorInput = {
     id?: StringFieldUpdateOperationsInput | string
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -126004,6 +126986,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUpdateManyWithoutSeekerNestedInput
     whatsappRecipients?: WhatsAppRecipientUpdateManyWithoutSeekerNestedInput
     emailRecipients?: EmailRecipientUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeUpdateOneWithoutSeekersNestedInput
     leadScore?: LeadScoreUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutSeekerNestedInput
@@ -126012,6 +126995,8 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedUpdateWithoutCreatedByInput = {
@@ -126043,7 +127028,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedById?: NullableStringFieldUpdateOperationsInput | string | null
+<<<<<<< HEAD
     promotionCodeId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentUncheckedUpdateManyWithoutSeekerNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutSeekerNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutSeekerNestedInput
@@ -126052,6 +127040,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUncheckedUpdateManyWithoutSeekerNestedInput
     whatsappRecipients?: WhatsAppRecipientUncheckedUpdateManyWithoutSeekerNestedInput
     emailRecipients?: EmailRecipientUncheckedUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutSeekerNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutSeekerNestedInput
@@ -126059,6 +127048,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUncheckedUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedUpdateManyWithoutCreatedByInput = {
@@ -126090,7 +127081,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedById?: NullableStringFieldUpdateOperationsInput | string | null
+<<<<<<< HEAD
     promotionCodeId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUpdateWithoutDeletedByInput = {
@@ -126130,6 +127124,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUpdateManyWithoutSeekerNestedInput
     whatsappRecipients?: WhatsAppRecipientUpdateManyWithoutSeekerNestedInput
     emailRecipients?: EmailRecipientUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeUpdateOneWithoutSeekersNestedInput
     leadScore?: LeadScoreUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutSeekerNestedInput
@@ -126138,6 +127133,8 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedUpdateWithoutDeletedByInput = {
@@ -126169,7 +127166,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
+<<<<<<< HEAD
     promotionCodeId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentUncheckedUpdateManyWithoutSeekerNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutSeekerNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutSeekerNestedInput
@@ -126178,6 +127178,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUncheckedUpdateManyWithoutSeekerNestedInput
     whatsappRecipients?: WhatsAppRecipientUncheckedUpdateManyWithoutSeekerNestedInput
     emailRecipients?: EmailRecipientUncheckedUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutSeekerNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutSeekerNestedInput
@@ -126185,6 +127186,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUncheckedUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedUpdateManyWithoutDeletedByInput = {
@@ -126216,7 +127219,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
+<<<<<<< HEAD
     promotionCodeId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type UserRoleAssignmentUpdateWithoutUserInput = {
@@ -127488,6 +128494,7 @@ export namespace Prisma {
     parentNoteId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+<<<<<<< HEAD
   export type PromotionCodeUpdateWithoutCreatedByInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -127900,6 +128907,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type RolePermissionCreateManyRoleInput = {
     id?: string
     permissionId: string
@@ -127994,8 +129003,11 @@ export namespace Prisma {
     preferredBy?: SeekerProgramUpdateManyWithoutProgramNestedInput
     socialMediaPosts?: SocialMediaPostUpdateManyWithoutProgramNestedInput
     qaItems?: ProgramQAUpdateManyWithoutProgramNestedInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementUpdateManyWithoutProgramNestedInput
     alumni?: AlumniUpdateManyWithoutProgramNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramUncheckedUpdateWithoutLevelRelationInput = {
@@ -128012,8 +129024,11 @@ export namespace Prisma {
     preferredBy?: SeekerProgramUncheckedUpdateManyWithoutProgramNestedInput
     socialMediaPosts?: SocialMediaPostUncheckedUpdateManyWithoutProgramNestedInput
     qaItems?: ProgramQAUncheckedUpdateManyWithoutProgramNestedInput
+<<<<<<< HEAD
     documentRequirements?: ProgramDocumentRequirementUncheckedUpdateManyWithoutProgramNestedInput
     alumni?: AlumniUncheckedUpdateManyWithoutProgramNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type ProgramUncheckedUpdateManyWithoutLevelRelationInput = {
@@ -128057,7 +129072,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     createdById?: string | null
     deletedById?: string | null
+<<<<<<< HEAD
     promotionCodeId?: string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerProgramCreateManyProgramInput = {
@@ -128094,6 +129112,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+<<<<<<< HEAD
   export type ProgramDocumentRequirementCreateManyProgramInput = {
     id?: string
     documentTypeId: string
@@ -128115,6 +129134,8 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type SeekerUpdateWithoutProgramInterestInput = {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
@@ -128152,6 +129173,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUpdateManyWithoutSeekerNestedInput
     whatsappRecipients?: WhatsAppRecipientUpdateManyWithoutSeekerNestedInput
     emailRecipients?: EmailRecipientUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     promotionCode?: PromotionCodeUpdateOneWithoutSeekersNestedInput
     leadScore?: LeadScoreUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutSeekerNestedInput
@@ -128160,6 +129182,8 @@ export namespace Prisma {
     invoices?: InvoiceUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedUpdateWithoutProgramInterestInput = {
@@ -128191,7 +129215,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedById?: NullableStringFieldUpdateOperationsInput | string | null
+<<<<<<< HEAD
     promotionCodeId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     assignments?: AssignmentUncheckedUpdateManyWithoutSeekerNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutSeekerNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutSeekerNestedInput
@@ -128200,6 +129227,7 @@ export namespace Prisma {
     campaigns?: CampaignSeekerUncheckedUpdateManyWithoutSeekerNestedInput
     whatsappRecipients?: WhatsAppRecipientUncheckedUpdateManyWithoutSeekerNestedInput
     emailRecipients?: EmailRecipientUncheckedUpdateManyWithoutSeekerNestedInput
+<<<<<<< HEAD
     leadScore?: LeadScoreUncheckedUpdateOneWithoutSeekerNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutSeekerNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutSeekerNestedInput
@@ -128207,6 +129235,8 @@ export namespace Prisma {
     invoices?: InvoiceUncheckedUpdateManyWithoutSeekerNestedInput
     eventRegistrations?: EventRegistrationUncheckedUpdateManyWithoutSeekerNestedInput
     alumni?: AlumniUncheckedUpdateOneWithoutSeekerNestedInput
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerUncheckedUpdateManyWithoutProgramInterestInput = {
@@ -128238,7 +129268,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedById?: NullableStringFieldUpdateOperationsInput | string | null
+<<<<<<< HEAD
     promotionCodeId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   }
 
   export type SeekerProgramUpdateWithoutProgramInput = {
@@ -128349,6 +129382,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+<<<<<<< HEAD
   export type ProgramDocumentRequirementUpdateWithoutProgramInput = {
     id?: StringFieldUpdateOperationsInput | string
     isRequired?: BoolFieldUpdateOperationsInput | boolean
@@ -128414,6 +129448,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type AssignmentCreateManySeekerInput = {
     id?: string
     coordinatorId: string
@@ -128496,6 +129532,7 @@ export namespace Prisma {
     emailMessageId: string
   }
 
+<<<<<<< HEAD
   export type VoiceNoteCreateManySeekerInput = {
     id?: string
     uploadedById: string
@@ -128564,6 +129601,8 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type AssignmentUpdateWithoutSeekerInput = {
     id?: StringFieldUpdateOperationsInput | string
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -128812,6 +129851,7 @@ export namespace Prisma {
     emailMessageId?: StringFieldUpdateOperationsInput | string
   }
 
+<<<<<<< HEAD
   export type VoiceNoteUpdateWithoutSeekerInput = {
     id?: StringFieldUpdateOperationsInput | string
     cloudinaryId?: StringFieldUpdateOperationsInput | string
@@ -129022,6 +130062,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
   export type TaskActionHistoryCreateManyTaskInput = {
     id?: string
     fromStatus?: $Enums.FollowUpStatus | null
@@ -130208,6 +131250,7 @@ export namespace Prisma {
     createdById?: StringFieldUpdateOperationsInput | string
   }
 
+<<<<<<< HEAD
   export type SeekerCreateManyPromotionCodeInput = {
     id?: string
     fullName: string
@@ -130744,6 +131787,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
 
 
   /**

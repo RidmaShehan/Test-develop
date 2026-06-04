@@ -128,7 +128,10 @@ export async function GET(request: NextRequest) {
 
     const campaignWhere = isAdmin
       ? { isDeleted: false }
-      : { createdById: user.id, isDeleted: false }
+      : {
+          isDeleted: false,
+          OR: [{ createdById: user.id }, { coordinatorId: user.id }],
+        }
 
     const taskWhere: Record<string, unknown> = applyUserId
       ? { assignedTo: userIdFilter }
@@ -358,6 +361,49 @@ export async function GET(request: NextRequest) {
     })
     const campaigns = campaignsList.map((c) => ({ id: c.id, name: c.name }))
 
+    const assignedCampaignsRaw = await prisma.campaign.findMany({
+      where: { isDeleted: false, coordinatorId: user.id },
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        imageUrl: true,
+        status: true,
+        type: true,
+        startDate: true,
+        endDate: true,
+        reach: true,
+        views: true,
+        totalInteractions: true,
+        reactions: true,
+        comments: true,
+        shares: true,
+        linkClicks: true,
+        netFollows: true,
+        _count: { select: { seekers: true } },
+      },
+      orderBy: { updatedAt: 'desc' },
+    })
+    const assignedCampaigns = assignedCampaignsRaw.map((c) => ({
+      id: c.id,
+      name: c.name,
+      description: c.description,
+      imageUrl: c.imageUrl,
+      status: c.status,
+      type: c.type,
+      startDate: c.startDate.toISOString(),
+      endDate: c.endDate?.toISOString() ?? null,
+      reach: c.reach,
+      views: c.views,
+      totalInteractions: c.totalInteractions,
+      reactions: c.reactions,
+      comments: c.comments,
+      shares: c.shares,
+      linkClicks: c.linkClicks,
+      netFollows: c.netFollows,
+      seekersCount: c._count.seekers,
+    }))
+
     const now = new Date()
     if (isAdmin) {
       const usersList = await prisma.user.findMany({
@@ -415,6 +461,7 @@ export async function GET(request: NextRequest) {
       isAdmin,
       users,
       campaigns,
+      assignedCampaigns,
       filterMeta: {
         preset,
         dateFrom: start.toISOString(),

@@ -49,6 +49,12 @@ interface Campaign {
   _count: {
     seekers: number
   }
+  registeredCount?: number
+  coordinator?: {
+    id: string
+    name: string | null
+    email: string | null
+  } | null
 }
 
 interface CampaignsTableProps {
@@ -462,8 +468,11 @@ export function CampaignsTable({ onViewCampaign }: CampaignsTableProps) {
                 <TableHead className="min-w-[120px]">Type</TableHead>
                 <TableHead className="min-w-[100px]">Status</TableHead>
                 <TableHead className="min-w-[200px] max-w-[300px]">Target Audience</TableHead>
+                <TableHead className="min-w-[160px]">Coordinator</TableHead>
                 <TableHead className="min-w-[180px] whitespace-nowrap">Duration</TableHead>
-                <TableHead className="min-w-[100px]">Budget</TableHead>
+                <TableHead className="min-w-[100px] whitespace-nowrap">Budget</TableHead>
+                <TableHead className="min-w-[90px] whitespace-nowrap">Inquiries</TableHead>
+                <TableHead className="min-w-[90px] whitespace-nowrap">Registered</TableHead>
                 <TableHead className="min-w-[100px]">Reach</TableHead>
                 <TableHead className="min-w-[120px]">Analytics</TableHead>
                 <TableHead className="min-w-[120px] whitespace-nowrap">Created</TableHead>
@@ -517,6 +526,22 @@ export function CampaignsTable({ onViewCampaign }: CampaignsTableProps) {
                       {campaign.targetAudience}
                     </div>
                   </TableCell>
+                  <TableCell className="min-w-[160px]">
+                    {campaign.coordinator ? (
+                      <div className="text-sm">
+                        <div className="font-medium truncate">
+                          {campaign.coordinator.name || campaign.coordinator.email || '—'}
+                        </div>
+                        {campaign.coordinator.email && (
+                          <div className="text-xs text-gray-500 truncate">
+                            {campaign.coordinator.email}
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <span className="text-sm text-gray-400">Not assigned</span>
+                    )}
+                  </TableCell>
                   <TableCell className="min-w-[180px] whitespace-nowrap">
                     <div className="text-sm">
                     {formatDate(campaign.startDate)}
@@ -527,6 +552,12 @@ export function CampaignsTable({ onViewCampaign }: CampaignsTableProps) {
                   </TableCell>
                   <TableCell className="min-w-[100px] whitespace-nowrap">
                     {campaign.budget ? `$${campaign.budget.toLocaleString()}` : '-'}
+                  </TableCell>
+                  <TableCell className="min-w-[90px] whitespace-nowrap text-sm text-gray-800">
+                    {campaign._count?.seekers ?? 0}
+                  </TableCell>
+                  <TableCell className="min-w-[90px] whitespace-nowrap text-sm text-gray-800">
+                    {campaign.registeredCount ?? 0}
                   </TableCell>
                   <TableCell className="min-w-[100px]">
                     <div className="flex items-center space-x-1">

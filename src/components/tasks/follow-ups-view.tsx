@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -50,7 +51,8 @@ import {
   FOLLOW_UP_STATUS_COLUMNS,
   getTaskStatusInfo,
   isTaskReadOnly,
-  normalizeStatusHelper
+  normalizeStatusHelper,
+  type TaskStatusColumn
 } from '@/lib/task-constants'
 import { onTasksRefreshNeeded, consumeTasksPendingRefresh } from '@/lib/tasks-refresh-sync'
 import {
@@ -64,6 +66,8 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
 import { Trash2 } from 'lucide-react'
+import { formatTaskDate, getCalendarIcon } from './task-board-utils'
+import { TaskBoardColumn } from './task-board-column'
 
 interface FollowUpTask {
   id: string
@@ -562,14 +566,14 @@ export function FollowUpsView() {
     onDeleteClick,
     onPhoneCall
   }: { 
-    column: { id: string; title: string; color: string; icon: any; headerColor: string }
+    column: TaskStatusColumn
     tasks: FollowUpTask[]
     onViewHistory: (task: FollowUpTask) => void
     onViewTask: (task: FollowUpTask) => void
     onToggleRegister: (task: FollowUpTask, registerNow: boolean) => void
     onClothingStationRegister: (task: FollowUpTask) => void
     onClothingStationNotInterested: (task: FollowUpTask) => void
-    getStatusInfo: (status: string) => any
+    getStatusInfo: (status: string) => { color: string; label: string; icon: any }
     isAutomatic: (task: FollowUpTask) => boolean
     getFollowUpNumber: (task: FollowUpTask) => string
     isOverdue: (dueAt: string) => boolean
@@ -578,67 +582,31 @@ export function FollowUpsView() {
     onDeleteClick: (task: FollowUpTask, e?: React.MouseEvent) => void
     onPhoneCall: (phone: string, e?: React.MouseEvent) => void
   }) {
-    const { setNodeRef, isOver } = useDroppable({
-      id: column.id,
-    })
-
-    const IconComponent = column.icon
-
     return (
-      <div className="w-full min-w-[280px] max-w-[320px] flex-shrink-0">
-        <div className={`flex items-center justify-between mb-3 px-3 py-2.5 rounded-t-lg border-b-2 ${column.headerColor} shadow-sm`}>
-          <div className="flex items-center gap-2">
-            <IconComponent className="h-4 w-4 text-gray-600" />
-            <h3 className="font-semibold text-gray-900 text-sm">{column.title}</h3>
-          </div>
-          <Badge className={`${column.color} text-xs font-medium px-2 py-0.5 shadow-sm`}>
-            {tasks.length > 999 ? '999+' : tasks.length}
-          </Badge>
-        </div>
-        
-        <SortableContext 
-          items={tasks.map(task => task.id)}
-          strategy={verticalListSortingStrategy}
-        >
-          <div 
-            ref={setNodeRef}
-            className={`space-y-2.5 min-h-[400px] max-h-[calc(100vh-280px)] overflow-y-auto p-3 rounded-b-lg bg-gray-50/50 transition-all duration-200 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent ${
-              isOver 
-                ? 'ring-2 ring-blue-400 ring-offset-2 bg-blue-50/80 shadow-lg' 
-                : 'border border-gray-200 hover:border-gray-300 hover:bg-gray-50'
-            }`}
-          >
-            {tasks.map((task) => (
-              <SortableTaskCard
-                key={task.id}
-                task={task}
-                onViewHistory={onViewHistory}
-                onViewTask={onViewTask}
-                onToggleRegister={onToggleRegister}
-                onClothingStationRegister={onClothingStationRegister}
-                onClothingStationNotInterested={onClothingStationNotInterested}
-                getStatusInfo={getStatusInfo}
-                isAutomatic={isAutomatic}
-                getFollowUpNumber={getFollowUpNumber}
-                isOverdue={isOverdue}
-                getDaysUntilDue={getDaysUntilDue}
-                isDragging={activeTaskId === task.id}
-                onDeleteClick={onDeleteClick}
-                onPhoneCall={onPhoneCall}
-              />
-            ))}
-            {tasks.length === 0 && (
-              <div className="flex flex-col items-center justify-center py-12 text-gray-400 dark:text-gray-500">
-                <div className="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center mb-3">
-                  <Clock className="h-6 w-6 text-gray-400 dark:text-gray-500" />
-                </div>
-                <p className="text-xs font-medium text-gray-500 dark:text-gray-400">No tasks</p>
-                <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Drop tasks here</p>
-              </div>
-            )}
-          </div>
-        </SortableContext>
-      </div>
+      <TaskBoardColumn
+        column={column}
+        tasks={tasks}
+        emptyClassName="dark:text-gray-500"
+        renderTask={(task) => (
+          <SortableTaskCard
+            key={task.id}
+            task={task}
+            onViewHistory={onViewHistory}
+            onViewTask={onViewTask}
+            onToggleRegister={onToggleRegister}
+            onClothingStationRegister={onClothingStationRegister}
+            onClothingStationNotInterested={onClothingStationNotInterested}
+            getStatusInfo={getStatusInfo}
+            isAutomatic={isAutomatic}
+            getFollowUpNumber={getFollowUpNumber}
+            isOverdue={isOverdue}
+            getDaysUntilDue={getDaysUntilDue}
+            isDragging={activeTaskId === task.id}
+            onDeleteClick={onDeleteClick}
+            onPhoneCall={onPhoneCall}
+          />
+        )}
+      />
     )
   }
 
@@ -665,7 +633,7 @@ export function FollowUpsView() {
     onToggleRegister: (task: FollowUpTask, registerNow: boolean) => void
     onClothingStationRegister: (task: FollowUpTask) => void
     onClothingStationNotInterested: (task: FollowUpTask) => void
-    getStatusInfo: (status: string) => any
+    getStatusInfo: (status: string) => { color: string; label: string; icon: any }
     isAutomatic: (task: FollowUpTask) => boolean
     getFollowUpNumber: (task: FollowUpTask) => string
     isOverdue: (dueAt: string) => boolean
@@ -767,9 +735,9 @@ export function FollowUpsView() {
             </div>
 
             <div className="flex items-center space-x-1.5 text-xs text-gray-600 bg-gray-50 px-2 py-1 rounded-md">
-              <Calendar className="h-3.5 w-3.5 flex-shrink-0 text-gray-500" />
+              {getCalendarIcon()}
               <span className="truncate font-medium">
-                {new Date(task.dueAt).toLocaleDateString()}
+                {formatTaskDate(task.dueAt)}
               </span>
             </div>
 
@@ -1070,9 +1038,9 @@ export function FollowUpsView() {
                           </Badge>
                         </div>
                         <div className="flex items-center space-x-1.5 text-xs text-gray-600 bg-gray-50 px-2 py-1 rounded-md">
-                          <Calendar className="h-3.5 w-3.5 flex-shrink-0 text-gray-500" />
+                          {getCalendarIcon()}
                           <span className="truncate font-medium">
-                            {new Date(activeTask.dueAt).toLocaleDateString()}
+                            {formatTaskDate(activeTask.dueAt)}
                           </span>
                         </div>
                       </div>

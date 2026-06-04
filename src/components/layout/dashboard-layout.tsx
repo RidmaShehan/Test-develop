@@ -89,7 +89,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           compactMode ? "p-4" : "p-6"
         )}>
           <div className={cn(
-            "transition-all duration-300",
+            "transition-all duration-300 w-full mx-auto max-w-[1400px]",
             compactMode ? "space-y-4" : "space-y-6"
           )}>
             {children}

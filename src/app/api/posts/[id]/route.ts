@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { requireAuth, isAdminRole } from '@/lib/auth'
+import { requireAuth, isAdminRole, AuthenticationError } from '@/lib/auth'
 
 // GET /api/posts/[id] - Get a specific post
 export async function GET(
@@ -72,6 +72,9 @@ export async function GET(
     return NextResponse.json(post)
   } catch (error) {
     console.error('Error fetching post:', error)
+    if (error instanceof AuthenticationError) {
+      return NextResponse.json({ error: error.message }, { status: 401 })
+    }
     return NextResponse.json(
       { error: error instanceof Error ? error.message : 'Failed to fetch post' },
       { status: 500 }
@@ -159,6 +162,9 @@ export async function PUT(
     return NextResponse.json(updatedPost)
   } catch (error) {
     console.error('Error updating post:', error)
+    if (error instanceof AuthenticationError) {
+      return NextResponse.json({ error: error.message }, { status: 401 })
+    }
     return NextResponse.json(
       { error: error instanceof Error ? error.message : 'Failed to update post' },
       { status: 500 }
@@ -208,6 +214,9 @@ export async function DELETE(
     return NextResponse.json({ message: 'Post deleted successfully' })
   } catch (error) {
     console.error('Error deleting post:', error)
+    if (error instanceof AuthenticationError) {
+      return NextResponse.json({ error: error.message }, { status: 401 })
+    }
     return NextResponse.json(
       { error: error instanceof Error ? error.message : 'Failed to delete post' },
       { status: 500 }

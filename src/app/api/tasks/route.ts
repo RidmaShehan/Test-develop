@@ -99,13 +99,13 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(userTasks)
     }
   } catch (error) {
-    console.error('Error fetching tasks:', error)
     if (error instanceof AuthenticationError) {
       return NextResponse.json(
         { error: error.message },
         { status: 401 }
       )
     }
+    console.error('Error fetching tasks:', error)
     return NextResponse.json(
       { error: 'Failed to fetch tasks' },
       { status: 500 }

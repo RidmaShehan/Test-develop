@@ -9,6 +9,10 @@ import {
   hasCategoryPermission,
   canAccessFeature,
   canPerformAction,
+  canCreate,
+  canRead,
+  canUpdate,
+  canDelete,
   isAdmin,
   canManageUsers,
   canManageRoles,
@@ -36,6 +40,13 @@ export function usePermissions() {
     hasCategoryPermission: (category: string) => hasCategoryPermission(permissions, category as keyof typeof PERMISSION_CATEGORIES),
     canAccessFeature: (feature: string) => canAccessFeature(permissions, feature),
     canPerformAction: (action: string, resource: string) => canPerformAction(permissions, action, resource),
+
+    // Professional CRUD helpers - recommended way
+    canCreate: (resource: string) => canCreate(permissions, resource),
+    canRead: (resource: string) => canRead(permissions, resource),
+    canUpdate: (resource: string) => canUpdate(permissions, resource),
+    canDelete: (resource: string) => canDelete(permissions, resource),
+
     isAdmin: () => isAdmin(permissions),
     canManageUsers: () => canManageUsers(permissions),
     canManageRoles: () => canManageRoles(permissions),
@@ -95,7 +106,11 @@ export function PermissionGate({
     hasAnyPermission, 
     hasCategoryPermission, 
     canAccessFeature, 
-    canPerformAction 
+    canPerformAction,
+    canCreate,
+    canRead,
+    canUpdate,
+    canDelete
   } = usePermissions()
 
   let hasAccess = false
@@ -110,6 +125,14 @@ export function PermissionGate({
     hasAccess = canAccessFeature(feature)
   } else if (action && resource) {
     hasAccess = canPerformAction(action, resource)
+  } else if (action === 'create' && resource) {
+    hasAccess = canCreate(resource)
+  } else if (action === 'read' && resource) {
+    hasAccess = canRead(resource)
+  } else if (action === 'update' && resource) {
+    hasAccess = canUpdate(resource)
+  } else if (action === 'delete' && resource) {
+    hasAccess = canDelete(resource)
   }
 
   return hasAccess ? React.createElement(React.Fragment, null, children) : React.createElement(React.Fragment, null, fallback)

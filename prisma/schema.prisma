@@ -62,6 +62,10 @@ model User {
   createdNotebooks      Notebook[]      @relation("NotebookCreatedBy")
   createdNotes          Note[]          @relation("NoteCreatedBy")
   createdPromotionCodes PromotionCode[] @relation("PromotionCodeCreatedBy")
+  coordinatedCampaigns  Campaign[]      @relation("CampaignCoordinator")
+
+  // Saved filters
+  savedFilters SavedFilter[] @relation("UserSavedFilters")
 
   // Sprint A — Auth
   passwordResetTokens PasswordResetToken[]
@@ -213,6 +217,7 @@ model Seeker {
   promotionCodeId      String?
   promotionCode        PromotionCode?      @relation(fields: [promotionCodeId], references: [id])
 
+<<<<<<< HEAD
   // Sprint B — Lead Scoring & Voice Notes
   leadScore   LeadScore?
   voiceNotes  VoiceNote[]
@@ -229,6 +234,16 @@ model Seeker {
 
   // Sprint G — Alumni
   alumni Alumni?
+=======
+  // Performance indexes for common queries
+  @@index([createdAt])
+  @@index([stage])
+  @@index([marketingSource])
+  @@index([isDeleted, createdAt])
+  @@index([createdById, createdAt])
+  @@index([followUpAgain, followUpDate])
+  @@index([notAnswering, registerNow])
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
 
   @@map("seekers")
 }
@@ -468,6 +483,7 @@ model Campaign {
   reach          Int? // Number of people reached by the campaign
   imageUrl       String? // S3 image URL
   status         CampaignStatus @default(DRAFT)
+  coordinatorId  String?
   isDeleted      Boolean        @default(false)
   deletedAt      DateTime?
 
@@ -496,6 +512,7 @@ model Campaign {
   updatedAt       DateTime          @updatedAt
   createdById     String?
   createdBy       User?             @relation("CampaignCreatedBy", fields: [createdById], references: [id])
+  coordinator     User?             @relation("CampaignCoordinator", fields: [coordinatorId], references: [id])
   seekers         CampaignSeeker[]
   campaignType    CampaignType?     @relation(fields: [type], references: [name])
   SocialMediaPost SocialMediaPost[]
@@ -642,6 +659,8 @@ model WhatsAppTemplate {
   mediaType     String?
   mediaFilename String?
   mediaFilePath String?
+  /// Inline image as data URL (data:image/...;base64,...) for serverless-friendly storage
+  mediaBase64   String?  @db.Text
   mediaSize     Int?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
@@ -664,11 +683,16 @@ model WhatsAppRecipient {
   updatedAt    DateTime       @updatedAt
 
   whatsappMessageId String
-  seekerId          String
+  /// Set for inquiry recipients; null when recipient is a promotion-code promoter
+  seekerId          String?
+  /// Set when messaging a promoter from the promotion codes list
+  promotionCodeId   String?
 
   whatsappMessage WhatsAppMessage @relation(fields: [whatsappMessageId], references: [id], onDelete: Cascade)
-  seeker          Seeker          @relation(fields: [seekerId], references: [id], onDelete: Cascade)
+  seeker          Seeker?         @relation(fields: [seekerId], references: [id], onDelete: Cascade)
+  promotionCode   PromotionCode?  @relation(fields: [promotionCodeId], references: [id], onDelete: Cascade)
 
+  @@index([promotionCodeId])
   @@map("whatsapp_recipients")
 }
 
@@ -1176,6 +1200,7 @@ model Notification {
 
   @@index([userId, read])
   @@index([createdAt])
+  @@index([userId, createdAt]) // For realtime queries
   @@map("notifications")
 }
 
@@ -1299,8 +1324,9 @@ model PromotionCode {
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
   createdById        String?
-  createdBy          User?    @relation("PromotionCodeCreatedBy", fields: [createdById], references: [id])
+  createdBy          User?               @relation("PromotionCodeCreatedBy", fields: [createdById], references: [id])
   seekers            Seeker[] // Seekers who used this promotion code
+  whatsappRecipients WhatsAppRecipient[]
 
   @@map("promotion_codes")
 }
@@ -1354,6 +1380,7 @@ enum WeeklyReportStatus {
 }
 
 // ========================================
+<<<<<<< HEAD
 // SPRINT A — PASSWORD RESET
 // ========================================
 
@@ -1706,4 +1733,28 @@ model AlumniEngagement {
   createdAt DateTime @default(now())
 
   @@map("alumni_engagements")
+=======
+// SAVED FILTERS (for Inquiries and other views)
+// ========================================
+
+model SavedFilter {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  entityType  String   @default("inquiry") // "inquiry", "task", "campaign", etc.
+  filterData  Json     // Serialized filter state (searchQuery, stages, dateRange, etc.)
+  isDefault   Boolean  @default(false)
+  isPublic    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  userId String
+  user   User   @relation("UserSavedFilters", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, name])
+  @@index([userId, entityType])
+  @@index([isDefault])
+  @@map("saved_filters")
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
 }

@@ -20,7 +20,7 @@ The component maintained **two separate sources of truth** for unread notificati
    - Used `useApiNotifications` hook
    - Had its own unread count and refetch mechanism
    - Different polling strategy
-
+------- 
 ### Consequences
 
 This duplication caused several issues:

@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { safeJsonParse } from '@/lib/utils'
+import { useAuth as useAuthContext } from '@/contexts/auth-context'
 
 export interface User {
   id: string
@@ -12,6 +12,33 @@ export interface User {
   isActive: boolean
   permissions?: string[]
   roles?: { id: string; name: string }[]
+}
+
+const ACTIVITY_UPDATE_THROTTLE_MS = 60_000
+let lastGlobalActivityUpdate = 0
+let activityUpdateInFlight = false
+let globalFetchPatched = false
+let originalWindowFetch: typeof window.fetch | null = null
+
+async function postSessionActivity() {
+  if (typeof window === 'undefined') return
+
+  const now = Date.now()
+  if (activityUpdateInFlight || now - lastGlobalActivityUpdate < ACTIVITY_UPDATE_THROTTLE_MS) {
+    return
+  }
+
+  activityUpdateInFlight = true
+  try {
+    // Use original fetch if patched to avoid layered wrappers.
+    const fetchImpl = originalWindowFetch ?? window.fetch
+    await fetchImpl('/api/auth/session-activity', { method: 'POST' })
+    lastGlobalActivityUpdate = now
+  } catch (error) {
+    console.error('Failed to update session activity:', error)
+  } finally {
+    activityUpdateInFlight = false
+  }
 }
 
 // Helper to get cookie value
@@ -40,112 +67,73 @@ function isSessionExpired(): boolean {
 }
 
 export function useAuth() {
-  const [user, setUser] = useState<User | null>(null)
-  const [loading, setLoading] = useState(true)
+  const context = useAuthContext()
   const router = useRouter()
   const activityCheckInterval = useRef<NodeJS.Timeout | null>(null)
-  const lastApiCallRef = useRef<number>(Date.now())
 
-  // Update session activity on API calls
+  // Global activity tracking (shared across all instances)
   const updateActivity = useCallback(async () => {
-    try {
-      await fetch('/api/auth/session-activity', { method: 'POST' })
-      lastApiCallRef.current = Date.now()
-    } catch (error) {
-      console.error('Failed to update session activity:', error)
-    }
+    await postSessionActivity()
   }, [])
 
-  // Check for session expiry and auto-logout
+  // Check for session expiry
   const checkSessionExpiry = useCallback(() => {
     if (isSessionExpired()) {
       console.log('Session expired due to inactivity (1 hour)')
-      setUser(null)
       router.push('/sign-in')
-      if (activityCheckInterval.current) {
-        clearInterval(activityCheckInterval.current)
-      }
+      if (activityCheckInterval.current) clearInterval(activityCheckInterval.current)
     }
   }, [router])
 
-  // Intercept fetch to track API calls
+  // Patch fetch once globally to track activity
   useEffect(() => {
-    if (typeof window === 'undefined') return
+    if (typeof window === 'undefined' || globalFetchPatched) return
 
-    const originalFetch = window.fetch
-    window.fetch = async (...args) => {
-      const result = await originalFetch(...args)
-      
-      // Update activity for API calls (except auth endpoints)
+    originalWindowFetch = window.fetch
+    window.fetch = async (...args: Parameters<typeof fetch>) => {
+      const result = await (originalWindowFetch as typeof fetch)(...args)
+
       const url = args[0]
       if (typeof url === 'string' && url.startsWith('/api/') && !url.startsWith('/api/auth/')) {
-        updateActivity()
+        void postSessionActivity()
       }
-      
+
       return result
     }
 
-    return () => {
-      window.fetch = originalFetch
-    }
-  }, [updateActivity])
+    globalFetchPatched = true
+  }, [])
 
+  // Session expiry checker (only if not using context)
   useEffect(() => {
-    checkAuth()
-    
-    // Check session expiry every 30 seconds
-    activityCheckInterval.current = setInterval(() => {
-      checkSessionExpiry()
-    }, 30000) // Check every 30 seconds
+    if (context) return
 
+    activityCheckInterval.current = setInterval(checkSessionExpiry, 30000)
     return () => {
       if (activityCheckInterval.current) {
         clearInterval(activityCheckInterval.current)
       }
     }
-  }, [checkSessionExpiry])
-
-  const checkAuth = async () => {
-    try {
-      // Check session expiry first
-      if (isSessionExpired()) {
-        setUser(null)
-        router.push('/sign-in')
-        setLoading(false)
-        return
-      }
-
-      const response = await fetch('/api/auth/me')
-      if (response.ok) {
-        const data = await safeJsonParse(response)
-        setUser(data.user)
-        // Update activity on successful auth check
-        updateActivity()
-      } else {
-        setUser(null)
-        router.push('/sign-in')
-      }
-    } catch (error) {
-      console.error('Auth check failed:', error)
-      setUser(null)
-      router.push('/sign-in')
-    } finally {
-      setLoading(false)
-    }
-  }
+  }, [checkSessionExpiry, context])
 
   const logout = async () => {
     try {
-      await fetch('/api/auth/logout', { method: 'POST' })
-      setUser(null)
-      if (activityCheckInterval.current) {
-        clearInterval(activityCheckInterval.current)
+      if (context?.logout) {
+        await context.logout()
+      } else {
+        await fetch('/api/auth/logout', { method: 'POST' })
+        router.push('/sign-in')
       }
-      router.push('/sign-in')
     } catch (error) {
       console.error('Logout failed:', error)
     }
   }
 
-  return { user, loading, logout, checkAuth }
+  return { 
+    user: context?.user ?? null,
+    loading: context?.loading ?? false,
+    logout,
+    checkAuth: context?.refreshUser || (() => {}),
+    refreshUser: context?.refreshUser
+  }
 }

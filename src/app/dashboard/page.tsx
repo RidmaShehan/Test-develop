@@ -9,7 +9,11 @@ import { useAuth } from '@/hooks/use-auth'
 import { cn } from '@/lib/utils'
 import { DashboardFilterBar } from '@/components/dashboard/dashboard-filter-bar'
 import type { DashboardFilterState, DashboardPreset } from '@/components/dashboard/dashboard-types'
+import type { DashboardStatsData } from '@/components/dashboard/dashboard-stats'
+import type { UserInquiryStat } from '@/components/dashboard/user-inquiry-analytics'
+import type { CoordinatorAssignedCampaign } from '@/components/dashboard/coordinator-assigned-campaigns'
 import { safeJsonParse } from '@/lib/utils'
+import { RoleBasedDashboard } from '@/components/dashboard/role-based-dashboard'
 
 const DashboardStats = dynamic(
   () => import('@/components/dashboard/dashboard-stats').then((m) => ({ default: m.DashboardStats })),
@@ -60,11 +64,19 @@ function DashboardPageContent() {
 
   const [filters, setFilters] = useState<DashboardFilterState>(DEFAULT_FILTERS)
   const [dashboardData, setDashboardData] = useState<{
-    stats: any
-    activities: any[]
-    userInquiryStats: any[] | null
+    stats: DashboardStatsData | null
+    activities: Array<{
+      id: string
+      type: string
+      title: string
+      description: string
+      timestamp: string
+      userName?: string
+    }>
+    userInquiryStats: UserInquiryStat[] | null
     users: { id: string; name: string }[]
     campaigns: { id: string; name: string }[]
+    assignedCampaigns: CoordinatorAssignedCampaign[]
     isAdmin: boolean
   } | null>(null)
   const [dashboardLoading, setDashboardLoading] = useState(true)
@@ -86,11 +98,12 @@ function DashboardPageContent() {
         }
         const data = await safeJsonParse(res)
         setDashboardData({
-          stats: data.stats,
+          stats: (data.stats as DashboardStatsData) ?? null,
           activities: data.activities ?? [],
-          userInquiryStats: data.userInquiryStats ?? null,
+          userInquiryStats: (data.userInquiryStats as UserInquiryStat[]) ?? null,
           users: data.users ?? [],
           campaigns: data.campaigns ?? [],
+          assignedCampaigns: (data.assignedCampaigns as CoordinatorAssignedCampaign[]) ?? [],
           isAdmin: data.isAdmin ?? false,
         })
       } catch {
@@ -157,16 +170,16 @@ function DashboardPageContent() {
           compactMode ? 'space-y-4' : 'space-y-6'
         )}
       >
-        <div className="pb-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="pb-4 border-b border-border/60">
           <h1
             className={cn(
-              'font-bold text-gray-900 dark:text-gray-100 mb-1',
+              'font-bold text-foreground mb-1',
               compactMode ? 'text-xl' : 'text-2xl sm:text-3xl'
             )}
           >
             Dashboard
           </h1>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+          <p className="text-sm text-muted-foreground">
             Welcome to your Education CRM dashboard. Use filters for quick analysis.
           </p>
         </div>
@@ -179,14 +192,17 @@ function DashboardPageContent() {
           campaigns={dashboardData?.campaigns ?? []}
         />
 
-        <DashboardStats
+        {/* Role-based Personalized Dashboard */}
+        <RoleBasedDashboard
           stats={dashboardData?.stats ?? null}
+          userInquiryStats={dashboardData?.userInquiryStats ?? null}
+          assignedCampaigns={dashboardData?.assignedCampaigns ?? []}
           loading={dashboardLoading}
           error={dashboardError}
         />
 
+        {/* Charts (legacy components). Stats cards are already shown by RoleBasedDashboard. */}
         <DashboardReportCharts />
-
         {isAdmin && (
           <UserInquiryAnalytics
             userInquiryStats={dashboardData?.userInquiryStats ?? null}

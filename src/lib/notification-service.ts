@@ -81,6 +81,33 @@ export async function createNotifications(notifications: CreateNotificationParam
   }
 }
 
+export async function notifyCampaignStarted(
+  coordinatorId: string,
+  campaignId: string,
+  campaignName: string
+) {
+  return createNotification({
+    userId: coordinatorId,
+    type: 'SYSTEM',
+    title: 'Campaign started',
+    message: `Your campaign "${campaignName}" is now ACTIVE.`,
+  })
+}
+
+export async function notifyCampaignClosed(
+  coordinatorId: string,
+  campaignId: string,
+  campaignName: string,
+  newStatus: string
+) {
+  return createNotification({
+    userId: coordinatorId,
+    type: 'SYSTEM',
+    title: 'Campaign closed',
+    message: `Your campaign "${campaignName}" was marked as ${newStatus}.`,
+  })
+}
+
 /**
  * Notify approver that a post needs their approval
  */

@@ -1,7 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { requireAuth, isAdminRole } from '@/lib/auth'
+import { requireAuth, isAdminRole, AuthenticationError } from '@/lib/auth'
 import { notifyApprovalRequest } from '@/lib/notification-service'
+
+function handlePostsError(error: unknown, fallbackMessage: string) {
+  if (error instanceof AuthenticationError) {
+    return NextResponse.json({ error: error.message }, { status: 401 })
+  }
+  return NextResponse.json(
+    { error: error instanceof Error ? error.message : fallbackMessage },
+    { status: 500 }
+  )
+}
 
 // GET /api/posts - Get all posts
 export async function GET(request: NextRequest) {
@@ -111,10 +121,7 @@ export async function GET(request: NextRequest) {
     })
   } catch (error) {
     console.error('Error fetching posts:', error)
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to fetch posts' },
-      { status: 500 }
-    )
+    return handlePostsError(error, 'Failed to fetch posts')
   }
 }
 
@@ -229,10 +236,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(post, { status: 201 })
   } catch (error) {
     console.error('Error creating post:', error)
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to create post' },
-      { status: 500 }
-    )
+    return handlePostsError(error, 'Failed to create post')
   }
 }
 

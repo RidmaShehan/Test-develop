@@ -211,8 +211,12 @@ exports.Prisma.SeekerScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   createdById: 'createdById',
+<<<<<<< HEAD
   deletedById: 'deletedById',
   promotionCodeId: 'promotionCodeId'
+=======
+  deletedById: 'deletedById'
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
 };
 
 exports.Prisma.InteractionScalarFieldEnum = {
@@ -666,6 +670,7 @@ exports.Prisma.NoteScalarFieldEnum = {
   createdById: 'createdById'
 };
 
+<<<<<<< HEAD
 exports.Prisma.PromotionCodeScalarFieldEnum = {
   id: 'id',
   code: 'code',
@@ -884,6 +889,8 @@ exports.Prisma.AlumniEngagementScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+=======
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -988,6 +995,7 @@ exports.Permission = exports.$Enums.Permission = {
   DELETE_NOTE: 'DELETE_NOTE',
   DELETE_ADMINISTRATOR: 'DELETE_ADMINISTRATOR',
   MANAGE_ALL_USERS: 'MANAGE_ALL_USERS',
+<<<<<<< HEAD
   SYSTEM_ADMINISTRATION: 'SYSTEM_ADMINISTRATION',
   VIEW_REPORTS: 'VIEW_REPORTS',
   READ_DOCUMENTS: 'READ_DOCUMENTS',
@@ -999,6 +1007,9 @@ exports.Permission = exports.$Enums.Permission = {
   READ_ALUMNI: 'READ_ALUMNI',
   MANAGE_ALUMNI: 'MANAGE_ALUMNI',
   SEND_SMS: 'SEND_SMS'
+=======
+  SYSTEM_ADMINISTRATION: 'SYSTEM_ADMINISTRATION'
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
 };
 
 exports.SeekerStage = exports.$Enums.SeekerStage = {
@@ -1216,6 +1227,7 @@ exports.Prisma.ModelName = {
   Notification: 'Notification',
   ProgramQA: 'ProgramQA',
   Notebook: 'Notebook',
+<<<<<<< HEAD
   Note: 'Note',
   PromotionCode: 'PromotionCode',
   PasswordResetToken: 'PasswordResetToken',
@@ -1235,6 +1247,9 @@ exports.Prisma.ModelName = {
   SMSRecipient: 'SMSRecipient',
   Alumni: 'Alumni',
   AlumniEngagement: 'AlumniEngagement'
+=======
+  Note: 'Note'
+>>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
 };
 
 /**

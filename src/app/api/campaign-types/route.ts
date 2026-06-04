@@ -4,17 +4,38 @@ import { requireAuth } from '@/lib/auth'
 
 // GET /api/campaign-types - Get all campaign types
 // Accessible to all authenticated users regardless of role
+// ?forInquiry=true — same sources as the Campaigns area: active types that either
+// have at least one ACTIVE non-deleted campaign, or are system defaults (e.g. exhibition).
 export async function GET(request: NextRequest) {
   try {
     // Require authentication but allow any role
-    const user = await requireAuth(request)
+    await requireAuth(request)
     
     const searchParams = request.nextUrl.searchParams
     const activeOnly = searchParams.get('activeOnly') === 'true'
+    const forInquiry = searchParams.get('forInquiry') === 'true'
 
-    const where: any = {}
+    const where: Record<string, unknown> = {}
     
-    if (activeOnly) {
+    if (forInquiry) {
+      const typesWithActiveCampaign = await prisma.campaign.findMany({
+        where: { status: 'ACTIVE', isDeleted: false },
+        select: { type: true },
+        distinct: ['type'],
+      })
+      const typeNamesFromCampaigns = typesWithActiveCampaign.map((c) => c.type)
+      where.AND = [
+        { isActive: true },
+        {
+          OR: [
+            ...(typeNamesFromCampaigns.length > 0
+              ? [{ name: { in: typeNamesFromCampaigns } }]
+              : []),
+            { isDefault: true },
+          ],
+        },
+      ]
+    } else if (activeOnly) {
       where.isActive = true
     }
 
