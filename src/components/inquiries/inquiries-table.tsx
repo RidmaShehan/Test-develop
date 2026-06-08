@@ -184,7 +184,7 @@ export function InquiriesTable() {
     }
   }, [page, hasMore, loadingMore])
 
-  const handleFilteredInquiries = (inquiries: Inquiry[]) => {
+  const handleFilteredInquiries = React.useCallback((inquiries: Inquiry[]) => {
     setFilteredInquiries(inquiries)
     // Check if we're filtering (filtered results are different from all loaded inquiries)
     const isCurrentlyFiltering = inquiries.length !== allInquiries.length || 
@@ -200,7 +200,7 @@ export function InquiriesTable() {
         setHasMore(true)
       }
     }
-  }
+  }, [allInquiries, hasMore])
 
   const getNameIndicatorColor = (inquiry: Inquiry) => {
     if (inquiry.notAnswering) return 'bg-red-500'

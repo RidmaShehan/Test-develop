@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma'
 import { requireAuth, AuthenticationError } from '@/lib/auth'
 import { createInquiryFromBody } from '@/lib/inquiry-create-internal'
 import { canViewAllInquiries } from '@/lib/inquiry-visibility'
+import { ForbiddenError } from '@/lib/authorization'
 
 export async function GET(request: NextRequest) {
   try {
@@ -99,6 +100,13 @@ export async function GET(request: NextRequest) {
       },
     })
   } catch (error) {
+    if (error instanceof AuthenticationError) {
+      return NextResponse.json({ error: error.message }, { status: 401 })
+    }
+    if (error instanceof ForbiddenError) {
+      return NextResponse.json({ error: error.message }, { status: 403 })
+    }
+
     console.error('❌ ERROR in /api/inquiries:', error)
     console.error('Error details:', {
       name: error instanceof Error ? error.name : 'Unknown',
@@ -146,6 +154,9 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     if (error instanceof AuthenticationError) {
       return NextResponse.json({ error: error.message }, { status: 401 })
+    }
+    if (error instanceof ForbiddenError) {
+      return NextResponse.json({ error: error.message }, { status: 403 })
     }
 
     console.error('Error creating inquiry:', error)
