@@ -79,7 +79,7 @@ export function WhatsAppCampaignSidebar({ campaignId, onClose }: WhatsAppCampaig
     try {
       setLoading(true)
       const allInquiries: Seeker[] = []
-      const limit = 100
+      const limit = 1000
       let page = 1
       let hasMore = true
 

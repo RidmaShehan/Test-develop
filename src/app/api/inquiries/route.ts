@@ -16,9 +16,9 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * limit
     
     // Validate pagination parameters
-    if (page < 1 || limit < 1 || limit > 100) {
+    if (page < 1 || limit < 1 || limit > 1000) {
       return NextResponse.json(
-        { error: 'Invalid pagination parameters' },
+        { error: 'Invalid pagination parameters. Limit must be between 1 and 1000.' },
         { status: 400 }
       )
     }

@@ -121,7 +121,7 @@ const MAX_WHATSAPP_MESSAGE_LENGTH = 1024
 
 async function fetchAllInquiryRecipients(): Promise<CampaignRecipient[]> {
   const allInquiries: CampaignRecipient[] = []
-  const limit = 100
+  const limit = 1000
   let page = 1
   let hasMore = true
 
@@ -179,7 +179,7 @@ function seekerSearchRowToRecipient(s: {
 
 async function fetchAllPromotionRecipients(): Promise<CampaignRecipient[]> {
   const list: CampaignRecipient[] = []
-  const limit = 100
+  const limit = 1000
   let page = 1
   let totalPages = 1
 

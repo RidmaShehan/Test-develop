@@ -106,7 +106,7 @@ export function InquiriesTable() {
   } = useQuery({
     queryKey: ['inquiries'],
     queryFn: async () => {
-      const response = await fetch('/api/inquiries?page=1&limit=50')
+      const response = await fetch('/api/inquiries?page=1&limit=1000')
       if (!response.ok) throw new Error('Failed to fetch inquiries')
       return safeJsonParse(response)
     },
@@ -156,11 +156,33 @@ export function InquiriesTable() {
     if (campaignsData?.campaigns) setCampaigns(campaignsData.campaigns)
   }, [programsData, campaignsData])
 
-  // Replaced with TanStack Query - the main data is now handled by useQuery above
-  // Infinite scroll can be added later with useInfiniteQuery if needed
+  // Fetch next page of inquiries for infinite scroll
   const fetchMoreInquiries = React.useCallback(async () => {
-    toast.info('Loading more is now handled by React Query caching')
-  }, [])
+    if (loadingMore || !hasMore) return
+    
+    setLoadingMore(true)
+    try {
+      const nextPage = page + 1
+      const response = await fetch(`/api/inquiries?page=${nextPage}&limit=1000`)
+      if (!response.ok) throw new Error('Failed to fetch more inquiries')
+      
+      const data = await safeJsonParse(response)
+      const newInquiries = data.inquiries || []
+      
+      if (newInquiries.length > 0) {
+        setAllInquiries(prev => [...prev, ...newInquiries])
+        setFilteredInquiries(prev => [...prev, ...newInquiries])
+        setPage(nextPage)
+      }
+      
+      setHasMore(data.pagination?.hasMore || false)
+    } catch (error) {
+      console.error('Error fetching more inquiries:', error)
+      toast.error('Failed to load more inquiries')
+    } finally {
+      setLoadingMore(false)
+    }
+  }, [page, hasMore, loadingMore])
 
   const handleFilteredInquiries = (inquiries: Inquiry[]) => {
     setFilteredInquiries(inquiries)
@@ -173,8 +195,8 @@ export function InquiriesTable() {
     if (!isCurrentlyFiltering && hasMore && allInquiries.length > 0) {
       // Continue loading if we haven't loaded all data yet
       const totalLoaded = allInquiries.length
-      // If we have less than 100 items loaded, we might have more
-      if (totalLoaded < 100) {
+      // If we have less than 1000 items loaded, we might have more
+      if (totalLoaded < 1000) {
         setHasMore(true)
       }
     }
