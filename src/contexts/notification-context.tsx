@@ -3,12 +3,9 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import { SafeNotification } from '@/lib/notification-utils'
 import { PushNotificationClient } from '@/lib/push-notification-client'
-<<<<<<< HEAD
 import { useNotificationStream, type StreamNotification } from '@/hooks/use-notification-stream'
-=======
 import { realtimeService } from '@/lib/realtime'
 import { useAuth } from '@/hooks/use-auth'
->>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
 
 export interface Notification {
   id: string

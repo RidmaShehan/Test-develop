@@ -55,7 +55,6 @@ model User {
   notifications   Notification[]    @relation("UserNotifications")
 
   // Notebook system relations
-<<<<<<< HEAD
   createdNotebooks      Notebook[]      @relation("NotebookCreatedBy")
   createdNotes          Note[]          @relation("NoteCreatedBy")
   createdPromotionCodes PromotionCode[] @relation("PromotionCodeCreatedBy")
@@ -80,10 +79,6 @@ model User {
 
   // Sprint F — SMS
   smsMessages SMSMessage[] @relation("SMSMessageCreator")
-=======
-  createdNotebooks Notebook[] @relation("NotebookCreatedBy")
-  createdNotes     Note[]     @relation("NoteCreatedBy")
->>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
 
   @@map("users")
 }
@@ -149,7 +144,6 @@ model Level {
 }
 
 model Program {
-<<<<<<< HEAD
   id                   String                       @id @default(cuid())
   name                 String
   levelId              String?
@@ -167,23 +161,6 @@ model Program {
   qaItems              ProgramQA[]
   documentRequirements ProgramDocumentRequirement[]
   alumni               Alumni[]
-=======
-  id               String            @id @default(cuid())
-  name             String
-  levelId          String?
-  level            String?
-  campus           String
-  nextIntakeDate   DateTime?
-  description      String? // Rich text description
-  imageUrl         String? // Program image URL
-  createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @updatedAt
-  levelRelation    Level?            @relation(fields: [levelId], references: [id])
-  seekers          Seeker[] // Keep for backward compatibility
-  preferredBy      SeekerProgram[] // New many-to-many relationship
-  socialMediaPosts SocialMediaPost[]
-  qaItems          ProgramQA[]
->>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
 
   @@map("programs")
 }
@@ -229,7 +206,6 @@ model Seeker {
   campaigns            CampaignSeeker[]
   whatsappRecipients   WhatsAppRecipient[]
   emailRecipients      EmailRecipient[]
-<<<<<<< HEAD
   promotionCodeId      String?
   promotionCode        PromotionCode?      @relation(fields: [promotionCodeId], references: [id])
 
@@ -249,8 +225,6 @@ model Seeker {
 
   // Sprint G — Alumni
   alumni Alumni?
-=======
->>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
 
   @@map("seekers")
 }
@@ -421,7 +395,6 @@ enum Permission {
   DELETE_ADMINISTRATOR
   MANAGE_ALL_USERS
   SYSTEM_ADMINISTRATION
-<<<<<<< HEAD
 
   // Reports (alias)
   VIEW_REPORTS
@@ -444,8 +417,6 @@ enum Permission {
 
   // SMS (Sprint F)
   SEND_SMS
-=======
->>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
 }
 
 enum InteractionChannel {
@@ -1284,7 +1255,6 @@ model Note {
 
   @@map("notes")
 }
-<<<<<<< HEAD
 
 // ========================================
 // PROMOTION CODES (if not already in SQLite schema)
@@ -1610,5 +1580,3 @@ model AlumniEngagement {
 
   @@map("alumni_engagements")
 }
-=======
->>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f

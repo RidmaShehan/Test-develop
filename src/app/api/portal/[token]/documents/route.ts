@@ -3,8 +3,9 @@ import { verifyPortalToken } from '@/lib/portal-token'
 import { prisma } from '@/lib/prisma'
 import { uploadToCloudinary, getStudentFolder, type DocumentCategory } from '@/lib/cloudinary'
 
-export async function POST(req: NextRequest, { params }: { params: { token: string } }) {
-  const payload = verifyPortalToken(params.token)
+export async function POST(req: NextRequest, { params }: { params: Promise<{ token: string }> }) {
+  const { token } = await params
+  const payload = verifyPortalToken(token)
   if (!payload) return NextResponse.json({ error: 'Invalid or expired link' }, { status: 401 })
 
   try {

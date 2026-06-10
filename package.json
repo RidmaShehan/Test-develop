@@ -79,12 +79,9 @@
     "next-themes": "^0.4.6",
     "nodemailer": "^7.0.11",
     "pg": "^8.16.3",
-<<<<<<< HEAD
     "radix-ui": "^1.4.3",
-=======
     "prisma": "^6.16.2",
     "quill": "^2.0.3",
->>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
     "react": "^18.3.1",
     "react-day-picker": "^9.11.1",
     "react-dom": "^18.3.1",

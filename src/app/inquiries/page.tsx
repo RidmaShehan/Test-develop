@@ -36,7 +36,8 @@ const InquiryPipeline = dynamic(
 export default function InquiriesPage() {
   const { user, loading: authLoading } = useAuth()
   const { hasPermission } = usePermissions()
-<<<<<<< HEAD
+  const canReadInquiries = hasPermission('READ_SEEKER')
+  const canCreateInquiry = hasPermission('CREATE_SEEKER')
   const [pipelineData, setPipelineData] = useState<any>(null)
   const [pipelineLoading, setPipelineLoading] = useState(false)
 
@@ -52,10 +53,6 @@ export default function InquiriesPage() {
       setPipelineLoading(false)
     }
   }
-=======
-  const canReadInquiries = hasPermission('READ_SEEKER')
-  const canCreateInquiry = hasPermission('CREATE_SEEKER')
->>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
 
   if (authLoading) {
     return (
@@ -102,15 +99,6 @@ export default function InquiriesPage() {
             </div>
           )}
         </div>
-<<<<<<< HEAD
-        
-        <Tabs defaultValue="inquiries" className="w-full" onValueChange={(v) => { if (v === 'pipeline' && !pipelineData) fetchPipeline() }}>
-          <TabsList>
-            <TabsTrigger value="inquiries">All Inquiries</TabsTrigger>
-            <TabsTrigger value="pipeline">Pipeline</TabsTrigger>
-            <TabsTrigger value="requests">Request Inquiries</TabsTrigger>
-=======
-
         {!canReadInquiries ? (
           <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-amber-800">
             You are logged in, but your role does not have `READ_SEEKER` permission.
@@ -118,11 +106,11 @@ export default function InquiriesPage() {
           </div>
         ) : null}
 
-        <Tabs defaultValue="inquiries" className="w-full">
+        <Tabs defaultValue="inquiries" className="w-full" onValueChange={(v) => { if (v === 'pipeline' && !pipelineData) fetchPipeline() }}>
           <TabsList>
             <TabsTrigger value="inquiries" disabled={!canReadInquiries}>All Inquiries</TabsTrigger>
+            <TabsTrigger value="pipeline" disabled={!canReadInquiries}>Pipeline</TabsTrigger>
             <TabsTrigger value="requests" disabled={!canReadInquiries}>Request Inquiries</TabsTrigger>
->>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
           </TabsList>
           <TabsContent value="inquiries" className="mt-4">
             {canReadInquiries ? (

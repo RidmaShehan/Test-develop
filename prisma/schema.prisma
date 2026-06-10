@@ -217,7 +217,6 @@ model Seeker {
   promotionCodeId      String?
   promotionCode        PromotionCode?      @relation(fields: [promotionCodeId], references: [id])
 
-<<<<<<< HEAD
   // Sprint B — Lead Scoring & Voice Notes
   leadScore   LeadScore?
   voiceNotes  VoiceNote[]
@@ -234,7 +233,7 @@ model Seeker {
 
   // Sprint G — Alumni
   alumni Alumni?
-=======
+
   // Performance indexes for common queries
   @@index([createdAt])
   @@index([stage])
@@ -243,7 +242,6 @@ model Seeker {
   @@index([createdById, createdAt])
   @@index([followUpAgain, followUpDate])
   @@index([notAnswering, registerNow])
->>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
 
   @@map("seekers")
 }
@@ -1380,7 +1378,6 @@ enum WeeklyReportStatus {
 }
 
 // ========================================
-<<<<<<< HEAD
 // SPRINT A — PASSWORD RESET
 // ========================================
 
@@ -1733,7 +1730,8 @@ model AlumniEngagement {
   createdAt DateTime @default(now())
 
   @@map("alumni_engagements")
-=======
+}
+
 // SAVED FILTERS (for Inquiries and other views)
 // ========================================
 
@@ -1756,5 +1754,4 @@ model SavedFilter {
   @@index([userId, entityType])
   @@index([isDefault])
   @@map("saved_filters")
->>>>>>> dd36b09c5ae205bf3620780153084dca831d8f9f
 }
