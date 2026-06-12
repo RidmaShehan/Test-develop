@@ -31,6 +31,9 @@ export async function PATCH(
     if ('coordinatorId' in body) {
       updateData.coordinatorId = body.coordinatorId || null
     }
+    if ('campaignId' in body) {
+      updateData.campaignId = body.campaignId || null
+    }
 
     const updatedVisitor = await requestInquiryPrisma.exhibitionVisitor.update({
       where: { id },

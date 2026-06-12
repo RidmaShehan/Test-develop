@@ -8,8 +8,8 @@ export async function GET(request: NextRequest) {
   try {
     await requireAuth(request)
     
-    // Fetch both visitors and main system users in parallel
-    const [visitors, users] = await Promise.all([
+    // Fetch visitors, main system users, and campaigns in parallel
+    const [visitors, users, campaigns] = await Promise.all([
       requestInquiryPrisma.exhibitionVisitor.findMany({
         include: {
           programs: {
@@ -31,18 +31,28 @@ export async function GET(request: NextRequest) {
           email: true,
         },
       }),
+      prisma.campaign.findMany({
+        select: {
+          id: true,
+          name: true,
+        },
+      }),
     ])
 
     // Create a map of userId -> userName
     const userMap = new Map(users.map((u) => [u.id, u.name]))
 
-    // Add coordinatorName to each visitor
-    const visitorsWithCoordinators = visitors.map((visitor: any) => ({
+    // Create a map of campaignId -> campaignName
+    const campaignMap = new Map(campaigns.map((c) => [c.id, c.name]))
+
+    // Add coordinatorName and campaignName to each visitor
+    const visitorsWithDetails = visitors.map((visitor: any) => ({
       ...visitor,
       coordinatorName: visitor.coordinatorId ? (userMap.get(visitor.coordinatorId) || null) : null,
+      campaignName: visitor.campaignId ? (campaignMap.get(visitor.campaignId) || null) : null,
     }))
 
-    return NextResponse.json(visitorsWithCoordinators)
+    return NextResponse.json(visitorsWithDetails)
   } catch (error) {
     console.error('Error fetching request inquiries:', error)
     return NextResponse.json(
@@ -64,6 +74,7 @@ export async function POST(request: NextRequest) {
         workPhone: body.workPhone,
         addressee: body.addressee || null,
         coordinatorId: body.coordinatorId || null,
+        campaignId: body.campaignId || null,
         programs: body.programIds && body.programIds.length > 0 ? {
           create: body.programIds.map((programId: number) => ({
             programId: programId,

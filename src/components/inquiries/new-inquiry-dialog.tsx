@@ -163,6 +163,8 @@ interface ExhibitionVisitorData {
     email?: string | null
   } | null
   selectedProgram?: { id: number; programName: string; category: string | null; isActive: boolean } | null
+  campaignId?: string | null
+  coordinatorId?: string | null
 }
 
 interface NewInquiryDialogProps {
@@ -362,7 +364,7 @@ export function NewInquiryDialog({ open, onOpenChange, initialData, onInquiryCre
           guardianPhone: '',
           programInterestId: '',
           marketingSource: 'EXHIBITION',
-          campaignId: '',
+          campaignId: initialData.campaignId || '',
           preferredContactTime: '',
           preferredStatus: undefined,
           followUpAgain: false,
@@ -519,8 +521,13 @@ export function NewInquiryDialog({ open, onOpenChange, initialData, onInquiryCre
   useEffect(() => {
     const marketingSource = form.watch('marketingSource')
     if (marketingSource) {
-      // Clear the selected campaign when marketing source changes
-      form.setValue('campaignId', '')
+      // Clear the selected campaign when marketing source changes, unless it matches initialData
+      const isInitialMarketingSource = initialData && marketingSource === 'EXHIBITION';
+      const currentCampaignId = form.getValues('campaignId');
+      
+      if (!isInitialMarketingSource || currentCampaignId !== initialData?.campaignId) {
+        form.setValue('campaignId', '')
+      }
       setCampaigns([])
       // Fetch new campaigns for the selected type
       fetchCampaignsByType(marketingSource)
@@ -529,7 +536,7 @@ export function NewInquiryDialog({ open, onOpenChange, initialData, onInquiryCre
       form.setValue('campaignId', '')
       setCampaigns([])
     }
-  }, [form.watch('marketingSource')])
+  }, [form.watch('marketingSource'), initialData])
 
   // Search for existing seekers
   const searchSeekers = async (query: string) => {

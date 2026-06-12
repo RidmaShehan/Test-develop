@@ -54,6 +54,8 @@ interface RequestInquiry {
   addressee?: string | null
   coordinatorId?: string | null
   coordinatorName?: string | null
+  campaignId?: string | null
+  campaignName?: string | null
 }
 
 interface ExpandedRequestInquiry {
@@ -70,6 +72,8 @@ interface ExpandedRequestInquiry {
   addressee?: string | null
   coordinatorId?: string | null
   coordinatorName?: string | null
+  campaignId?: string | null
+  campaignName?: string | null
 }
 
 export function RequestInquiriesTable() {
@@ -84,6 +88,7 @@ export function RequestInquiriesTable() {
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null)
   const [programs, setPrograms] = useState<Program[]>([])
   const [coordinators, setCoordinators] = useState<Array<{ id: string; name: string; email: string }>>([])
+  const [campaigns, setCampaigns] = useState<Array<{ id: string; name: string }>>([])
   const [isImportOpen, setIsImportOpen] = useState(false)
   const [editingAddresseeId, setEditingAddresseeId] = useState<string | null>(null)
   const [tempAddressee, setTempAddressee] = useState('')
@@ -128,6 +133,8 @@ export function RequestInquiriesTable() {
                 addressee: inquiry.addressee,
                 coordinatorId: inquiry.coordinatorId,
                 coordinatorName: inquiry.coordinatorName,
+                campaignId: inquiry.campaignId,
+                campaignName: inquiry.campaignName,
               })
             })
           } else {
@@ -146,6 +153,8 @@ export function RequestInquiriesTable() {
               addressee: inquiry.addressee,
               coordinatorId: inquiry.coordinatorId,
               coordinatorName: inquiry.coordinatorName,
+              campaignId: inquiry.campaignId,
+              campaignName: inquiry.campaignName,
             })
           }
         })
@@ -191,6 +200,60 @@ export function RequestInquiriesTable() {
       }
     } catch (err) {
       console.error('Error fetching coordinators:', err)
+    }
+  }
+
+  const fetchCampaigns = async () => {
+    try {
+      const response = await fetch('/api/campaigns?limit=500&forInquiry=true')
+      if (response.ok) {
+        const data = await response.json()
+        setCampaigns(data.campaigns || [])
+      }
+    } catch (error) {
+      console.error('Error fetching campaigns:', error)
+    }
+  }
+
+  const handleAssignCampaign = async (visitorId: string, campaignId: string) => {
+    try {
+      const response = await fetch(`/api/request-inquiries/${visitorId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          campaignId: campaignId === 'none' ? null : campaignId,
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to update campaign')
+      }
+
+      const selectedCampaign = campaigns.find((c) => c.id === campaignId)
+      const updatedCampaignName = selectedCampaign ? selectedCampaign.name : null
+
+      toast.success('Campaign updated')
+      
+      setRequestInquiries((prev) =>
+        prev.map((inq) =>
+          inq.id === visitorId
+            ? { ...inq, campaignId: campaignId === 'none' ? null : campaignId, campaignName: updatedCampaignName }
+            : inq
+        )
+      )
+
+      setExpandedInquiries((prev) =>
+        prev.map((inq) =>
+          inq.visitorId === visitorId
+            ? { ...inq, campaignId: campaignId === 'none' ? null : campaignId, campaignName: updatedCampaignName }
+            : inq
+        )
+      )
+    } catch (err) {
+      console.error(err)
+      toast.error('Failed to assign campaign')
     }
   }
 
@@ -280,6 +343,7 @@ export function RequestInquiriesTable() {
     fetchRequestInquiries()
     fetchPrograms()
     fetchCoordinators()
+    fetchCampaigns()
     // No automatic refresh interval
   }, [])
   
@@ -501,6 +565,7 @@ export function RequestInquiriesTable() {
                 <TableHead>Program</TableHead>
                 <TableHead>Addressee</TableHead>
                 <TableHead>Coordinator</TableHead>
+                <TableHead>Campaign</TableHead>
                 <TableHead>Location</TableHead>
                 <TableHead>Device Info</TableHead>
                 <TableHead>Registered</TableHead>
@@ -511,7 +576,7 @@ export function RequestInquiriesTable() {
             <TableBody>
               {filteredInquiries.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={10} className="text-center py-8 text-gray-500">
+                  <TableCell colSpan={11} className="text-center py-8 text-gray-500">
                     {expandedInquiries.length === 0 ? 'No exhibition registrations found' : 'No matching requests found'}
                   </TableCell>
                 </TableRow>
@@ -582,6 +647,24 @@ export function RequestInquiriesTable() {
                           <SelectContent>
                             <SelectItem value="none">Unassigned</SelectItem>
                             {coordinators.map((c) => (
+                              <SelectItem key={c.id} value={c.id} className="text-xs">
+                                {c.name}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </TableCell>
+                      <TableCell className="min-w-[160px]">
+                        <Select
+                          value={expandedInquiry.campaignId || 'none'}
+                          onValueChange={(val) => handleAssignCampaign(expandedInquiry.visitorId, val)}
+                        >
+                          <SelectTrigger className="h-8 text-xs py-1">
+                            <SelectValue placeholder="Assign campaign" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="none">No Campaign</SelectItem>
+                            {campaigns.map((c) => (
                               <SelectItem key={c.id} value={c.id} className="text-xs">
                                 {c.name}
                               </SelectItem>
@@ -665,6 +748,8 @@ export function RequestInquiriesTable() {
           programs: selectedVisitor.programs,
           metadata: selectedVisitor.metadata,
           selectedProgram: selectedProgram,
+          campaignId: selectedVisitor.campaignId,
+          coordinatorId: selectedVisitor.coordinatorId,
         } : null}
         onInquiryCreated={handleInquiryCreated}
       />

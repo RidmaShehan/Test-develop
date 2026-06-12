@@ -19,6 +19,7 @@ model ExhibitionVisitor {
   coordinatorId String?   @map("coordinator_id")
   address       String?   @map("address")
   dateOfBirth   DateTime? @map("date_of_birth") @db.Date
+  campaignId    String?   @map("campaign_id")
 
   programs VisitorProgram[]
   metadata VisitorMetadata?

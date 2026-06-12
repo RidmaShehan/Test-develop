@@ -41,8 +41,11 @@ export function ImportRequestInquiriesDialog({
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [defaultCoordinatorId, setDefaultCoordinatorId] = useState<string>('none')
+  const [defaultCampaignId, setDefaultCampaignId] = useState<string>('none')
   const [coordinators, setCoordinators] = useState<UserOption[]>([])
+  const [campaigns, setCampaigns] = useState<Array<{ id: string; name: string }>>([])
   const [loadingCoordinators, setLoadingCoordinators] = useState(false)
+  const [loadingCampaigns, setLoadingCampaigns] = useState(false)
   const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
@@ -68,13 +71,29 @@ export function ImportRequestInquiriesDialog({
           setLoadingCoordinators(false)
         }
       }
+      const fetchCampaigns = async () => {
+        setLoadingCampaigns(true)
+        try {
+          const res = await fetch('/api/campaigns?limit=500&forInquiry=true')
+          if (res.ok) {
+            const data = await res.json()
+            setCampaigns(data.campaigns || [])
+          }
+        } catch (err) {
+          console.error('Failed to load campaigns:', err)
+        } finally {
+          setLoadingCampaigns(false)
+        }
+      }
       void fetchCoordinators()
+      void fetchCampaigns()
     }
   }, [open])
 
   const resetDialog = () => {
     setSelectedFile(null)
     setDefaultCoordinatorId('none')
+    setDefaultCampaignId('none')
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,6 +120,9 @@ export function ImportRequestInquiriesDialog({
       formData.append('file', selectedFile)
       if (defaultCoordinatorId && defaultCoordinatorId !== 'none') {
         formData.append('defaultCoordinatorId', defaultCoordinatorId)
+      }
+      if (defaultCampaignId && defaultCampaignId !== 'none') {
+        formData.append('defaultCampaignId', defaultCampaignId)
       }
 
       const res = await fetch('/api/request-inquiries/import', {
@@ -177,7 +199,7 @@ export function ImportRequestInquiriesDialog({
               The file must contain columns named <span className="font-semibold text-gray-700">Name</span> (or Full Name) 
               and <span className="font-semibold text-gray-700">Phone</span> (or Contact). 
               Optional columns: <span className="font-semibold text-gray-700">Program</span>, <span className="font-semibold text-gray-700">Addressee</span>, 
-              and <span className="font-semibold text-gray-700">Coordinator</span>.
+              <span className="font-semibold text-gray-700">Coordinator</span>, and <span className="font-semibold text-gray-700">Campaign</span>.
             </div>
 
             <div 
@@ -215,6 +237,32 @@ export function ImportRequestInquiriesDialog({
               </Select>
               <p className="text-xs text-gray-400">
                 If the spreadsheet has a &quot;Coordinator&quot; column, it will overwrite this default on matching names/emails.
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="default-campaign" className="text-sm font-medium text-gray-700">
+                Default Campaign (Optional)
+              </Label>
+              <Select
+                value={defaultCampaignId}
+                onValueChange={setDefaultCampaignId}
+                disabled={loadingCampaigns}
+              >
+                <SelectTrigger id="default-campaign">
+                  <SelectValue placeholder={loadingCampaigns ? 'Loading campaigns...' : 'Select a default campaign'} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="none">None (Do not assign default)</SelectItem>
+                  {campaigns.map((c) => (
+                    <SelectItem key={c.id} value={c.id}>
+                      {c.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-gray-400">
+                If the spreadsheet has a &quot;Campaign&quot; column, it will overwrite this default on matching campaign names.
               </p>
             </div>
           </div>

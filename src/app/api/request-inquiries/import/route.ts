@@ -20,6 +20,7 @@ export async function POST(request: NextRequest) {
     const formData = await request.formData()
     const file = formData.get('file')
     const defaultCoordinatorId = formData.get('defaultCoordinatorId') as string | null
+    const defaultCampaignId = formData.get('defaultCampaignId') as string | null
 
     if (!(file instanceof File)) {
       return NextResponse.json({ error: 'Excel file is required.' }, { status: 400 })
@@ -79,6 +80,7 @@ export async function POST(request: NextRequest) {
     const coordinatorIdx = headers.findIndex((h) => h.includes('coordinator') || h.includes('coord'))
     const addressIdx = headers.findIndex((h) => h.includes('address') && !h.includes('addressee'))
     const dobIdx = headers.findIndex((h) => h.includes('birth') || h.includes('dob') || h.includes('date of birth') || h.includes('d.o.b'))
+    const campaignIdx = headers.findIndex((h) => h.includes('campaign'))
 
     if (nameIdx === -1) {
       return NextResponse.json({ error: 'Missing column for "Name" in header row.' }, { status: 400 })
@@ -107,6 +109,16 @@ export async function POST(request: NextRequest) {
       if (u.email) {
         userMapByEmail.set(u.email.toLowerCase().trim(), u.id)
       }
+    })
+
+    // Load active campaigns from main database
+    const mainCampaigns = await prisma.campaign.findMany({
+      where: { isDeleted: false },
+      select: { id: true, name: true },
+    })
+    const campaignMapByName = new Map<string, string>()
+    mainCampaigns.forEach((c) => {
+      campaignMapByName.set(c.name.toLowerCase().trim(), c.id)
     })
 
     let createdCount = 0
@@ -139,6 +151,7 @@ export async function POST(request: NextRequest) {
       const rawCoordinator = (coordinatorIdx !== -1 && coordinatorIdx < rawRow.length) ? normalizeCell(rawRow[coordinatorIdx]) : ''
       const rawAddress = (addressIdx !== -1 && addressIdx < rawRow.length) ? normalizeCell(rawRow[addressIdx]) : ''
       const rawDob = (dobIdx !== -1 && dobIdx < rawRow.length) ? normalizeCell(rawRow[dobIdx]) : ''
+      const rawCampaign = (campaignIdx !== -1 && campaignIdx < rawRow.length) ? normalizeCell(rawRow[campaignIdx]) : ''
 
       let parsedDob: Date | null = null
       if (rawDob) {
@@ -181,6 +194,15 @@ export async function POST(request: NextRequest) {
         }
       }
 
+      // Determine campaign ID
+      let campaignId: string | null = defaultCampaignId || null
+      if (rawCampaign) {
+        const campaignKey = rawCampaign.toLowerCase().trim()
+        if (campaignMapByName.has(campaignKey)) {
+          campaignId = campaignMapByName.get(campaignKey)!
+        }
+      }
+
       try {
         await requestInquiryPrisma.exhibitionVisitor.create({
           data: {
@@ -188,6 +210,7 @@ export async function POST(request: NextRequest) {
             workPhone: phone.trim(),
             addressee: rawAddressee.trim() || null,
             coordinatorId: coordinatorId,
+            campaignId: campaignId,
             address: rawAddress.trim() || null,
             dateOfBirth: parsedDob,
             programs: programId ? {

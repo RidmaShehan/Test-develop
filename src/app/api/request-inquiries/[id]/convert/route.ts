@@ -86,7 +86,7 @@ export async function POST(
       ageBand: null,
       guardianPhone: null,
       marketingSource: 'EXHIBITION',
-      campaignId: null,
+      campaignId: visitor.campaignId || null,
       preferredContactTime: null,
       preferredStatus: null,
       followUpAgain: false,
@@ -132,6 +132,20 @@ export async function POST(
         })
       } catch (assignError) {
         console.error('Error assigning coordinator to seeker:', assignError)
+      }
+    }
+
+    // Assign the campaign to the seeker if defined
+    if (visitor.campaignId) {
+      try {
+        await prisma.campaignSeeker.create({
+          data: {
+            seekerId: seeker.id,
+            campaignId: visitor.campaignId,
+          },
+        })
+      } catch (campaignError) {
+        console.error('Error assigning campaign to seeker:', campaignError)
       }
     }
 
