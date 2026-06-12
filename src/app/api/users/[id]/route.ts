@@ -62,7 +62,7 @@ export async function PUT(
     const { id } = await params
 
     const body = await request.json()
-    const { name, email, password, role, isActive, selectedRoles } = body
+    const { name, email, password, role, isActive, selectedRoles, whatsappInstanceId, whatsappToken } = body
 
     if (selectedRoles !== undefined) {
       await requirePermission(['ASSIGN_ROLE', 'MANAGE_USER_ROLES'], request, { any: true })
@@ -78,12 +78,16 @@ export async function PUT(
       role?: UserRole
       isActive?: boolean
       password?: string
+      whatsappInstanceId?: string | null
+      whatsappToken?: string | null
     } = {}
     
     if (name !== undefined) updateData.name = name
     if (email !== undefined) updateData.email = email
     if (role !== undefined) updateData.role = role as UserRole
     if (isActive !== undefined) updateData.isActive = isActive
+    if (whatsappInstanceId !== undefined) updateData.whatsappInstanceId = whatsappInstanceId || null
+    if (whatsappToken !== undefined) updateData.whatsappToken = whatsappToken || null
     
     // Only include password if it's being updated
     if (hashedPassword) {

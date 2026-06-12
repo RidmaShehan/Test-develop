@@ -31,6 +31,8 @@ export function NewUserDialog({ open, onOpenChange, onUserCreated }: NewUserDial
     confirmPassword: '',
     role: '',
     selectedRoles: [] as string[],
+    whatsappInstanceId: '',
+    whatsappToken: '',
   })
 
   useEffect(() => {
@@ -82,6 +84,8 @@ export function NewUserDialog({ open, onOpenChange, onUserCreated }: NewUserDial
           password: formData.password,
           role: formData.role,
           roles: formData.selectedRoles, // Send as 'roles' to match API expectation
+          whatsappInstanceId: formData.whatsappInstanceId,
+          whatsappToken: formData.whatsappToken,
         }),
       })
 
@@ -96,6 +100,8 @@ export function NewUserDialog({ open, onOpenChange, onUserCreated }: NewUserDial
           confirmPassword: '',
           role: '',
           selectedRoles: [],
+          whatsappInstanceId: '',
+          whatsappToken: '',
         })
       } else {
         const error = await response.json()
@@ -240,6 +246,46 @@ export function NewUserDialog({ open, onOpenChange, onUserCreated }: NewUserDial
             </div>
 
             {/* Role Assignment Section */}
+            {/* WhatsApp Credentials Section */}
+            <div className="space-y-4 pt-4 border-t">
+              <div className="flex items-center justify-between border-b pb-2">
+                <h3 className="text-lg font-semibold">WhatsApp Campaign Credentials</h3>
+                <span className="text-xs px-2.5 py-0.5 rounded-full font-medium bg-blue-50 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
+                  UltraMsg Integration
+                </span>
+              </div>
+              <p className="text-sm text-muted-foreground mt-1">
+                Configure coordinator-specific UltraMsg credentials to send campaigns from their own number. If left blank, system default credentials will be used.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="whatsappInstanceId" className="text-base font-medium">
+                    UltraMsg Instance ID
+                  </Label>
+                  <Input
+                    id="whatsappInstanceId"
+                    value={formData.whatsappInstanceId}
+                    onChange={(e) => setFormData(prev => ({ ...prev, whatsappInstanceId: e.target.value }))}
+                    placeholder="e.g. instance104497"
+                    className="h-11"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="whatsappToken" className="text-base font-medium">
+                    UltraMsg API Token
+                  </Label>
+                  <Input
+                    id="whatsappToken"
+                    type="password"
+                    value={formData.whatsappToken}
+                    onChange={(e) => setFormData(prev => ({ ...prev, whatsappToken: e.target.value }))}
+                    placeholder="Enter API token"
+                    className="h-11"
+                  />
+                </div>
+              </div>
+            </div>
+
             <div className="space-y-4 pt-4 border-t">
               <h3 className="text-lg font-semibold border-b pb-2">Role Assignment</h3>
               <div className="space-y-2">

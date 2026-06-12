@@ -8102,6 +8102,8 @@ export namespace Prisma {
     password: string | null
     role: $Enums.UserRole | null
     isActive: boolean | null
+    whatsappInstanceId: string | null
+    whatsappToken: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -8114,6 +8116,8 @@ export namespace Prisma {
     password: string | null
     role: $Enums.UserRole | null
     isActive: boolean | null
+    whatsappInstanceId: string | null
+    whatsappToken: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -8126,6 +8130,8 @@ export namespace Prisma {
     password: number
     role: number
     isActive: number
+    whatsappInstanceId: number
+    whatsappToken: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -8140,6 +8146,8 @@ export namespace Prisma {
     password?: true
     role?: true
     isActive?: true
+    whatsappInstanceId?: true
+    whatsappToken?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -8152,6 +8160,8 @@ export namespace Prisma {
     password?: true
     role?: true
     isActive?: true
+    whatsappInstanceId?: true
+    whatsappToken?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -8164,6 +8174,8 @@ export namespace Prisma {
     password?: true
     role?: true
     isActive?: true
+    whatsappInstanceId?: true
+    whatsappToken?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -8249,6 +8261,8 @@ export namespace Prisma {
     password: string | null
     role: $Enums.UserRole
     isActive: boolean
+    whatsappInstanceId: string | null
+    whatsappToken: string | null
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -8278,6 +8292,8 @@ export namespace Prisma {
     password?: boolean
     role?: boolean
     isActive?: boolean
+    whatsappInstanceId?: boolean
+    whatsappToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     assignedSeekers?: boolean | User$assignedSeekersArgs<ExtArgs>
@@ -8334,6 +8350,8 @@ export namespace Prisma {
     password?: boolean
     role?: boolean
     isActive?: boolean
+    whatsappInstanceId?: boolean
+    whatsappToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -8346,6 +8364,8 @@ export namespace Prisma {
     password?: boolean
     role?: boolean
     isActive?: boolean
+    whatsappInstanceId?: boolean
+    whatsappToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -8358,11 +8378,13 @@ export namespace Prisma {
     password?: boolean
     role?: boolean
     isActive?: boolean
+    whatsappInstanceId?: boolean
+    whatsappToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerkId" | "name" | "email" | "password" | "role" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerkId" | "name" | "email" | "password" | "role" | "isActive" | "whatsappInstanceId" | "whatsappToken" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     assignedSeekers?: boolean | User$assignedSeekersArgs<ExtArgs>
     followUpTasks?: boolean | User$followUpTasksArgs<ExtArgs>
@@ -8467,6 +8489,8 @@ export namespace Prisma {
       password: string | null
       role: $Enums.UserRole
       isActive: boolean
+      whatsappInstanceId: string | null
+      whatsappToken: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -8942,6 +8966,8 @@ export namespace Prisma {
     readonly password: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'UserRole'>
     readonly isActive: FieldRef<"User", 'Boolean'>
+    readonly whatsappInstanceId: FieldRef<"User", 'String'>
+    readonly whatsappToken: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -79802,6 +79828,8 @@ export namespace Prisma {
     password: 'password',
     role: 'role',
     isActive: 'isActive',
+    whatsappInstanceId: 'whatsappInstanceId',
+    whatsappToken: 'whatsappToken',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -81004,6 +81032,8 @@ export namespace Prisma {
     password?: StringNullableFilter<"User"> | string | null
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     isActive?: BoolFilter<"User"> | boolean
+    whatsappInstanceId?: StringNullableFilter<"User"> | string | null
+    whatsappToken?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     assignedSeekers?: AssignmentListRelationFilter
@@ -81059,6 +81089,8 @@ export namespace Prisma {
     password?: SortOrderInput | SortOrder
     role?: SortOrder
     isActive?: SortOrder
+    whatsappInstanceId?: SortOrderInput | SortOrder
+    whatsappToken?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     assignedSeekers?: AssignmentOrderByRelationAggregateInput
@@ -81117,6 +81149,8 @@ export namespace Prisma {
     password?: StringNullableFilter<"User"> | string | null
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     isActive?: BoolFilter<"User"> | boolean
+    whatsappInstanceId?: StringNullableFilter<"User"> | string | null
+    whatsappToken?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     assignedSeekers?: AssignmentListRelationFilter
@@ -81172,6 +81206,8 @@ export namespace Prisma {
     password?: SortOrderInput | SortOrder
     role?: SortOrder
     isActive?: SortOrder
+    whatsappInstanceId?: SortOrderInput | SortOrder
+    whatsappToken?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -81190,6 +81226,8 @@ export namespace Prisma {
     password?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
     isActive?: BoolWithAggregatesFilter<"User"> | boolean
+    whatsappInstanceId?: StringNullableWithAggregatesFilter<"User"> | string | null
+    whatsappToken?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -86223,6 +86261,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -86278,6 +86318,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -86333,6 +86375,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -86388,6 +86432,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -86443,6 +86489,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -86455,6 +86503,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -86467,6 +86517,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -92318,6 +92370,8 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     isActive?: SortOrder
+    whatsappInstanceId?: SortOrder
+    whatsappToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -92330,6 +92384,8 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     isActive?: SortOrder
+    whatsappInstanceId?: SortOrder
+    whatsappToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -92342,6 +92398,8 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     isActive?: SortOrder
+    whatsappInstanceId?: SortOrder
+    whatsappToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -105549,6 +105607,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -105603,6 +105663,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -105704,6 +105766,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -105758,6 +105822,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -106594,6 +106660,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -106648,6 +106716,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -106707,6 +106777,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -106761,6 +106833,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -107324,6 +107398,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -107378,6 +107454,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -107443,6 +107521,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -107497,6 +107577,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -107929,6 +108011,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -107983,6 +108067,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -108152,6 +108238,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -108206,6 +108294,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -108365,6 +108455,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -108419,6 +108511,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -108615,6 +108709,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -108669,6 +108765,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -108873,6 +108971,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -108927,6 +109027,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -109032,6 +109134,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -109086,6 +109190,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -109140,6 +109246,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
@@ -109194,6 +109302,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
@@ -109363,6 +109473,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
@@ -109417,6 +109529,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
@@ -109576,6 +109690,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -109630,6 +109746,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -109803,6 +109921,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -109857,6 +109977,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -109980,6 +110102,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -110034,6 +110158,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -110179,6 +110305,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -110233,6 +110361,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -110655,6 +110785,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -110709,6 +110841,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -110779,6 +110913,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -110833,6 +110969,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -111179,6 +111317,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -111233,6 +111373,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -111334,6 +111476,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -111388,6 +111532,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -111458,6 +111604,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -111512,6 +111660,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -111582,6 +111732,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -111636,6 +111788,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -111978,6 +112132,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -112032,6 +112188,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -112160,6 +112318,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -112214,6 +112374,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -112669,6 +112831,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -112723,6 +112887,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -112782,6 +112948,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -112836,6 +113004,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -113005,6 +113175,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -113059,6 +113231,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -113124,6 +113298,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -113178,6 +113354,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -113337,6 +113515,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -113391,6 +113571,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -113588,6 +113770,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -113642,6 +113826,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -113785,6 +113971,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -113839,6 +114027,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -113956,6 +114146,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -114010,6 +114202,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -114064,6 +114258,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -114118,6 +114314,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -114177,6 +114375,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -114231,6 +114431,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -114558,6 +114760,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -114612,6 +114816,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -114677,6 +114883,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -114731,6 +114939,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -115140,6 +115350,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -115194,6 +115406,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -115321,6 +115535,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -115375,6 +115591,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -115480,6 +115698,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -115534,6 +115754,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -115661,6 +115883,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -115715,6 +115939,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -115820,6 +116046,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -115874,6 +116102,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -116001,6 +116231,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -116055,6 +116287,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -116109,6 +116343,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -116163,6 +116399,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -116222,6 +116460,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -116276,6 +116516,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -116455,6 +116697,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -116509,6 +116753,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -116574,6 +116820,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -116628,6 +116876,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -116835,6 +117085,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -116889,6 +117141,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -117010,6 +117264,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -117064,6 +117320,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -117118,6 +117376,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -117172,6 +117432,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -117291,6 +117553,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -117345,6 +117609,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -117527,6 +117793,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -117581,6 +117849,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -117640,6 +117910,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -117694,6 +117966,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -117971,6 +118245,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -118025,6 +118301,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -118090,6 +118368,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -118144,6 +118424,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -118293,6 +118575,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -118347,6 +118631,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -118470,6 +118756,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -118524,6 +118812,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -118625,6 +118915,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -118679,6 +118971,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -118802,6 +119096,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -118856,6 +119152,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -118910,6 +119208,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -118964,6 +119264,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -119081,6 +119383,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -119135,6 +119439,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -119330,6 +119636,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -119384,6 +119692,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -119501,6 +119811,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -119555,6 +119867,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -119744,6 +120058,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -119798,6 +120114,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -119968,6 +120286,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -120022,6 +120342,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -120076,6 +120398,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -120130,6 +120454,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -120303,6 +120629,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -120357,6 +120685,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -120427,6 +120757,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -120481,6 +120813,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -120551,6 +120885,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -120605,6 +120941,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -120962,6 +121300,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -121016,6 +121356,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -121191,6 +121533,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -121245,6 +121589,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -121756,6 +122102,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -121810,6 +122158,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -121869,6 +122219,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -121923,6 +122275,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -122170,6 +122524,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -122224,6 +122580,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -122289,6 +122647,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -122343,6 +122703,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -122462,6 +122824,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -122516,6 +122880,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -122641,6 +123007,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -122695,6 +123063,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -122883,6 +123253,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -122937,6 +123309,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -123153,6 +123527,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -123207,6 +123583,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -123680,6 +124058,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -123734,6 +124114,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -123847,6 +124229,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -123901,6 +124285,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -123955,6 +124341,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -124009,6 +124397,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -124108,6 +124498,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -124162,6 +124554,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -124520,6 +124914,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
@@ -124574,6 +124970,8 @@ export namespace Prisma {
     password?: string | null
     role: $Enums.UserRole
     isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -124667,6 +125065,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
@@ -124721,6 +125121,8 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput

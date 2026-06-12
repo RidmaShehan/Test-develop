@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
     const _user = await requirePermission('CREATE_USER', request)
 
     const body = await request.json()
-    const { name, email, password, role, clerkId, roles } = body
+    const { name, email, password, role, clerkId, roles, whatsappInstanceId, whatsappToken } = body
     
     // Validate required fields
     if (!name || !email || !password || !role) {
@@ -87,6 +87,8 @@ export async function POST(request: NextRequest) {
         password: hashedPassword,
         role,
         clerkId,
+        whatsappInstanceId: whatsappInstanceId || null,
+        whatsappToken: whatsappToken || null,
         userRoles: {
           create: roles?.map((roleId: string) => ({
             roleId,

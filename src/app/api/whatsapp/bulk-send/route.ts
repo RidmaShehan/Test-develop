@@ -6,9 +6,9 @@ import { writeFile, mkdir } from 'fs/promises'
 import { join } from 'path'
 import { randomUUID } from 'crypto'
 
-// Ultramsg API configuration
-const ULTRAMSG_API_URL = 'https://api.ultramsg.com/instance104497'
-const ULTRAMSG_TOKEN = '8yk46hlsn78dbubl'
+// Default Ultramsg fallback configuration
+const DEFAULT_ULTRAMSG_INSTANCE = 'instance104497'
+const DEFAULT_ULTRAMSG_TOKEN = '8yk46hlsn78dbubl'
 
 // Media storage configuration
 const MEDIA_UPLOAD_DIR = join(process.cwd(), 'public', 'uploads', 'whatsapp-media')
@@ -57,6 +57,33 @@ interface BulkRecipient {
 export async function POST(request: NextRequest) {
   try {
     const user = await requireAuth(request)
+    
+    // Fetch sender's custom WhatsApp credentials
+    const sender = await prisma.user.findUnique({
+      where: { id: user.id },
+      select: {
+        whatsappInstanceId: true,
+        whatsappToken: true,
+      }
+    })
+
+    // Fetch system settings as fallback
+    const systemSettings = await prisma.systemSettings.findMany({
+      where: {
+        key: {
+          in: ['whatsapp.instance_id', 'whatsapp.token']
+        }
+      }
+    })
+    
+    const systemInstanceId = systemSettings.find(s => s.key === 'whatsapp.instance_id')?.value
+    const systemToken = systemSettings.find(s => s.key === 'whatsapp.token')?.value
+
+    const instanceId = sender?.whatsappInstanceId || systemInstanceId || DEFAULT_ULTRAMSG_INSTANCE
+    const token = sender?.whatsappToken || systemToken || DEFAULT_ULTRAMSG_TOKEN
+    
+    const activeApiUrl = `https://api.ultramsg.com/${instanceId}`
+    const activeToken = token
     
     // Handle FormData for file uploads
     const formData = await request.formData()
@@ -128,22 +155,22 @@ export async function POST(request: NextRequest) {
 
     // Pre-compute media payload once (mass-send uses the same attachment)
     let mediaBase64: string | null = null
-    let endpoint = `${ULTRAMSG_API_URL}/messages/chat`
+    let endpoint = `${activeApiUrl}/messages/chat`
     let mediaField: 'image' | 'video' | 'audio' | 'document' | null = null
     if (mediaFile) {
       const mediaBuffer = await mediaFile.arrayBuffer()
       mediaBase64 = Buffer.from(mediaBuffer).toString('base64')
       if (mediaFile.type.startsWith('video/')) {
-        endpoint = `${ULTRAMSG_API_URL}/messages/video`
+        endpoint = `${activeApiUrl}/messages/video`
         mediaField = 'video'
       } else if (mediaFile.type.startsWith('audio/')) {
-        endpoint = `${ULTRAMSG_API_URL}/messages/audio`
+        endpoint = `${activeApiUrl}/messages/audio`
         mediaField = 'audio'
       } else if (mediaFile.type === 'application/pdf') {
-        endpoint = `${ULTRAMSG_API_URL}/messages/document`
+        endpoint = `${activeApiUrl}/messages/document`
         mediaField = 'document'
       } else {
-        endpoint = `${ULTRAMSG_API_URL}/messages/image`
+        endpoint = `${activeApiUrl}/messages/image`
         mediaField = 'image'
       }
     }
@@ -226,7 +253,7 @@ export async function POST(request: NextRequest) {
           requestBody: requestBody
         })
         
-        const response = await fetch(`${endpoint}?token=${ULTRAMSG_TOKEN}`, {
+        const response = await fetch(`${endpoint}?token=${activeToken}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -383,10 +410,34 @@ export async function POST(request: NextRequest) {
 // GET endpoint to check Ultramsg connection status
 export async function GET(request: Request) {
   try {
-    await requireAuth(request)
+    const user = await requireAuth(request)
     
+    // Fetch sender's custom WhatsApp credentials
+    const sender = await prisma.user.findUnique({
+      where: { id: user.id },
+      select: {
+        whatsappInstanceId: true,
+        whatsappToken: true,
+      }
+    })
+
+    // Fetch system settings as fallback
+    const systemSettings = await prisma.systemSettings.findMany({
+      where: {
+        key: {
+          in: ['whatsapp.instance_id', 'whatsapp.token']
+        }
+      }
+    })
+    
+    const systemInstanceId = systemSettings.find(s => s.key === 'whatsapp.instance_id')?.value
+    const systemToken = systemSettings.find(s => s.key === 'whatsapp.token')?.value
+
+    const instanceId = sender?.whatsappInstanceId || systemInstanceId || DEFAULT_ULTRAMSG_INSTANCE
+    const token = sender?.whatsappToken || systemToken || DEFAULT_ULTRAMSG_TOKEN
+
     // Test connection to Ultramsg API
-    const response = await fetch(`${ULTRAMSG_API_URL}/status?token=${ULTRAMSG_TOKEN}`, {
+    const response = await fetch(`https://api.ultramsg.com/${instanceId}/status?token=${token}`, {
       method: 'GET'
     })
 

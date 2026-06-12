@@ -125,6 +125,8 @@ exports.Prisma.UserScalarFieldEnum = {
   password: 'password',
   role: 'role',
   isActive: 'isActive',
+  whatsappInstanceId: 'whatsappInstanceId',
+  whatsappToken: 'whatsappToken',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
