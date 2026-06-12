@@ -121,6 +121,20 @@ export async function POST(
       },
     })
 
+    // Assign the coordinator to the seeker if defined
+    if (visitor.coordinatorId) {
+      try {
+        await prisma.assignment.create({
+          data: {
+            seekerId: seeker.id,
+            coordinatorId: visitor.coordinatorId,
+          },
+        })
+      } catch (assignError) {
+        console.error('Error assigning coordinator to seeker:', assignError)
+      }
+    }
+
     // Create automatic follow-up tasks if not registering now
     try {
       const firstDueDate = new Date()
@@ -129,11 +143,13 @@ export async function POST(
       const secondDueDate = new Date()
       secondDueDate.setDate(secondDueDate.getDate() + 7)
 
+      const taskAssigneeId = visitor.coordinatorId || user.id
+
       const [firstFollowUpTask, secondFollowUpTask] = await Promise.all([
         prisma.followUpTask.create({
           data: {
             seekerId: seeker.id,
-            assignedTo: user.id,
+            assignedTo: taskAssigneeId,
             dueAt: firstDueDate,
             purpose: 'CALLBACK',
             notes: `Automatic follow-up #1: Primary follow-up for exhibition inquiry - ${seeker.fullName} (${seeker.phone})`,
@@ -143,7 +159,7 @@ export async function POST(
         prisma.followUpTask.create({
           data: {
             seekerId: seeker.id,
-            assignedTo: user.id,
+            assignedTo: taskAssigneeId,
             dueAt: secondDueDate,
             purpose: 'CALLBACK',
             notes: `Automatic follow-up #2: Secondary follow-up for exhibition inquiry - ${seeker.fullName} (${seeker.phone})`,

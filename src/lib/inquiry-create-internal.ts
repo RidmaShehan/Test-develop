@@ -79,6 +79,20 @@ export async function createInquiryFromBody(options: {
     },
   })
 
+  // Assign the coordinator if defined in body
+  if (body.coordinatorId) {
+    try {
+      await prisma.assignment.create({
+        data: {
+          seekerId: seeker.id,
+          coordinatorId: body.coordinatorId,
+        },
+      })
+    } catch (assignError) {
+      console.error('Error assigning coordinator to seeker:', assignError)
+    }
+  }
+
   if (body.registerNow !== undefined) {
     try {
       await prisma.seeker.update({
@@ -187,10 +201,12 @@ export async function createInquiryFromBody(options: {
     secondDueDate.setDate(secondDueDate.getDate() + 7)
     secondDueDate.setHours(10, 0, 0, 0)
 
+    const taskAssigneeId = body.coordinatorId || userId
+
     const firstFollowUpTask = await prisma.followUpTask.create({
       data: {
         seekerId: seeker.id,
-        assignedTo: userId,
+        assignedTo: taskAssigneeId,
         dueAt: firstDueDate,
         purpose: 'CALLBACK',
         notes: `Automatic follow-up #1: Initial contact follow-up for inquiry - ${seeker.fullName} (${seeker.phone})`,
@@ -201,7 +217,7 @@ export async function createInquiryFromBody(options: {
     const secondFollowUpTask = await prisma.followUpTask.create({
       data: {
         seekerId: seeker.id,
-        assignedTo: userId,
+        assignedTo: taskAssigneeId,
         dueAt: secondDueDate,
         purpose: 'CALLBACK',
         notes: `Automatic follow-up #2: Secondary follow-up for inquiry - ${seeker.fullName} (${seeker.phone})`,

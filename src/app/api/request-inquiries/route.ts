@@ -1,28 +1,48 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/auth'
 import { requestInquiryPrisma } from '@/lib/request-inquiry-prisma'
+import { prisma } from '@/lib/prisma'
 
 // GET /api/request-inquiries - Get all request inquiries (exhibition visitors)
 export async function GET(request: NextRequest) {
   try {
-    const user = await requireAuth(request)
+    await requireAuth(request)
     
-    const visitors = await requestInquiryPrisma.exhibitionVisitor.findMany({
-      include: {
-        programs: {
-          include: {
-            program: true,
+    // Fetch both visitors and main system users in parallel
+    const [visitors, users] = await Promise.all([
+      requestInquiryPrisma.exhibitionVisitor.findMany({
+        include: {
+          programs: {
+            include: {
+              program: true,
+            },
           },
+          metadata: true,
         },
-        metadata: true,
-      },
-      orderBy: [
-        { isConverted: 'asc' }, // Non-converted first
-        { createdAt: 'desc' },   // Then by creation date (newest first)
-      ],
-    })
+        orderBy: [
+          { isConverted: 'asc' }, // Non-converted first
+          { createdAt: 'desc' },   // Then by creation date (newest first)
+        ],
+      }),
+      prisma.user.findMany({
+        select: {
+          id: true,
+          name: true,
+          email: true,
+        },
+      }),
+    ])
 
-    return NextResponse.json(visitors)
+    // Create a map of userId -> userName
+    const userMap = new Map(users.map((u) => [u.id, u.name]))
+
+    // Add coordinatorName to each visitor
+    const visitorsWithCoordinators = visitors.map((visitor: any) => ({
+      ...visitor,
+      coordinatorName: visitor.coordinatorId ? (userMap.get(visitor.coordinatorId) || null) : null,
+    }))
+
+    return NextResponse.json(visitorsWithCoordinators)
   } catch (error) {
     console.error('Error fetching request inquiries:', error)
     return NextResponse.json(
@@ -35,14 +55,16 @@ export async function GET(request: NextRequest) {
 // POST /api/request-inquiries - Create a new request inquiry (exhibition visitor)
 export async function POST(request: NextRequest) {
   try {
-    const user = await requireAuth(request)
+    await requireAuth(request)
     const body = await request.json()
 
     const visitor = await requestInquiryPrisma.exhibitionVisitor.create({
       data: {
         name: body.name,
         workPhone: body.workPhone,
-        programs: body.programIds ? {
+        addressee: body.addressee || null,
+        coordinatorId: body.coordinatorId || null,
+        programs: body.programIds && body.programIds.length > 0 ? {
           create: body.programIds.map((programId: number) => ({
             programId: programId,
           })),

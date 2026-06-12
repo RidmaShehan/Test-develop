@@ -761,6 +761,7 @@ export function NewInquiryDialog({ open, onOpenChange, initialData, onInquiryCre
         // Always send whatsappNumber if it has a value (even if checkbox is unchecked)
         whatsappNumber: data.whatsappNumber?.trim() || null,
         promotionCodeId: data.promotionCodeId || undefined,
+        coordinatorId: initialData?.coordinatorId || undefined,
       }
 
       // Check if we have multiple programs - if so, create separate inquiry for each

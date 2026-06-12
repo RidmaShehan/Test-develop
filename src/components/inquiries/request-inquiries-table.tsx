@@ -9,10 +9,11 @@ import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Calendar } from '@/components/ui/calendar'
-import { Plus, Loader2, MapPin, Globe, Monitor, RefreshCw, Search, CalendarIcon, X } from 'lucide-react'
+import { Plus, Loader2, MapPin, RefreshCw, Search, CalendarIcon, X, Upload } from 'lucide-react'
 import { toast } from 'sonner'
 import { useAuth } from '@/hooks/use-auth'
 import { NewInquiryDialog } from './new-inquiry-dialog'
+import { ImportRequestInquiriesDialog } from './import-request-inquiries-dialog'
 import { format } from 'date-fns'
 import { DateRange } from 'react-day-picker'
 
@@ -50,6 +51,9 @@ interface RequestInquiry {
   createdAt: string
   programs: VisitorProgram[]
   metadata: VisitorMetadata | null
+  addressee?: string | null
+  coordinatorId?: string | null
+  coordinatorName?: string | null
 }
 
 interface ExpandedRequestInquiry {
@@ -63,6 +67,9 @@ interface ExpandedRequestInquiry {
   program: Program
   metadata: VisitorMetadata | null
   allPrograms: VisitorProgram[]
+  addressee?: string | null
+  coordinatorId?: string | null
+  coordinatorName?: string | null
 }
 
 export function RequestInquiriesTable() {
@@ -76,13 +83,17 @@ export function RequestInquiriesTable() {
   const [selectedVisitor, setSelectedVisitor] = useState<RequestInquiry | null>(null)
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null)
   const [programs, setPrograms] = useState<Program[]>([])
+  const [coordinators, setCoordinators] = useState<Array<{ id: string; name: string; email: string }>>([])
+  const [isImportOpen, setIsImportOpen] = useState(false)
+  const [editingAddresseeId, setEditingAddresseeId] = useState<string | null>(null)
+  const [tempAddressee, setTempAddressee] = useState('')
   
   // Filter states
   const [searchTerm, setSearchTerm] = useState('')
   const [programFilter, setProgramFilter] = useState<string>('all')
   const [dateRange, setDateRange] = useState<DateRange | undefined>()
   
-  const { user } = useAuth()
+  const { user: _user } = useAuth()
 
   const fetchRequestInquiries = async (isRefresh: boolean = false) => {
     try {
@@ -114,6 +125,9 @@ export function RequestInquiriesTable() {
                 program: vp.program,
                 metadata: inquiry.metadata,
                 allPrograms: inquiry.programs,
+                addressee: inquiry.addressee,
+                coordinatorId: inquiry.coordinatorId,
+                coordinatorName: inquiry.coordinatorName,
               })
             })
           } else {
@@ -129,6 +143,9 @@ export function RequestInquiriesTable() {
               program: { id: 0, programName: 'None', category: null, isActive: true },
               metadata: inquiry.metadata,
               allPrograms: [],
+              addressee: inquiry.addressee,
+              coordinatorId: inquiry.coordinatorId,
+              coordinatorName: inquiry.coordinatorName,
             })
           }
         })
@@ -159,9 +176,110 @@ export function RequestInquiriesTable() {
     }
   }
 
+  const fetchCoordinators = async () => {
+    try {
+      const response = await fetch('/api/users/basic')
+      if (response.ok) {
+        const data = await response.json()
+        const filtered = data.filter((u: any) => 
+          u.role === 'COORDINATOR' || 
+          u.role === 'ADMIN' || 
+          u.role === 'ADMINISTRATOR' || 
+          u.role === 'DEVELOPER'
+        )
+        setCoordinators(filtered)
+      }
+    } catch (err) {
+      console.error('Error fetching coordinators:', err)
+    }
+  }
+
+  const handleAssignCoordinator = async (visitorId: string, coordinatorId: string) => {
+    try {
+      const response = await fetch(`/api/request-inquiries/${visitorId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          coordinatorId: coordinatorId === 'none' ? null : coordinatorId,
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to update coordinator')
+      }
+
+      const selectedUser = coordinators.find((c) => c.id === coordinatorId)
+      const updatedCoordName = selectedUser ? selectedUser.name : null
+
+      toast.success('Coordinator updated')
+      
+      setRequestInquiries((prev) =>
+        prev.map((inq) =>
+          inq.id === visitorId
+            ? { ...inq, coordinatorId: coordinatorId === 'none' ? null : coordinatorId, coordinatorName: updatedCoordName }
+            : inq
+        )
+      )
+
+      setExpandedInquiries((prev) =>
+        prev.map((inq) =>
+          inq.visitorId === visitorId
+            ? { ...inq, coordinatorId: coordinatorId === 'none' ? null : coordinatorId, coordinatorName: updatedCoordName }
+            : inq
+        )
+      )
+    } catch (err) {
+      console.error(err)
+      toast.error('Failed to assign coordinator')
+    }
+  }
+
+  const handleUpdateAddressee = async (visitorId: string, addressee: string) => {
+    try {
+      const response = await fetch(`/api/request-inquiries/${visitorId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          addressee: addressee.trim() || null,
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to update addressee')
+      }
+
+      toast.success('Addressee updated')
+
+      setRequestInquiries((prev) =>
+        prev.map((inq) =>
+          inq.id === visitorId
+            ? { ...inq, addressee: addressee.trim() || null }
+            : inq
+        )
+      )
+
+      setExpandedInquiries((prev) =>
+        prev.map((inq) =>
+          inq.visitorId === visitorId
+            ? { ...inq, addressee: addressee.trim() || null }
+            : inq
+        )
+      )
+      setEditingAddresseeId(null)
+    } catch (err) {
+      console.error(err)
+      toast.error('Failed to update addressee')
+    }
+  }
+
   useEffect(() => {
     fetchRequestInquiries()
     fetchPrograms()
+    fetchCoordinators()
     // No automatic refresh interval
   }, [])
   
@@ -282,6 +400,15 @@ export function RequestInquiriesTable() {
               <Button
                 size="sm"
                 variant="outline"
+                onClick={() => setIsImportOpen(true)}
+                className="gap-2"
+              >
+                <Upload className="h-4 w-4" />
+                Import Excel
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
                 onClick={handleRefresh}
                 disabled={refreshing}
                 className="gap-2"
@@ -372,6 +499,8 @@ export function RequestInquiriesTable() {
                 <TableHead>Name</TableHead>
                 <TableHead>Phone</TableHead>
                 <TableHead>Program</TableHead>
+                <TableHead>Addressee</TableHead>
+                <TableHead>Coordinator</TableHead>
                 <TableHead>Location</TableHead>
                 <TableHead>Device Info</TableHead>
                 <TableHead>Registered</TableHead>
@@ -382,7 +511,7 @@ export function RequestInquiriesTable() {
             <TableBody>
               {filteredInquiries.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={8} className="text-center py-8 text-gray-500">
+                  <TableCell colSpan={10} className="text-center py-8 text-gray-500">
                     {expandedInquiries.length === 0 ? 'No exhibition registrations found' : 'No matching requests found'}
                   </TableCell>
                 </TableRow>
@@ -412,6 +541,53 @@ export function RequestInquiriesTable() {
                         <Badge variant="outline" className="bg-blue-50 text-blue-700">
                           {expandedInquiry.program.programName}
                         </Badge>
+                      </TableCell>
+                      <TableCell className="max-w-[150px]">
+                        {editingAddresseeId === expandedInquiry.visitorId ? (
+                          <Input
+                            value={tempAddressee}
+                            onChange={(e) => setTempAddressee(e.target.value)}
+                            onBlur={() => handleUpdateAddressee(expandedInquiry.visitorId, tempAddressee)}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                handleUpdateAddressee(expandedInquiry.visitorId, tempAddressee)
+                              } else if (e.key === 'Escape') {
+                                setEditingAddresseeId(null)
+                              }
+                            }}
+                            autoFocus
+                            className="h-8 py-1 text-xs"
+                          />
+                        ) : (
+                          <div 
+                            onClick={() => {
+                              setEditingAddresseeId(expandedInquiry.visitorId)
+                              setTempAddressee(expandedInquiry.addressee || '')
+                            }}
+                            className="cursor-pointer hover:bg-gray-100 p-1.5 rounded min-h-[30px] flex items-center text-sm text-gray-700 break-words"
+                            title="Click to edit addressee"
+                          >
+                            {expandedInquiry.addressee || <span className="text-gray-400 italic text-xs font-normal">Add addressee</span>}
+                          </div>
+                        )}
+                      </TableCell>
+                      <TableCell className="min-w-[160px]">
+                        <Select
+                          value={expandedInquiry.coordinatorId || 'none'}
+                          onValueChange={(val) => handleAssignCoordinator(expandedInquiry.visitorId, val)}
+                        >
+                          <SelectTrigger className="h-8 text-xs py-1">
+                            <SelectValue placeholder="Assign coordinator" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="none">Unassigned</SelectItem>
+                            {coordinators.map((c) => (
+                              <SelectItem key={c.id} value={c.id} className="text-xs">
+                                {c.name}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </TableCell>
                       <TableCell>
                         {expandedInquiry.metadata ? (
@@ -491,6 +667,12 @@ export function RequestInquiriesTable() {
           selectedProgram: selectedProgram,
         } : null}
         onInquiryCreated={handleInquiryCreated}
+      />
+      
+      <ImportRequestInquiriesDialog
+        open={isImportOpen}
+        onOpenChange={setIsImportOpen}
+        onImportSuccess={() => fetchRequestInquiries(true)}
       />
     </Card>
   )

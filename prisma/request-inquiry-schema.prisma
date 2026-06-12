@@ -9,12 +9,14 @@ datasource db {
 }
 
 model ExhibitionVisitor {
-  id          String    @id @default(uuid())
-  name        String    @map("name")
-  workPhone   String    @map("work_phone")
-  isConverted Boolean   @default(false) @map("is_converted")
-  convertedAt DateTime? @map("converted_at")
-  createdAt   DateTime  @default(now()) @map("created_at")
+  id            String    @id @default(uuid())
+  name          String    @map("name")
+  workPhone     String    @map("work_phone")
+  isConverted   Boolean   @default(false) @map("is_converted")
+  convertedAt   DateTime? @map("converted_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  addressee     String?   @map("addressee")
+  coordinatorId String?   @map("coordinator_id")
 
   programs VisitorProgram[]
   metadata VisitorMetadata?
