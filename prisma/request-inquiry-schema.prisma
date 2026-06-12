@@ -17,6 +17,8 @@ model ExhibitionVisitor {
   createdAt     DateTime  @default(now()) @map("created_at")
   addressee     String?   @map("addressee")
   coordinatorId String?   @map("coordinator_id")
+  address       String?   @map("address")
+  dateOfBirth   DateTime? @map("date_of_birth") @db.Date
 
   programs VisitorProgram[]
   metadata VisitorMetadata?

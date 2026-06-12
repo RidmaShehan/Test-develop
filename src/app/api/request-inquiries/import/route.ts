@@ -77,6 +77,8 @@ export async function POST(request: NextRequest) {
     const programIdx = headers.findIndex((h) => h.includes('program') || h.includes('course'))
     const addresseeIdx = headers.findIndex((h) => h.includes('addressee'))
     const coordinatorIdx = headers.findIndex((h) => h.includes('coordinator') || h.includes('coord'))
+    const addressIdx = headers.findIndex((h) => h.includes('address') && !h.includes('addressee'))
+    const dobIdx = headers.findIndex((h) => h.includes('birth') || h.includes('dob') || h.includes('date of birth') || h.includes('d.o.b'))
 
     if (nameIdx === -1) {
       return NextResponse.json({ error: 'Missing column for "Name" in header row.' }, { status: 400 })
@@ -135,6 +137,16 @@ export async function POST(request: NextRequest) {
       const rawProgram = (programIdx !== -1 && programIdx < rawRow.length) ? normalizeCell(rawRow[programIdx]) : ''
       const rawAddressee = (addresseeIdx !== -1 && addresseeIdx < rawRow.length) ? normalizeCell(rawRow[addresseeIdx]) : ''
       const rawCoordinator = (coordinatorIdx !== -1 && coordinatorIdx < rawRow.length) ? normalizeCell(rawRow[coordinatorIdx]) : ''
+      const rawAddress = (addressIdx !== -1 && addressIdx < rawRow.length) ? normalizeCell(rawRow[addressIdx]) : ''
+      const rawDob = (dobIdx !== -1 && dobIdx < rawRow.length) ? normalizeCell(rawRow[dobIdx]) : ''
+
+      let parsedDob: Date | null = null
+      if (rawDob) {
+        const d = new Date(rawDob)
+        if (!isNaN(d.getTime())) {
+          parsedDob = d
+        }
+      }
 
       let programId: number | null = null
       if (rawProgram) {
@@ -176,6 +188,8 @@ export async function POST(request: NextRequest) {
             workPhone: phone.trim(),
             addressee: rawAddressee.trim() || null,
             coordinatorId: coordinatorId,
+            address: rawAddress.trim() || null,
+            dateOfBirth: parsedDob,
             programs: programId ? {
               create: {
                 programId: programId,
