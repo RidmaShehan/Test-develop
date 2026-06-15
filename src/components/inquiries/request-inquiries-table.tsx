@@ -95,6 +95,8 @@ export function RequestInquiriesTable() {
   
   // Filter states
   const [searchTerm, setSearchTerm] = useState('')
+  const [localSearchTerm, setLocalSearchTerm] = useState('')
+  const [displayLimit, setDisplayLimit] = useState(50)
   const [programFilter, setProgramFilter] = useState<string>('all')
   const [campaignFilter, setCampaignFilter] = useState<string>('all')
   const [coordinatorFilter, setCoordinatorFilter] = useState<string>('all')
@@ -349,6 +351,19 @@ export function RequestInquiriesTable() {
     fetchCampaigns()
     // No automatic refresh interval
   }, [])
+
+  // Debounce search term to avoid lag on fast typing
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearchTerm(localSearchTerm)
+    }, 200)
+    return () => clearTimeout(timer)
+  }, [localSearchTerm])
+
+  // Reset display limit when filters change
+  useEffect(() => {
+    setDisplayLimit(50)
+  }, [searchTerm, programFilter, campaignFilter, coordinatorFilter, statusFilter, dateRange])
   
   // Apply filters whenever search term, program filter, campaign filter, coordinator filter, status filter, or date range changes
   useEffect(() => {
@@ -456,6 +471,7 @@ export function RequestInquiriesTable() {
   }
   
   const handleClearFilters = () => {
+    setLocalSearchTerm('')
     setSearchTerm('')
     setProgramFilter('all')
     setCampaignFilter('all')
@@ -523,8 +539,8 @@ export function RequestInquiriesTable() {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input
                   placeholder="Search by name, phone, or program..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  value={localSearchTerm}
+                  onChange={(e) => setLocalSearchTerm(e.target.value)}
                   className="pl-10"
                 />
               </div>
@@ -561,7 +577,7 @@ export function RequestInquiriesTable() {
                 </PopoverContent>
               </Popover>
               
-              {(searchTerm || programFilter !== 'all' || campaignFilter !== 'all' || coordinatorFilter !== 'all' || statusFilter !== 'all' || dateRange) && (
+              {(localSearchTerm || programFilter !== 'all' || campaignFilter !== 'all' || coordinatorFilter !== 'all' || statusFilter !== 'all' || dateRange) && (
                 <Button
                   size="sm"
                   variant="ghost"
@@ -663,7 +679,7 @@ export function RequestInquiriesTable() {
                   </TableCell>
                 </TableRow>
               ) : (
-                filteredInquiries.map((expandedInquiry) => {
+                filteredInquiries.slice(0, displayLimit).map((expandedInquiry) => {
                   const isConverting = convertingIds.has(expandedInquiry.visitorId)
                   const isConverted = expandedInquiry.isConverted
                   const location = expandedInquiry.metadata 
@@ -719,40 +735,32 @@ export function RequestInquiriesTable() {
                         )}
                       </TableCell>
                       <TableCell className="min-w-[160px]">
-                        <Select
+                        <select
                           value={expandedInquiry.coordinatorId || 'none'}
-                          onValueChange={(val) => handleAssignCoordinator(expandedInquiry.visitorId, val)}
+                          onChange={(e) => handleAssignCoordinator(expandedInquiry.visitorId, e.target.value)}
+                          className="h-8 w-full rounded-md border border-input bg-background px-2 py-1 text-xs ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         >
-                          <SelectTrigger className="h-8 text-xs py-1">
-                            <SelectValue placeholder="Assign coordinator" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="none">Unassigned</SelectItem>
-                            {coordinators.map((c) => (
-                              <SelectItem key={c.id} value={c.id} className="text-xs">
-                                {c.name}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
+                          <option value="none">Unassigned</option>
+                          {coordinators.map((c) => (
+                            <option key={c.id} value={c.id}>
+                              {c.name}
+                            </option>
+                          ))}
+                        </select>
                       </TableCell>
                       <TableCell className="min-w-[160px]">
-                        <Select
+                        <select
                           value={expandedInquiry.campaignId || 'none'}
-                          onValueChange={(val) => handleAssignCampaign(expandedInquiry.visitorId, val)}
+                          onChange={(e) => handleAssignCampaign(expandedInquiry.visitorId, e.target.value)}
+                          className="h-8 w-full rounded-md border border-input bg-background px-2 py-1 text-xs ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         >
-                          <SelectTrigger className="h-8 text-xs py-1">
-                            <SelectValue placeholder="Assign campaign" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="none">No Campaign</SelectItem>
-                            {campaigns.map((c) => (
-                              <SelectItem key={c.id} value={c.id} className="text-xs">
-                                {c.name}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
+                          <option value="none">No Campaign</option>
+                          {campaigns.map((c) => (
+                            <option key={c.id} value={c.id}>
+                              {c.name}
+                            </option>
+                          ))}
+                        </select>
                       </TableCell>
                       <TableCell>
                         {expandedInquiry.metadata ? (
@@ -818,6 +826,18 @@ export function RequestInquiriesTable() {
             </TableBody>
           </Table>
         </div>
+        {filteredInquiries.length > displayLimit && (
+          <div className="flex justify-center p-4 border-t border-gray-200 bg-gray-50/50">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setDisplayLimit((prev) => prev + 50)}
+              className="gap-2 font-medium"
+            >
+              Load More (Showing {displayLimit} of {filteredInquiries.length})
+            </Button>
+          </div>
+        )}
       </CardContent>
       
       <NewInquiryDialog
