@@ -96,6 +96,9 @@ export function RequestInquiriesTable() {
   // Filter states
   const [searchTerm, setSearchTerm] = useState('')
   const [programFilter, setProgramFilter] = useState<string>('all')
+  const [campaignFilter, setCampaignFilter] = useState<string>('all')
+  const [coordinatorFilter, setCoordinatorFilter] = useState<string>('all')
+  const [statusFilter, setStatusFilter] = useState<string>('all')
   const [dateRange, setDateRange] = useState<DateRange | undefined>()
   
   const { user: _user } = useAuth()
@@ -347,7 +350,7 @@ export function RequestInquiriesTable() {
     // No automatic refresh interval
   }, [])
   
-  // Apply filters whenever search term, program filter, or date range changes
+  // Apply filters whenever search term, program filter, campaign filter, coordinator filter, status filter, or date range changes
   useEffect(() => {
     let filtered = [...expandedInquiries]
     
@@ -365,6 +368,33 @@ export function RequestInquiriesTable() {
     // Program filter
     if (programFilter && programFilter !== 'all') {
       filtered = filtered.filter((inq) => inq.program.id.toString() === programFilter)
+    }
+
+    // Campaign filter
+    if (campaignFilter && campaignFilter !== 'all') {
+      if (campaignFilter === 'none') {
+        filtered = filtered.filter((inq) => !inq.campaignId)
+      } else {
+        filtered = filtered.filter((inq) => inq.campaignId === campaignFilter)
+      }
+    }
+
+    // Coordinator filter
+    if (coordinatorFilter && coordinatorFilter !== 'all') {
+      if (coordinatorFilter === 'none') {
+        filtered = filtered.filter((inq) => !inq.coordinatorId)
+      } else {
+        filtered = filtered.filter((inq) => inq.coordinatorId === coordinatorFilter)
+      }
+    }
+
+    // Status filter
+    if (statusFilter && statusFilter !== 'all') {
+      if (statusFilter === 'converted') {
+        filtered = filtered.filter((inq) => inq.isConverted)
+      } else if (statusFilter === 'pending') {
+        filtered = filtered.filter((inq) => !inq.isConverted)
+      }
     }
     
     // Date range filter
@@ -385,7 +415,7 @@ export function RequestInquiriesTable() {
     }
     
     setFilteredInquiries(filtered)
-  }, [searchTerm, programFilter, dateRange, expandedInquiries])
+  }, [searchTerm, programFilter, campaignFilter, coordinatorFilter, statusFilter, dateRange, expandedInquiries])
 
   const handleConvertToInquiry = (expandedInquiry: ExpandedRequestInquiry) => {
     if (expandedInquiry.isConverted) return
@@ -428,6 +458,9 @@ export function RequestInquiriesTable() {
   const handleClearFilters = () => {
     setSearchTerm('')
     setProgramFilter('all')
+    setCampaignFilter('all')
+    setCoordinatorFilter('all')
+    setStatusFilter('all')
     setDateRange(undefined)
   }
 
@@ -484,74 +517,123 @@ export function RequestInquiriesTable() {
           </div>
           
           {/* Filters */}
-          <div className="flex flex-col sm:flex-row gap-3">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-              <Input
-                placeholder="Search by name, phone, or program..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
-              />
-            </div>
-            
-            <Select value={programFilter} onValueChange={setProgramFilter}>
-              <SelectTrigger className="w-full sm:w-[200px]">
-                <SelectValue placeholder="Filter by program" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Programs</SelectItem>
-                {programs.map((program) => (
-                  <SelectItem key={program.id} value={program.id.toString()}>
-                    {program.programName}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  className="w-full sm:w-[240px] justify-start text-left font-normal"
-                >
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  {dateRange?.from ? (
-                    dateRange.to ? (
-                      <>
-                        {format(dateRange.from, 'MMM dd, yyyy')} - {format(dateRange.to, 'MMM dd, yyyy')}
-                      </>
-                    ) : (
-                      format(dateRange.from, 'MMM dd, yyyy')
-                    )
-                  ) : (
-                    <span>Filter by date</span>
-                  )}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="end">
-                <Calendar
-                  initialFocus
-                  mode="range"
-                  defaultMonth={dateRange?.from}
-                  selected={dateRange}
-                  onSelect={setDateRange}
-                  numberOfMonths={2}
+          <div className="space-y-3">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex-1 relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Input
+                  placeholder="Search by name, phone, or program..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10"
                 />
-              </PopoverContent>
-            </Popover>
-            
-            {(searchTerm || programFilter !== 'all' || dateRange) && (
-              <Button
-                size="sm"
-                variant="ghost"
-                onClick={handleClearFilters}
-                className="gap-2"
-              >
-                <X className="h-4 w-4" />
-                Clear
-              </Button>
-            )}
+              </div>
+              
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="w-full sm:w-[240px] justify-start text-left font-normal"
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {dateRange?.from ? (
+                      dateRange.to ? (
+                        <>
+                          {format(dateRange.from, 'MMM dd, yyyy')} - {format(dateRange.to, 'MMM dd, yyyy')}
+                        </>
+                      ) : (
+                        format(dateRange.from, 'MMM dd, yyyy')
+                      )
+                    ) : (
+                      <span>Filter by date</span>
+                    )}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="end">
+                  <Calendar
+                    initialFocus
+                    mode="range"
+                    defaultMonth={dateRange?.from}
+                    selected={dateRange}
+                    onSelect={setDateRange}
+                    numberOfMonths={2}
+                  />
+                </PopoverContent>
+              </Popover>
+              
+              {(searchTerm || programFilter !== 'all' || campaignFilter !== 'all' || coordinatorFilter !== 'all' || statusFilter !== 'all' || dateRange) && (
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={handleClearFilters}
+                  className="gap-2"
+                >
+                  <X className="h-4 w-4" />
+                  Clear
+                </Button>
+              )}
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+              {/* Program Filter */}
+              <Select value={programFilter} onValueChange={setProgramFilter}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Filter by program" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Programs</SelectItem>
+                  {programs.map((program) => (
+                    <SelectItem key={program.id} value={program.id.toString()}>
+                      {program.programName}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              {/* Campaign Filter */}
+              <Select value={campaignFilter} onValueChange={setCampaignFilter}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Filter by campaign" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Campaigns</SelectItem>
+                  <SelectItem value="none">No Campaign</SelectItem>
+                  {campaigns.map((c) => (
+                    <SelectItem key={c.id} value={c.id}>
+                      {c.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              {/* Coordinator Filter */}
+              <Select value={coordinatorFilter} onValueChange={setCoordinatorFilter}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Filter by coordinator" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Coordinators</SelectItem>
+                  <SelectItem value="none">Unassigned</SelectItem>
+                  {coordinators.map((c) => (
+                    <SelectItem key={c.id} value={c.id}>
+                      {c.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              {/* Status Filter */}
+              <Select value={statusFilter} onValueChange={setStatusFilter}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Filter by status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Statuses</SelectItem>
+                  <SelectItem value="pending">Pending</SelectItem>
+                  <SelectItem value="converted">Converted</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </div>
       </CardHeader>
