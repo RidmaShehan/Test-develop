@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { requireAuth } from '@/lib/auth'
 import { requestInquiryPrisma } from '@/lib/request-inquiry-prisma'
 
@@ -53,10 +54,6 @@ export async function PATCH(
       visitor: updatedVisitor,
     })
   } catch (error) {
-    console.error('Error updating request inquiry:', error)
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to update request inquiry' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

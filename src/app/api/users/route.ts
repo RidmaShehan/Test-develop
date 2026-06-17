@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { UserRole } from '@prisma/client'
 import { hashPassword } from '@/lib/auth'
@@ -42,11 +43,7 @@ export async function GET(request: NextRequest) {
     if (error instanceof ForbiddenError) {
       return NextResponse.json({ error: error.message }, { status: 403 })
     }
-    console.error('Error fetching users:', error)
-    return NextResponse.json(
-      { error: getSafeErrorMessage(error, 'Failed to fetch users') },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -142,10 +139,6 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       )
     }
-    console.error('Error creating user:', error)
-    return NextResponse.json(
-      { error: getSafeErrorMessage(error, 'Failed to create user') },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

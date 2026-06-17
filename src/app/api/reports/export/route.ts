@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { isAdminRole, requireAuth } from '@/lib/auth'
 import jsPDF from 'jspdf'
@@ -439,11 +440,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ error: 'Unsupported format. Use "excel", "csv", or "pdf"' }, { status: 400 })
   } catch (error) {
-    console.error('Error exporting report:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

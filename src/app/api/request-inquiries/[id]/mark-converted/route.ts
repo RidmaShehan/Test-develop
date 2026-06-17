@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { requireAuth } from '@/lib/auth'
 import { requestInquiryPrisma } from '@/lib/request-inquiry-prisma'
 
@@ -58,17 +59,10 @@ export async function POST(
       visitor: updatedVisitor,
     })
   } catch (error) {
-    console.error('Error marking visitor as converted:', error)
     if (error instanceof Error) {
-      return NextResponse.json(
-        { error: error.message },
-        { status: 500 }
-      )
+      return handleApiError(error)
     }
-    return NextResponse.json(
-      { error: 'Failed to mark visitor as converted' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

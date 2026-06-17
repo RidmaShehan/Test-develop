@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { requirePermission, ForbiddenError } from '@/lib/authorization'
 import { prisma } from '@/lib/prisma'
 import { AuthenticationError } from '@/lib/auth'
@@ -31,7 +32,7 @@ export async function GET(req: NextRequest) {
   } catch (err: any) {
     if (err instanceof AuthenticationError) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     if (err instanceof ForbiddenError) return NextResponse.json({ error: err.message }, { status: 403 })
-    return NextResponse.json({ error: 'Failed to fetch alumni' }, { status: 500 })
+    return handleApiError(err)
   }
 }
 
@@ -71,6 +72,6 @@ export async function POST(req: NextRequest) {
     if (err instanceof AuthenticationError) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     if (err instanceof ForbiddenError) return NextResponse.json({ error: err.message }, { status: 403 })
     if (err.code === 'P2002') return NextResponse.json({ error: 'This seeker is already an alumnus' }, { status: 409 })
-    return NextResponse.json({ error: 'Failed to create alumni record' }, { status: 500 })
+    return handleApiError(err)
   }
 }

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth'
 
@@ -55,11 +56,7 @@ export async function GET(
 
     return NextResponse.json(note)
   } catch (error) {
-    console.error('Error fetching note:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch note' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -185,11 +182,7 @@ export async function PUT(
 
     return NextResponse.json(note)
   } catch (error) {
-    console.error('Error updating note:', error)
-    return NextResponse.json(
-      { error: 'Failed to update note' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -237,11 +230,7 @@ export async function PATCH(
 
     return NextResponse.json(note)
   } catch (error) {
-    console.error('Error updating note reminder:', error)
-    return NextResponse.json(
-      { error: 'Failed to update note reminder' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -275,11 +264,7 @@ export async function DELETE(
 
     return NextResponse.json({ message: 'Note deleted successfully' })
   } catch (error) {
-    console.error('Error deleting note:', error)
-    return NextResponse.json(
-      { error: 'Failed to delete note' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

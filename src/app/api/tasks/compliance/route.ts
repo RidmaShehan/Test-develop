@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { AuthenticationError, isAdminRole, requireAuth } from '@/lib/auth'
 import {
   computeFollowUpCompliance,
@@ -25,10 +26,6 @@ export async function GET(request: NextRequest) {
     if (error instanceof AuthenticationError) {
       return NextResponse.json({ error: error.message }, { status: 401 })
     }
-    console.error('Error computing follow-up compliance:', error)
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to compute follow-up compliance' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

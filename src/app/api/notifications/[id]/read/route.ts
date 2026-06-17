@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth'
 import { invalidateUnreadCountCache } from '@/lib/notifications/unread-count-cache'
@@ -39,11 +40,7 @@ export async function POST(
 
     return NextResponse.json(updated)
   } catch (error) {
-    console.error('Error marking notification as read:', error)
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to mark notification as read' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

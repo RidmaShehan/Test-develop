@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, isAdminRole } from '@/lib/auth'
 
@@ -86,11 +87,7 @@ export async function GET(
 
     return NextResponse.json(project)
   } catch (error) {
-    console.error('Error fetching project:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch project' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -167,11 +164,7 @@ export async function PUT(
 
     return NextResponse.json(project)
   } catch (error) {
-    console.error('Error updating project:', error)
-    return NextResponse.json(
-      { error: 'Failed to update project' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -208,10 +201,6 @@ export async function DELETE(
 
     return NextResponse.json({ message: 'Project deleted successfully' })
   } catch (error) {
-    console.error('Error deleting project:', error)
-    return NextResponse.json(
-      { error: 'Failed to delete project' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

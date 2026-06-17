@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requirePermission, ForbiddenError } from '@/lib/authorization'
 import { AuthenticationError } from '@/lib/auth'
@@ -69,11 +70,7 @@ export async function GET(
     if (error instanceof ForbiddenError) {
       return NextResponse.json({ error: error.message }, { status: 403 })
     }
-    console.error('Error fetching role:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch role' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -211,11 +208,7 @@ export async function PUT(
     if (error instanceof ForbiddenError) {
       return NextResponse.json({ error: error.message }, { status: 403 })
     }
-    console.error('Error updating role:', error)
-    return NextResponse.json(
-      { error: 'Failed to update role' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -269,10 +262,6 @@ export async function DELETE(
     if (error instanceof ForbiddenError) {
       return NextResponse.json({ error: error.message }, { status: 403 })
     }
-    console.error('Error deleting role:', error)
-    return NextResponse.json(
-      { error: 'Failed to delete role' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

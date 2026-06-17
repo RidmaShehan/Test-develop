@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth'
 
@@ -32,11 +33,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(notebooks)
   } catch (error) {
-    console.error('Error fetching notebooks:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch notebooks' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -77,11 +74,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(notebook, { status: 201 })
   } catch (error) {
-    console.error('Error creating notebook:', error)
-    return NextResponse.json(
-      { error: 'Failed to create notebook' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

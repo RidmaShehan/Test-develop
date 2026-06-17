@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, isAdminRole } from '@/lib/auth'
 import { logBackupSchema } from '@/lib/activity-logger'
@@ -95,7 +96,6 @@ export async function GET(request: NextRequest) {
       },
     })
   } catch (err) {
-    console.error('Backup schema error:', err)
-    return NextResponse.json({ error: 'Failed to generate schema export' }, { status: 500 })
+    return handleApiError(err)
   }
 }

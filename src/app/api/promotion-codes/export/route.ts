@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth'
 import jsPDF from 'jspdf'
@@ -83,14 +84,7 @@ export async function GET(request: NextRequest) {
     }
     return exportToPDF(codesWithStats)
   } catch (error: unknown) {
-    console.error('Error exporting promotion codes:', error)
-    return NextResponse.json(
-      {
-        error:
-          error instanceof Error ? error.message : 'Failed to export promotion codes',
-      },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

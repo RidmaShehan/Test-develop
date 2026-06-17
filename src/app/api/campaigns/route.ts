@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { Prisma, CampaignStatus } from '@prisma/client'
 import { requireAuth, isAdminRole, AuthenticationError } from '@/lib/auth'
 import { notifyCampaignStarted } from '@/lib/notification-service'
+import { handleApiError } from '@/lib/handle-api-error'
 
 // GET /api/campaigns - Get all campaigns
 // Accessible to all authenticated users
@@ -12,7 +14,7 @@ export async function GET(request: NextRequest) {
     const user = await requireAuth(request)
     
     // Build where clause for user filtering
-    const where: any = {
+    const where: Prisma.CampaignWhereInput = {
       isDeleted: false
     }
     
@@ -25,7 +27,7 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get('page') || '1')
     const limit = parseInt(searchParams.get('limit') || '20')
     const skip = (page - 1) * limit
-
+    
     // If fetching for inquiry form, allow all users to see all ACTIVE campaigns
     // Otherwise, apply role-based filtering
     if (forInquiry) {
@@ -40,7 +42,7 @@ export async function GET(request: NextRequest) {
 
     if (status && status !== 'all' && !forInquiry) {
       // Don't override status if forInquiry is set (it's already set to ACTIVE)
-      where.status = status
+      where.status = status as CampaignStatus
     }
 
     if (type) {
@@ -134,27 +136,13 @@ export async function GET(request: NextRequest) {
       }
     })
   } catch (error) {
-    console.error('❌ ERROR in /api/campaigns:', error)
     if (error instanceof AuthenticationError) {
       return NextResponse.json(
         { error: error.message },
         { status: 401 }
       )
     }
-    console.error('Error details:', {
-      name: error instanceof Error ? error.name : 'Unknown',
-      message: error instanceof Error ? error.message : 'Unknown error',
-      stack: error instanceof Error ? error.stack : undefined
-    })
-    
-    return NextResponse.json(
-      { 
-        error: error instanceof Error ? error.message : 'Failed to fetch campaigns',
-        details: error instanceof Error ? error.stack : undefined,
-        route: '/api/campaigns'
-      },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -291,10 +279,6 @@ export async function POST(request: NextRequest) {
       }
     }
     
-    return NextResponse.json(
-      { error: 'Failed to create campaign' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
-

@@ -9,6 +9,7 @@ import {
   parseBreachesFromAlertMessage,
 } from '@/lib/follow-up-compliance'
 import { createNotification } from '@/lib/notification-service'
+import { handleApiError } from '@/lib/handle-api-error'
 
 /** Do not re-notify admins if the same breach count was already alerted within this window. */
 const DEDUPE_WINDOW_MS = 4 * 60 * 60 * 1000
@@ -37,6 +38,7 @@ function verifyCronSecret(request: NextRequest): boolean {
 export const dynamic = 'force-dynamic'
 
 async function runComplianceNotifications(request: NextRequest) {
+  // Guard check (additional sanity check before DB query)
   if (!verifyCronSecret(request)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
@@ -114,25 +116,23 @@ async function runComplianceNotifications(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
+  if (!verifyCronSecret(request)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
   try {
     return await runComplianceNotifications(request)
   } catch (error) {
-    console.error('Cron follow-up compliance error:', error)
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Cron job failed' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
 export async function POST(request: NextRequest) {
+  if (!verifyCronSecret(request)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
   try {
     return await runComplianceNotifications(request)
   } catch (error) {
-    console.error('Cron follow-up compliance error:', error)
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Cron job failed' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

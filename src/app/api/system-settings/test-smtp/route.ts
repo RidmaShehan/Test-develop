@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { requirePermission, ForbiddenError } from '@/lib/authorization'
 import { sendEmailViaSMTP } from '@/lib/smtp'
 import { AuthenticationError } from '@/lib/auth'
@@ -19,6 +20,6 @@ export async function POST(req: NextRequest) {
   } catch (err: any) {
     if (err instanceof AuthenticationError) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     if (err instanceof ForbiddenError) return NextResponse.json({ error: err.message }, { status: 403 })
-    return NextResponse.json({ error: `SMTP test failed: ${err.message}` }, { status: 500 })
+    return handleApiError(err)
   }
 }

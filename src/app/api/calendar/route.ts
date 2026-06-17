@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { isAdminRole, requireAuth } from '@/lib/auth'
 import { FollowUpStatus } from '@prisma/client'
@@ -202,11 +203,7 @@ export async function GET(request: NextRequest) {
       total: events.length
     })
   } catch (error) {
-    console.error('Error fetching calendar events:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch calendar events' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

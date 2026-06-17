@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth'
 
@@ -48,11 +49,7 @@ export async function GET(
 
     return NextResponse.json(campaignType)
   } catch (error) {
-    console.error('Error fetching campaign type:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch campaign type' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -123,11 +120,7 @@ export async function PUT(
 
     return NextResponse.json(campaignType)
   } catch (error) {
-    console.error('Error updating campaign type:', error)
-    return NextResponse.json(
-      { error: 'Failed to update campaign type' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -182,10 +175,6 @@ export async function DELETE(
 
     return NextResponse.json({ message: 'Campaign type deleted successfully' })
   } catch (error) {
-    console.error('Error deleting campaign type:', error)
-    return NextResponse.json(
-      { error: 'Failed to delete campaign type' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

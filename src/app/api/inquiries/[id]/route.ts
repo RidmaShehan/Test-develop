@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth'
 import { canViewAllInquiries } from '@/lib/inquiry-visibility'
@@ -73,11 +74,7 @@ export async function GET(
 
     return NextResponse.json(seeker)
   } catch (error) {
-    console.error('Error fetching seeker:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch seeker' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -154,11 +151,7 @@ export async function PUT(
 
     return NextResponse.json(seeker)
   } catch (error) {
-    console.error('Error updating seeker:', error)
-    return NextResponse.json(
-      { error: 'Failed to update seeker' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -315,11 +308,7 @@ export async function PATCH(
 
     return NextResponse.json(seeker)
   } catch (error) {
-    console.error('Error updating seeker:', error)
-    return NextResponse.json(
-      { error: 'Failed to update seeker' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -375,10 +364,6 @@ export async function DELETE(
 
     return NextResponse.json({ message: 'Inquiry moved to trash successfully' })
   } catch (error) {
-    console.error('Error deleting seeker:', error)
-    return NextResponse.json(
-      { error: 'Failed to delete seeker' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

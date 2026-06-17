@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, isAdminRole } from '@/lib/auth'
 
@@ -52,10 +53,6 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ messages })
   } catch (error) {
-    console.error('Error fetching WhatsApp message history:', error)
-    return NextResponse.json(
-      { error: 'Could not load message history. Please try again.' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

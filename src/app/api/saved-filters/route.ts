@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth'
 
@@ -18,11 +19,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ filters })
   } catch (error) {
-    console.error('Error fetching saved filters:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch saved filters' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -73,11 +70,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ filter: savedFilter })
   } catch (error) {
-    console.error('Error saving filter:', error)
-    return NextResponse.json(
-      { error: 'Failed to save filter' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -103,10 +96,6 @@ export async function DELETE(request: NextRequest) {
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('Error deleting filter:', error)
-    return NextResponse.json(
-      { error: 'Failed to delete filter' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

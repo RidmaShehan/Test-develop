@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { requirePermission } from '@/lib/authorization'
 import { calculateLeadScore, recalculateAllScores } from '@/lib/lead-score'
 
@@ -23,6 +24,6 @@ export async function POST(req: NextRequest) {
   } catch (err: any) {
     if (err.name === 'AuthenticationError') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     if (err.name === 'ForbiddenError') return NextResponse.json({ error: err.message }, { status: 403 })
-    return NextResponse.json({ error: 'Failed to calculate score' }, { status: 500 })
+    return handleApiError(err)
   }
 }

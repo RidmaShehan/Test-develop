@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { isAdminRole, requireAuth } from '@/lib/auth'
 import { FollowUpStatus } from '@prisma/client'
@@ -472,10 +473,6 @@ export async function GET(request: NextRequest) {
       timestamp: now.toISOString(),
     })
   } catch (error) {
-    console.error('Error fetching dashboard data:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch dashboard data' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

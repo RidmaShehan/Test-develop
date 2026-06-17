@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { requireAuth } from '@/lib/auth'
 import { validateImageFile } from '@/lib/file-type-validation'
 
@@ -48,10 +49,6 @@ export async function POST(request: NextRequest) {
       key: `inline:${detected.ext}`,
     })
   } catch (error) {
-    console.error('Error uploading file:', error)
-    return NextResponse.json(
-      { error: 'Failed to upload file. Please try again later.' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

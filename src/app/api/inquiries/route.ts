@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { Prisma } from '@prisma/client'
 import { requireAuth, AuthenticationError } from '@/lib/auth'
 import { createInquiryFromBody } from '@/lib/inquiry-create-internal'
 import { canViewAllInquiries } from '@/lib/inquiry-visibility'
 import { ForbiddenError } from '@/lib/authorization'
+import { handleApiError } from '@/lib/handle-api-error'
 
 export async function GET(request: NextRequest) {
   try {
@@ -26,8 +28,7 @@ export async function GET(request: NextRequest) {
     
     // Build where clause: admins (role or permission-based) see all inquiries; others only their own
     // Treat legacy rows where isDeleted might be NULL as "not deleted"
-    // (Some older DB rows may have NULL even if Prisma schema is non-nullable)
-    const where: Record<string, any> = {
+    const where: Prisma.SeekerWhereInput = {
       NOT: { isDeleted: true },
     }
     
@@ -106,30 +107,7 @@ export async function GET(request: NextRequest) {
     if (error instanceof ForbiddenError) {
       return NextResponse.json({ error: error.message }, { status: 403 })
     }
-
-    console.error('❌ ERROR in /api/inquiries:', error)
-    console.error('Error details:', {
-      name: error instanceof Error ? error.name : 'Unknown',
-      message: error instanceof Error ? error.message : 'Unknown error',
-      stack: error instanceof Error ? error.stack : undefined
-    })
-    
-    // Return proper JSON error response
-    if (error instanceof Error) {
-      return NextResponse.json(
-        { 
-          error: error.message,
-          details: error.stack,
-          route: '/api/inquiries'
-        },
-        { status: 500 }
-      )
-    }
-    
-    return NextResponse.json(
-      { error: 'Failed to fetch seekers' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -158,14 +136,6 @@ export async function POST(request: NextRequest) {
     if (error instanceof ForbiddenError) {
       return NextResponse.json({ error: error.message }, { status: 403 })
     }
-
-    console.error('Error creating inquiry:', error)
-
-    // Return proper JSON error response
-    if (error instanceof Error) {
-      return NextResponse.json({ error: error.message }, { status: 500 })
-    }
-
-    return NextResponse.json({ error: 'Failed to create inquiry' }, { status: 500 })
+    return handleApiError(error)
   }
 }

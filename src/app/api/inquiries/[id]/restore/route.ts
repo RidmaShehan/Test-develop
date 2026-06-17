@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth'
 
@@ -34,8 +35,7 @@ export async function POST(
 
     return NextResponse.json({ message: 'Inquiry restored successfully', inquiry: restored })
   } catch (error) {
-    console.error('Error restoring inquiry:', error)
-    return NextResponse.json({ error: 'Failed to restore inquiry' }, { status: 500 })
+    return handleApiError(error)
   }
 }
 

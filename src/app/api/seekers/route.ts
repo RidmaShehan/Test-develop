@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, AuthenticationError } from '@/lib/auth'
 import { createInquiryFromBody } from '@/lib/inquiry-create-internal'
@@ -87,8 +88,7 @@ export async function GET(request: NextRequest) {
     if (error instanceof ForbiddenError) {
       return NextResponse.json({ error: error.message }, { status: 403 })
     }
-    console.error('Error in /api/seekers GET:', error)
-    return NextResponse.json({ error: 'Failed to fetch seekers' }, { status: 500 })
+    return handleApiError(error)
   }
 }
 
@@ -112,7 +112,6 @@ export async function POST(request: NextRequest) {
     if (error instanceof ForbiddenError) {
       return NextResponse.json({ error: error.message }, { status: 403 })
     }
-    console.error('Error in /api/seekers POST:', error)
-    return NextResponse.json({ error: 'Failed to create seeker' }, { status: 500 })
+    return handleApiError(error)
   }
 }

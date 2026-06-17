@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, AuthenticationError } from '@/lib/auth'
 import { notifyApprovalRequest } from '@/lib/notification-service'
@@ -99,9 +100,6 @@ export async function POST(
     if (error instanceof AuthenticationError) {
       return NextResponse.json({ error: error.message }, { status: 401 })
     }
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to resubmit post' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

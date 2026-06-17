@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, isAdminRole } from '@/lib/auth'
 
@@ -32,7 +33,6 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ history: logs })
   } catch (err) {
-    console.error('Backup history error:', err)
-    return NextResponse.json({ error: 'Failed to load backup history' }, { status: 500 })
+    return handleApiError(err)
   }
 }

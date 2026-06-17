@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, isAdminRole } from '@/lib/auth'
 import * as XLSX from 'xlsx'
@@ -97,11 +98,7 @@ export async function GET(request: NextRequest) {
       )
     }
   } catch (error) {
-    console.error('Error exporting activity logs:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

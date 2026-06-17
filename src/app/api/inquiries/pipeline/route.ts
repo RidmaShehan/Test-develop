@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { requirePermission } from '@/lib/authorization'
 import { prisma } from '@/lib/prisma'
 
@@ -59,7 +60,7 @@ export async function GET(req: NextRequest) {
   } catch (err: any) {
     if (err.name === 'AuthenticationError') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     if (err.name === 'ForbiddenError') return NextResponse.json({ error: err.message }, { status: 403 })
-    return NextResponse.json({ error: 'Failed to fetch pipeline' }, { status: 500 })
+    return handleApiError(err)
   }
 }
 
@@ -85,6 +86,6 @@ export async function PATCH(req: NextRequest) {
   } catch (err: any) {
     if (err.name === 'AuthenticationError') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     if (err.name === 'ForbiddenError') return NextResponse.json({ error: err.message }, { status: 403 })
-    return NextResponse.json({ error: 'Failed to update stage' }, { status: 500 })
+    return handleApiError(err)
   }
 }

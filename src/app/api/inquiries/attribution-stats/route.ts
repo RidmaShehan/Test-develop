@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { Prisma } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, AuthenticationError } from '@/lib/auth'
@@ -100,9 +101,6 @@ export async function GET(request: NextRequest) {
     if (error instanceof AuthenticationError) {
       return NextResponse.json({ error: error.message }, { status: 401 })
     }
-    return NextResponse.json(
-      { error: 'Failed to load attribution stats' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

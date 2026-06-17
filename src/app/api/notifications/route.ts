@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, AuthenticationError } from '@/lib/auth'
 import { invalidateUnreadCountCache } from '@/lib/notifications/unread-count-cache'
@@ -50,11 +51,7 @@ export async function GET(request: NextRequest) {
     if (error instanceof AuthenticationError) {
       return NextResponse.json({ error: error.message }, { status: 401 })
     }
-    console.error('Error fetching notifications:', error)
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to fetch notifications' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -100,11 +97,7 @@ export async function POST(request: NextRequest) {
     if (error instanceof AuthenticationError) {
       return NextResponse.json({ error: error.message }, { status: 401 })
     }
-    console.error('Error creating notification:', error)
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to create notification' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

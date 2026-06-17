@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, isAdminRole } from '@/lib/auth'
 
@@ -92,11 +93,7 @@ export async function GET(
 
     return NextResponse.json(task)
   } catch (error) {
-    console.error('Error fetching task:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch task' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -187,11 +184,7 @@ export async function PATCH(
 
     return NextResponse.json(updatedTask)
   } catch (error) {
-    console.error('Error updating task:', error)
-    return NextResponse.json(
-      { error: 'Failed to update task' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -268,11 +261,7 @@ export async function DELETE(
       message: 'Task deleted successfully' 
     })
   } catch (error) {
-    console.error('Error deleting task:', error)
-    return NextResponse.json(
-      { error: 'Failed to delete task' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

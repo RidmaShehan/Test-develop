@@ -313,6 +313,36 @@ export type Alumni = $Result.DefaultSelection<Prisma.$AlumniPayload>
  * 
  */
 export type AlumniEngagement = $Result.DefaultSelection<Prisma.$AlumniEngagementPayload>
+/**
+ * Model SavedFilter
+ * 
+ */
+export type SavedFilter = $Result.DefaultSelection<Prisma.$SavedFilterPayload>
+/**
+ * Model Pipeline
+ * 
+ */
+export type Pipeline = $Result.DefaultSelection<Prisma.$PipelinePayload>
+/**
+ * Model DealStageModel
+ * 
+ */
+export type DealStageModel = $Result.DefaultSelection<Prisma.$DealStageModelPayload>
+/**
+ * Model CustomField
+ * 
+ */
+export type CustomField = $Result.DefaultSelection<Prisma.$CustomFieldPayload>
+/**
+ * Model CustomFieldValue
+ * 
+ */
+export type CustomFieldValue = $Result.DefaultSelection<Prisma.$CustomFieldValuePayload>
+/**
+ * Model RefreshToken
+ * 
+ */
+export type RefreshToken = $Result.DefaultSelection<Prisma.$RefreshTokenPayload>
 
 /**
  * Enums
@@ -648,6 +678,17 @@ export const NotificationType: {
 
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
 
+
+export const CustomFieldType: {
+  TEXT: 'TEXT',
+  NUMBER: 'NUMBER',
+  DATE: 'DATE',
+  SELECT: 'SELECT',
+  BOOLEAN: 'BOOLEAN'
+};
+
+export type CustomFieldType = (typeof CustomFieldType)[keyof typeof CustomFieldType]
+
 }
 
 export type UserRole = $Enums.UserRole
@@ -737,6 +778,10 @@ export const ApprovalStatus: typeof $Enums.ApprovalStatus
 export type NotificationType = $Enums.NotificationType
 
 export const NotificationType: typeof $Enums.NotificationType
+
+export type CustomFieldType = $Enums.CustomFieldType
+
+export const CustomFieldType: typeof $Enums.CustomFieldType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1455,6 +1500,66 @@ export class PrismaClient<
     * ```
     */
   get alumniEngagement(): Prisma.AlumniEngagementDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.savedFilter`: Exposes CRUD operations for the **SavedFilter** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SavedFilters
+    * const savedFilters = await prisma.savedFilter.findMany()
+    * ```
+    */
+  get savedFilter(): Prisma.SavedFilterDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.pipeline`: Exposes CRUD operations for the **Pipeline** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Pipelines
+    * const pipelines = await prisma.pipeline.findMany()
+    * ```
+    */
+  get pipeline(): Prisma.PipelineDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.dealStageModel`: Exposes CRUD operations for the **DealStageModel** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DealStageModels
+    * const dealStageModels = await prisma.dealStageModel.findMany()
+    * ```
+    */
+  get dealStageModel(): Prisma.DealStageModelDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.customField`: Exposes CRUD operations for the **CustomField** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CustomFields
+    * const customFields = await prisma.customField.findMany()
+    * ```
+    */
+  get customField(): Prisma.CustomFieldDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.customFieldValue`: Exposes CRUD operations for the **CustomFieldValue** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CustomFieldValues
+    * const customFieldValues = await prisma.customFieldValue.findMany()
+    * ```
+    */
+  get customFieldValue(): Prisma.CustomFieldValueDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.refreshToken`: Exposes CRUD operations for the **RefreshToken** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RefreshTokens
+    * const refreshTokens = await prisma.refreshToken.findMany()
+    * ```
+    */
+  get refreshToken(): Prisma.RefreshTokenDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1954,7 +2059,13 @@ export namespace Prisma {
     SMSMessage: 'SMSMessage',
     SMSRecipient: 'SMSRecipient',
     Alumni: 'Alumni',
-    AlumniEngagement: 'AlumniEngagement'
+    AlumniEngagement: 'AlumniEngagement',
+    SavedFilter: 'SavedFilter',
+    Pipeline: 'Pipeline',
+    DealStageModel: 'DealStageModel',
+    CustomField: 'CustomField',
+    CustomFieldValue: 'CustomFieldValue',
+    RefreshToken: 'RefreshToken'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1973,7 +2084,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "role" | "permissionModel" | "userRoleAssignment" | "rolePermission" | "level" | "program" | "seeker" | "interaction" | "followUpTask" | "taskActionHistory" | "assignment" | "campaign" | "campaignType" | "campaignSeeker" | "userActivityLog" | "systemSettings" | "seekerProgram" | "whatsAppMessage" | "whatsAppTemplate" | "whatsAppRecipient" | "emailMessage" | "emailRecipient" | "emailAttachment" | "meeting" | "project" | "projectMember" | "task" | "taskChecklist" | "taskAttachment" | "taskComment" | "taskTimeEntry" | "deal" | "dealActivity" | "client" | "socialMediaPost" | "postApproval" | "postComment" | "notification" | "programQA" | "notebook" | "note" | "promotionCode" | "passwordResetToken" | "leadScore" | "voiceNote" | "documentType" | "programDocumentRequirement" | "document" | "documentVersion" | "documentRequest" | "invoice" | "invoiceItem" | "payment" | "event" | "eventRegistration" | "sMSMessage" | "sMSRecipient" | "alumni" | "alumniEngagement"
+      modelProps: "user" | "role" | "permissionModel" | "userRoleAssignment" | "rolePermission" | "level" | "program" | "seeker" | "interaction" | "followUpTask" | "taskActionHistory" | "assignment" | "campaign" | "campaignType" | "campaignSeeker" | "userActivityLog" | "systemSettings" | "seekerProgram" | "whatsAppMessage" | "whatsAppTemplate" | "whatsAppRecipient" | "emailMessage" | "emailRecipient" | "emailAttachment" | "meeting" | "project" | "projectMember" | "task" | "taskChecklist" | "taskAttachment" | "taskComment" | "taskTimeEntry" | "deal" | "dealActivity" | "client" | "socialMediaPost" | "postApproval" | "postComment" | "notification" | "programQA" | "notebook" | "note" | "promotionCode" | "passwordResetToken" | "leadScore" | "voiceNote" | "documentType" | "programDocumentRequirement" | "document" | "documentVersion" | "documentRequest" | "invoice" | "invoiceItem" | "payment" | "event" | "eventRegistration" | "sMSMessage" | "sMSRecipient" | "alumni" | "alumniEngagement" | "savedFilter" | "pipeline" | "dealStageModel" | "customField" | "customFieldValue" | "refreshToken"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -6417,6 +6528,450 @@ export namespace Prisma {
           }
         }
       }
+      SavedFilter: {
+        payload: Prisma.$SavedFilterPayload<ExtArgs>
+        fields: Prisma.SavedFilterFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SavedFilterFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedFilterPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SavedFilterFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedFilterPayload>
+          }
+          findFirst: {
+            args: Prisma.SavedFilterFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedFilterPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SavedFilterFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedFilterPayload>
+          }
+          findMany: {
+            args: Prisma.SavedFilterFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedFilterPayload>[]
+          }
+          create: {
+            args: Prisma.SavedFilterCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedFilterPayload>
+          }
+          createMany: {
+            args: Prisma.SavedFilterCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SavedFilterCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedFilterPayload>[]
+          }
+          delete: {
+            args: Prisma.SavedFilterDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedFilterPayload>
+          }
+          update: {
+            args: Prisma.SavedFilterUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedFilterPayload>
+          }
+          deleteMany: {
+            args: Prisma.SavedFilterDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SavedFilterUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SavedFilterUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedFilterPayload>[]
+          }
+          upsert: {
+            args: Prisma.SavedFilterUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavedFilterPayload>
+          }
+          aggregate: {
+            args: Prisma.SavedFilterAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSavedFilter>
+          }
+          groupBy: {
+            args: Prisma.SavedFilterGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SavedFilterGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SavedFilterCountArgs<ExtArgs>
+            result: $Utils.Optional<SavedFilterCountAggregateOutputType> | number
+          }
+        }
+      }
+      Pipeline: {
+        payload: Prisma.$PipelinePayload<ExtArgs>
+        fields: Prisma.PipelineFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PipelineFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelinePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PipelineFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelinePayload>
+          }
+          findFirst: {
+            args: Prisma.PipelineFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelinePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PipelineFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelinePayload>
+          }
+          findMany: {
+            args: Prisma.PipelineFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelinePayload>[]
+          }
+          create: {
+            args: Prisma.PipelineCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelinePayload>
+          }
+          createMany: {
+            args: Prisma.PipelineCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PipelineCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelinePayload>[]
+          }
+          delete: {
+            args: Prisma.PipelineDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelinePayload>
+          }
+          update: {
+            args: Prisma.PipelineUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelinePayload>
+          }
+          deleteMany: {
+            args: Prisma.PipelineDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PipelineUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PipelineUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelinePayload>[]
+          }
+          upsert: {
+            args: Prisma.PipelineUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelinePayload>
+          }
+          aggregate: {
+            args: Prisma.PipelineAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePipeline>
+          }
+          groupBy: {
+            args: Prisma.PipelineGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PipelineGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PipelineCountArgs<ExtArgs>
+            result: $Utils.Optional<PipelineCountAggregateOutputType> | number
+          }
+        }
+      }
+      DealStageModel: {
+        payload: Prisma.$DealStageModelPayload<ExtArgs>
+        fields: Prisma.DealStageModelFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DealStageModelFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealStageModelPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DealStageModelFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealStageModelPayload>
+          }
+          findFirst: {
+            args: Prisma.DealStageModelFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealStageModelPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DealStageModelFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealStageModelPayload>
+          }
+          findMany: {
+            args: Prisma.DealStageModelFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealStageModelPayload>[]
+          }
+          create: {
+            args: Prisma.DealStageModelCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealStageModelPayload>
+          }
+          createMany: {
+            args: Prisma.DealStageModelCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DealStageModelCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealStageModelPayload>[]
+          }
+          delete: {
+            args: Prisma.DealStageModelDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealStageModelPayload>
+          }
+          update: {
+            args: Prisma.DealStageModelUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealStageModelPayload>
+          }
+          deleteMany: {
+            args: Prisma.DealStageModelDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DealStageModelUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DealStageModelUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealStageModelPayload>[]
+          }
+          upsert: {
+            args: Prisma.DealStageModelUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealStageModelPayload>
+          }
+          aggregate: {
+            args: Prisma.DealStageModelAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDealStageModel>
+          }
+          groupBy: {
+            args: Prisma.DealStageModelGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DealStageModelGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DealStageModelCountArgs<ExtArgs>
+            result: $Utils.Optional<DealStageModelCountAggregateOutputType> | number
+          }
+        }
+      }
+      CustomField: {
+        payload: Prisma.$CustomFieldPayload<ExtArgs>
+        fields: Prisma.CustomFieldFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CustomFieldFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomFieldPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CustomFieldFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomFieldPayload>
+          }
+          findFirst: {
+            args: Prisma.CustomFieldFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomFieldPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CustomFieldFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomFieldPayload>
+          }
+          findMany: {
+            args: Prisma.CustomFieldFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomFieldPayload>[]
+          }
+          create: {
+            args: Prisma.CustomFieldCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomFieldPayload>
+          }
+          createMany: {
+            args: Prisma.CustomFieldCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CustomFieldCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomFieldPayload>[]
+          }
+          delete: {
+            args: Prisma.CustomFieldDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomFieldPayload>
+          }
+          update: {
+            args: Prisma.CustomFieldUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomFieldPayload>
+          }
+          deleteMany: {
+            args: Prisma.CustomFieldDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CustomFieldUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CustomFieldUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomFieldPayload>[]
+          }
+          upsert: {
+            args: Prisma.CustomFieldUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomFieldPayload>
+          }
+          aggregate: {
+            args: Prisma.CustomFieldAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCustomField>
+          }
+          groupBy: {
+            args: Prisma.CustomFieldGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CustomFieldGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CustomFieldCountArgs<ExtArgs>
+            result: $Utils.Optional<CustomFieldCountAggregateOutputType> | number
+          }
+        }
+      }
+      CustomFieldValue: {
+        payload: Prisma.$CustomFieldValuePayload<ExtArgs>
+        fields: Prisma.CustomFieldValueFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CustomFieldValueFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomFieldValuePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CustomFieldValueFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomFieldValuePayload>
+          }
+          findFirst: {
+            args: Prisma.CustomFieldValueFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomFieldValuePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CustomFieldValueFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomFieldValuePayload>
+          }
+          findMany: {
+            args: Prisma.CustomFieldValueFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomFieldValuePayload>[]
+          }
+          create: {
+            args: Prisma.CustomFieldValueCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomFieldValuePayload>
+          }
+          createMany: {
+            args: Prisma.CustomFieldValueCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CustomFieldValueCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomFieldValuePayload>[]
+          }
+          delete: {
+            args: Prisma.CustomFieldValueDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomFieldValuePayload>
+          }
+          update: {
+            args: Prisma.CustomFieldValueUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomFieldValuePayload>
+          }
+          deleteMany: {
+            args: Prisma.CustomFieldValueDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CustomFieldValueUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CustomFieldValueUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomFieldValuePayload>[]
+          }
+          upsert: {
+            args: Prisma.CustomFieldValueUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomFieldValuePayload>
+          }
+          aggregate: {
+            args: Prisma.CustomFieldValueAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCustomFieldValue>
+          }
+          groupBy: {
+            args: Prisma.CustomFieldValueGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CustomFieldValueGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CustomFieldValueCountArgs<ExtArgs>
+            result: $Utils.Optional<CustomFieldValueCountAggregateOutputType> | number
+          }
+        }
+      }
+      RefreshToken: {
+        payload: Prisma.$RefreshTokenPayload<ExtArgs>
+        fields: Prisma.RefreshTokenFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RefreshTokenFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefreshTokenPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RefreshTokenFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefreshTokenPayload>
+          }
+          findFirst: {
+            args: Prisma.RefreshTokenFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefreshTokenPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RefreshTokenFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefreshTokenPayload>
+          }
+          findMany: {
+            args: Prisma.RefreshTokenFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefreshTokenPayload>[]
+          }
+          create: {
+            args: Prisma.RefreshTokenCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefreshTokenPayload>
+          }
+          createMany: {
+            args: Prisma.RefreshTokenCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RefreshTokenCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefreshTokenPayload>[]
+          }
+          delete: {
+            args: Prisma.RefreshTokenDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefreshTokenPayload>
+          }
+          update: {
+            args: Prisma.RefreshTokenUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefreshTokenPayload>
+          }
+          deleteMany: {
+            args: Prisma.RefreshTokenDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RefreshTokenUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RefreshTokenUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefreshTokenPayload>[]
+          }
+          upsert: {
+            args: Prisma.RefreshTokenUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RefreshTokenPayload>
+          }
+          aggregate: {
+            args: Prisma.RefreshTokenAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRefreshToken>
+          }
+          groupBy: {
+            args: Prisma.RefreshTokenGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RefreshTokenGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RefreshTokenCountArgs<ExtArgs>
+            result: $Utils.Optional<RefreshTokenCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -6573,6 +7128,12 @@ export namespace Prisma {
     sMSRecipient?: SMSRecipientOmit
     alumni?: AlumniOmit
     alumniEngagement?: AlumniEngagementOmit
+    savedFilter?: SavedFilterOmit
+    pipeline?: PipelineOmit
+    dealStageModel?: DealStageModelOmit
+    customField?: CustomFieldOmit
+    customFieldValue?: CustomFieldValueOmit
+    refreshToken?: RefreshTokenOmit
   }
 
   /* Types for Logging */
@@ -6684,10 +7245,13 @@ export namespace Prisma {
     postApprovals: number
     postComments: number
     notifications: number
+    savedFilters: number
     createdNotebooks: number
     createdNotes: number
     createdPromotionCodes: number
     passwordResetTokens: number
+    refreshTokens: number
+    customFieldsCreated: number
     voiceNotes: number
     documentsUploaded: number
     documentsVerified: number
@@ -6730,10 +7294,13 @@ export namespace Prisma {
     postApprovals?: boolean | UserCountOutputTypeCountPostApprovalsArgs
     postComments?: boolean | UserCountOutputTypeCountPostCommentsArgs
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+    savedFilters?: boolean | UserCountOutputTypeCountSavedFiltersArgs
     createdNotebooks?: boolean | UserCountOutputTypeCountCreatedNotebooksArgs
     createdNotes?: boolean | UserCountOutputTypeCountCreatedNotesArgs
     createdPromotionCodes?: boolean | UserCountOutputTypeCountCreatedPromotionCodesArgs
     passwordResetTokens?: boolean | UserCountOutputTypeCountPasswordResetTokensArgs
+    refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
+    customFieldsCreated?: boolean | UserCountOutputTypeCountCustomFieldsCreatedArgs
     voiceNotes?: boolean | UserCountOutputTypeCountVoiceNotesArgs
     documentsUploaded?: boolean | UserCountOutputTypeCountDocumentsUploadedArgs
     documentsVerified?: boolean | UserCountOutputTypeCountDocumentsVerifiedArgs
@@ -6975,6 +7542,13 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
+  export type UserCountOutputTypeCountSavedFiltersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SavedFilterWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
   export type UserCountOutputTypeCountCreatedNotebooksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: NotebookWhereInput
   }
@@ -6998,6 +7572,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountPasswordResetTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PasswordResetTokenWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRefreshTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RefreshTokenWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCustomFieldsCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomFieldWhereInput
   }
 
   /**
@@ -8081,6 +8669,108 @@ export namespace Prisma {
 
 
   /**
+   * Count Type PipelineCountOutputType
+   */
+
+  export type PipelineCountOutputType = {
+    stages: number
+    deals: number
+  }
+
+  export type PipelineCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    stages?: boolean | PipelineCountOutputTypeCountStagesArgs
+    deals?: boolean | PipelineCountOutputTypeCountDealsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PipelineCountOutputType without action
+   */
+  export type PipelineCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PipelineCountOutputType
+     */
+    select?: PipelineCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PipelineCountOutputType without action
+   */
+  export type PipelineCountOutputTypeCountStagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DealStageModelWhereInput
+  }
+
+  /**
+   * PipelineCountOutputType without action
+   */
+  export type PipelineCountOutputTypeCountDealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DealWhereInput
+  }
+
+
+  /**
+   * Count Type DealStageModelCountOutputType
+   */
+
+  export type DealStageModelCountOutputType = {
+    deals: number
+  }
+
+  export type DealStageModelCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deals?: boolean | DealStageModelCountOutputTypeCountDealsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DealStageModelCountOutputType without action
+   */
+  export type DealStageModelCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStageModelCountOutputType
+     */
+    select?: DealStageModelCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DealStageModelCountOutputType without action
+   */
+  export type DealStageModelCountOutputTypeCountDealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DealWhereInput
+  }
+
+
+  /**
+   * Count Type CustomFieldCountOutputType
+   */
+
+  export type CustomFieldCountOutputType = {
+    values: number
+  }
+
+  export type CustomFieldCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    values?: boolean | CustomFieldCountOutputTypeCountValuesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CustomFieldCountOutputType without action
+   */
+  export type CustomFieldCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomFieldCountOutputType
+     */
+    select?: CustomFieldCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CustomFieldCountOutputType without action
+   */
+  export type CustomFieldCountOutputTypeCountValuesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomFieldValueWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -8106,6 +8796,8 @@ export namespace Prisma {
     whatsappToken: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    mfaEnabled: boolean | null
+    mfaSecret: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -8120,6 +8812,8 @@ export namespace Prisma {
     whatsappToken: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    mfaEnabled: boolean | null
+    mfaSecret: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -8134,6 +8828,8 @@ export namespace Prisma {
     whatsappToken: number
     createdAt: number
     updatedAt: number
+    mfaEnabled: number
+    mfaSecret: number
     _all: number
   }
 
@@ -8150,6 +8846,8 @@ export namespace Prisma {
     whatsappToken?: true
     createdAt?: true
     updatedAt?: true
+    mfaEnabled?: true
+    mfaSecret?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -8164,6 +8862,8 @@ export namespace Prisma {
     whatsappToken?: true
     createdAt?: true
     updatedAt?: true
+    mfaEnabled?: true
+    mfaSecret?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -8178,6 +8878,8 @@ export namespace Prisma {
     whatsappToken?: true
     createdAt?: true
     updatedAt?: true
+    mfaEnabled?: true
+    mfaSecret?: true
     _all?: true
   }
 
@@ -8265,6 +8967,8 @@ export namespace Prisma {
     whatsappToken: string | null
     createdAt: Date
     updatedAt: Date
+    mfaEnabled: boolean
+    mfaSecret: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -8296,6 +9000,8 @@ export namespace Prisma {
     whatsappToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    mfaEnabled?: boolean
+    mfaSecret?: boolean
     assignedSeekers?: boolean | User$assignedSeekersArgs<ExtArgs>
     followUpTasks?: boolean | User$followUpTasksArgs<ExtArgs>
     interactions?: boolean | User$interactionsArgs<ExtArgs>
@@ -8327,10 +9033,13 @@ export namespace Prisma {
     postApprovals?: boolean | User$postApprovalsArgs<ExtArgs>
     postComments?: boolean | User$postCommentsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
+    savedFilters?: boolean | User$savedFiltersArgs<ExtArgs>
     createdNotebooks?: boolean | User$createdNotebooksArgs<ExtArgs>
     createdNotes?: boolean | User$createdNotesArgs<ExtArgs>
     createdPromotionCodes?: boolean | User$createdPromotionCodesArgs<ExtArgs>
     passwordResetTokens?: boolean | User$passwordResetTokensArgs<ExtArgs>
+    refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
+    customFieldsCreated?: boolean | User$customFieldsCreatedArgs<ExtArgs>
     voiceNotes?: boolean | User$voiceNotesArgs<ExtArgs>
     documentsUploaded?: boolean | User$documentsUploadedArgs<ExtArgs>
     documentsVerified?: boolean | User$documentsVerifiedArgs<ExtArgs>
@@ -8354,6 +9063,8 @@ export namespace Prisma {
     whatsappToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    mfaEnabled?: boolean
+    mfaSecret?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -8368,6 +9079,8 @@ export namespace Prisma {
     whatsappToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    mfaEnabled?: boolean
+    mfaSecret?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -8382,9 +9095,11 @@ export namespace Prisma {
     whatsappToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    mfaEnabled?: boolean
+    mfaSecret?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerkId" | "name" | "email" | "password" | "role" | "isActive" | "whatsappInstanceId" | "whatsappToken" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerkId" | "name" | "email" | "password" | "role" | "isActive" | "whatsappInstanceId" | "whatsappToken" | "createdAt" | "updatedAt" | "mfaEnabled" | "mfaSecret", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     assignedSeekers?: boolean | User$assignedSeekersArgs<ExtArgs>
     followUpTasks?: boolean | User$followUpTasksArgs<ExtArgs>
@@ -8417,10 +9132,13 @@ export namespace Prisma {
     postApprovals?: boolean | User$postApprovalsArgs<ExtArgs>
     postComments?: boolean | User$postCommentsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
+    savedFilters?: boolean | User$savedFiltersArgs<ExtArgs>
     createdNotebooks?: boolean | User$createdNotebooksArgs<ExtArgs>
     createdNotes?: boolean | User$createdNotesArgs<ExtArgs>
     createdPromotionCodes?: boolean | User$createdPromotionCodesArgs<ExtArgs>
     passwordResetTokens?: boolean | User$passwordResetTokensArgs<ExtArgs>
+    refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
+    customFieldsCreated?: boolean | User$customFieldsCreatedArgs<ExtArgs>
     voiceNotes?: boolean | User$voiceNotesArgs<ExtArgs>
     documentsUploaded?: boolean | User$documentsUploadedArgs<ExtArgs>
     documentsVerified?: boolean | User$documentsVerifiedArgs<ExtArgs>
@@ -8468,10 +9186,13 @@ export namespace Prisma {
       postApprovals: Prisma.$PostApprovalPayload<ExtArgs>[]
       postComments: Prisma.$PostCommentPayload<ExtArgs>[]
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
+      savedFilters: Prisma.$SavedFilterPayload<ExtArgs>[]
       createdNotebooks: Prisma.$NotebookPayload<ExtArgs>[]
       createdNotes: Prisma.$NotePayload<ExtArgs>[]
       createdPromotionCodes: Prisma.$PromotionCodePayload<ExtArgs>[]
       passwordResetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[]
+      refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
+      customFieldsCreated: Prisma.$CustomFieldPayload<ExtArgs>[]
       voiceNotes: Prisma.$VoiceNotePayload<ExtArgs>[]
       documentsUploaded: Prisma.$DocumentPayload<ExtArgs>[]
       documentsVerified: Prisma.$DocumentPayload<ExtArgs>[]
@@ -8493,6 +9214,8 @@ export namespace Prisma {
       whatsappToken: string | null
       createdAt: Date
       updatedAt: Date
+      mfaEnabled: boolean
+      mfaSecret: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -8918,10 +9641,13 @@ export namespace Prisma {
     postApprovals<T extends User$postApprovalsArgs<ExtArgs> = {}>(args?: Subset<T, User$postApprovalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostApprovalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     postComments<T extends User$postCommentsArgs<ExtArgs> = {}>(args?: Subset<T, User$postCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    savedFilters<T extends User$savedFiltersArgs<ExtArgs> = {}>(args?: Subset<T, User$savedFiltersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedFilterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     createdNotebooks<T extends User$createdNotebooksArgs<ExtArgs> = {}>(args?: Subset<T, User$createdNotebooksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotebookPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     createdNotes<T extends User$createdNotesArgs<ExtArgs> = {}>(args?: Subset<T, User$createdNotesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     createdPromotionCodes<T extends User$createdPromotionCodesArgs<ExtArgs> = {}>(args?: Subset<T, User$createdPromotionCodesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PromotionCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     passwordResetTokens<T extends User$passwordResetTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    refreshTokens<T extends User$refreshTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    customFieldsCreated<T extends User$customFieldsCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$customFieldsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomFieldPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     voiceNotes<T extends User$voiceNotesArgs<ExtArgs> = {}>(args?: Subset<T, User$voiceNotesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VoiceNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     documentsUploaded<T extends User$documentsUploadedArgs<ExtArgs> = {}>(args?: Subset<T, User$documentsUploadedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     documentsVerified<T extends User$documentsVerifiedArgs<ExtArgs> = {}>(args?: Subset<T, User$documentsVerifiedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -8970,6 +9696,8 @@ export namespace Prisma {
     readonly whatsappToken: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly mfaEnabled: FieldRef<"User", 'Boolean'>
+    readonly mfaSecret: FieldRef<"User", 'String'>
   }
     
 
@@ -10100,6 +10828,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.savedFilters
+   */
+  export type User$savedFiltersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedFilter
+     */
+    select?: SavedFilterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedFilter
+     */
+    omit?: SavedFilterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedFilterInclude<ExtArgs> | null
+    where?: SavedFilterWhereInput
+    orderBy?: SavedFilterOrderByWithRelationInput | SavedFilterOrderByWithRelationInput[]
+    cursor?: SavedFilterWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SavedFilterScalarFieldEnum | SavedFilterScalarFieldEnum[]
+  }
+
+  /**
    * User.createdNotebooks
    */
   export type User$createdNotebooksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10193,6 +10945,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PasswordResetTokenScalarFieldEnum | PasswordResetTokenScalarFieldEnum[]
+  }
+
+  /**
+   * User.refreshTokens
+   */
+  export type User$refreshTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefreshTokenInclude<ExtArgs> | null
+    where?: RefreshTokenWhereInput
+    orderBy?: RefreshTokenOrderByWithRelationInput | RefreshTokenOrderByWithRelationInput[]
+    cursor?: RefreshTokenWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RefreshTokenScalarFieldEnum | RefreshTokenScalarFieldEnum[]
+  }
+
+  /**
+   * User.customFieldsCreated
+   */
+  export type User$customFieldsCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomField
+     */
+    select?: CustomFieldSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomField
+     */
+    omit?: CustomFieldOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldInclude<ExtArgs> | null
+    where?: CustomFieldWhereInput
+    orderBy?: CustomFieldOrderByWithRelationInput | CustomFieldOrderByWithRelationInput[]
+    cursor?: CustomFieldWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CustomFieldScalarFieldEnum | CustomFieldScalarFieldEnum[]
   }
 
   /**
@@ -47008,6 +47808,8 @@ export namespace Prisma {
     assignedToId: string | null
     projectId: string | null
     clientId: string | null
+    pipelineId: string | null
+    stageId: string | null
   }
 
   export type DealMaxAggregateOutputType = {
@@ -47028,6 +47830,8 @@ export namespace Prisma {
     assignedToId: string | null
     projectId: string | null
     clientId: string | null
+    pipelineId: string | null
+    stageId: string | null
   }
 
   export type DealCountAggregateOutputType = {
@@ -47048,6 +47852,8 @@ export namespace Prisma {
     assignedToId: number
     projectId: number
     clientId: number
+    pipelineId: number
+    stageId: number
     _all: number
   }
 
@@ -47080,6 +47886,8 @@ export namespace Prisma {
     assignedToId?: true
     projectId?: true
     clientId?: true
+    pipelineId?: true
+    stageId?: true
   }
 
   export type DealMaxAggregateInputType = {
@@ -47100,6 +47908,8 @@ export namespace Prisma {
     assignedToId?: true
     projectId?: true
     clientId?: true
+    pipelineId?: true
+    stageId?: true
   }
 
   export type DealCountAggregateInputType = {
@@ -47120,6 +47930,8 @@ export namespace Prisma {
     assignedToId?: true
     projectId?: true
     clientId?: true
+    pipelineId?: true
+    stageId?: true
     _all?: true
   }
 
@@ -47227,6 +48039,8 @@ export namespace Prisma {
     assignedToId: string | null
     projectId: string | null
     clientId: string | null
+    pipelineId: string | null
+    stageId: string | null
     _count: DealCountAggregateOutputType | null
     _avg: DealAvgAggregateOutputType | null
     _sum: DealSumAggregateOutputType | null
@@ -47266,10 +48080,14 @@ export namespace Prisma {
     assignedToId?: boolean
     projectId?: boolean
     clientId?: boolean
+    pipelineId?: boolean
+    stageId?: boolean
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     assignedTo?: boolean | Deal$assignedToArgs<ExtArgs>
     project?: boolean | Deal$projectArgs<ExtArgs>
     client?: boolean | Deal$clientArgs<ExtArgs>
+    pipeline?: boolean | Deal$pipelineArgs<ExtArgs>
+    stageRelation?: boolean | Deal$stageRelationArgs<ExtArgs>
     activities?: boolean | Deal$activitiesArgs<ExtArgs>
     _count?: boolean | DealCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["deal"]>
@@ -47292,10 +48110,14 @@ export namespace Prisma {
     assignedToId?: boolean
     projectId?: boolean
     clientId?: boolean
+    pipelineId?: boolean
+    stageId?: boolean
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     assignedTo?: boolean | Deal$assignedToArgs<ExtArgs>
     project?: boolean | Deal$projectArgs<ExtArgs>
     client?: boolean | Deal$clientArgs<ExtArgs>
+    pipeline?: boolean | Deal$pipelineArgs<ExtArgs>
+    stageRelation?: boolean | Deal$stageRelationArgs<ExtArgs>
   }, ExtArgs["result"]["deal"]>
 
   export type DealSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -47316,10 +48138,14 @@ export namespace Prisma {
     assignedToId?: boolean
     projectId?: boolean
     clientId?: boolean
+    pipelineId?: boolean
+    stageId?: boolean
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     assignedTo?: boolean | Deal$assignedToArgs<ExtArgs>
     project?: boolean | Deal$projectArgs<ExtArgs>
     client?: boolean | Deal$clientArgs<ExtArgs>
+    pipeline?: boolean | Deal$pipelineArgs<ExtArgs>
+    stageRelation?: boolean | Deal$stageRelationArgs<ExtArgs>
   }, ExtArgs["result"]["deal"]>
 
   export type DealSelectScalar = {
@@ -47340,14 +48166,18 @@ export namespace Prisma {
     assignedToId?: boolean
     projectId?: boolean
     clientId?: boolean
+    pipelineId?: boolean
+    stageId?: boolean
   }
 
-  export type DealOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "value" | "currency" | "stage" | "probability" | "expectedCloseDate" | "actualCloseDate" | "source" | "tags" | "createdAt" | "updatedAt" | "createdById" | "assignedToId" | "projectId" | "clientId", ExtArgs["result"]["deal"]>
+  export type DealOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "value" | "currency" | "stage" | "probability" | "expectedCloseDate" | "actualCloseDate" | "source" | "tags" | "createdAt" | "updatedAt" | "createdById" | "assignedToId" | "projectId" | "clientId" | "pipelineId" | "stageId", ExtArgs["result"]["deal"]>
   export type DealInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     assignedTo?: boolean | Deal$assignedToArgs<ExtArgs>
     project?: boolean | Deal$projectArgs<ExtArgs>
     client?: boolean | Deal$clientArgs<ExtArgs>
+    pipeline?: boolean | Deal$pipelineArgs<ExtArgs>
+    stageRelation?: boolean | Deal$stageRelationArgs<ExtArgs>
     activities?: boolean | Deal$activitiesArgs<ExtArgs>
     _count?: boolean | DealCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -47356,12 +48186,16 @@ export namespace Prisma {
     assignedTo?: boolean | Deal$assignedToArgs<ExtArgs>
     project?: boolean | Deal$projectArgs<ExtArgs>
     client?: boolean | Deal$clientArgs<ExtArgs>
+    pipeline?: boolean | Deal$pipelineArgs<ExtArgs>
+    stageRelation?: boolean | Deal$stageRelationArgs<ExtArgs>
   }
   export type DealIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     assignedTo?: boolean | Deal$assignedToArgs<ExtArgs>
     project?: boolean | Deal$projectArgs<ExtArgs>
     client?: boolean | Deal$clientArgs<ExtArgs>
+    pipeline?: boolean | Deal$pipelineArgs<ExtArgs>
+    stageRelation?: boolean | Deal$stageRelationArgs<ExtArgs>
   }
 
   export type $DealPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -47371,6 +48205,8 @@ export namespace Prisma {
       assignedTo: Prisma.$UserPayload<ExtArgs> | null
       project: Prisma.$ProjectPayload<ExtArgs> | null
       client: Prisma.$ClientPayload<ExtArgs> | null
+      pipeline: Prisma.$PipelinePayload<ExtArgs> | null
+      stageRelation: Prisma.$DealStageModelPayload<ExtArgs> | null
       activities: Prisma.$DealActivityPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -47391,6 +48227,8 @@ export namespace Prisma {
       assignedToId: string | null
       projectId: string | null
       clientId: string | null
+      pipelineId: string | null
+      stageId: string | null
     }, ExtArgs["result"]["deal"]>
     composites: {}
   }
@@ -47789,6 +48627,8 @@ export namespace Prisma {
     assignedTo<T extends Deal$assignedToArgs<ExtArgs> = {}>(args?: Subset<T, Deal$assignedToArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     project<T extends Deal$projectArgs<ExtArgs> = {}>(args?: Subset<T, Deal$projectArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     client<T extends Deal$clientArgs<ExtArgs> = {}>(args?: Subset<T, Deal$clientArgs<ExtArgs>>): Prisma__ClientClient<$Result.GetResult<Prisma.$ClientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    pipeline<T extends Deal$pipelineArgs<ExtArgs> = {}>(args?: Subset<T, Deal$pipelineArgs<ExtArgs>>): Prisma__PipelineClient<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    stageRelation<T extends Deal$stageRelationArgs<ExtArgs> = {}>(args?: Subset<T, Deal$stageRelationArgs<ExtArgs>>): Prisma__DealStageModelClient<$Result.GetResult<Prisma.$DealStageModelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     activities<T extends Deal$activitiesArgs<ExtArgs> = {}>(args?: Subset<T, Deal$activitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -47836,6 +48676,8 @@ export namespace Prisma {
     readonly assignedToId: FieldRef<"Deal", 'String'>
     readonly projectId: FieldRef<"Deal", 'String'>
     readonly clientId: FieldRef<"Deal", 'String'>
+    readonly pipelineId: FieldRef<"Deal", 'String'>
+    readonly stageId: FieldRef<"Deal", 'String'>
   }
     
 
@@ -48284,6 +49126,44 @@ export namespace Prisma {
      */
     include?: ClientInclude<ExtArgs> | null
     where?: ClientWhereInput
+  }
+
+  /**
+   * Deal.pipeline
+   */
+  export type Deal$pipelineArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pipeline
+     */
+    omit?: PipelineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineInclude<ExtArgs> | null
+    where?: PipelineWhereInput
+  }
+
+  /**
+   * Deal.stageRelation
+   */
+  export type Deal$stageRelationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStageModel
+     */
+    select?: DealStageModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStageModel
+     */
+    omit?: DealStageModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageModelInclude<ExtArgs> | null
+    where?: DealStageModelWhereInput
   }
 
   /**
@@ -79810,6 +80690,6681 @@ export namespace Prisma {
 
 
   /**
+   * Model SavedFilter
+   */
+
+  export type AggregateSavedFilter = {
+    _count: SavedFilterCountAggregateOutputType | null
+    _min: SavedFilterMinAggregateOutputType | null
+    _max: SavedFilterMaxAggregateOutputType | null
+  }
+
+  export type SavedFilterMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    entityType: string | null
+    filterData: string | null
+    isDefault: boolean | null
+    isPublic: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    userId: string | null
+  }
+
+  export type SavedFilterMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    entityType: string | null
+    filterData: string | null
+    isDefault: boolean | null
+    isPublic: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    userId: string | null
+  }
+
+  export type SavedFilterCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    entityType: number
+    filterData: number
+    isDefault: number
+    isPublic: number
+    createdAt: number
+    updatedAt: number
+    userId: number
+    _all: number
+  }
+
+
+  export type SavedFilterMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    entityType?: true
+    filterData?: true
+    isDefault?: true
+    isPublic?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+  }
+
+  export type SavedFilterMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    entityType?: true
+    filterData?: true
+    isDefault?: true
+    isPublic?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+  }
+
+  export type SavedFilterCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    entityType?: true
+    filterData?: true
+    isDefault?: true
+    isPublic?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+    _all?: true
+  }
+
+  export type SavedFilterAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SavedFilter to aggregate.
+     */
+    where?: SavedFilterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SavedFilters to fetch.
+     */
+    orderBy?: SavedFilterOrderByWithRelationInput | SavedFilterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SavedFilterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SavedFilters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SavedFilters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SavedFilters
+    **/
+    _count?: true | SavedFilterCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SavedFilterMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SavedFilterMaxAggregateInputType
+  }
+
+  export type GetSavedFilterAggregateType<T extends SavedFilterAggregateArgs> = {
+        [P in keyof T & keyof AggregateSavedFilter]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSavedFilter[P]>
+      : GetScalarType<T[P], AggregateSavedFilter[P]>
+  }
+
+
+
+
+  export type SavedFilterGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SavedFilterWhereInput
+    orderBy?: SavedFilterOrderByWithAggregationInput | SavedFilterOrderByWithAggregationInput[]
+    by: SavedFilterScalarFieldEnum[] | SavedFilterScalarFieldEnum
+    having?: SavedFilterScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SavedFilterCountAggregateInputType | true
+    _min?: SavedFilterMinAggregateInputType
+    _max?: SavedFilterMaxAggregateInputType
+  }
+
+  export type SavedFilterGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    entityType: string
+    filterData: string
+    isDefault: boolean
+    isPublic: boolean
+    createdAt: Date
+    updatedAt: Date
+    userId: string
+    _count: SavedFilterCountAggregateOutputType | null
+    _min: SavedFilterMinAggregateOutputType | null
+    _max: SavedFilterMaxAggregateOutputType | null
+  }
+
+  type GetSavedFilterGroupByPayload<T extends SavedFilterGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SavedFilterGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SavedFilterGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SavedFilterGroupByOutputType[P]>
+            : GetScalarType<T[P], SavedFilterGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SavedFilterSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    entityType?: boolean
+    filterData?: boolean
+    isDefault?: boolean
+    isPublic?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["savedFilter"]>
+
+  export type SavedFilterSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    entityType?: boolean
+    filterData?: boolean
+    isDefault?: boolean
+    isPublic?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["savedFilter"]>
+
+  export type SavedFilterSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    entityType?: boolean
+    filterData?: boolean
+    isDefault?: boolean
+    isPublic?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["savedFilter"]>
+
+  export type SavedFilterSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    entityType?: boolean
+    filterData?: boolean
+    isDefault?: boolean
+    isPublic?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+  }
+
+  export type SavedFilterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "entityType" | "filterData" | "isDefault" | "isPublic" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["savedFilter"]>
+  export type SavedFilterInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type SavedFilterIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type SavedFilterIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $SavedFilterPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SavedFilter"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      entityType: string
+      filterData: string
+      isDefault: boolean
+      isPublic: boolean
+      createdAt: Date
+      updatedAt: Date
+      userId: string
+    }, ExtArgs["result"]["savedFilter"]>
+    composites: {}
+  }
+
+  type SavedFilterGetPayload<S extends boolean | null | undefined | SavedFilterDefaultArgs> = $Result.GetResult<Prisma.$SavedFilterPayload, S>
+
+  type SavedFilterCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SavedFilterFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SavedFilterCountAggregateInputType | true
+    }
+
+  export interface SavedFilterDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SavedFilter'], meta: { name: 'SavedFilter' } }
+    /**
+     * Find zero or one SavedFilter that matches the filter.
+     * @param {SavedFilterFindUniqueArgs} args - Arguments to find a SavedFilter
+     * @example
+     * // Get one SavedFilter
+     * const savedFilter = await prisma.savedFilter.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SavedFilterFindUniqueArgs>(args: SelectSubset<T, SavedFilterFindUniqueArgs<ExtArgs>>): Prisma__SavedFilterClient<$Result.GetResult<Prisma.$SavedFilterPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SavedFilter that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SavedFilterFindUniqueOrThrowArgs} args - Arguments to find a SavedFilter
+     * @example
+     * // Get one SavedFilter
+     * const savedFilter = await prisma.savedFilter.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SavedFilterFindUniqueOrThrowArgs>(args: SelectSubset<T, SavedFilterFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SavedFilterClient<$Result.GetResult<Prisma.$SavedFilterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SavedFilter that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedFilterFindFirstArgs} args - Arguments to find a SavedFilter
+     * @example
+     * // Get one SavedFilter
+     * const savedFilter = await prisma.savedFilter.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SavedFilterFindFirstArgs>(args?: SelectSubset<T, SavedFilterFindFirstArgs<ExtArgs>>): Prisma__SavedFilterClient<$Result.GetResult<Prisma.$SavedFilterPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SavedFilter that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedFilterFindFirstOrThrowArgs} args - Arguments to find a SavedFilter
+     * @example
+     * // Get one SavedFilter
+     * const savedFilter = await prisma.savedFilter.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SavedFilterFindFirstOrThrowArgs>(args?: SelectSubset<T, SavedFilterFindFirstOrThrowArgs<ExtArgs>>): Prisma__SavedFilterClient<$Result.GetResult<Prisma.$SavedFilterPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SavedFilters that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedFilterFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SavedFilters
+     * const savedFilters = await prisma.savedFilter.findMany()
+     * 
+     * // Get first 10 SavedFilters
+     * const savedFilters = await prisma.savedFilter.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const savedFilterWithIdOnly = await prisma.savedFilter.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SavedFilterFindManyArgs>(args?: SelectSubset<T, SavedFilterFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedFilterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SavedFilter.
+     * @param {SavedFilterCreateArgs} args - Arguments to create a SavedFilter.
+     * @example
+     * // Create one SavedFilter
+     * const SavedFilter = await prisma.savedFilter.create({
+     *   data: {
+     *     // ... data to create a SavedFilter
+     *   }
+     * })
+     * 
+     */
+    create<T extends SavedFilterCreateArgs>(args: SelectSubset<T, SavedFilterCreateArgs<ExtArgs>>): Prisma__SavedFilterClient<$Result.GetResult<Prisma.$SavedFilterPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SavedFilters.
+     * @param {SavedFilterCreateManyArgs} args - Arguments to create many SavedFilters.
+     * @example
+     * // Create many SavedFilters
+     * const savedFilter = await prisma.savedFilter.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SavedFilterCreateManyArgs>(args?: SelectSubset<T, SavedFilterCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SavedFilters and returns the data saved in the database.
+     * @param {SavedFilterCreateManyAndReturnArgs} args - Arguments to create many SavedFilters.
+     * @example
+     * // Create many SavedFilters
+     * const savedFilter = await prisma.savedFilter.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SavedFilters and only return the `id`
+     * const savedFilterWithIdOnly = await prisma.savedFilter.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SavedFilterCreateManyAndReturnArgs>(args?: SelectSubset<T, SavedFilterCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedFilterPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SavedFilter.
+     * @param {SavedFilterDeleteArgs} args - Arguments to delete one SavedFilter.
+     * @example
+     * // Delete one SavedFilter
+     * const SavedFilter = await prisma.savedFilter.delete({
+     *   where: {
+     *     // ... filter to delete one SavedFilter
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SavedFilterDeleteArgs>(args: SelectSubset<T, SavedFilterDeleteArgs<ExtArgs>>): Prisma__SavedFilterClient<$Result.GetResult<Prisma.$SavedFilterPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SavedFilter.
+     * @param {SavedFilterUpdateArgs} args - Arguments to update one SavedFilter.
+     * @example
+     * // Update one SavedFilter
+     * const savedFilter = await prisma.savedFilter.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SavedFilterUpdateArgs>(args: SelectSubset<T, SavedFilterUpdateArgs<ExtArgs>>): Prisma__SavedFilterClient<$Result.GetResult<Prisma.$SavedFilterPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SavedFilters.
+     * @param {SavedFilterDeleteManyArgs} args - Arguments to filter SavedFilters to delete.
+     * @example
+     * // Delete a few SavedFilters
+     * const { count } = await prisma.savedFilter.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SavedFilterDeleteManyArgs>(args?: SelectSubset<T, SavedFilterDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SavedFilters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedFilterUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SavedFilters
+     * const savedFilter = await prisma.savedFilter.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SavedFilterUpdateManyArgs>(args: SelectSubset<T, SavedFilterUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SavedFilters and returns the data updated in the database.
+     * @param {SavedFilterUpdateManyAndReturnArgs} args - Arguments to update many SavedFilters.
+     * @example
+     * // Update many SavedFilters
+     * const savedFilter = await prisma.savedFilter.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SavedFilters and only return the `id`
+     * const savedFilterWithIdOnly = await prisma.savedFilter.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SavedFilterUpdateManyAndReturnArgs>(args: SelectSubset<T, SavedFilterUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavedFilterPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SavedFilter.
+     * @param {SavedFilterUpsertArgs} args - Arguments to update or create a SavedFilter.
+     * @example
+     * // Update or create a SavedFilter
+     * const savedFilter = await prisma.savedFilter.upsert({
+     *   create: {
+     *     // ... data to create a SavedFilter
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SavedFilter we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SavedFilterUpsertArgs>(args: SelectSubset<T, SavedFilterUpsertArgs<ExtArgs>>): Prisma__SavedFilterClient<$Result.GetResult<Prisma.$SavedFilterPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SavedFilters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedFilterCountArgs} args - Arguments to filter SavedFilters to count.
+     * @example
+     * // Count the number of SavedFilters
+     * const count = await prisma.savedFilter.count({
+     *   where: {
+     *     // ... the filter for the SavedFilters we want to count
+     *   }
+     * })
+    **/
+    count<T extends SavedFilterCountArgs>(
+      args?: Subset<T, SavedFilterCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SavedFilterCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SavedFilter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedFilterAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SavedFilterAggregateArgs>(args: Subset<T, SavedFilterAggregateArgs>): Prisma.PrismaPromise<GetSavedFilterAggregateType<T>>
+
+    /**
+     * Group by SavedFilter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavedFilterGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SavedFilterGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SavedFilterGroupByArgs['orderBy'] }
+        : { orderBy?: SavedFilterGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SavedFilterGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSavedFilterGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SavedFilter model
+   */
+  readonly fields: SavedFilterFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SavedFilter.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SavedFilterClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SavedFilter model
+   */
+  interface SavedFilterFieldRefs {
+    readonly id: FieldRef<"SavedFilter", 'String'>
+    readonly name: FieldRef<"SavedFilter", 'String'>
+    readonly description: FieldRef<"SavedFilter", 'String'>
+    readonly entityType: FieldRef<"SavedFilter", 'String'>
+    readonly filterData: FieldRef<"SavedFilter", 'String'>
+    readonly isDefault: FieldRef<"SavedFilter", 'Boolean'>
+    readonly isPublic: FieldRef<"SavedFilter", 'Boolean'>
+    readonly createdAt: FieldRef<"SavedFilter", 'DateTime'>
+    readonly updatedAt: FieldRef<"SavedFilter", 'DateTime'>
+    readonly userId: FieldRef<"SavedFilter", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SavedFilter findUnique
+   */
+  export type SavedFilterFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedFilter
+     */
+    select?: SavedFilterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedFilter
+     */
+    omit?: SavedFilterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedFilterInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedFilter to fetch.
+     */
+    where: SavedFilterWhereUniqueInput
+  }
+
+  /**
+   * SavedFilter findUniqueOrThrow
+   */
+  export type SavedFilterFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedFilter
+     */
+    select?: SavedFilterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedFilter
+     */
+    omit?: SavedFilterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedFilterInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedFilter to fetch.
+     */
+    where: SavedFilterWhereUniqueInput
+  }
+
+  /**
+   * SavedFilter findFirst
+   */
+  export type SavedFilterFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedFilter
+     */
+    select?: SavedFilterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedFilter
+     */
+    omit?: SavedFilterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedFilterInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedFilter to fetch.
+     */
+    where?: SavedFilterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SavedFilters to fetch.
+     */
+    orderBy?: SavedFilterOrderByWithRelationInput | SavedFilterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SavedFilters.
+     */
+    cursor?: SavedFilterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SavedFilters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SavedFilters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SavedFilters.
+     */
+    distinct?: SavedFilterScalarFieldEnum | SavedFilterScalarFieldEnum[]
+  }
+
+  /**
+   * SavedFilter findFirstOrThrow
+   */
+  export type SavedFilterFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedFilter
+     */
+    select?: SavedFilterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedFilter
+     */
+    omit?: SavedFilterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedFilterInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedFilter to fetch.
+     */
+    where?: SavedFilterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SavedFilters to fetch.
+     */
+    orderBy?: SavedFilterOrderByWithRelationInput | SavedFilterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SavedFilters.
+     */
+    cursor?: SavedFilterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SavedFilters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SavedFilters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SavedFilters.
+     */
+    distinct?: SavedFilterScalarFieldEnum | SavedFilterScalarFieldEnum[]
+  }
+
+  /**
+   * SavedFilter findMany
+   */
+  export type SavedFilterFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedFilter
+     */
+    select?: SavedFilterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedFilter
+     */
+    omit?: SavedFilterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedFilterInclude<ExtArgs> | null
+    /**
+     * Filter, which SavedFilters to fetch.
+     */
+    where?: SavedFilterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SavedFilters to fetch.
+     */
+    orderBy?: SavedFilterOrderByWithRelationInput | SavedFilterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SavedFilters.
+     */
+    cursor?: SavedFilterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SavedFilters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SavedFilters.
+     */
+    skip?: number
+    distinct?: SavedFilterScalarFieldEnum | SavedFilterScalarFieldEnum[]
+  }
+
+  /**
+   * SavedFilter create
+   */
+  export type SavedFilterCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedFilter
+     */
+    select?: SavedFilterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedFilter
+     */
+    omit?: SavedFilterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedFilterInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SavedFilter.
+     */
+    data: XOR<SavedFilterCreateInput, SavedFilterUncheckedCreateInput>
+  }
+
+  /**
+   * SavedFilter createMany
+   */
+  export type SavedFilterCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SavedFilters.
+     */
+    data: SavedFilterCreateManyInput | SavedFilterCreateManyInput[]
+  }
+
+  /**
+   * SavedFilter createManyAndReturn
+   */
+  export type SavedFilterCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedFilter
+     */
+    select?: SavedFilterSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedFilter
+     */
+    omit?: SavedFilterOmit<ExtArgs> | null
+    /**
+     * The data used to create many SavedFilters.
+     */
+    data: SavedFilterCreateManyInput | SavedFilterCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedFilterIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SavedFilter update
+   */
+  export type SavedFilterUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedFilter
+     */
+    select?: SavedFilterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedFilter
+     */
+    omit?: SavedFilterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedFilterInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SavedFilter.
+     */
+    data: XOR<SavedFilterUpdateInput, SavedFilterUncheckedUpdateInput>
+    /**
+     * Choose, which SavedFilter to update.
+     */
+    where: SavedFilterWhereUniqueInput
+  }
+
+  /**
+   * SavedFilter updateMany
+   */
+  export type SavedFilterUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SavedFilters.
+     */
+    data: XOR<SavedFilterUpdateManyMutationInput, SavedFilterUncheckedUpdateManyInput>
+    /**
+     * Filter which SavedFilters to update
+     */
+    where?: SavedFilterWhereInput
+    /**
+     * Limit how many SavedFilters to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SavedFilter updateManyAndReturn
+   */
+  export type SavedFilterUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedFilter
+     */
+    select?: SavedFilterSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedFilter
+     */
+    omit?: SavedFilterOmit<ExtArgs> | null
+    /**
+     * The data used to update SavedFilters.
+     */
+    data: XOR<SavedFilterUpdateManyMutationInput, SavedFilterUncheckedUpdateManyInput>
+    /**
+     * Filter which SavedFilters to update
+     */
+    where?: SavedFilterWhereInput
+    /**
+     * Limit how many SavedFilters to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedFilterIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SavedFilter upsert
+   */
+  export type SavedFilterUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedFilter
+     */
+    select?: SavedFilterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedFilter
+     */
+    omit?: SavedFilterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedFilterInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SavedFilter to update in case it exists.
+     */
+    where: SavedFilterWhereUniqueInput
+    /**
+     * In case the SavedFilter found by the `where` argument doesn't exist, create a new SavedFilter with this data.
+     */
+    create: XOR<SavedFilterCreateInput, SavedFilterUncheckedCreateInput>
+    /**
+     * In case the SavedFilter was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SavedFilterUpdateInput, SavedFilterUncheckedUpdateInput>
+  }
+
+  /**
+   * SavedFilter delete
+   */
+  export type SavedFilterDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedFilter
+     */
+    select?: SavedFilterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedFilter
+     */
+    omit?: SavedFilterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedFilterInclude<ExtArgs> | null
+    /**
+     * Filter which SavedFilter to delete.
+     */
+    where: SavedFilterWhereUniqueInput
+  }
+
+  /**
+   * SavedFilter deleteMany
+   */
+  export type SavedFilterDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SavedFilters to delete
+     */
+    where?: SavedFilterWhereInput
+    /**
+     * Limit how many SavedFilters to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SavedFilter without action
+   */
+  export type SavedFilterDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavedFilter
+     */
+    select?: SavedFilterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SavedFilter
+     */
+    omit?: SavedFilterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavedFilterInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Pipeline
+   */
+
+  export type AggregatePipeline = {
+    _count: PipelineCountAggregateOutputType | null
+    _min: PipelineMinAggregateOutputType | null
+    _max: PipelineMaxAggregateOutputType | null
+  }
+
+  export type PipelineMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PipelineMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PipelineCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PipelineMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PipelineMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PipelineCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PipelineAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Pipeline to aggregate.
+     */
+    where?: PipelineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Pipelines to fetch.
+     */
+    orderBy?: PipelineOrderByWithRelationInput | PipelineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PipelineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Pipelines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Pipelines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Pipelines
+    **/
+    _count?: true | PipelineCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PipelineMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PipelineMaxAggregateInputType
+  }
+
+  export type GetPipelineAggregateType<T extends PipelineAggregateArgs> = {
+        [P in keyof T & keyof AggregatePipeline]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePipeline[P]>
+      : GetScalarType<T[P], AggregatePipeline[P]>
+  }
+
+
+
+
+  export type PipelineGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PipelineWhereInput
+    orderBy?: PipelineOrderByWithAggregationInput | PipelineOrderByWithAggregationInput[]
+    by: PipelineScalarFieldEnum[] | PipelineScalarFieldEnum
+    having?: PipelineScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PipelineCountAggregateInputType | true
+    _min?: PipelineMinAggregateInputType
+    _max?: PipelineMaxAggregateInputType
+  }
+
+  export type PipelineGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: PipelineCountAggregateOutputType | null
+    _min: PipelineMinAggregateOutputType | null
+    _max: PipelineMaxAggregateOutputType | null
+  }
+
+  type GetPipelineGroupByPayload<T extends PipelineGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PipelineGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PipelineGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PipelineGroupByOutputType[P]>
+            : GetScalarType<T[P], PipelineGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PipelineSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    stages?: boolean | Pipeline$stagesArgs<ExtArgs>
+    deals?: boolean | Pipeline$dealsArgs<ExtArgs>
+    _count?: boolean | PipelineCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pipeline"]>
+
+  export type PipelineSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["pipeline"]>
+
+  export type PipelineSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["pipeline"]>
+
+  export type PipelineSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PipelineOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["pipeline"]>
+  export type PipelineInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    stages?: boolean | Pipeline$stagesArgs<ExtArgs>
+    deals?: boolean | Pipeline$dealsArgs<ExtArgs>
+    _count?: boolean | PipelineCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PipelineIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type PipelineIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $PipelinePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Pipeline"
+    objects: {
+      stages: Prisma.$DealStageModelPayload<ExtArgs>[]
+      deals: Prisma.$DealPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["pipeline"]>
+    composites: {}
+  }
+
+  type PipelineGetPayload<S extends boolean | null | undefined | PipelineDefaultArgs> = $Result.GetResult<Prisma.$PipelinePayload, S>
+
+  type PipelineCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PipelineFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PipelineCountAggregateInputType | true
+    }
+
+  export interface PipelineDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Pipeline'], meta: { name: 'Pipeline' } }
+    /**
+     * Find zero or one Pipeline that matches the filter.
+     * @param {PipelineFindUniqueArgs} args - Arguments to find a Pipeline
+     * @example
+     * // Get one Pipeline
+     * const pipeline = await prisma.pipeline.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PipelineFindUniqueArgs>(args: SelectSubset<T, PipelineFindUniqueArgs<ExtArgs>>): Prisma__PipelineClient<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Pipeline that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PipelineFindUniqueOrThrowArgs} args - Arguments to find a Pipeline
+     * @example
+     * // Get one Pipeline
+     * const pipeline = await prisma.pipeline.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PipelineFindUniqueOrThrowArgs>(args: SelectSubset<T, PipelineFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PipelineClient<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Pipeline that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PipelineFindFirstArgs} args - Arguments to find a Pipeline
+     * @example
+     * // Get one Pipeline
+     * const pipeline = await prisma.pipeline.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PipelineFindFirstArgs>(args?: SelectSubset<T, PipelineFindFirstArgs<ExtArgs>>): Prisma__PipelineClient<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Pipeline that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PipelineFindFirstOrThrowArgs} args - Arguments to find a Pipeline
+     * @example
+     * // Get one Pipeline
+     * const pipeline = await prisma.pipeline.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PipelineFindFirstOrThrowArgs>(args?: SelectSubset<T, PipelineFindFirstOrThrowArgs<ExtArgs>>): Prisma__PipelineClient<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Pipelines that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PipelineFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Pipelines
+     * const pipelines = await prisma.pipeline.findMany()
+     * 
+     * // Get first 10 Pipelines
+     * const pipelines = await prisma.pipeline.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const pipelineWithIdOnly = await prisma.pipeline.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PipelineFindManyArgs>(args?: SelectSubset<T, PipelineFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Pipeline.
+     * @param {PipelineCreateArgs} args - Arguments to create a Pipeline.
+     * @example
+     * // Create one Pipeline
+     * const Pipeline = await prisma.pipeline.create({
+     *   data: {
+     *     // ... data to create a Pipeline
+     *   }
+     * })
+     * 
+     */
+    create<T extends PipelineCreateArgs>(args: SelectSubset<T, PipelineCreateArgs<ExtArgs>>): Prisma__PipelineClient<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Pipelines.
+     * @param {PipelineCreateManyArgs} args - Arguments to create many Pipelines.
+     * @example
+     * // Create many Pipelines
+     * const pipeline = await prisma.pipeline.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PipelineCreateManyArgs>(args?: SelectSubset<T, PipelineCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Pipelines and returns the data saved in the database.
+     * @param {PipelineCreateManyAndReturnArgs} args - Arguments to create many Pipelines.
+     * @example
+     * // Create many Pipelines
+     * const pipeline = await prisma.pipeline.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Pipelines and only return the `id`
+     * const pipelineWithIdOnly = await prisma.pipeline.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PipelineCreateManyAndReturnArgs>(args?: SelectSubset<T, PipelineCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Pipeline.
+     * @param {PipelineDeleteArgs} args - Arguments to delete one Pipeline.
+     * @example
+     * // Delete one Pipeline
+     * const Pipeline = await prisma.pipeline.delete({
+     *   where: {
+     *     // ... filter to delete one Pipeline
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PipelineDeleteArgs>(args: SelectSubset<T, PipelineDeleteArgs<ExtArgs>>): Prisma__PipelineClient<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Pipeline.
+     * @param {PipelineUpdateArgs} args - Arguments to update one Pipeline.
+     * @example
+     * // Update one Pipeline
+     * const pipeline = await prisma.pipeline.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PipelineUpdateArgs>(args: SelectSubset<T, PipelineUpdateArgs<ExtArgs>>): Prisma__PipelineClient<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Pipelines.
+     * @param {PipelineDeleteManyArgs} args - Arguments to filter Pipelines to delete.
+     * @example
+     * // Delete a few Pipelines
+     * const { count } = await prisma.pipeline.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PipelineDeleteManyArgs>(args?: SelectSubset<T, PipelineDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Pipelines.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PipelineUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Pipelines
+     * const pipeline = await prisma.pipeline.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PipelineUpdateManyArgs>(args: SelectSubset<T, PipelineUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Pipelines and returns the data updated in the database.
+     * @param {PipelineUpdateManyAndReturnArgs} args - Arguments to update many Pipelines.
+     * @example
+     * // Update many Pipelines
+     * const pipeline = await prisma.pipeline.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Pipelines and only return the `id`
+     * const pipelineWithIdOnly = await prisma.pipeline.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PipelineUpdateManyAndReturnArgs>(args: SelectSubset<T, PipelineUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Pipeline.
+     * @param {PipelineUpsertArgs} args - Arguments to update or create a Pipeline.
+     * @example
+     * // Update or create a Pipeline
+     * const pipeline = await prisma.pipeline.upsert({
+     *   create: {
+     *     // ... data to create a Pipeline
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Pipeline we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PipelineUpsertArgs>(args: SelectSubset<T, PipelineUpsertArgs<ExtArgs>>): Prisma__PipelineClient<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Pipelines.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PipelineCountArgs} args - Arguments to filter Pipelines to count.
+     * @example
+     * // Count the number of Pipelines
+     * const count = await prisma.pipeline.count({
+     *   where: {
+     *     // ... the filter for the Pipelines we want to count
+     *   }
+     * })
+    **/
+    count<T extends PipelineCountArgs>(
+      args?: Subset<T, PipelineCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PipelineCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Pipeline.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PipelineAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PipelineAggregateArgs>(args: Subset<T, PipelineAggregateArgs>): Prisma.PrismaPromise<GetPipelineAggregateType<T>>
+
+    /**
+     * Group by Pipeline.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PipelineGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PipelineGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PipelineGroupByArgs['orderBy'] }
+        : { orderBy?: PipelineGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PipelineGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPipelineGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Pipeline model
+   */
+  readonly fields: PipelineFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Pipeline.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PipelineClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    stages<T extends Pipeline$stagesArgs<ExtArgs> = {}>(args?: Subset<T, Pipeline$stagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealStageModelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    deals<T extends Pipeline$dealsArgs<ExtArgs> = {}>(args?: Subset<T, Pipeline$dealsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Pipeline model
+   */
+  interface PipelineFieldRefs {
+    readonly id: FieldRef<"Pipeline", 'String'>
+    readonly name: FieldRef<"Pipeline", 'String'>
+    readonly description: FieldRef<"Pipeline", 'String'>
+    readonly isActive: FieldRef<"Pipeline", 'Boolean'>
+    readonly createdAt: FieldRef<"Pipeline", 'DateTime'>
+    readonly updatedAt: FieldRef<"Pipeline", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Pipeline findUnique
+   */
+  export type PipelineFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pipeline
+     */
+    omit?: PipelineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineInclude<ExtArgs> | null
+    /**
+     * Filter, which Pipeline to fetch.
+     */
+    where: PipelineWhereUniqueInput
+  }
+
+  /**
+   * Pipeline findUniqueOrThrow
+   */
+  export type PipelineFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pipeline
+     */
+    omit?: PipelineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineInclude<ExtArgs> | null
+    /**
+     * Filter, which Pipeline to fetch.
+     */
+    where: PipelineWhereUniqueInput
+  }
+
+  /**
+   * Pipeline findFirst
+   */
+  export type PipelineFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pipeline
+     */
+    omit?: PipelineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineInclude<ExtArgs> | null
+    /**
+     * Filter, which Pipeline to fetch.
+     */
+    where?: PipelineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Pipelines to fetch.
+     */
+    orderBy?: PipelineOrderByWithRelationInput | PipelineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Pipelines.
+     */
+    cursor?: PipelineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Pipelines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Pipelines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Pipelines.
+     */
+    distinct?: PipelineScalarFieldEnum | PipelineScalarFieldEnum[]
+  }
+
+  /**
+   * Pipeline findFirstOrThrow
+   */
+  export type PipelineFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pipeline
+     */
+    omit?: PipelineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineInclude<ExtArgs> | null
+    /**
+     * Filter, which Pipeline to fetch.
+     */
+    where?: PipelineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Pipelines to fetch.
+     */
+    orderBy?: PipelineOrderByWithRelationInput | PipelineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Pipelines.
+     */
+    cursor?: PipelineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Pipelines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Pipelines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Pipelines.
+     */
+    distinct?: PipelineScalarFieldEnum | PipelineScalarFieldEnum[]
+  }
+
+  /**
+   * Pipeline findMany
+   */
+  export type PipelineFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pipeline
+     */
+    omit?: PipelineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineInclude<ExtArgs> | null
+    /**
+     * Filter, which Pipelines to fetch.
+     */
+    where?: PipelineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Pipelines to fetch.
+     */
+    orderBy?: PipelineOrderByWithRelationInput | PipelineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Pipelines.
+     */
+    cursor?: PipelineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Pipelines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Pipelines.
+     */
+    skip?: number
+    distinct?: PipelineScalarFieldEnum | PipelineScalarFieldEnum[]
+  }
+
+  /**
+   * Pipeline create
+   */
+  export type PipelineCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pipeline
+     */
+    omit?: PipelineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Pipeline.
+     */
+    data: XOR<PipelineCreateInput, PipelineUncheckedCreateInput>
+  }
+
+  /**
+   * Pipeline createMany
+   */
+  export type PipelineCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Pipelines.
+     */
+    data: PipelineCreateManyInput | PipelineCreateManyInput[]
+  }
+
+  /**
+   * Pipeline createManyAndReturn
+   */
+  export type PipelineCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pipeline
+     */
+    omit?: PipelineOmit<ExtArgs> | null
+    /**
+     * The data used to create many Pipelines.
+     */
+    data: PipelineCreateManyInput | PipelineCreateManyInput[]
+  }
+
+  /**
+   * Pipeline update
+   */
+  export type PipelineUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pipeline
+     */
+    omit?: PipelineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Pipeline.
+     */
+    data: XOR<PipelineUpdateInput, PipelineUncheckedUpdateInput>
+    /**
+     * Choose, which Pipeline to update.
+     */
+    where: PipelineWhereUniqueInput
+  }
+
+  /**
+   * Pipeline updateMany
+   */
+  export type PipelineUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Pipelines.
+     */
+    data: XOR<PipelineUpdateManyMutationInput, PipelineUncheckedUpdateManyInput>
+    /**
+     * Filter which Pipelines to update
+     */
+    where?: PipelineWhereInput
+    /**
+     * Limit how many Pipelines to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Pipeline updateManyAndReturn
+   */
+  export type PipelineUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pipeline
+     */
+    omit?: PipelineOmit<ExtArgs> | null
+    /**
+     * The data used to update Pipelines.
+     */
+    data: XOR<PipelineUpdateManyMutationInput, PipelineUncheckedUpdateManyInput>
+    /**
+     * Filter which Pipelines to update
+     */
+    where?: PipelineWhereInput
+    /**
+     * Limit how many Pipelines to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Pipeline upsert
+   */
+  export type PipelineUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pipeline
+     */
+    omit?: PipelineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Pipeline to update in case it exists.
+     */
+    where: PipelineWhereUniqueInput
+    /**
+     * In case the Pipeline found by the `where` argument doesn't exist, create a new Pipeline with this data.
+     */
+    create: XOR<PipelineCreateInput, PipelineUncheckedCreateInput>
+    /**
+     * In case the Pipeline was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PipelineUpdateInput, PipelineUncheckedUpdateInput>
+  }
+
+  /**
+   * Pipeline delete
+   */
+  export type PipelineDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pipeline
+     */
+    omit?: PipelineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineInclude<ExtArgs> | null
+    /**
+     * Filter which Pipeline to delete.
+     */
+    where: PipelineWhereUniqueInput
+  }
+
+  /**
+   * Pipeline deleteMany
+   */
+  export type PipelineDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Pipelines to delete
+     */
+    where?: PipelineWhereInput
+    /**
+     * Limit how many Pipelines to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Pipeline.stages
+   */
+  export type Pipeline$stagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStageModel
+     */
+    select?: DealStageModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStageModel
+     */
+    omit?: DealStageModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageModelInclude<ExtArgs> | null
+    where?: DealStageModelWhereInput
+    orderBy?: DealStageModelOrderByWithRelationInput | DealStageModelOrderByWithRelationInput[]
+    cursor?: DealStageModelWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DealStageModelScalarFieldEnum | DealStageModelScalarFieldEnum[]
+  }
+
+  /**
+   * Pipeline.deals
+   */
+  export type Pipeline$dealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deal
+     */
+    omit?: DealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    where?: DealWhereInput
+    orderBy?: DealOrderByWithRelationInput | DealOrderByWithRelationInput[]
+    cursor?: DealWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DealScalarFieldEnum | DealScalarFieldEnum[]
+  }
+
+  /**
+   * Pipeline without action
+   */
+  export type PipelineDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pipeline
+     */
+    omit?: PipelineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DealStageModel
+   */
+
+  export type AggregateDealStageModel = {
+    _count: DealStageModelCountAggregateOutputType | null
+    _avg: DealStageModelAvgAggregateOutputType | null
+    _sum: DealStageModelSumAggregateOutputType | null
+    _min: DealStageModelMinAggregateOutputType | null
+    _max: DealStageModelMaxAggregateOutputType | null
+  }
+
+  export type DealStageModelAvgAggregateOutputType = {
+    order: number | null
+    probability: number | null
+  }
+
+  export type DealStageModelSumAggregateOutputType = {
+    order: number | null
+    probability: number | null
+  }
+
+  export type DealStageModelMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    order: number | null
+    probability: number | null
+    pipelineId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DealStageModelMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    order: number | null
+    probability: number | null
+    pipelineId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DealStageModelCountAggregateOutputType = {
+    id: number
+    name: number
+    order: number
+    probability: number
+    pipelineId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DealStageModelAvgAggregateInputType = {
+    order?: true
+    probability?: true
+  }
+
+  export type DealStageModelSumAggregateInputType = {
+    order?: true
+    probability?: true
+  }
+
+  export type DealStageModelMinAggregateInputType = {
+    id?: true
+    name?: true
+    order?: true
+    probability?: true
+    pipelineId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DealStageModelMaxAggregateInputType = {
+    id?: true
+    name?: true
+    order?: true
+    probability?: true
+    pipelineId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DealStageModelCountAggregateInputType = {
+    id?: true
+    name?: true
+    order?: true
+    probability?: true
+    pipelineId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DealStageModelAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DealStageModel to aggregate.
+     */
+    where?: DealStageModelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DealStageModels to fetch.
+     */
+    orderBy?: DealStageModelOrderByWithRelationInput | DealStageModelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DealStageModelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DealStageModels from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DealStageModels.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DealStageModels
+    **/
+    _count?: true | DealStageModelCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DealStageModelAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DealStageModelSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DealStageModelMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DealStageModelMaxAggregateInputType
+  }
+
+  export type GetDealStageModelAggregateType<T extends DealStageModelAggregateArgs> = {
+        [P in keyof T & keyof AggregateDealStageModel]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDealStageModel[P]>
+      : GetScalarType<T[P], AggregateDealStageModel[P]>
+  }
+
+
+
+
+  export type DealStageModelGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DealStageModelWhereInput
+    orderBy?: DealStageModelOrderByWithAggregationInput | DealStageModelOrderByWithAggregationInput[]
+    by: DealStageModelScalarFieldEnum[] | DealStageModelScalarFieldEnum
+    having?: DealStageModelScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DealStageModelCountAggregateInputType | true
+    _avg?: DealStageModelAvgAggregateInputType
+    _sum?: DealStageModelSumAggregateInputType
+    _min?: DealStageModelMinAggregateInputType
+    _max?: DealStageModelMaxAggregateInputType
+  }
+
+  export type DealStageModelGroupByOutputType = {
+    id: string
+    name: string
+    order: number
+    probability: number
+    pipelineId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: DealStageModelCountAggregateOutputType | null
+    _avg: DealStageModelAvgAggregateOutputType | null
+    _sum: DealStageModelSumAggregateOutputType | null
+    _min: DealStageModelMinAggregateOutputType | null
+    _max: DealStageModelMaxAggregateOutputType | null
+  }
+
+  type GetDealStageModelGroupByPayload<T extends DealStageModelGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DealStageModelGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DealStageModelGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DealStageModelGroupByOutputType[P]>
+            : GetScalarType<T[P], DealStageModelGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DealStageModelSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    order?: boolean
+    probability?: boolean
+    pipelineId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    pipeline?: boolean | PipelineDefaultArgs<ExtArgs>
+    deals?: boolean | DealStageModel$dealsArgs<ExtArgs>
+    _count?: boolean | DealStageModelCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dealStageModel"]>
+
+  export type DealStageModelSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    order?: boolean
+    probability?: boolean
+    pipelineId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    pipeline?: boolean | PipelineDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dealStageModel"]>
+
+  export type DealStageModelSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    order?: boolean
+    probability?: boolean
+    pipelineId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    pipeline?: boolean | PipelineDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dealStageModel"]>
+
+  export type DealStageModelSelectScalar = {
+    id?: boolean
+    name?: boolean
+    order?: boolean
+    probability?: boolean
+    pipelineId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DealStageModelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "order" | "probability" | "pipelineId" | "createdAt" | "updatedAt", ExtArgs["result"]["dealStageModel"]>
+  export type DealStageModelInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    pipeline?: boolean | PipelineDefaultArgs<ExtArgs>
+    deals?: boolean | DealStageModel$dealsArgs<ExtArgs>
+    _count?: boolean | DealStageModelCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DealStageModelIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    pipeline?: boolean | PipelineDefaultArgs<ExtArgs>
+  }
+  export type DealStageModelIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    pipeline?: boolean | PipelineDefaultArgs<ExtArgs>
+  }
+
+  export type $DealStageModelPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DealStageModel"
+    objects: {
+      pipeline: Prisma.$PipelinePayload<ExtArgs>
+      deals: Prisma.$DealPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      order: number
+      probability: number
+      pipelineId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["dealStageModel"]>
+    composites: {}
+  }
+
+  type DealStageModelGetPayload<S extends boolean | null | undefined | DealStageModelDefaultArgs> = $Result.GetResult<Prisma.$DealStageModelPayload, S>
+
+  type DealStageModelCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DealStageModelFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DealStageModelCountAggregateInputType | true
+    }
+
+  export interface DealStageModelDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DealStageModel'], meta: { name: 'DealStageModel' } }
+    /**
+     * Find zero or one DealStageModel that matches the filter.
+     * @param {DealStageModelFindUniqueArgs} args - Arguments to find a DealStageModel
+     * @example
+     * // Get one DealStageModel
+     * const dealStageModel = await prisma.dealStageModel.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DealStageModelFindUniqueArgs>(args: SelectSubset<T, DealStageModelFindUniqueArgs<ExtArgs>>): Prisma__DealStageModelClient<$Result.GetResult<Prisma.$DealStageModelPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DealStageModel that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DealStageModelFindUniqueOrThrowArgs} args - Arguments to find a DealStageModel
+     * @example
+     * // Get one DealStageModel
+     * const dealStageModel = await prisma.dealStageModel.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DealStageModelFindUniqueOrThrowArgs>(args: SelectSubset<T, DealStageModelFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DealStageModelClient<$Result.GetResult<Prisma.$DealStageModelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DealStageModel that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealStageModelFindFirstArgs} args - Arguments to find a DealStageModel
+     * @example
+     * // Get one DealStageModel
+     * const dealStageModel = await prisma.dealStageModel.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DealStageModelFindFirstArgs>(args?: SelectSubset<T, DealStageModelFindFirstArgs<ExtArgs>>): Prisma__DealStageModelClient<$Result.GetResult<Prisma.$DealStageModelPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DealStageModel that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealStageModelFindFirstOrThrowArgs} args - Arguments to find a DealStageModel
+     * @example
+     * // Get one DealStageModel
+     * const dealStageModel = await prisma.dealStageModel.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DealStageModelFindFirstOrThrowArgs>(args?: SelectSubset<T, DealStageModelFindFirstOrThrowArgs<ExtArgs>>): Prisma__DealStageModelClient<$Result.GetResult<Prisma.$DealStageModelPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DealStageModels that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealStageModelFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DealStageModels
+     * const dealStageModels = await prisma.dealStageModel.findMany()
+     * 
+     * // Get first 10 DealStageModels
+     * const dealStageModels = await prisma.dealStageModel.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const dealStageModelWithIdOnly = await prisma.dealStageModel.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DealStageModelFindManyArgs>(args?: SelectSubset<T, DealStageModelFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealStageModelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DealStageModel.
+     * @param {DealStageModelCreateArgs} args - Arguments to create a DealStageModel.
+     * @example
+     * // Create one DealStageModel
+     * const DealStageModel = await prisma.dealStageModel.create({
+     *   data: {
+     *     // ... data to create a DealStageModel
+     *   }
+     * })
+     * 
+     */
+    create<T extends DealStageModelCreateArgs>(args: SelectSubset<T, DealStageModelCreateArgs<ExtArgs>>): Prisma__DealStageModelClient<$Result.GetResult<Prisma.$DealStageModelPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DealStageModels.
+     * @param {DealStageModelCreateManyArgs} args - Arguments to create many DealStageModels.
+     * @example
+     * // Create many DealStageModels
+     * const dealStageModel = await prisma.dealStageModel.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DealStageModelCreateManyArgs>(args?: SelectSubset<T, DealStageModelCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DealStageModels and returns the data saved in the database.
+     * @param {DealStageModelCreateManyAndReturnArgs} args - Arguments to create many DealStageModels.
+     * @example
+     * // Create many DealStageModels
+     * const dealStageModel = await prisma.dealStageModel.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DealStageModels and only return the `id`
+     * const dealStageModelWithIdOnly = await prisma.dealStageModel.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DealStageModelCreateManyAndReturnArgs>(args?: SelectSubset<T, DealStageModelCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealStageModelPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DealStageModel.
+     * @param {DealStageModelDeleteArgs} args - Arguments to delete one DealStageModel.
+     * @example
+     * // Delete one DealStageModel
+     * const DealStageModel = await prisma.dealStageModel.delete({
+     *   where: {
+     *     // ... filter to delete one DealStageModel
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DealStageModelDeleteArgs>(args: SelectSubset<T, DealStageModelDeleteArgs<ExtArgs>>): Prisma__DealStageModelClient<$Result.GetResult<Prisma.$DealStageModelPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DealStageModel.
+     * @param {DealStageModelUpdateArgs} args - Arguments to update one DealStageModel.
+     * @example
+     * // Update one DealStageModel
+     * const dealStageModel = await prisma.dealStageModel.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DealStageModelUpdateArgs>(args: SelectSubset<T, DealStageModelUpdateArgs<ExtArgs>>): Prisma__DealStageModelClient<$Result.GetResult<Prisma.$DealStageModelPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DealStageModels.
+     * @param {DealStageModelDeleteManyArgs} args - Arguments to filter DealStageModels to delete.
+     * @example
+     * // Delete a few DealStageModels
+     * const { count } = await prisma.dealStageModel.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DealStageModelDeleteManyArgs>(args?: SelectSubset<T, DealStageModelDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DealStageModels.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealStageModelUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DealStageModels
+     * const dealStageModel = await prisma.dealStageModel.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DealStageModelUpdateManyArgs>(args: SelectSubset<T, DealStageModelUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DealStageModels and returns the data updated in the database.
+     * @param {DealStageModelUpdateManyAndReturnArgs} args - Arguments to update many DealStageModels.
+     * @example
+     * // Update many DealStageModels
+     * const dealStageModel = await prisma.dealStageModel.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DealStageModels and only return the `id`
+     * const dealStageModelWithIdOnly = await prisma.dealStageModel.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DealStageModelUpdateManyAndReturnArgs>(args: SelectSubset<T, DealStageModelUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealStageModelPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DealStageModel.
+     * @param {DealStageModelUpsertArgs} args - Arguments to update or create a DealStageModel.
+     * @example
+     * // Update or create a DealStageModel
+     * const dealStageModel = await prisma.dealStageModel.upsert({
+     *   create: {
+     *     // ... data to create a DealStageModel
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DealStageModel we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DealStageModelUpsertArgs>(args: SelectSubset<T, DealStageModelUpsertArgs<ExtArgs>>): Prisma__DealStageModelClient<$Result.GetResult<Prisma.$DealStageModelPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DealStageModels.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealStageModelCountArgs} args - Arguments to filter DealStageModels to count.
+     * @example
+     * // Count the number of DealStageModels
+     * const count = await prisma.dealStageModel.count({
+     *   where: {
+     *     // ... the filter for the DealStageModels we want to count
+     *   }
+     * })
+    **/
+    count<T extends DealStageModelCountArgs>(
+      args?: Subset<T, DealStageModelCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DealStageModelCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DealStageModel.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealStageModelAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DealStageModelAggregateArgs>(args: Subset<T, DealStageModelAggregateArgs>): Prisma.PrismaPromise<GetDealStageModelAggregateType<T>>
+
+    /**
+     * Group by DealStageModel.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealStageModelGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DealStageModelGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DealStageModelGroupByArgs['orderBy'] }
+        : { orderBy?: DealStageModelGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DealStageModelGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDealStageModelGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DealStageModel model
+   */
+  readonly fields: DealStageModelFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DealStageModel.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DealStageModelClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    pipeline<T extends PipelineDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PipelineDefaultArgs<ExtArgs>>): Prisma__PipelineClient<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    deals<T extends DealStageModel$dealsArgs<ExtArgs> = {}>(args?: Subset<T, DealStageModel$dealsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DealStageModel model
+   */
+  interface DealStageModelFieldRefs {
+    readonly id: FieldRef<"DealStageModel", 'String'>
+    readonly name: FieldRef<"DealStageModel", 'String'>
+    readonly order: FieldRef<"DealStageModel", 'Int'>
+    readonly probability: FieldRef<"DealStageModel", 'Int'>
+    readonly pipelineId: FieldRef<"DealStageModel", 'String'>
+    readonly createdAt: FieldRef<"DealStageModel", 'DateTime'>
+    readonly updatedAt: FieldRef<"DealStageModel", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DealStageModel findUnique
+   */
+  export type DealStageModelFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStageModel
+     */
+    select?: DealStageModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStageModel
+     */
+    omit?: DealStageModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageModelInclude<ExtArgs> | null
+    /**
+     * Filter, which DealStageModel to fetch.
+     */
+    where: DealStageModelWhereUniqueInput
+  }
+
+  /**
+   * DealStageModel findUniqueOrThrow
+   */
+  export type DealStageModelFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStageModel
+     */
+    select?: DealStageModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStageModel
+     */
+    omit?: DealStageModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageModelInclude<ExtArgs> | null
+    /**
+     * Filter, which DealStageModel to fetch.
+     */
+    where: DealStageModelWhereUniqueInput
+  }
+
+  /**
+   * DealStageModel findFirst
+   */
+  export type DealStageModelFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStageModel
+     */
+    select?: DealStageModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStageModel
+     */
+    omit?: DealStageModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageModelInclude<ExtArgs> | null
+    /**
+     * Filter, which DealStageModel to fetch.
+     */
+    where?: DealStageModelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DealStageModels to fetch.
+     */
+    orderBy?: DealStageModelOrderByWithRelationInput | DealStageModelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DealStageModels.
+     */
+    cursor?: DealStageModelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DealStageModels from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DealStageModels.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DealStageModels.
+     */
+    distinct?: DealStageModelScalarFieldEnum | DealStageModelScalarFieldEnum[]
+  }
+
+  /**
+   * DealStageModel findFirstOrThrow
+   */
+  export type DealStageModelFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStageModel
+     */
+    select?: DealStageModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStageModel
+     */
+    omit?: DealStageModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageModelInclude<ExtArgs> | null
+    /**
+     * Filter, which DealStageModel to fetch.
+     */
+    where?: DealStageModelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DealStageModels to fetch.
+     */
+    orderBy?: DealStageModelOrderByWithRelationInput | DealStageModelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DealStageModels.
+     */
+    cursor?: DealStageModelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DealStageModels from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DealStageModels.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DealStageModels.
+     */
+    distinct?: DealStageModelScalarFieldEnum | DealStageModelScalarFieldEnum[]
+  }
+
+  /**
+   * DealStageModel findMany
+   */
+  export type DealStageModelFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStageModel
+     */
+    select?: DealStageModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStageModel
+     */
+    omit?: DealStageModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageModelInclude<ExtArgs> | null
+    /**
+     * Filter, which DealStageModels to fetch.
+     */
+    where?: DealStageModelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DealStageModels to fetch.
+     */
+    orderBy?: DealStageModelOrderByWithRelationInput | DealStageModelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DealStageModels.
+     */
+    cursor?: DealStageModelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DealStageModels from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DealStageModels.
+     */
+    skip?: number
+    distinct?: DealStageModelScalarFieldEnum | DealStageModelScalarFieldEnum[]
+  }
+
+  /**
+   * DealStageModel create
+   */
+  export type DealStageModelCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStageModel
+     */
+    select?: DealStageModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStageModel
+     */
+    omit?: DealStageModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageModelInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DealStageModel.
+     */
+    data: XOR<DealStageModelCreateInput, DealStageModelUncheckedCreateInput>
+  }
+
+  /**
+   * DealStageModel createMany
+   */
+  export type DealStageModelCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DealStageModels.
+     */
+    data: DealStageModelCreateManyInput | DealStageModelCreateManyInput[]
+  }
+
+  /**
+   * DealStageModel createManyAndReturn
+   */
+  export type DealStageModelCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStageModel
+     */
+    select?: DealStageModelSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStageModel
+     */
+    omit?: DealStageModelOmit<ExtArgs> | null
+    /**
+     * The data used to create many DealStageModels.
+     */
+    data: DealStageModelCreateManyInput | DealStageModelCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageModelIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DealStageModel update
+   */
+  export type DealStageModelUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStageModel
+     */
+    select?: DealStageModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStageModel
+     */
+    omit?: DealStageModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageModelInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DealStageModel.
+     */
+    data: XOR<DealStageModelUpdateInput, DealStageModelUncheckedUpdateInput>
+    /**
+     * Choose, which DealStageModel to update.
+     */
+    where: DealStageModelWhereUniqueInput
+  }
+
+  /**
+   * DealStageModel updateMany
+   */
+  export type DealStageModelUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DealStageModels.
+     */
+    data: XOR<DealStageModelUpdateManyMutationInput, DealStageModelUncheckedUpdateManyInput>
+    /**
+     * Filter which DealStageModels to update
+     */
+    where?: DealStageModelWhereInput
+    /**
+     * Limit how many DealStageModels to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DealStageModel updateManyAndReturn
+   */
+  export type DealStageModelUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStageModel
+     */
+    select?: DealStageModelSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStageModel
+     */
+    omit?: DealStageModelOmit<ExtArgs> | null
+    /**
+     * The data used to update DealStageModels.
+     */
+    data: XOR<DealStageModelUpdateManyMutationInput, DealStageModelUncheckedUpdateManyInput>
+    /**
+     * Filter which DealStageModels to update
+     */
+    where?: DealStageModelWhereInput
+    /**
+     * Limit how many DealStageModels to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageModelIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DealStageModel upsert
+   */
+  export type DealStageModelUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStageModel
+     */
+    select?: DealStageModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStageModel
+     */
+    omit?: DealStageModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageModelInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DealStageModel to update in case it exists.
+     */
+    where: DealStageModelWhereUniqueInput
+    /**
+     * In case the DealStageModel found by the `where` argument doesn't exist, create a new DealStageModel with this data.
+     */
+    create: XOR<DealStageModelCreateInput, DealStageModelUncheckedCreateInput>
+    /**
+     * In case the DealStageModel was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DealStageModelUpdateInput, DealStageModelUncheckedUpdateInput>
+  }
+
+  /**
+   * DealStageModel delete
+   */
+  export type DealStageModelDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStageModel
+     */
+    select?: DealStageModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStageModel
+     */
+    omit?: DealStageModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageModelInclude<ExtArgs> | null
+    /**
+     * Filter which DealStageModel to delete.
+     */
+    where: DealStageModelWhereUniqueInput
+  }
+
+  /**
+   * DealStageModel deleteMany
+   */
+  export type DealStageModelDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DealStageModels to delete
+     */
+    where?: DealStageModelWhereInput
+    /**
+     * Limit how many DealStageModels to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DealStageModel.deals
+   */
+  export type DealStageModel$dealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deal
+     */
+    omit?: DealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    where?: DealWhereInput
+    orderBy?: DealOrderByWithRelationInput | DealOrderByWithRelationInput[]
+    cursor?: DealWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DealScalarFieldEnum | DealScalarFieldEnum[]
+  }
+
+  /**
+   * DealStageModel without action
+   */
+  export type DealStageModelDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStageModel
+     */
+    select?: DealStageModelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStageModel
+     */
+    omit?: DealStageModelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageModelInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CustomField
+   */
+
+  export type AggregateCustomField = {
+    _count: CustomFieldCountAggregateOutputType | null
+    _min: CustomFieldMinAggregateOutputType | null
+    _max: CustomFieldMaxAggregateOutputType | null
+  }
+
+  export type CustomFieldMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    type: $Enums.CustomFieldType | null
+    entityType: string | null
+    isRequired: boolean | null
+    options: string | null
+    createdById: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CustomFieldMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    type: $Enums.CustomFieldType | null
+    entityType: string | null
+    isRequired: boolean | null
+    options: string | null
+    createdById: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CustomFieldCountAggregateOutputType = {
+    id: number
+    name: number
+    type: number
+    entityType: number
+    isRequired: number
+    options: number
+    createdById: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CustomFieldMinAggregateInputType = {
+    id?: true
+    name?: true
+    type?: true
+    entityType?: true
+    isRequired?: true
+    options?: true
+    createdById?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CustomFieldMaxAggregateInputType = {
+    id?: true
+    name?: true
+    type?: true
+    entityType?: true
+    isRequired?: true
+    options?: true
+    createdById?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CustomFieldCountAggregateInputType = {
+    id?: true
+    name?: true
+    type?: true
+    entityType?: true
+    isRequired?: true
+    options?: true
+    createdById?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CustomFieldAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomField to aggregate.
+     */
+    where?: CustomFieldWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomFields to fetch.
+     */
+    orderBy?: CustomFieldOrderByWithRelationInput | CustomFieldOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CustomFieldWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomFields from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomFields.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CustomFields
+    **/
+    _count?: true | CustomFieldCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CustomFieldMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CustomFieldMaxAggregateInputType
+  }
+
+  export type GetCustomFieldAggregateType<T extends CustomFieldAggregateArgs> = {
+        [P in keyof T & keyof AggregateCustomField]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCustomField[P]>
+      : GetScalarType<T[P], AggregateCustomField[P]>
+  }
+
+
+
+
+  export type CustomFieldGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomFieldWhereInput
+    orderBy?: CustomFieldOrderByWithAggregationInput | CustomFieldOrderByWithAggregationInput[]
+    by: CustomFieldScalarFieldEnum[] | CustomFieldScalarFieldEnum
+    having?: CustomFieldScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CustomFieldCountAggregateInputType | true
+    _min?: CustomFieldMinAggregateInputType
+    _max?: CustomFieldMaxAggregateInputType
+  }
+
+  export type CustomFieldGroupByOutputType = {
+    id: string
+    name: string
+    type: $Enums.CustomFieldType
+    entityType: string
+    isRequired: boolean
+    options: string | null
+    createdById: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: CustomFieldCountAggregateOutputType | null
+    _min: CustomFieldMinAggregateOutputType | null
+    _max: CustomFieldMaxAggregateOutputType | null
+  }
+
+  type GetCustomFieldGroupByPayload<T extends CustomFieldGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CustomFieldGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CustomFieldGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CustomFieldGroupByOutputType[P]>
+            : GetScalarType<T[P], CustomFieldGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CustomFieldSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    type?: boolean
+    entityType?: boolean
+    isRequired?: boolean
+    options?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdBy?: boolean | CustomField$createdByArgs<ExtArgs>
+    values?: boolean | CustomField$valuesArgs<ExtArgs>
+    _count?: boolean | CustomFieldCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customField"]>
+
+  export type CustomFieldSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    type?: boolean
+    entityType?: boolean
+    isRequired?: boolean
+    options?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdBy?: boolean | CustomField$createdByArgs<ExtArgs>
+  }, ExtArgs["result"]["customField"]>
+
+  export type CustomFieldSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    type?: boolean
+    entityType?: boolean
+    isRequired?: boolean
+    options?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdBy?: boolean | CustomField$createdByArgs<ExtArgs>
+  }, ExtArgs["result"]["customField"]>
+
+  export type CustomFieldSelectScalar = {
+    id?: boolean
+    name?: boolean
+    type?: boolean
+    entityType?: boolean
+    isRequired?: boolean
+    options?: boolean
+    createdById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CustomFieldOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "type" | "entityType" | "isRequired" | "options" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["customField"]>
+  export type CustomFieldInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdBy?: boolean | CustomField$createdByArgs<ExtArgs>
+    values?: boolean | CustomField$valuesArgs<ExtArgs>
+    _count?: boolean | CustomFieldCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CustomFieldIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdBy?: boolean | CustomField$createdByArgs<ExtArgs>
+  }
+  export type CustomFieldIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdBy?: boolean | CustomField$createdByArgs<ExtArgs>
+  }
+
+  export type $CustomFieldPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CustomField"
+    objects: {
+      createdBy: Prisma.$UserPayload<ExtArgs> | null
+      values: Prisma.$CustomFieldValuePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      type: $Enums.CustomFieldType
+      entityType: string
+      isRequired: boolean
+      options: string | null
+      createdById: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["customField"]>
+    composites: {}
+  }
+
+  type CustomFieldGetPayload<S extends boolean | null | undefined | CustomFieldDefaultArgs> = $Result.GetResult<Prisma.$CustomFieldPayload, S>
+
+  type CustomFieldCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CustomFieldFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CustomFieldCountAggregateInputType | true
+    }
+
+  export interface CustomFieldDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CustomField'], meta: { name: 'CustomField' } }
+    /**
+     * Find zero or one CustomField that matches the filter.
+     * @param {CustomFieldFindUniqueArgs} args - Arguments to find a CustomField
+     * @example
+     * // Get one CustomField
+     * const customField = await prisma.customField.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CustomFieldFindUniqueArgs>(args: SelectSubset<T, CustomFieldFindUniqueArgs<ExtArgs>>): Prisma__CustomFieldClient<$Result.GetResult<Prisma.$CustomFieldPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CustomField that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CustomFieldFindUniqueOrThrowArgs} args - Arguments to find a CustomField
+     * @example
+     * // Get one CustomField
+     * const customField = await prisma.customField.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CustomFieldFindUniqueOrThrowArgs>(args: SelectSubset<T, CustomFieldFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CustomFieldClient<$Result.GetResult<Prisma.$CustomFieldPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CustomField that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomFieldFindFirstArgs} args - Arguments to find a CustomField
+     * @example
+     * // Get one CustomField
+     * const customField = await prisma.customField.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CustomFieldFindFirstArgs>(args?: SelectSubset<T, CustomFieldFindFirstArgs<ExtArgs>>): Prisma__CustomFieldClient<$Result.GetResult<Prisma.$CustomFieldPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CustomField that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomFieldFindFirstOrThrowArgs} args - Arguments to find a CustomField
+     * @example
+     * // Get one CustomField
+     * const customField = await prisma.customField.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CustomFieldFindFirstOrThrowArgs>(args?: SelectSubset<T, CustomFieldFindFirstOrThrowArgs<ExtArgs>>): Prisma__CustomFieldClient<$Result.GetResult<Prisma.$CustomFieldPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CustomFields that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomFieldFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CustomFields
+     * const customFields = await prisma.customField.findMany()
+     * 
+     * // Get first 10 CustomFields
+     * const customFields = await prisma.customField.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const customFieldWithIdOnly = await prisma.customField.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CustomFieldFindManyArgs>(args?: SelectSubset<T, CustomFieldFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomFieldPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CustomField.
+     * @param {CustomFieldCreateArgs} args - Arguments to create a CustomField.
+     * @example
+     * // Create one CustomField
+     * const CustomField = await prisma.customField.create({
+     *   data: {
+     *     // ... data to create a CustomField
+     *   }
+     * })
+     * 
+     */
+    create<T extends CustomFieldCreateArgs>(args: SelectSubset<T, CustomFieldCreateArgs<ExtArgs>>): Prisma__CustomFieldClient<$Result.GetResult<Prisma.$CustomFieldPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CustomFields.
+     * @param {CustomFieldCreateManyArgs} args - Arguments to create many CustomFields.
+     * @example
+     * // Create many CustomFields
+     * const customField = await prisma.customField.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CustomFieldCreateManyArgs>(args?: SelectSubset<T, CustomFieldCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CustomFields and returns the data saved in the database.
+     * @param {CustomFieldCreateManyAndReturnArgs} args - Arguments to create many CustomFields.
+     * @example
+     * // Create many CustomFields
+     * const customField = await prisma.customField.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CustomFields and only return the `id`
+     * const customFieldWithIdOnly = await prisma.customField.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CustomFieldCreateManyAndReturnArgs>(args?: SelectSubset<T, CustomFieldCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomFieldPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CustomField.
+     * @param {CustomFieldDeleteArgs} args - Arguments to delete one CustomField.
+     * @example
+     * // Delete one CustomField
+     * const CustomField = await prisma.customField.delete({
+     *   where: {
+     *     // ... filter to delete one CustomField
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CustomFieldDeleteArgs>(args: SelectSubset<T, CustomFieldDeleteArgs<ExtArgs>>): Prisma__CustomFieldClient<$Result.GetResult<Prisma.$CustomFieldPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CustomField.
+     * @param {CustomFieldUpdateArgs} args - Arguments to update one CustomField.
+     * @example
+     * // Update one CustomField
+     * const customField = await prisma.customField.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CustomFieldUpdateArgs>(args: SelectSubset<T, CustomFieldUpdateArgs<ExtArgs>>): Prisma__CustomFieldClient<$Result.GetResult<Prisma.$CustomFieldPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CustomFields.
+     * @param {CustomFieldDeleteManyArgs} args - Arguments to filter CustomFields to delete.
+     * @example
+     * // Delete a few CustomFields
+     * const { count } = await prisma.customField.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CustomFieldDeleteManyArgs>(args?: SelectSubset<T, CustomFieldDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomFields.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomFieldUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CustomFields
+     * const customField = await prisma.customField.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CustomFieldUpdateManyArgs>(args: SelectSubset<T, CustomFieldUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomFields and returns the data updated in the database.
+     * @param {CustomFieldUpdateManyAndReturnArgs} args - Arguments to update many CustomFields.
+     * @example
+     * // Update many CustomFields
+     * const customField = await prisma.customField.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CustomFields and only return the `id`
+     * const customFieldWithIdOnly = await prisma.customField.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CustomFieldUpdateManyAndReturnArgs>(args: SelectSubset<T, CustomFieldUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomFieldPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CustomField.
+     * @param {CustomFieldUpsertArgs} args - Arguments to update or create a CustomField.
+     * @example
+     * // Update or create a CustomField
+     * const customField = await prisma.customField.upsert({
+     *   create: {
+     *     // ... data to create a CustomField
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CustomField we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CustomFieldUpsertArgs>(args: SelectSubset<T, CustomFieldUpsertArgs<ExtArgs>>): Prisma__CustomFieldClient<$Result.GetResult<Prisma.$CustomFieldPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CustomFields.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomFieldCountArgs} args - Arguments to filter CustomFields to count.
+     * @example
+     * // Count the number of CustomFields
+     * const count = await prisma.customField.count({
+     *   where: {
+     *     // ... the filter for the CustomFields we want to count
+     *   }
+     * })
+    **/
+    count<T extends CustomFieldCountArgs>(
+      args?: Subset<T, CustomFieldCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CustomFieldCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CustomField.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomFieldAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CustomFieldAggregateArgs>(args: Subset<T, CustomFieldAggregateArgs>): Prisma.PrismaPromise<GetCustomFieldAggregateType<T>>
+
+    /**
+     * Group by CustomField.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomFieldGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CustomFieldGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CustomFieldGroupByArgs['orderBy'] }
+        : { orderBy?: CustomFieldGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CustomFieldGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCustomFieldGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CustomField model
+   */
+  readonly fields: CustomFieldFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CustomField.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CustomFieldClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    createdBy<T extends CustomField$createdByArgs<ExtArgs> = {}>(args?: Subset<T, CustomField$createdByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    values<T extends CustomField$valuesArgs<ExtArgs> = {}>(args?: Subset<T, CustomField$valuesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomFieldValuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CustomField model
+   */
+  interface CustomFieldFieldRefs {
+    readonly id: FieldRef<"CustomField", 'String'>
+    readonly name: FieldRef<"CustomField", 'String'>
+    readonly type: FieldRef<"CustomField", 'CustomFieldType'>
+    readonly entityType: FieldRef<"CustomField", 'String'>
+    readonly isRequired: FieldRef<"CustomField", 'Boolean'>
+    readonly options: FieldRef<"CustomField", 'String'>
+    readonly createdById: FieldRef<"CustomField", 'String'>
+    readonly createdAt: FieldRef<"CustomField", 'DateTime'>
+    readonly updatedAt: FieldRef<"CustomField", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CustomField findUnique
+   */
+  export type CustomFieldFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomField
+     */
+    select?: CustomFieldSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomField
+     */
+    omit?: CustomFieldOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomField to fetch.
+     */
+    where: CustomFieldWhereUniqueInput
+  }
+
+  /**
+   * CustomField findUniqueOrThrow
+   */
+  export type CustomFieldFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomField
+     */
+    select?: CustomFieldSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomField
+     */
+    omit?: CustomFieldOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomField to fetch.
+     */
+    where: CustomFieldWhereUniqueInput
+  }
+
+  /**
+   * CustomField findFirst
+   */
+  export type CustomFieldFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomField
+     */
+    select?: CustomFieldSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomField
+     */
+    omit?: CustomFieldOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomField to fetch.
+     */
+    where?: CustomFieldWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomFields to fetch.
+     */
+    orderBy?: CustomFieldOrderByWithRelationInput | CustomFieldOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomFields.
+     */
+    cursor?: CustomFieldWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomFields from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomFields.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomFields.
+     */
+    distinct?: CustomFieldScalarFieldEnum | CustomFieldScalarFieldEnum[]
+  }
+
+  /**
+   * CustomField findFirstOrThrow
+   */
+  export type CustomFieldFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomField
+     */
+    select?: CustomFieldSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomField
+     */
+    omit?: CustomFieldOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomField to fetch.
+     */
+    where?: CustomFieldWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomFields to fetch.
+     */
+    orderBy?: CustomFieldOrderByWithRelationInput | CustomFieldOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomFields.
+     */
+    cursor?: CustomFieldWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomFields from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomFields.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomFields.
+     */
+    distinct?: CustomFieldScalarFieldEnum | CustomFieldScalarFieldEnum[]
+  }
+
+  /**
+   * CustomField findMany
+   */
+  export type CustomFieldFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomField
+     */
+    select?: CustomFieldSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomField
+     */
+    omit?: CustomFieldOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomFields to fetch.
+     */
+    where?: CustomFieldWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomFields to fetch.
+     */
+    orderBy?: CustomFieldOrderByWithRelationInput | CustomFieldOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CustomFields.
+     */
+    cursor?: CustomFieldWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomFields from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomFields.
+     */
+    skip?: number
+    distinct?: CustomFieldScalarFieldEnum | CustomFieldScalarFieldEnum[]
+  }
+
+  /**
+   * CustomField create
+   */
+  export type CustomFieldCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomField
+     */
+    select?: CustomFieldSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomField
+     */
+    omit?: CustomFieldOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CustomField.
+     */
+    data: XOR<CustomFieldCreateInput, CustomFieldUncheckedCreateInput>
+  }
+
+  /**
+   * CustomField createMany
+   */
+  export type CustomFieldCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CustomFields.
+     */
+    data: CustomFieldCreateManyInput | CustomFieldCreateManyInput[]
+  }
+
+  /**
+   * CustomField createManyAndReturn
+   */
+  export type CustomFieldCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomField
+     */
+    select?: CustomFieldSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomField
+     */
+    omit?: CustomFieldOmit<ExtArgs> | null
+    /**
+     * The data used to create many CustomFields.
+     */
+    data: CustomFieldCreateManyInput | CustomFieldCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CustomField update
+   */
+  export type CustomFieldUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomField
+     */
+    select?: CustomFieldSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomField
+     */
+    omit?: CustomFieldOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CustomField.
+     */
+    data: XOR<CustomFieldUpdateInput, CustomFieldUncheckedUpdateInput>
+    /**
+     * Choose, which CustomField to update.
+     */
+    where: CustomFieldWhereUniqueInput
+  }
+
+  /**
+   * CustomField updateMany
+   */
+  export type CustomFieldUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CustomFields.
+     */
+    data: XOR<CustomFieldUpdateManyMutationInput, CustomFieldUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomFields to update
+     */
+    where?: CustomFieldWhereInput
+    /**
+     * Limit how many CustomFields to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CustomField updateManyAndReturn
+   */
+  export type CustomFieldUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomField
+     */
+    select?: CustomFieldSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomField
+     */
+    omit?: CustomFieldOmit<ExtArgs> | null
+    /**
+     * The data used to update CustomFields.
+     */
+    data: XOR<CustomFieldUpdateManyMutationInput, CustomFieldUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomFields to update
+     */
+    where?: CustomFieldWhereInput
+    /**
+     * Limit how many CustomFields to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CustomField upsert
+   */
+  export type CustomFieldUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomField
+     */
+    select?: CustomFieldSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomField
+     */
+    omit?: CustomFieldOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CustomField to update in case it exists.
+     */
+    where: CustomFieldWhereUniqueInput
+    /**
+     * In case the CustomField found by the `where` argument doesn't exist, create a new CustomField with this data.
+     */
+    create: XOR<CustomFieldCreateInput, CustomFieldUncheckedCreateInput>
+    /**
+     * In case the CustomField was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CustomFieldUpdateInput, CustomFieldUncheckedUpdateInput>
+  }
+
+  /**
+   * CustomField delete
+   */
+  export type CustomFieldDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomField
+     */
+    select?: CustomFieldSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomField
+     */
+    omit?: CustomFieldOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldInclude<ExtArgs> | null
+    /**
+     * Filter which CustomField to delete.
+     */
+    where: CustomFieldWhereUniqueInput
+  }
+
+  /**
+   * CustomField deleteMany
+   */
+  export type CustomFieldDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomFields to delete
+     */
+    where?: CustomFieldWhereInput
+    /**
+     * Limit how many CustomFields to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CustomField.createdBy
+   */
+  export type CustomField$createdByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * CustomField.values
+   */
+  export type CustomField$valuesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomFieldValue
+     */
+    select?: CustomFieldValueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomFieldValue
+     */
+    omit?: CustomFieldValueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldValueInclude<ExtArgs> | null
+    where?: CustomFieldValueWhereInput
+    orderBy?: CustomFieldValueOrderByWithRelationInput | CustomFieldValueOrderByWithRelationInput[]
+    cursor?: CustomFieldValueWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CustomFieldValueScalarFieldEnum | CustomFieldValueScalarFieldEnum[]
+  }
+
+  /**
+   * CustomField without action
+   */
+  export type CustomFieldDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomField
+     */
+    select?: CustomFieldSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomField
+     */
+    omit?: CustomFieldOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CustomFieldValue
+   */
+
+  export type AggregateCustomFieldValue = {
+    _count: CustomFieldValueCountAggregateOutputType | null
+    _min: CustomFieldValueMinAggregateOutputType | null
+    _max: CustomFieldValueMaxAggregateOutputType | null
+  }
+
+  export type CustomFieldValueMinAggregateOutputType = {
+    id: string | null
+    fieldId: string | null
+    entityId: string | null
+    value: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CustomFieldValueMaxAggregateOutputType = {
+    id: string | null
+    fieldId: string | null
+    entityId: string | null
+    value: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CustomFieldValueCountAggregateOutputType = {
+    id: number
+    fieldId: number
+    entityId: number
+    value: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CustomFieldValueMinAggregateInputType = {
+    id?: true
+    fieldId?: true
+    entityId?: true
+    value?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CustomFieldValueMaxAggregateInputType = {
+    id?: true
+    fieldId?: true
+    entityId?: true
+    value?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CustomFieldValueCountAggregateInputType = {
+    id?: true
+    fieldId?: true
+    entityId?: true
+    value?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CustomFieldValueAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomFieldValue to aggregate.
+     */
+    where?: CustomFieldValueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomFieldValues to fetch.
+     */
+    orderBy?: CustomFieldValueOrderByWithRelationInput | CustomFieldValueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CustomFieldValueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomFieldValues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomFieldValues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CustomFieldValues
+    **/
+    _count?: true | CustomFieldValueCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CustomFieldValueMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CustomFieldValueMaxAggregateInputType
+  }
+
+  export type GetCustomFieldValueAggregateType<T extends CustomFieldValueAggregateArgs> = {
+        [P in keyof T & keyof AggregateCustomFieldValue]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCustomFieldValue[P]>
+      : GetScalarType<T[P], AggregateCustomFieldValue[P]>
+  }
+
+
+
+
+  export type CustomFieldValueGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomFieldValueWhereInput
+    orderBy?: CustomFieldValueOrderByWithAggregationInput | CustomFieldValueOrderByWithAggregationInput[]
+    by: CustomFieldValueScalarFieldEnum[] | CustomFieldValueScalarFieldEnum
+    having?: CustomFieldValueScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CustomFieldValueCountAggregateInputType | true
+    _min?: CustomFieldValueMinAggregateInputType
+    _max?: CustomFieldValueMaxAggregateInputType
+  }
+
+  export type CustomFieldValueGroupByOutputType = {
+    id: string
+    fieldId: string
+    entityId: string
+    value: string
+    createdAt: Date
+    updatedAt: Date
+    _count: CustomFieldValueCountAggregateOutputType | null
+    _min: CustomFieldValueMinAggregateOutputType | null
+    _max: CustomFieldValueMaxAggregateOutputType | null
+  }
+
+  type GetCustomFieldValueGroupByPayload<T extends CustomFieldValueGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CustomFieldValueGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CustomFieldValueGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CustomFieldValueGroupByOutputType[P]>
+            : GetScalarType<T[P], CustomFieldValueGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CustomFieldValueSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fieldId?: boolean
+    entityId?: boolean
+    value?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    field?: boolean | CustomFieldDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customFieldValue"]>
+
+  export type CustomFieldValueSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fieldId?: boolean
+    entityId?: boolean
+    value?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    field?: boolean | CustomFieldDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customFieldValue"]>
+
+  export type CustomFieldValueSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fieldId?: boolean
+    entityId?: boolean
+    value?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    field?: boolean | CustomFieldDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customFieldValue"]>
+
+  export type CustomFieldValueSelectScalar = {
+    id?: boolean
+    fieldId?: boolean
+    entityId?: boolean
+    value?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CustomFieldValueOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fieldId" | "entityId" | "value" | "createdAt" | "updatedAt", ExtArgs["result"]["customFieldValue"]>
+  export type CustomFieldValueInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    field?: boolean | CustomFieldDefaultArgs<ExtArgs>
+  }
+  export type CustomFieldValueIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    field?: boolean | CustomFieldDefaultArgs<ExtArgs>
+  }
+  export type CustomFieldValueIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    field?: boolean | CustomFieldDefaultArgs<ExtArgs>
+  }
+
+  export type $CustomFieldValuePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CustomFieldValue"
+    objects: {
+      field: Prisma.$CustomFieldPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      fieldId: string
+      entityId: string
+      value: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["customFieldValue"]>
+    composites: {}
+  }
+
+  type CustomFieldValueGetPayload<S extends boolean | null | undefined | CustomFieldValueDefaultArgs> = $Result.GetResult<Prisma.$CustomFieldValuePayload, S>
+
+  type CustomFieldValueCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CustomFieldValueFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CustomFieldValueCountAggregateInputType | true
+    }
+
+  export interface CustomFieldValueDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CustomFieldValue'], meta: { name: 'CustomFieldValue' } }
+    /**
+     * Find zero or one CustomFieldValue that matches the filter.
+     * @param {CustomFieldValueFindUniqueArgs} args - Arguments to find a CustomFieldValue
+     * @example
+     * // Get one CustomFieldValue
+     * const customFieldValue = await prisma.customFieldValue.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CustomFieldValueFindUniqueArgs>(args: SelectSubset<T, CustomFieldValueFindUniqueArgs<ExtArgs>>): Prisma__CustomFieldValueClient<$Result.GetResult<Prisma.$CustomFieldValuePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CustomFieldValue that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CustomFieldValueFindUniqueOrThrowArgs} args - Arguments to find a CustomFieldValue
+     * @example
+     * // Get one CustomFieldValue
+     * const customFieldValue = await prisma.customFieldValue.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CustomFieldValueFindUniqueOrThrowArgs>(args: SelectSubset<T, CustomFieldValueFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CustomFieldValueClient<$Result.GetResult<Prisma.$CustomFieldValuePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CustomFieldValue that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomFieldValueFindFirstArgs} args - Arguments to find a CustomFieldValue
+     * @example
+     * // Get one CustomFieldValue
+     * const customFieldValue = await prisma.customFieldValue.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CustomFieldValueFindFirstArgs>(args?: SelectSubset<T, CustomFieldValueFindFirstArgs<ExtArgs>>): Prisma__CustomFieldValueClient<$Result.GetResult<Prisma.$CustomFieldValuePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CustomFieldValue that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomFieldValueFindFirstOrThrowArgs} args - Arguments to find a CustomFieldValue
+     * @example
+     * // Get one CustomFieldValue
+     * const customFieldValue = await prisma.customFieldValue.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CustomFieldValueFindFirstOrThrowArgs>(args?: SelectSubset<T, CustomFieldValueFindFirstOrThrowArgs<ExtArgs>>): Prisma__CustomFieldValueClient<$Result.GetResult<Prisma.$CustomFieldValuePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CustomFieldValues that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomFieldValueFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CustomFieldValues
+     * const customFieldValues = await prisma.customFieldValue.findMany()
+     * 
+     * // Get first 10 CustomFieldValues
+     * const customFieldValues = await prisma.customFieldValue.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const customFieldValueWithIdOnly = await prisma.customFieldValue.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CustomFieldValueFindManyArgs>(args?: SelectSubset<T, CustomFieldValueFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomFieldValuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CustomFieldValue.
+     * @param {CustomFieldValueCreateArgs} args - Arguments to create a CustomFieldValue.
+     * @example
+     * // Create one CustomFieldValue
+     * const CustomFieldValue = await prisma.customFieldValue.create({
+     *   data: {
+     *     // ... data to create a CustomFieldValue
+     *   }
+     * })
+     * 
+     */
+    create<T extends CustomFieldValueCreateArgs>(args: SelectSubset<T, CustomFieldValueCreateArgs<ExtArgs>>): Prisma__CustomFieldValueClient<$Result.GetResult<Prisma.$CustomFieldValuePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CustomFieldValues.
+     * @param {CustomFieldValueCreateManyArgs} args - Arguments to create many CustomFieldValues.
+     * @example
+     * // Create many CustomFieldValues
+     * const customFieldValue = await prisma.customFieldValue.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CustomFieldValueCreateManyArgs>(args?: SelectSubset<T, CustomFieldValueCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CustomFieldValues and returns the data saved in the database.
+     * @param {CustomFieldValueCreateManyAndReturnArgs} args - Arguments to create many CustomFieldValues.
+     * @example
+     * // Create many CustomFieldValues
+     * const customFieldValue = await prisma.customFieldValue.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CustomFieldValues and only return the `id`
+     * const customFieldValueWithIdOnly = await prisma.customFieldValue.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CustomFieldValueCreateManyAndReturnArgs>(args?: SelectSubset<T, CustomFieldValueCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomFieldValuePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CustomFieldValue.
+     * @param {CustomFieldValueDeleteArgs} args - Arguments to delete one CustomFieldValue.
+     * @example
+     * // Delete one CustomFieldValue
+     * const CustomFieldValue = await prisma.customFieldValue.delete({
+     *   where: {
+     *     // ... filter to delete one CustomFieldValue
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CustomFieldValueDeleteArgs>(args: SelectSubset<T, CustomFieldValueDeleteArgs<ExtArgs>>): Prisma__CustomFieldValueClient<$Result.GetResult<Prisma.$CustomFieldValuePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CustomFieldValue.
+     * @param {CustomFieldValueUpdateArgs} args - Arguments to update one CustomFieldValue.
+     * @example
+     * // Update one CustomFieldValue
+     * const customFieldValue = await prisma.customFieldValue.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CustomFieldValueUpdateArgs>(args: SelectSubset<T, CustomFieldValueUpdateArgs<ExtArgs>>): Prisma__CustomFieldValueClient<$Result.GetResult<Prisma.$CustomFieldValuePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CustomFieldValues.
+     * @param {CustomFieldValueDeleteManyArgs} args - Arguments to filter CustomFieldValues to delete.
+     * @example
+     * // Delete a few CustomFieldValues
+     * const { count } = await prisma.customFieldValue.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CustomFieldValueDeleteManyArgs>(args?: SelectSubset<T, CustomFieldValueDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomFieldValues.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomFieldValueUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CustomFieldValues
+     * const customFieldValue = await prisma.customFieldValue.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CustomFieldValueUpdateManyArgs>(args: SelectSubset<T, CustomFieldValueUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomFieldValues and returns the data updated in the database.
+     * @param {CustomFieldValueUpdateManyAndReturnArgs} args - Arguments to update many CustomFieldValues.
+     * @example
+     * // Update many CustomFieldValues
+     * const customFieldValue = await prisma.customFieldValue.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CustomFieldValues and only return the `id`
+     * const customFieldValueWithIdOnly = await prisma.customFieldValue.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CustomFieldValueUpdateManyAndReturnArgs>(args: SelectSubset<T, CustomFieldValueUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomFieldValuePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CustomFieldValue.
+     * @param {CustomFieldValueUpsertArgs} args - Arguments to update or create a CustomFieldValue.
+     * @example
+     * // Update or create a CustomFieldValue
+     * const customFieldValue = await prisma.customFieldValue.upsert({
+     *   create: {
+     *     // ... data to create a CustomFieldValue
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CustomFieldValue we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CustomFieldValueUpsertArgs>(args: SelectSubset<T, CustomFieldValueUpsertArgs<ExtArgs>>): Prisma__CustomFieldValueClient<$Result.GetResult<Prisma.$CustomFieldValuePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CustomFieldValues.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomFieldValueCountArgs} args - Arguments to filter CustomFieldValues to count.
+     * @example
+     * // Count the number of CustomFieldValues
+     * const count = await prisma.customFieldValue.count({
+     *   where: {
+     *     // ... the filter for the CustomFieldValues we want to count
+     *   }
+     * })
+    **/
+    count<T extends CustomFieldValueCountArgs>(
+      args?: Subset<T, CustomFieldValueCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CustomFieldValueCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CustomFieldValue.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomFieldValueAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CustomFieldValueAggregateArgs>(args: Subset<T, CustomFieldValueAggregateArgs>): Prisma.PrismaPromise<GetCustomFieldValueAggregateType<T>>
+
+    /**
+     * Group by CustomFieldValue.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomFieldValueGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CustomFieldValueGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CustomFieldValueGroupByArgs['orderBy'] }
+        : { orderBy?: CustomFieldValueGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CustomFieldValueGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCustomFieldValueGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CustomFieldValue model
+   */
+  readonly fields: CustomFieldValueFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CustomFieldValue.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CustomFieldValueClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    field<T extends CustomFieldDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomFieldDefaultArgs<ExtArgs>>): Prisma__CustomFieldClient<$Result.GetResult<Prisma.$CustomFieldPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CustomFieldValue model
+   */
+  interface CustomFieldValueFieldRefs {
+    readonly id: FieldRef<"CustomFieldValue", 'String'>
+    readonly fieldId: FieldRef<"CustomFieldValue", 'String'>
+    readonly entityId: FieldRef<"CustomFieldValue", 'String'>
+    readonly value: FieldRef<"CustomFieldValue", 'String'>
+    readonly createdAt: FieldRef<"CustomFieldValue", 'DateTime'>
+    readonly updatedAt: FieldRef<"CustomFieldValue", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CustomFieldValue findUnique
+   */
+  export type CustomFieldValueFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomFieldValue
+     */
+    select?: CustomFieldValueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomFieldValue
+     */
+    omit?: CustomFieldValueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldValueInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomFieldValue to fetch.
+     */
+    where: CustomFieldValueWhereUniqueInput
+  }
+
+  /**
+   * CustomFieldValue findUniqueOrThrow
+   */
+  export type CustomFieldValueFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomFieldValue
+     */
+    select?: CustomFieldValueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomFieldValue
+     */
+    omit?: CustomFieldValueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldValueInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomFieldValue to fetch.
+     */
+    where: CustomFieldValueWhereUniqueInput
+  }
+
+  /**
+   * CustomFieldValue findFirst
+   */
+  export type CustomFieldValueFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomFieldValue
+     */
+    select?: CustomFieldValueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomFieldValue
+     */
+    omit?: CustomFieldValueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldValueInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomFieldValue to fetch.
+     */
+    where?: CustomFieldValueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomFieldValues to fetch.
+     */
+    orderBy?: CustomFieldValueOrderByWithRelationInput | CustomFieldValueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomFieldValues.
+     */
+    cursor?: CustomFieldValueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomFieldValues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomFieldValues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomFieldValues.
+     */
+    distinct?: CustomFieldValueScalarFieldEnum | CustomFieldValueScalarFieldEnum[]
+  }
+
+  /**
+   * CustomFieldValue findFirstOrThrow
+   */
+  export type CustomFieldValueFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomFieldValue
+     */
+    select?: CustomFieldValueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomFieldValue
+     */
+    omit?: CustomFieldValueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldValueInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomFieldValue to fetch.
+     */
+    where?: CustomFieldValueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomFieldValues to fetch.
+     */
+    orderBy?: CustomFieldValueOrderByWithRelationInput | CustomFieldValueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomFieldValues.
+     */
+    cursor?: CustomFieldValueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomFieldValues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomFieldValues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomFieldValues.
+     */
+    distinct?: CustomFieldValueScalarFieldEnum | CustomFieldValueScalarFieldEnum[]
+  }
+
+  /**
+   * CustomFieldValue findMany
+   */
+  export type CustomFieldValueFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomFieldValue
+     */
+    select?: CustomFieldValueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomFieldValue
+     */
+    omit?: CustomFieldValueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldValueInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomFieldValues to fetch.
+     */
+    where?: CustomFieldValueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomFieldValues to fetch.
+     */
+    orderBy?: CustomFieldValueOrderByWithRelationInput | CustomFieldValueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CustomFieldValues.
+     */
+    cursor?: CustomFieldValueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomFieldValues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomFieldValues.
+     */
+    skip?: number
+    distinct?: CustomFieldValueScalarFieldEnum | CustomFieldValueScalarFieldEnum[]
+  }
+
+  /**
+   * CustomFieldValue create
+   */
+  export type CustomFieldValueCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomFieldValue
+     */
+    select?: CustomFieldValueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomFieldValue
+     */
+    omit?: CustomFieldValueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldValueInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CustomFieldValue.
+     */
+    data: XOR<CustomFieldValueCreateInput, CustomFieldValueUncheckedCreateInput>
+  }
+
+  /**
+   * CustomFieldValue createMany
+   */
+  export type CustomFieldValueCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CustomFieldValues.
+     */
+    data: CustomFieldValueCreateManyInput | CustomFieldValueCreateManyInput[]
+  }
+
+  /**
+   * CustomFieldValue createManyAndReturn
+   */
+  export type CustomFieldValueCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomFieldValue
+     */
+    select?: CustomFieldValueSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomFieldValue
+     */
+    omit?: CustomFieldValueOmit<ExtArgs> | null
+    /**
+     * The data used to create many CustomFieldValues.
+     */
+    data: CustomFieldValueCreateManyInput | CustomFieldValueCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldValueIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CustomFieldValue update
+   */
+  export type CustomFieldValueUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomFieldValue
+     */
+    select?: CustomFieldValueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomFieldValue
+     */
+    omit?: CustomFieldValueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldValueInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CustomFieldValue.
+     */
+    data: XOR<CustomFieldValueUpdateInput, CustomFieldValueUncheckedUpdateInput>
+    /**
+     * Choose, which CustomFieldValue to update.
+     */
+    where: CustomFieldValueWhereUniqueInput
+  }
+
+  /**
+   * CustomFieldValue updateMany
+   */
+  export type CustomFieldValueUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CustomFieldValues.
+     */
+    data: XOR<CustomFieldValueUpdateManyMutationInput, CustomFieldValueUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomFieldValues to update
+     */
+    where?: CustomFieldValueWhereInput
+    /**
+     * Limit how many CustomFieldValues to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CustomFieldValue updateManyAndReturn
+   */
+  export type CustomFieldValueUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomFieldValue
+     */
+    select?: CustomFieldValueSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomFieldValue
+     */
+    omit?: CustomFieldValueOmit<ExtArgs> | null
+    /**
+     * The data used to update CustomFieldValues.
+     */
+    data: XOR<CustomFieldValueUpdateManyMutationInput, CustomFieldValueUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomFieldValues to update
+     */
+    where?: CustomFieldValueWhereInput
+    /**
+     * Limit how many CustomFieldValues to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldValueIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CustomFieldValue upsert
+   */
+  export type CustomFieldValueUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomFieldValue
+     */
+    select?: CustomFieldValueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomFieldValue
+     */
+    omit?: CustomFieldValueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldValueInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CustomFieldValue to update in case it exists.
+     */
+    where: CustomFieldValueWhereUniqueInput
+    /**
+     * In case the CustomFieldValue found by the `where` argument doesn't exist, create a new CustomFieldValue with this data.
+     */
+    create: XOR<CustomFieldValueCreateInput, CustomFieldValueUncheckedCreateInput>
+    /**
+     * In case the CustomFieldValue was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CustomFieldValueUpdateInput, CustomFieldValueUncheckedUpdateInput>
+  }
+
+  /**
+   * CustomFieldValue delete
+   */
+  export type CustomFieldValueDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomFieldValue
+     */
+    select?: CustomFieldValueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomFieldValue
+     */
+    omit?: CustomFieldValueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldValueInclude<ExtArgs> | null
+    /**
+     * Filter which CustomFieldValue to delete.
+     */
+    where: CustomFieldValueWhereUniqueInput
+  }
+
+  /**
+   * CustomFieldValue deleteMany
+   */
+  export type CustomFieldValueDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomFieldValues to delete
+     */
+    where?: CustomFieldValueWhereInput
+    /**
+     * Limit how many CustomFieldValues to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CustomFieldValue without action
+   */
+  export type CustomFieldValueDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomFieldValue
+     */
+    select?: CustomFieldValueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomFieldValue
+     */
+    omit?: CustomFieldValueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomFieldValueInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RefreshToken
+   */
+
+  export type AggregateRefreshToken = {
+    _count: RefreshTokenCountAggregateOutputType | null
+    _min: RefreshTokenMinAggregateOutputType | null
+    _max: RefreshTokenMaxAggregateOutputType | null
+  }
+
+  export type RefreshTokenMinAggregateOutputType = {
+    id: string | null
+    token: string | null
+    userId: string | null
+    expiresAt: Date | null
+    rotatedFrom: string | null
+    createdAt: Date | null
+  }
+
+  export type RefreshTokenMaxAggregateOutputType = {
+    id: string | null
+    token: string | null
+    userId: string | null
+    expiresAt: Date | null
+    rotatedFrom: string | null
+    createdAt: Date | null
+  }
+
+  export type RefreshTokenCountAggregateOutputType = {
+    id: number
+    token: number
+    userId: number
+    expiresAt: number
+    rotatedFrom: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type RefreshTokenMinAggregateInputType = {
+    id?: true
+    token?: true
+    userId?: true
+    expiresAt?: true
+    rotatedFrom?: true
+    createdAt?: true
+  }
+
+  export type RefreshTokenMaxAggregateInputType = {
+    id?: true
+    token?: true
+    userId?: true
+    expiresAt?: true
+    rotatedFrom?: true
+    createdAt?: true
+  }
+
+  export type RefreshTokenCountAggregateInputType = {
+    id?: true
+    token?: true
+    userId?: true
+    expiresAt?: true
+    rotatedFrom?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type RefreshTokenAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RefreshToken to aggregate.
+     */
+    where?: RefreshTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RefreshTokens to fetch.
+     */
+    orderBy?: RefreshTokenOrderByWithRelationInput | RefreshTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RefreshTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RefreshTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RefreshTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RefreshTokens
+    **/
+    _count?: true | RefreshTokenCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RefreshTokenMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RefreshTokenMaxAggregateInputType
+  }
+
+  export type GetRefreshTokenAggregateType<T extends RefreshTokenAggregateArgs> = {
+        [P in keyof T & keyof AggregateRefreshToken]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRefreshToken[P]>
+      : GetScalarType<T[P], AggregateRefreshToken[P]>
+  }
+
+
+
+
+  export type RefreshTokenGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RefreshTokenWhereInput
+    orderBy?: RefreshTokenOrderByWithAggregationInput | RefreshTokenOrderByWithAggregationInput[]
+    by: RefreshTokenScalarFieldEnum[] | RefreshTokenScalarFieldEnum
+    having?: RefreshTokenScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RefreshTokenCountAggregateInputType | true
+    _min?: RefreshTokenMinAggregateInputType
+    _max?: RefreshTokenMaxAggregateInputType
+  }
+
+  export type RefreshTokenGroupByOutputType = {
+    id: string
+    token: string
+    userId: string
+    expiresAt: Date
+    rotatedFrom: string | null
+    createdAt: Date
+    _count: RefreshTokenCountAggregateOutputType | null
+    _min: RefreshTokenMinAggregateOutputType | null
+    _max: RefreshTokenMaxAggregateOutputType | null
+  }
+
+  type GetRefreshTokenGroupByPayload<T extends RefreshTokenGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RefreshTokenGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RefreshTokenGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RefreshTokenGroupByOutputType[P]>
+            : GetScalarType<T[P], RefreshTokenGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RefreshTokenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    token?: boolean
+    userId?: boolean
+    expiresAt?: boolean
+    rotatedFrom?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["refreshToken"]>
+
+  export type RefreshTokenSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    token?: boolean
+    userId?: boolean
+    expiresAt?: boolean
+    rotatedFrom?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["refreshToken"]>
+
+  export type RefreshTokenSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    token?: boolean
+    userId?: boolean
+    expiresAt?: boolean
+    rotatedFrom?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["refreshToken"]>
+
+  export type RefreshTokenSelectScalar = {
+    id?: boolean
+    token?: boolean
+    userId?: boolean
+    expiresAt?: boolean
+    rotatedFrom?: boolean
+    createdAt?: boolean
+  }
+
+  export type RefreshTokenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "token" | "userId" | "expiresAt" | "rotatedFrom" | "createdAt", ExtArgs["result"]["refreshToken"]>
+  export type RefreshTokenInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type RefreshTokenIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type RefreshTokenIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $RefreshTokenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RefreshToken"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      token: string
+      userId: string
+      expiresAt: Date
+      rotatedFrom: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["refreshToken"]>
+    composites: {}
+  }
+
+  type RefreshTokenGetPayload<S extends boolean | null | undefined | RefreshTokenDefaultArgs> = $Result.GetResult<Prisma.$RefreshTokenPayload, S>
+
+  type RefreshTokenCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RefreshTokenFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RefreshTokenCountAggregateInputType | true
+    }
+
+  export interface RefreshTokenDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RefreshToken'], meta: { name: 'RefreshToken' } }
+    /**
+     * Find zero or one RefreshToken that matches the filter.
+     * @param {RefreshTokenFindUniqueArgs} args - Arguments to find a RefreshToken
+     * @example
+     * // Get one RefreshToken
+     * const refreshToken = await prisma.refreshToken.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RefreshTokenFindUniqueArgs>(args: SelectSubset<T, RefreshTokenFindUniqueArgs<ExtArgs>>): Prisma__RefreshTokenClient<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one RefreshToken that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RefreshTokenFindUniqueOrThrowArgs} args - Arguments to find a RefreshToken
+     * @example
+     * // Get one RefreshToken
+     * const refreshToken = await prisma.refreshToken.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RefreshTokenFindUniqueOrThrowArgs>(args: SelectSubset<T, RefreshTokenFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RefreshTokenClient<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RefreshToken that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefreshTokenFindFirstArgs} args - Arguments to find a RefreshToken
+     * @example
+     * // Get one RefreshToken
+     * const refreshToken = await prisma.refreshToken.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RefreshTokenFindFirstArgs>(args?: SelectSubset<T, RefreshTokenFindFirstArgs<ExtArgs>>): Prisma__RefreshTokenClient<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RefreshToken that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefreshTokenFindFirstOrThrowArgs} args - Arguments to find a RefreshToken
+     * @example
+     * // Get one RefreshToken
+     * const refreshToken = await prisma.refreshToken.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RefreshTokenFindFirstOrThrowArgs>(args?: SelectSubset<T, RefreshTokenFindFirstOrThrowArgs<ExtArgs>>): Prisma__RefreshTokenClient<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more RefreshTokens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefreshTokenFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RefreshTokens
+     * const refreshTokens = await prisma.refreshToken.findMany()
+     * 
+     * // Get first 10 RefreshTokens
+     * const refreshTokens = await prisma.refreshToken.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const refreshTokenWithIdOnly = await prisma.refreshToken.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RefreshTokenFindManyArgs>(args?: SelectSubset<T, RefreshTokenFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a RefreshToken.
+     * @param {RefreshTokenCreateArgs} args - Arguments to create a RefreshToken.
+     * @example
+     * // Create one RefreshToken
+     * const RefreshToken = await prisma.refreshToken.create({
+     *   data: {
+     *     // ... data to create a RefreshToken
+     *   }
+     * })
+     * 
+     */
+    create<T extends RefreshTokenCreateArgs>(args: SelectSubset<T, RefreshTokenCreateArgs<ExtArgs>>): Prisma__RefreshTokenClient<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many RefreshTokens.
+     * @param {RefreshTokenCreateManyArgs} args - Arguments to create many RefreshTokens.
+     * @example
+     * // Create many RefreshTokens
+     * const refreshToken = await prisma.refreshToken.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RefreshTokenCreateManyArgs>(args?: SelectSubset<T, RefreshTokenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RefreshTokens and returns the data saved in the database.
+     * @param {RefreshTokenCreateManyAndReturnArgs} args - Arguments to create many RefreshTokens.
+     * @example
+     * // Create many RefreshTokens
+     * const refreshToken = await prisma.refreshToken.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RefreshTokens and only return the `id`
+     * const refreshTokenWithIdOnly = await prisma.refreshToken.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RefreshTokenCreateManyAndReturnArgs>(args?: SelectSubset<T, RefreshTokenCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a RefreshToken.
+     * @param {RefreshTokenDeleteArgs} args - Arguments to delete one RefreshToken.
+     * @example
+     * // Delete one RefreshToken
+     * const RefreshToken = await prisma.refreshToken.delete({
+     *   where: {
+     *     // ... filter to delete one RefreshToken
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RefreshTokenDeleteArgs>(args: SelectSubset<T, RefreshTokenDeleteArgs<ExtArgs>>): Prisma__RefreshTokenClient<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one RefreshToken.
+     * @param {RefreshTokenUpdateArgs} args - Arguments to update one RefreshToken.
+     * @example
+     * // Update one RefreshToken
+     * const refreshToken = await prisma.refreshToken.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RefreshTokenUpdateArgs>(args: SelectSubset<T, RefreshTokenUpdateArgs<ExtArgs>>): Prisma__RefreshTokenClient<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more RefreshTokens.
+     * @param {RefreshTokenDeleteManyArgs} args - Arguments to filter RefreshTokens to delete.
+     * @example
+     * // Delete a few RefreshTokens
+     * const { count } = await prisma.refreshToken.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RefreshTokenDeleteManyArgs>(args?: SelectSubset<T, RefreshTokenDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RefreshTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefreshTokenUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RefreshTokens
+     * const refreshToken = await prisma.refreshToken.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RefreshTokenUpdateManyArgs>(args: SelectSubset<T, RefreshTokenUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RefreshTokens and returns the data updated in the database.
+     * @param {RefreshTokenUpdateManyAndReturnArgs} args - Arguments to update many RefreshTokens.
+     * @example
+     * // Update many RefreshTokens
+     * const refreshToken = await prisma.refreshToken.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more RefreshTokens and only return the `id`
+     * const refreshTokenWithIdOnly = await prisma.refreshToken.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RefreshTokenUpdateManyAndReturnArgs>(args: SelectSubset<T, RefreshTokenUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one RefreshToken.
+     * @param {RefreshTokenUpsertArgs} args - Arguments to update or create a RefreshToken.
+     * @example
+     * // Update or create a RefreshToken
+     * const refreshToken = await prisma.refreshToken.upsert({
+     *   create: {
+     *     // ... data to create a RefreshToken
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RefreshToken we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RefreshTokenUpsertArgs>(args: SelectSubset<T, RefreshTokenUpsertArgs<ExtArgs>>): Prisma__RefreshTokenClient<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of RefreshTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefreshTokenCountArgs} args - Arguments to filter RefreshTokens to count.
+     * @example
+     * // Count the number of RefreshTokens
+     * const count = await prisma.refreshToken.count({
+     *   where: {
+     *     // ... the filter for the RefreshTokens we want to count
+     *   }
+     * })
+    **/
+    count<T extends RefreshTokenCountArgs>(
+      args?: Subset<T, RefreshTokenCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RefreshTokenCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RefreshToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefreshTokenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RefreshTokenAggregateArgs>(args: Subset<T, RefreshTokenAggregateArgs>): Prisma.PrismaPromise<GetRefreshTokenAggregateType<T>>
+
+    /**
+     * Group by RefreshToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RefreshTokenGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RefreshTokenGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RefreshTokenGroupByArgs['orderBy'] }
+        : { orderBy?: RefreshTokenGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RefreshTokenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRefreshTokenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RefreshToken model
+   */
+  readonly fields: RefreshTokenFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RefreshToken.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RefreshTokenClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RefreshToken model
+   */
+  interface RefreshTokenFieldRefs {
+    readonly id: FieldRef<"RefreshToken", 'String'>
+    readonly token: FieldRef<"RefreshToken", 'String'>
+    readonly userId: FieldRef<"RefreshToken", 'String'>
+    readonly expiresAt: FieldRef<"RefreshToken", 'DateTime'>
+    readonly rotatedFrom: FieldRef<"RefreshToken", 'String'>
+    readonly createdAt: FieldRef<"RefreshToken", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RefreshToken findUnique
+   */
+  export type RefreshTokenFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefreshTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which RefreshToken to fetch.
+     */
+    where: RefreshTokenWhereUniqueInput
+  }
+
+  /**
+   * RefreshToken findUniqueOrThrow
+   */
+  export type RefreshTokenFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefreshTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which RefreshToken to fetch.
+     */
+    where: RefreshTokenWhereUniqueInput
+  }
+
+  /**
+   * RefreshToken findFirst
+   */
+  export type RefreshTokenFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefreshTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which RefreshToken to fetch.
+     */
+    where?: RefreshTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RefreshTokens to fetch.
+     */
+    orderBy?: RefreshTokenOrderByWithRelationInput | RefreshTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RefreshTokens.
+     */
+    cursor?: RefreshTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RefreshTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RefreshTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RefreshTokens.
+     */
+    distinct?: RefreshTokenScalarFieldEnum | RefreshTokenScalarFieldEnum[]
+  }
+
+  /**
+   * RefreshToken findFirstOrThrow
+   */
+  export type RefreshTokenFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefreshTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which RefreshToken to fetch.
+     */
+    where?: RefreshTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RefreshTokens to fetch.
+     */
+    orderBy?: RefreshTokenOrderByWithRelationInput | RefreshTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RefreshTokens.
+     */
+    cursor?: RefreshTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RefreshTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RefreshTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RefreshTokens.
+     */
+    distinct?: RefreshTokenScalarFieldEnum | RefreshTokenScalarFieldEnum[]
+  }
+
+  /**
+   * RefreshToken findMany
+   */
+  export type RefreshTokenFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefreshTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which RefreshTokens to fetch.
+     */
+    where?: RefreshTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RefreshTokens to fetch.
+     */
+    orderBy?: RefreshTokenOrderByWithRelationInput | RefreshTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RefreshTokens.
+     */
+    cursor?: RefreshTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RefreshTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RefreshTokens.
+     */
+    skip?: number
+    distinct?: RefreshTokenScalarFieldEnum | RefreshTokenScalarFieldEnum[]
+  }
+
+  /**
+   * RefreshToken create
+   */
+  export type RefreshTokenCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefreshTokenInclude<ExtArgs> | null
+    /**
+     * The data needed to create a RefreshToken.
+     */
+    data: XOR<RefreshTokenCreateInput, RefreshTokenUncheckedCreateInput>
+  }
+
+  /**
+   * RefreshToken createMany
+   */
+  export type RefreshTokenCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RefreshTokens.
+     */
+    data: RefreshTokenCreateManyInput | RefreshTokenCreateManyInput[]
+  }
+
+  /**
+   * RefreshToken createManyAndReturn
+   */
+  export type RefreshTokenCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * The data used to create many RefreshTokens.
+     */
+    data: RefreshTokenCreateManyInput | RefreshTokenCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefreshTokenIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RefreshToken update
+   */
+  export type RefreshTokenUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefreshTokenInclude<ExtArgs> | null
+    /**
+     * The data needed to update a RefreshToken.
+     */
+    data: XOR<RefreshTokenUpdateInput, RefreshTokenUncheckedUpdateInput>
+    /**
+     * Choose, which RefreshToken to update.
+     */
+    where: RefreshTokenWhereUniqueInput
+  }
+
+  /**
+   * RefreshToken updateMany
+   */
+  export type RefreshTokenUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RefreshTokens.
+     */
+    data: XOR<RefreshTokenUpdateManyMutationInput, RefreshTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which RefreshTokens to update
+     */
+    where?: RefreshTokenWhereInput
+    /**
+     * Limit how many RefreshTokens to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RefreshToken updateManyAndReturn
+   */
+  export type RefreshTokenUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * The data used to update RefreshTokens.
+     */
+    data: XOR<RefreshTokenUpdateManyMutationInput, RefreshTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which RefreshTokens to update
+     */
+    where?: RefreshTokenWhereInput
+    /**
+     * Limit how many RefreshTokens to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefreshTokenIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RefreshToken upsert
+   */
+  export type RefreshTokenUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefreshTokenInclude<ExtArgs> | null
+    /**
+     * The filter to search for the RefreshToken to update in case it exists.
+     */
+    where: RefreshTokenWhereUniqueInput
+    /**
+     * In case the RefreshToken found by the `where` argument doesn't exist, create a new RefreshToken with this data.
+     */
+    create: XOR<RefreshTokenCreateInput, RefreshTokenUncheckedCreateInput>
+    /**
+     * In case the RefreshToken was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RefreshTokenUpdateInput, RefreshTokenUncheckedUpdateInput>
+  }
+
+  /**
+   * RefreshToken delete
+   */
+  export type RefreshTokenDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefreshTokenInclude<ExtArgs> | null
+    /**
+     * Filter which RefreshToken to delete.
+     */
+    where: RefreshTokenWhereUniqueInput
+  }
+
+  /**
+   * RefreshToken deleteMany
+   */
+  export type RefreshTokenDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RefreshTokens to delete
+     */
+    where?: RefreshTokenWhereInput
+    /**
+     * Limit how many RefreshTokens to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * RefreshToken without action
+   */
+  export type RefreshTokenDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RefreshToken
+     */
+    select?: RefreshTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RefreshToken
+     */
+    omit?: RefreshTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RefreshTokenInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -79831,7 +87386,9 @@ export namespace Prisma {
     whatsappInstanceId: 'whatsappInstanceId',
     whatsappToken: 'whatsappToken',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    mfaEnabled: 'mfaEnabled',
+    mfaSecret: 'mfaSecret'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -80344,7 +87901,9 @@ export namespace Prisma {
     createdById: 'createdById',
     assignedToId: 'assignedToId',
     projectId: 'projectId',
-    clientId: 'clientId'
+    clientId: 'clientId',
+    pipelineId: 'pipelineId',
+    stageId: 'stageId'
   };
 
   export type DealScalarFieldEnum = (typeof DealScalarFieldEnum)[keyof typeof DealScalarFieldEnum]
@@ -80769,6 +88328,86 @@ export namespace Prisma {
   export type AlumniEngagementScalarFieldEnum = (typeof AlumniEngagementScalarFieldEnum)[keyof typeof AlumniEngagementScalarFieldEnum]
 
 
+  export const SavedFilterScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    entityType: 'entityType',
+    filterData: 'filterData',
+    isDefault: 'isDefault',
+    isPublic: 'isPublic',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    userId: 'userId'
+  };
+
+  export type SavedFilterScalarFieldEnum = (typeof SavedFilterScalarFieldEnum)[keyof typeof SavedFilterScalarFieldEnum]
+
+
+  export const PipelineScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PipelineScalarFieldEnum = (typeof PipelineScalarFieldEnum)[keyof typeof PipelineScalarFieldEnum]
+
+
+  export const DealStageModelScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    order: 'order',
+    probability: 'probability',
+    pipelineId: 'pipelineId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DealStageModelScalarFieldEnum = (typeof DealStageModelScalarFieldEnum)[keyof typeof DealStageModelScalarFieldEnum]
+
+
+  export const CustomFieldScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    type: 'type',
+    entityType: 'entityType',
+    isRequired: 'isRequired',
+    options: 'options',
+    createdById: 'createdById',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CustomFieldScalarFieldEnum = (typeof CustomFieldScalarFieldEnum)[keyof typeof CustomFieldScalarFieldEnum]
+
+
+  export const CustomFieldValueScalarFieldEnum: {
+    id: 'id',
+    fieldId: 'fieldId',
+    entityId: 'entityId',
+    value: 'value',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CustomFieldValueScalarFieldEnum = (typeof CustomFieldValueScalarFieldEnum)[keyof typeof CustomFieldValueScalarFieldEnum]
+
+
+  export const RefreshTokenScalarFieldEnum: {
+    id: 'id',
+    token: 'token',
+    userId: 'userId',
+    expiresAt: 'expiresAt',
+    rotatedFrom: 'rotatedFrom',
+    createdAt: 'createdAt'
+  };
+
+  export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -81016,6 +88655,13 @@ export namespace Prisma {
    */
   export type EnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationType'>
     
+
+
+  /**
+   * Reference to a field of type 'CustomFieldType'
+   */
+  export type EnumCustomFieldTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomFieldType'>
+    
   /**
    * Deep Input Types
    */
@@ -81036,6 +88682,8 @@ export namespace Prisma {
     whatsappToken?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    mfaEnabled?: BoolFilter<"User"> | boolean
+    mfaSecret?: StringNullableFilter<"User"> | string | null
     assignedSeekers?: AssignmentListRelationFilter
     followUpTasks?: FollowUpTaskListRelationFilter
     interactions?: InteractionListRelationFilter
@@ -81067,10 +88715,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalListRelationFilter
     postComments?: PostCommentListRelationFilter
     notifications?: NotificationListRelationFilter
+    savedFilters?: SavedFilterListRelationFilter
     createdNotebooks?: NotebookListRelationFilter
     createdNotes?: NoteListRelationFilter
     createdPromotionCodes?: PromotionCodeListRelationFilter
     passwordResetTokens?: PasswordResetTokenListRelationFilter
+    refreshTokens?: RefreshTokenListRelationFilter
+    customFieldsCreated?: CustomFieldListRelationFilter
     voiceNotes?: VoiceNoteListRelationFilter
     documentsUploaded?: DocumentListRelationFilter
     documentsVerified?: DocumentListRelationFilter
@@ -81093,6 +88744,8 @@ export namespace Prisma {
     whatsappToken?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    mfaEnabled?: SortOrder
+    mfaSecret?: SortOrderInput | SortOrder
     assignedSeekers?: AssignmentOrderByRelationAggregateInput
     followUpTasks?: FollowUpTaskOrderByRelationAggregateInput
     interactions?: InteractionOrderByRelationAggregateInput
@@ -81124,10 +88777,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalOrderByRelationAggregateInput
     postComments?: PostCommentOrderByRelationAggregateInput
     notifications?: NotificationOrderByRelationAggregateInput
+    savedFilters?: SavedFilterOrderByRelationAggregateInput
     createdNotebooks?: NotebookOrderByRelationAggregateInput
     createdNotes?: NoteOrderByRelationAggregateInput
     createdPromotionCodes?: PromotionCodeOrderByRelationAggregateInput
     passwordResetTokens?: PasswordResetTokenOrderByRelationAggregateInput
+    refreshTokens?: RefreshTokenOrderByRelationAggregateInput
+    customFieldsCreated?: CustomFieldOrderByRelationAggregateInput
     voiceNotes?: VoiceNoteOrderByRelationAggregateInput
     documentsUploaded?: DocumentOrderByRelationAggregateInput
     documentsVerified?: DocumentOrderByRelationAggregateInput
@@ -81153,6 +88809,8 @@ export namespace Prisma {
     whatsappToken?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    mfaEnabled?: BoolFilter<"User"> | boolean
+    mfaSecret?: StringNullableFilter<"User"> | string | null
     assignedSeekers?: AssignmentListRelationFilter
     followUpTasks?: FollowUpTaskListRelationFilter
     interactions?: InteractionListRelationFilter
@@ -81184,10 +88842,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalListRelationFilter
     postComments?: PostCommentListRelationFilter
     notifications?: NotificationListRelationFilter
+    savedFilters?: SavedFilterListRelationFilter
     createdNotebooks?: NotebookListRelationFilter
     createdNotes?: NoteListRelationFilter
     createdPromotionCodes?: PromotionCodeListRelationFilter
     passwordResetTokens?: PasswordResetTokenListRelationFilter
+    refreshTokens?: RefreshTokenListRelationFilter
+    customFieldsCreated?: CustomFieldListRelationFilter
     voiceNotes?: VoiceNoteListRelationFilter
     documentsUploaded?: DocumentListRelationFilter
     documentsVerified?: DocumentListRelationFilter
@@ -81210,6 +88871,8 @@ export namespace Prisma {
     whatsappToken?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    mfaEnabled?: SortOrder
+    mfaSecret?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -81230,6 +88893,8 @@ export namespace Prisma {
     whatsappToken?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    mfaEnabled?: BoolWithAggregatesFilter<"User"> | boolean
+    mfaSecret?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type RoleWhereInput = {
@@ -83911,10 +91576,14 @@ export namespace Prisma {
     assignedToId?: StringNullableFilter<"Deal"> | string | null
     projectId?: StringNullableFilter<"Deal"> | string | null
     clientId?: StringNullableFilter<"Deal"> | string | null
+    pipelineId?: StringNullableFilter<"Deal"> | string | null
+    stageId?: StringNullableFilter<"Deal"> | string | null
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     assignedTo?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     project?: XOR<ProjectNullableScalarRelationFilter, ProjectWhereInput> | null
     client?: XOR<ClientNullableScalarRelationFilter, ClientWhereInput> | null
+    pipeline?: XOR<PipelineNullableScalarRelationFilter, PipelineWhereInput> | null
+    stageRelation?: XOR<DealStageModelNullableScalarRelationFilter, DealStageModelWhereInput> | null
     activities?: DealActivityListRelationFilter
   }
 
@@ -83936,10 +91605,14 @@ export namespace Prisma {
     assignedToId?: SortOrderInput | SortOrder
     projectId?: SortOrderInput | SortOrder
     clientId?: SortOrderInput | SortOrder
+    pipelineId?: SortOrderInput | SortOrder
+    stageId?: SortOrderInput | SortOrder
     createdBy?: UserOrderByWithRelationInput
     assignedTo?: UserOrderByWithRelationInput
     project?: ProjectOrderByWithRelationInput
     client?: ClientOrderByWithRelationInput
+    pipeline?: PipelineOrderByWithRelationInput
+    stageRelation?: DealStageModelOrderByWithRelationInput
     activities?: DealActivityOrderByRelationAggregateInput
   }
 
@@ -83964,10 +91637,14 @@ export namespace Prisma {
     assignedToId?: StringNullableFilter<"Deal"> | string | null
     projectId?: StringNullableFilter<"Deal"> | string | null
     clientId?: StringNullableFilter<"Deal"> | string | null
+    pipelineId?: StringNullableFilter<"Deal"> | string | null
+    stageId?: StringNullableFilter<"Deal"> | string | null
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     assignedTo?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     project?: XOR<ProjectNullableScalarRelationFilter, ProjectWhereInput> | null
     client?: XOR<ClientNullableScalarRelationFilter, ClientWhereInput> | null
+    pipeline?: XOR<PipelineNullableScalarRelationFilter, PipelineWhereInput> | null
+    stageRelation?: XOR<DealStageModelNullableScalarRelationFilter, DealStageModelWhereInput> | null
     activities?: DealActivityListRelationFilter
   }, "id">
 
@@ -83989,6 +91666,8 @@ export namespace Prisma {
     assignedToId?: SortOrderInput | SortOrder
     projectId?: SortOrderInput | SortOrder
     clientId?: SortOrderInput | SortOrder
+    pipelineId?: SortOrderInput | SortOrder
+    stageId?: SortOrderInput | SortOrder
     _count?: DealCountOrderByAggregateInput
     _avg?: DealAvgOrderByAggregateInput
     _max?: DealMaxOrderByAggregateInput
@@ -84017,6 +91696,8 @@ export namespace Prisma {
     assignedToId?: StringNullableWithAggregatesFilter<"Deal"> | string | null
     projectId?: StringNullableWithAggregatesFilter<"Deal"> | string | null
     clientId?: StringNullableWithAggregatesFilter<"Deal"> | string | null
+    pipelineId?: StringNullableWithAggregatesFilter<"Deal"> | string | null
+    stageId?: StringNullableWithAggregatesFilter<"Deal"> | string | null
   }
 
   export type DealActivityWhereInput = {
@@ -86253,6 +93934,421 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"AlumniEngagement"> | Date | string
   }
 
+  export type SavedFilterWhereInput = {
+    AND?: SavedFilterWhereInput | SavedFilterWhereInput[]
+    OR?: SavedFilterWhereInput[]
+    NOT?: SavedFilterWhereInput | SavedFilterWhereInput[]
+    id?: StringFilter<"SavedFilter"> | string
+    name?: StringFilter<"SavedFilter"> | string
+    description?: StringNullableFilter<"SavedFilter"> | string | null
+    entityType?: StringFilter<"SavedFilter"> | string
+    filterData?: StringFilter<"SavedFilter"> | string
+    isDefault?: BoolFilter<"SavedFilter"> | boolean
+    isPublic?: BoolFilter<"SavedFilter"> | boolean
+    createdAt?: DateTimeFilter<"SavedFilter"> | Date | string
+    updatedAt?: DateTimeFilter<"SavedFilter"> | Date | string
+    userId?: StringFilter<"SavedFilter"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type SavedFilterOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    entityType?: SortOrder
+    filterData?: SortOrder
+    isDefault?: SortOrder
+    isPublic?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type SavedFilterWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_name?: SavedFilterUserIdNameCompoundUniqueInput
+    AND?: SavedFilterWhereInput | SavedFilterWhereInput[]
+    OR?: SavedFilterWhereInput[]
+    NOT?: SavedFilterWhereInput | SavedFilterWhereInput[]
+    name?: StringFilter<"SavedFilter"> | string
+    description?: StringNullableFilter<"SavedFilter"> | string | null
+    entityType?: StringFilter<"SavedFilter"> | string
+    filterData?: StringFilter<"SavedFilter"> | string
+    isDefault?: BoolFilter<"SavedFilter"> | boolean
+    isPublic?: BoolFilter<"SavedFilter"> | boolean
+    createdAt?: DateTimeFilter<"SavedFilter"> | Date | string
+    updatedAt?: DateTimeFilter<"SavedFilter"> | Date | string
+    userId?: StringFilter<"SavedFilter"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId_name">
+
+  export type SavedFilterOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    entityType?: SortOrder
+    filterData?: SortOrder
+    isDefault?: SortOrder
+    isPublic?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    _count?: SavedFilterCountOrderByAggregateInput
+    _max?: SavedFilterMaxOrderByAggregateInput
+    _min?: SavedFilterMinOrderByAggregateInput
+  }
+
+  export type SavedFilterScalarWhereWithAggregatesInput = {
+    AND?: SavedFilterScalarWhereWithAggregatesInput | SavedFilterScalarWhereWithAggregatesInput[]
+    OR?: SavedFilterScalarWhereWithAggregatesInput[]
+    NOT?: SavedFilterScalarWhereWithAggregatesInput | SavedFilterScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SavedFilter"> | string
+    name?: StringWithAggregatesFilter<"SavedFilter"> | string
+    description?: StringNullableWithAggregatesFilter<"SavedFilter"> | string | null
+    entityType?: StringWithAggregatesFilter<"SavedFilter"> | string
+    filterData?: StringWithAggregatesFilter<"SavedFilter"> | string
+    isDefault?: BoolWithAggregatesFilter<"SavedFilter"> | boolean
+    isPublic?: BoolWithAggregatesFilter<"SavedFilter"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"SavedFilter"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SavedFilter"> | Date | string
+    userId?: StringWithAggregatesFilter<"SavedFilter"> | string
+  }
+
+  export type PipelineWhereInput = {
+    AND?: PipelineWhereInput | PipelineWhereInput[]
+    OR?: PipelineWhereInput[]
+    NOT?: PipelineWhereInput | PipelineWhereInput[]
+    id?: StringFilter<"Pipeline"> | string
+    name?: StringFilter<"Pipeline"> | string
+    description?: StringNullableFilter<"Pipeline"> | string | null
+    isActive?: BoolFilter<"Pipeline"> | boolean
+    createdAt?: DateTimeFilter<"Pipeline"> | Date | string
+    updatedAt?: DateTimeFilter<"Pipeline"> | Date | string
+    stages?: DealStageModelListRelationFilter
+    deals?: DealListRelationFilter
+  }
+
+  export type PipelineOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    stages?: DealStageModelOrderByRelationAggregateInput
+    deals?: DealOrderByRelationAggregateInput
+  }
+
+  export type PipelineWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PipelineWhereInput | PipelineWhereInput[]
+    OR?: PipelineWhereInput[]
+    NOT?: PipelineWhereInput | PipelineWhereInput[]
+    name?: StringFilter<"Pipeline"> | string
+    description?: StringNullableFilter<"Pipeline"> | string | null
+    isActive?: BoolFilter<"Pipeline"> | boolean
+    createdAt?: DateTimeFilter<"Pipeline"> | Date | string
+    updatedAt?: DateTimeFilter<"Pipeline"> | Date | string
+    stages?: DealStageModelListRelationFilter
+    deals?: DealListRelationFilter
+  }, "id">
+
+  export type PipelineOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PipelineCountOrderByAggregateInput
+    _max?: PipelineMaxOrderByAggregateInput
+    _min?: PipelineMinOrderByAggregateInput
+  }
+
+  export type PipelineScalarWhereWithAggregatesInput = {
+    AND?: PipelineScalarWhereWithAggregatesInput | PipelineScalarWhereWithAggregatesInput[]
+    OR?: PipelineScalarWhereWithAggregatesInput[]
+    NOT?: PipelineScalarWhereWithAggregatesInput | PipelineScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Pipeline"> | string
+    name?: StringWithAggregatesFilter<"Pipeline"> | string
+    description?: StringNullableWithAggregatesFilter<"Pipeline"> | string | null
+    isActive?: BoolWithAggregatesFilter<"Pipeline"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Pipeline"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Pipeline"> | Date | string
+  }
+
+  export type DealStageModelWhereInput = {
+    AND?: DealStageModelWhereInput | DealStageModelWhereInput[]
+    OR?: DealStageModelWhereInput[]
+    NOT?: DealStageModelWhereInput | DealStageModelWhereInput[]
+    id?: StringFilter<"DealStageModel"> | string
+    name?: StringFilter<"DealStageModel"> | string
+    order?: IntFilter<"DealStageModel"> | number
+    probability?: IntFilter<"DealStageModel"> | number
+    pipelineId?: StringFilter<"DealStageModel"> | string
+    createdAt?: DateTimeFilter<"DealStageModel"> | Date | string
+    updatedAt?: DateTimeFilter<"DealStageModel"> | Date | string
+    pipeline?: XOR<PipelineScalarRelationFilter, PipelineWhereInput>
+    deals?: DealListRelationFilter
+  }
+
+  export type DealStageModelOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    order?: SortOrder
+    probability?: SortOrder
+    pipelineId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    pipeline?: PipelineOrderByWithRelationInput
+    deals?: DealOrderByRelationAggregateInput
+  }
+
+  export type DealStageModelWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    pipelineId_name?: DealStageModelPipelineIdNameCompoundUniqueInput
+    AND?: DealStageModelWhereInput | DealStageModelWhereInput[]
+    OR?: DealStageModelWhereInput[]
+    NOT?: DealStageModelWhereInput | DealStageModelWhereInput[]
+    name?: StringFilter<"DealStageModel"> | string
+    order?: IntFilter<"DealStageModel"> | number
+    probability?: IntFilter<"DealStageModel"> | number
+    pipelineId?: StringFilter<"DealStageModel"> | string
+    createdAt?: DateTimeFilter<"DealStageModel"> | Date | string
+    updatedAt?: DateTimeFilter<"DealStageModel"> | Date | string
+    pipeline?: XOR<PipelineScalarRelationFilter, PipelineWhereInput>
+    deals?: DealListRelationFilter
+  }, "id" | "pipelineId_name">
+
+  export type DealStageModelOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    order?: SortOrder
+    probability?: SortOrder
+    pipelineId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DealStageModelCountOrderByAggregateInput
+    _avg?: DealStageModelAvgOrderByAggregateInput
+    _max?: DealStageModelMaxOrderByAggregateInput
+    _min?: DealStageModelMinOrderByAggregateInput
+    _sum?: DealStageModelSumOrderByAggregateInput
+  }
+
+  export type DealStageModelScalarWhereWithAggregatesInput = {
+    AND?: DealStageModelScalarWhereWithAggregatesInput | DealStageModelScalarWhereWithAggregatesInput[]
+    OR?: DealStageModelScalarWhereWithAggregatesInput[]
+    NOT?: DealStageModelScalarWhereWithAggregatesInput | DealStageModelScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DealStageModel"> | string
+    name?: StringWithAggregatesFilter<"DealStageModel"> | string
+    order?: IntWithAggregatesFilter<"DealStageModel"> | number
+    probability?: IntWithAggregatesFilter<"DealStageModel"> | number
+    pipelineId?: StringWithAggregatesFilter<"DealStageModel"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"DealStageModel"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DealStageModel"> | Date | string
+  }
+
+  export type CustomFieldWhereInput = {
+    AND?: CustomFieldWhereInput | CustomFieldWhereInput[]
+    OR?: CustomFieldWhereInput[]
+    NOT?: CustomFieldWhereInput | CustomFieldWhereInput[]
+    id?: StringFilter<"CustomField"> | string
+    name?: StringFilter<"CustomField"> | string
+    type?: EnumCustomFieldTypeFilter<"CustomField"> | $Enums.CustomFieldType
+    entityType?: StringFilter<"CustomField"> | string
+    isRequired?: BoolFilter<"CustomField"> | boolean
+    options?: StringNullableFilter<"CustomField"> | string | null
+    createdById?: StringNullableFilter<"CustomField"> | string | null
+    createdAt?: DateTimeFilter<"CustomField"> | Date | string
+    updatedAt?: DateTimeFilter<"CustomField"> | Date | string
+    createdBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    values?: CustomFieldValueListRelationFilter
+  }
+
+  export type CustomFieldOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    entityType?: SortOrder
+    isRequired?: SortOrder
+    options?: SortOrderInput | SortOrder
+    createdById?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdBy?: UserOrderByWithRelationInput
+    values?: CustomFieldValueOrderByRelationAggregateInput
+  }
+
+  export type CustomFieldWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    entityType_name?: CustomFieldEntityTypeNameCompoundUniqueInput
+    AND?: CustomFieldWhereInput | CustomFieldWhereInput[]
+    OR?: CustomFieldWhereInput[]
+    NOT?: CustomFieldWhereInput | CustomFieldWhereInput[]
+    name?: StringFilter<"CustomField"> | string
+    type?: EnumCustomFieldTypeFilter<"CustomField"> | $Enums.CustomFieldType
+    entityType?: StringFilter<"CustomField"> | string
+    isRequired?: BoolFilter<"CustomField"> | boolean
+    options?: StringNullableFilter<"CustomField"> | string | null
+    createdById?: StringNullableFilter<"CustomField"> | string | null
+    createdAt?: DateTimeFilter<"CustomField"> | Date | string
+    updatedAt?: DateTimeFilter<"CustomField"> | Date | string
+    createdBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    values?: CustomFieldValueListRelationFilter
+  }, "id" | "entityType_name">
+
+  export type CustomFieldOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    entityType?: SortOrder
+    isRequired?: SortOrder
+    options?: SortOrderInput | SortOrder
+    createdById?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CustomFieldCountOrderByAggregateInput
+    _max?: CustomFieldMaxOrderByAggregateInput
+    _min?: CustomFieldMinOrderByAggregateInput
+  }
+
+  export type CustomFieldScalarWhereWithAggregatesInput = {
+    AND?: CustomFieldScalarWhereWithAggregatesInput | CustomFieldScalarWhereWithAggregatesInput[]
+    OR?: CustomFieldScalarWhereWithAggregatesInput[]
+    NOT?: CustomFieldScalarWhereWithAggregatesInput | CustomFieldScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CustomField"> | string
+    name?: StringWithAggregatesFilter<"CustomField"> | string
+    type?: EnumCustomFieldTypeWithAggregatesFilter<"CustomField"> | $Enums.CustomFieldType
+    entityType?: StringWithAggregatesFilter<"CustomField"> | string
+    isRequired?: BoolWithAggregatesFilter<"CustomField"> | boolean
+    options?: StringNullableWithAggregatesFilter<"CustomField"> | string | null
+    createdById?: StringNullableWithAggregatesFilter<"CustomField"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"CustomField"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CustomField"> | Date | string
+  }
+
+  export type CustomFieldValueWhereInput = {
+    AND?: CustomFieldValueWhereInput | CustomFieldValueWhereInput[]
+    OR?: CustomFieldValueWhereInput[]
+    NOT?: CustomFieldValueWhereInput | CustomFieldValueWhereInput[]
+    id?: StringFilter<"CustomFieldValue"> | string
+    fieldId?: StringFilter<"CustomFieldValue"> | string
+    entityId?: StringFilter<"CustomFieldValue"> | string
+    value?: StringFilter<"CustomFieldValue"> | string
+    createdAt?: DateTimeFilter<"CustomFieldValue"> | Date | string
+    updatedAt?: DateTimeFilter<"CustomFieldValue"> | Date | string
+    field?: XOR<CustomFieldScalarRelationFilter, CustomFieldWhereInput>
+  }
+
+  export type CustomFieldValueOrderByWithRelationInput = {
+    id?: SortOrder
+    fieldId?: SortOrder
+    entityId?: SortOrder
+    value?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    field?: CustomFieldOrderByWithRelationInput
+  }
+
+  export type CustomFieldValueWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    fieldId_entityId?: CustomFieldValueFieldIdEntityIdCompoundUniqueInput
+    AND?: CustomFieldValueWhereInput | CustomFieldValueWhereInput[]
+    OR?: CustomFieldValueWhereInput[]
+    NOT?: CustomFieldValueWhereInput | CustomFieldValueWhereInput[]
+    fieldId?: StringFilter<"CustomFieldValue"> | string
+    entityId?: StringFilter<"CustomFieldValue"> | string
+    value?: StringFilter<"CustomFieldValue"> | string
+    createdAt?: DateTimeFilter<"CustomFieldValue"> | Date | string
+    updatedAt?: DateTimeFilter<"CustomFieldValue"> | Date | string
+    field?: XOR<CustomFieldScalarRelationFilter, CustomFieldWhereInput>
+  }, "id" | "fieldId_entityId">
+
+  export type CustomFieldValueOrderByWithAggregationInput = {
+    id?: SortOrder
+    fieldId?: SortOrder
+    entityId?: SortOrder
+    value?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CustomFieldValueCountOrderByAggregateInput
+    _max?: CustomFieldValueMaxOrderByAggregateInput
+    _min?: CustomFieldValueMinOrderByAggregateInput
+  }
+
+  export type CustomFieldValueScalarWhereWithAggregatesInput = {
+    AND?: CustomFieldValueScalarWhereWithAggregatesInput | CustomFieldValueScalarWhereWithAggregatesInput[]
+    OR?: CustomFieldValueScalarWhereWithAggregatesInput[]
+    NOT?: CustomFieldValueScalarWhereWithAggregatesInput | CustomFieldValueScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CustomFieldValue"> | string
+    fieldId?: StringWithAggregatesFilter<"CustomFieldValue"> | string
+    entityId?: StringWithAggregatesFilter<"CustomFieldValue"> | string
+    value?: StringWithAggregatesFilter<"CustomFieldValue"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"CustomFieldValue"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CustomFieldValue"> | Date | string
+  }
+
+  export type RefreshTokenWhereInput = {
+    AND?: RefreshTokenWhereInput | RefreshTokenWhereInput[]
+    OR?: RefreshTokenWhereInput[]
+    NOT?: RefreshTokenWhereInput | RefreshTokenWhereInput[]
+    id?: StringFilter<"RefreshToken"> | string
+    token?: StringFilter<"RefreshToken"> | string
+    userId?: StringFilter<"RefreshToken"> | string
+    expiresAt?: DateTimeFilter<"RefreshToken"> | Date | string
+    rotatedFrom?: StringNullableFilter<"RefreshToken"> | string | null
+    createdAt?: DateTimeFilter<"RefreshToken"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type RefreshTokenOrderByWithRelationInput = {
+    id?: SortOrder
+    token?: SortOrder
+    userId?: SortOrder
+    expiresAt?: SortOrder
+    rotatedFrom?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type RefreshTokenWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    token?: string
+    AND?: RefreshTokenWhereInput | RefreshTokenWhereInput[]
+    OR?: RefreshTokenWhereInput[]
+    NOT?: RefreshTokenWhereInput | RefreshTokenWhereInput[]
+    userId?: StringFilter<"RefreshToken"> | string
+    expiresAt?: DateTimeFilter<"RefreshToken"> | Date | string
+    rotatedFrom?: StringNullableFilter<"RefreshToken"> | string | null
+    createdAt?: DateTimeFilter<"RefreshToken"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "token">
+
+  export type RefreshTokenOrderByWithAggregationInput = {
+    id?: SortOrder
+    token?: SortOrder
+    userId?: SortOrder
+    expiresAt?: SortOrder
+    rotatedFrom?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: RefreshTokenCountOrderByAggregateInput
+    _max?: RefreshTokenMaxOrderByAggregateInput
+    _min?: RefreshTokenMinOrderByAggregateInput
+  }
+
+  export type RefreshTokenScalarWhereWithAggregatesInput = {
+    AND?: RefreshTokenScalarWhereWithAggregatesInput | RefreshTokenScalarWhereWithAggregatesInput[]
+    OR?: RefreshTokenScalarWhereWithAggregatesInput[]
+    NOT?: RefreshTokenScalarWhereWithAggregatesInput | RefreshTokenScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RefreshToken"> | string
+    token?: StringWithAggregatesFilter<"RefreshToken"> | string
+    userId?: StringWithAggregatesFilter<"RefreshToken"> | string
+    expiresAt?: DateTimeWithAggregatesFilter<"RefreshToken"> | Date | string
+    rotatedFrom?: StringNullableWithAggregatesFilter<"RefreshToken"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"RefreshToken"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     clerkId?: string | null
@@ -86265,6 +94361,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -86296,10 +94394,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -86322,6 +94423,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -86353,10 +94456,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -86379,6 +94485,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -86410,10 +94518,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -86436,6 +94547,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -86467,10 +94580,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -86493,6 +94609,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -86507,6 +94625,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -86521,6 +94641,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type RoleCreateInput = {
@@ -89430,6 +97552,8 @@ export namespace Prisma {
     assignedTo?: UserCreateNestedOneWithoutAssignedDealsInput
     project?: ProjectCreateNestedOneWithoutDealsInput
     client?: ClientCreateNestedOneWithoutDealsInput
+    pipeline?: PipelineCreateNestedOneWithoutDealsInput
+    stageRelation?: DealStageModelCreateNestedOneWithoutDealsInput
     activities?: DealActivityCreateNestedManyWithoutDealInput
   }
 
@@ -89451,6 +97575,8 @@ export namespace Prisma {
     assignedToId?: string | null
     projectId?: string | null
     clientId?: string | null
+    pipelineId?: string | null
+    stageId?: string | null
     activities?: DealActivityUncheckedCreateNestedManyWithoutDealInput
   }
 
@@ -89472,6 +97598,8 @@ export namespace Prisma {
     assignedTo?: UserUpdateOneWithoutAssignedDealsNestedInput
     project?: ProjectUpdateOneWithoutDealsNestedInput
     client?: ClientUpdateOneWithoutDealsNestedInput
+    pipeline?: PipelineUpdateOneWithoutDealsNestedInput
+    stageRelation?: DealStageModelUpdateOneWithoutDealsNestedInput
     activities?: DealActivityUpdateManyWithoutDealNestedInput
   }
 
@@ -89493,6 +97621,8 @@ export namespace Prisma {
     assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
     projectId?: NullableStringFieldUpdateOperationsInput | string | null
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    pipelineId?: NullableStringFieldUpdateOperationsInput | string | null
+    stageId?: NullableStringFieldUpdateOperationsInput | string | null
     activities?: DealActivityUncheckedUpdateManyWithoutDealNestedInput
   }
 
@@ -89514,6 +97644,8 @@ export namespace Prisma {
     assignedToId?: string | null
     projectId?: string | null
     clientId?: string | null
+    pipelineId?: string | null
+    stageId?: string | null
   }
 
   export type DealUpdateManyMutationInput = {
@@ -89550,6 +97682,8 @@ export namespace Prisma {
     assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
     projectId?: NullableStringFieldUpdateOperationsInput | string | null
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    pipelineId?: NullableStringFieldUpdateOperationsInput | string | null
+    stageId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type DealActivityCreateInput = {
@@ -91936,6 +100070,451 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SavedFilterCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    entityType?: string
+    filterData: string
+    isDefault?: boolean
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutSavedFiltersInput
+  }
+
+  export type SavedFilterUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    entityType?: string
+    filterData: string
+    isDefault?: boolean
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+  }
+
+  export type SavedFilterUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    entityType?: StringFieldUpdateOperationsInput | string
+    filterData?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutSavedFiltersNestedInput
+  }
+
+  export type SavedFilterUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    entityType?: StringFieldUpdateOperationsInput | string
+    filterData?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SavedFilterCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    entityType?: string
+    filterData: string
+    isDefault?: boolean
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+  }
+
+  export type SavedFilterUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    entityType?: StringFieldUpdateOperationsInput | string
+    filterData?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SavedFilterUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    entityType?: StringFieldUpdateOperationsInput | string
+    filterData?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PipelineCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    stages?: DealStageModelCreateNestedManyWithoutPipelineInput
+    deals?: DealCreateNestedManyWithoutPipelineInput
+  }
+
+  export type PipelineUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    stages?: DealStageModelUncheckedCreateNestedManyWithoutPipelineInput
+    deals?: DealUncheckedCreateNestedManyWithoutPipelineInput
+  }
+
+  export type PipelineUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stages?: DealStageModelUpdateManyWithoutPipelineNestedInput
+    deals?: DealUpdateManyWithoutPipelineNestedInput
+  }
+
+  export type PipelineUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stages?: DealStageModelUncheckedUpdateManyWithoutPipelineNestedInput
+    deals?: DealUncheckedUpdateManyWithoutPipelineNestedInput
+  }
+
+  export type PipelineCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PipelineUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PipelineUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealStageModelCreateInput = {
+    id?: string
+    name: string
+    order: number
+    probability?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    pipeline: PipelineCreateNestedOneWithoutStagesInput
+    deals?: DealCreateNestedManyWithoutStageRelationInput
+  }
+
+  export type DealStageModelUncheckedCreateInput = {
+    id?: string
+    name: string
+    order: number
+    probability?: number
+    pipelineId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deals?: DealUncheckedCreateNestedManyWithoutStageRelationInput
+  }
+
+  export type DealStageModelUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    probability?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pipeline?: PipelineUpdateOneRequiredWithoutStagesNestedInput
+    deals?: DealUpdateManyWithoutStageRelationNestedInput
+  }
+
+  export type DealStageModelUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    probability?: IntFieldUpdateOperationsInput | number
+    pipelineId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deals?: DealUncheckedUpdateManyWithoutStageRelationNestedInput
+  }
+
+  export type DealStageModelCreateManyInput = {
+    id?: string
+    name: string
+    order: number
+    probability?: number
+    pipelineId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DealStageModelUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    probability?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealStageModelUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    probability?: IntFieldUpdateOperationsInput | number
+    pipelineId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomFieldCreateInput = {
+    id?: string
+    name: string
+    type: $Enums.CustomFieldType
+    entityType: string
+    isRequired?: boolean
+    options?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy?: UserCreateNestedOneWithoutCustomFieldsCreatedInput
+    values?: CustomFieldValueCreateNestedManyWithoutFieldInput
+  }
+
+  export type CustomFieldUncheckedCreateInput = {
+    id?: string
+    name: string
+    type: $Enums.CustomFieldType
+    entityType: string
+    isRequired?: boolean
+    options?: string | null
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    values?: CustomFieldValueUncheckedCreateNestedManyWithoutFieldInput
+  }
+
+  export type CustomFieldUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumCustomFieldTypeFieldUpdateOperationsInput | $Enums.CustomFieldType
+    entityType?: StringFieldUpdateOperationsInput | string
+    isRequired?: BoolFieldUpdateOperationsInput | boolean
+    options?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneWithoutCustomFieldsCreatedNestedInput
+    values?: CustomFieldValueUpdateManyWithoutFieldNestedInput
+  }
+
+  export type CustomFieldUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumCustomFieldTypeFieldUpdateOperationsInput | $Enums.CustomFieldType
+    entityType?: StringFieldUpdateOperationsInput | string
+    isRequired?: BoolFieldUpdateOperationsInput | boolean
+    options?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    values?: CustomFieldValueUncheckedUpdateManyWithoutFieldNestedInput
+  }
+
+  export type CustomFieldCreateManyInput = {
+    id?: string
+    name: string
+    type: $Enums.CustomFieldType
+    entityType: string
+    isRequired?: boolean
+    options?: string | null
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomFieldUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumCustomFieldTypeFieldUpdateOperationsInput | $Enums.CustomFieldType
+    entityType?: StringFieldUpdateOperationsInput | string
+    isRequired?: BoolFieldUpdateOperationsInput | boolean
+    options?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomFieldUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumCustomFieldTypeFieldUpdateOperationsInput | $Enums.CustomFieldType
+    entityType?: StringFieldUpdateOperationsInput | string
+    isRequired?: BoolFieldUpdateOperationsInput | boolean
+    options?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomFieldValueCreateInput = {
+    id?: string
+    entityId: string
+    value: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    field: CustomFieldCreateNestedOneWithoutValuesInput
+  }
+
+  export type CustomFieldValueUncheckedCreateInput = {
+    id?: string
+    fieldId: string
+    entityId: string
+    value: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomFieldValueUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    entityId?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    field?: CustomFieldUpdateOneRequiredWithoutValuesNestedInput
+  }
+
+  export type CustomFieldValueUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fieldId?: StringFieldUpdateOperationsInput | string
+    entityId?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomFieldValueCreateManyInput = {
+    id?: string
+    fieldId: string
+    entityId: string
+    value: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomFieldValueUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    entityId?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomFieldValueUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fieldId?: StringFieldUpdateOperationsInput | string
+    entityId?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RefreshTokenCreateInput = {
+    id?: string
+    token: string
+    expiresAt: Date | string
+    rotatedFrom?: string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutRefreshTokensInput
+  }
+
+  export type RefreshTokenUncheckedCreateInput = {
+    id?: string
+    token: string
+    userId: string
+    expiresAt: Date | string
+    rotatedFrom?: string | null
+    createdAt?: Date | string
+  }
+
+  export type RefreshTokenUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rotatedFrom?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutRefreshTokensNestedInput
+  }
+
+  export type RefreshTokenUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rotatedFrom?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RefreshTokenCreateManyInput = {
+    id?: string
+    token: string
+    userId: string
+    expiresAt: Date | string
+    rotatedFrom?: string | null
+    createdAt?: Date | string
+  }
+
+  export type RefreshTokenUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rotatedFrom?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RefreshTokenUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rotatedFrom?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -92143,6 +100722,12 @@ export namespace Prisma {
     none?: NotificationWhereInput
   }
 
+  export type SavedFilterListRelationFilter = {
+    every?: SavedFilterWhereInput
+    some?: SavedFilterWhereInput
+    none?: SavedFilterWhereInput
+  }
+
   export type NotebookListRelationFilter = {
     every?: NotebookWhereInput
     some?: NotebookWhereInput
@@ -92165,6 +100750,18 @@ export namespace Prisma {
     every?: PasswordResetTokenWhereInput
     some?: PasswordResetTokenWhereInput
     none?: PasswordResetTokenWhereInput
+  }
+
+  export type RefreshTokenListRelationFilter = {
+    every?: RefreshTokenWhereInput
+    some?: RefreshTokenWhereInput
+    none?: RefreshTokenWhereInput
+  }
+
+  export type CustomFieldListRelationFilter = {
+    every?: CustomFieldWhereInput
+    some?: CustomFieldWhereInput
+    none?: CustomFieldWhereInput
   }
 
   export type VoiceNoteListRelationFilter = {
@@ -92318,6 +100915,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type SavedFilterOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type NotebookOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -92331,6 +100932,14 @@ export namespace Prisma {
   }
 
   export type PasswordResetTokenOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RefreshTokenOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CustomFieldOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -92374,6 +100983,8 @@ export namespace Prisma {
     whatsappToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    mfaEnabled?: SortOrder
+    mfaSecret?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -92388,6 +100999,8 @@ export namespace Prisma {
     whatsappToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    mfaEnabled?: SortOrder
+    mfaSecret?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -92402,6 +101015,8 @@ export namespace Prisma {
     whatsappToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    mfaEnabled?: SortOrder
+    mfaSecret?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -94499,6 +103114,16 @@ export namespace Prisma {
     isNot?: ClientWhereInput | null
   }
 
+  export type PipelineNullableScalarRelationFilter = {
+    is?: PipelineWhereInput | null
+    isNot?: PipelineWhereInput | null
+  }
+
+  export type DealStageModelNullableScalarRelationFilter = {
+    is?: DealStageModelWhereInput | null
+    isNot?: DealStageModelWhereInput | null
+  }
+
   export type DealCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
@@ -94517,6 +103142,8 @@ export namespace Prisma {
     assignedToId?: SortOrder
     projectId?: SortOrder
     clientId?: SortOrder
+    pipelineId?: SortOrder
+    stageId?: SortOrder
   }
 
   export type DealAvgOrderByAggregateInput = {
@@ -94542,6 +103169,8 @@ export namespace Prisma {
     assignedToId?: SortOrder
     projectId?: SortOrder
     clientId?: SortOrder
+    pipelineId?: SortOrder
+    stageId?: SortOrder
   }
 
   export type DealMinOrderByAggregateInput = {
@@ -94562,6 +103191,8 @@ export namespace Prisma {
     assignedToId?: SortOrder
     projectId?: SortOrder
     clientId?: SortOrder
+    pipelineId?: SortOrder
+    stageId?: SortOrder
   }
 
   export type DealSumOrderByAggregateInput = {
@@ -95934,6 +104565,269 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type SavedFilterUserIdNameCompoundUniqueInput = {
+    userId: string
+    name: string
+  }
+
+  export type SavedFilterCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    entityType?: SortOrder
+    filterData?: SortOrder
+    isDefault?: SortOrder
+    isPublic?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type SavedFilterMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    entityType?: SortOrder
+    filterData?: SortOrder
+    isDefault?: SortOrder
+    isPublic?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type SavedFilterMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    entityType?: SortOrder
+    filterData?: SortOrder
+    isDefault?: SortOrder
+    isPublic?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type DealStageModelListRelationFilter = {
+    every?: DealStageModelWhereInput
+    some?: DealStageModelWhereInput
+    none?: DealStageModelWhereInput
+  }
+
+  export type DealStageModelOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PipelineCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PipelineMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PipelineMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PipelineScalarRelationFilter = {
+    is?: PipelineWhereInput
+    isNot?: PipelineWhereInput
+  }
+
+  export type DealStageModelPipelineIdNameCompoundUniqueInput = {
+    pipelineId: string
+    name: string
+  }
+
+  export type DealStageModelCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    order?: SortOrder
+    probability?: SortOrder
+    pipelineId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DealStageModelAvgOrderByAggregateInput = {
+    order?: SortOrder
+    probability?: SortOrder
+  }
+
+  export type DealStageModelMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    order?: SortOrder
+    probability?: SortOrder
+    pipelineId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DealStageModelMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    order?: SortOrder
+    probability?: SortOrder
+    pipelineId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DealStageModelSumOrderByAggregateInput = {
+    order?: SortOrder
+    probability?: SortOrder
+  }
+
+  export type EnumCustomFieldTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.CustomFieldType | EnumCustomFieldTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CustomFieldType[]
+    notIn?: $Enums.CustomFieldType[]
+    not?: NestedEnumCustomFieldTypeFilter<$PrismaModel> | $Enums.CustomFieldType
+  }
+
+  export type CustomFieldValueListRelationFilter = {
+    every?: CustomFieldValueWhereInput
+    some?: CustomFieldValueWhereInput
+    none?: CustomFieldValueWhereInput
+  }
+
+  export type CustomFieldValueOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CustomFieldEntityTypeNameCompoundUniqueInput = {
+    entityType: string
+    name: string
+  }
+
+  export type CustomFieldCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    entityType?: SortOrder
+    isRequired?: SortOrder
+    options?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CustomFieldMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    entityType?: SortOrder
+    isRequired?: SortOrder
+    options?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CustomFieldMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    entityType?: SortOrder
+    isRequired?: SortOrder
+    options?: SortOrder
+    createdById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumCustomFieldTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CustomFieldType | EnumCustomFieldTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CustomFieldType[]
+    notIn?: $Enums.CustomFieldType[]
+    not?: NestedEnumCustomFieldTypeWithAggregatesFilter<$PrismaModel> | $Enums.CustomFieldType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCustomFieldTypeFilter<$PrismaModel>
+    _max?: NestedEnumCustomFieldTypeFilter<$PrismaModel>
+  }
+
+  export type CustomFieldScalarRelationFilter = {
+    is?: CustomFieldWhereInput
+    isNot?: CustomFieldWhereInput
+  }
+
+  export type CustomFieldValueFieldIdEntityIdCompoundUniqueInput = {
+    fieldId: string
+    entityId: string
+  }
+
+  export type CustomFieldValueCountOrderByAggregateInput = {
+    id?: SortOrder
+    fieldId?: SortOrder
+    entityId?: SortOrder
+    value?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CustomFieldValueMaxOrderByAggregateInput = {
+    id?: SortOrder
+    fieldId?: SortOrder
+    entityId?: SortOrder
+    value?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CustomFieldValueMinOrderByAggregateInput = {
+    id?: SortOrder
+    fieldId?: SortOrder
+    entityId?: SortOrder
+    value?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RefreshTokenCountOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    userId?: SortOrder
+    expiresAt?: SortOrder
+    rotatedFrom?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RefreshTokenMaxOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    userId?: SortOrder
+    expiresAt?: SortOrder
+    rotatedFrom?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RefreshTokenMinOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    userId?: SortOrder
+    expiresAt?: SortOrder
+    rotatedFrom?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type AssignmentCreateNestedManyWithoutCoordinatorInput = {
     create?: XOR<AssignmentCreateWithoutCoordinatorInput, AssignmentUncheckedCreateWithoutCoordinatorInput> | AssignmentCreateWithoutCoordinatorInput[] | AssignmentUncheckedCreateWithoutCoordinatorInput[]
     connectOrCreate?: AssignmentCreateOrConnectWithoutCoordinatorInput | AssignmentCreateOrConnectWithoutCoordinatorInput[]
@@ -96151,6 +105045,13 @@ export namespace Prisma {
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
   }
 
+  export type SavedFilterCreateNestedManyWithoutUserInput = {
+    create?: XOR<SavedFilterCreateWithoutUserInput, SavedFilterUncheckedCreateWithoutUserInput> | SavedFilterCreateWithoutUserInput[] | SavedFilterUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SavedFilterCreateOrConnectWithoutUserInput | SavedFilterCreateOrConnectWithoutUserInput[]
+    createMany?: SavedFilterCreateManyUserInputEnvelope
+    connect?: SavedFilterWhereUniqueInput | SavedFilterWhereUniqueInput[]
+  }
+
   export type NotebookCreateNestedManyWithoutCreatedByInput = {
     create?: XOR<NotebookCreateWithoutCreatedByInput, NotebookUncheckedCreateWithoutCreatedByInput> | NotebookCreateWithoutCreatedByInput[] | NotebookUncheckedCreateWithoutCreatedByInput[]
     connectOrCreate?: NotebookCreateOrConnectWithoutCreatedByInput | NotebookCreateOrConnectWithoutCreatedByInput[]
@@ -96177,6 +105078,20 @@ export namespace Prisma {
     connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
     createMany?: PasswordResetTokenCreateManyUserInputEnvelope
     connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+  }
+
+  export type RefreshTokenCreateNestedManyWithoutUserInput = {
+    create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
+    createMany?: RefreshTokenCreateManyUserInputEnvelope
+    connect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
+  }
+
+  export type CustomFieldCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<CustomFieldCreateWithoutCreatedByInput, CustomFieldUncheckedCreateWithoutCreatedByInput> | CustomFieldCreateWithoutCreatedByInput[] | CustomFieldUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: CustomFieldCreateOrConnectWithoutCreatedByInput | CustomFieldCreateOrConnectWithoutCreatedByInput[]
+    createMany?: CustomFieldCreateManyCreatedByInputEnvelope
+    connect?: CustomFieldWhereUniqueInput | CustomFieldWhereUniqueInput[]
   }
 
   export type VoiceNoteCreateNestedManyWithoutUploadedByInput = {
@@ -96452,6 +105367,13 @@ export namespace Prisma {
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
   }
 
+  export type SavedFilterUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<SavedFilterCreateWithoutUserInput, SavedFilterUncheckedCreateWithoutUserInput> | SavedFilterCreateWithoutUserInput[] | SavedFilterUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SavedFilterCreateOrConnectWithoutUserInput | SavedFilterCreateOrConnectWithoutUserInput[]
+    createMany?: SavedFilterCreateManyUserInputEnvelope
+    connect?: SavedFilterWhereUniqueInput | SavedFilterWhereUniqueInput[]
+  }
+
   export type NotebookUncheckedCreateNestedManyWithoutCreatedByInput = {
     create?: XOR<NotebookCreateWithoutCreatedByInput, NotebookUncheckedCreateWithoutCreatedByInput> | NotebookCreateWithoutCreatedByInput[] | NotebookUncheckedCreateWithoutCreatedByInput[]
     connectOrCreate?: NotebookCreateOrConnectWithoutCreatedByInput | NotebookCreateOrConnectWithoutCreatedByInput[]
@@ -96478,6 +105400,20 @@ export namespace Prisma {
     connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
     createMany?: PasswordResetTokenCreateManyUserInputEnvelope
     connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+  }
+
+  export type RefreshTokenUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
+    createMany?: RefreshTokenCreateManyUserInputEnvelope
+    connect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
+  }
+
+  export type CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<CustomFieldCreateWithoutCreatedByInput, CustomFieldUncheckedCreateWithoutCreatedByInput> | CustomFieldCreateWithoutCreatedByInput[] | CustomFieldUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: CustomFieldCreateOrConnectWithoutCreatedByInput | CustomFieldCreateOrConnectWithoutCreatedByInput[]
+    createMany?: CustomFieldCreateManyCreatedByInputEnvelope
+    connect?: CustomFieldWhereUniqueInput | CustomFieldWhereUniqueInput[]
   }
 
   export type VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput = {
@@ -96990,6 +105926,20 @@ export namespace Prisma {
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
   }
 
+  export type SavedFilterUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SavedFilterCreateWithoutUserInput, SavedFilterUncheckedCreateWithoutUserInput> | SavedFilterCreateWithoutUserInput[] | SavedFilterUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SavedFilterCreateOrConnectWithoutUserInput | SavedFilterCreateOrConnectWithoutUserInput[]
+    upsert?: SavedFilterUpsertWithWhereUniqueWithoutUserInput | SavedFilterUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SavedFilterCreateManyUserInputEnvelope
+    set?: SavedFilterWhereUniqueInput | SavedFilterWhereUniqueInput[]
+    disconnect?: SavedFilterWhereUniqueInput | SavedFilterWhereUniqueInput[]
+    delete?: SavedFilterWhereUniqueInput | SavedFilterWhereUniqueInput[]
+    connect?: SavedFilterWhereUniqueInput | SavedFilterWhereUniqueInput[]
+    update?: SavedFilterUpdateWithWhereUniqueWithoutUserInput | SavedFilterUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SavedFilterUpdateManyWithWhereWithoutUserInput | SavedFilterUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SavedFilterScalarWhereInput | SavedFilterScalarWhereInput[]
+  }
+
   export type NotebookUpdateManyWithoutCreatedByNestedInput = {
     create?: XOR<NotebookCreateWithoutCreatedByInput, NotebookUncheckedCreateWithoutCreatedByInput> | NotebookCreateWithoutCreatedByInput[] | NotebookUncheckedCreateWithoutCreatedByInput[]
     connectOrCreate?: NotebookCreateOrConnectWithoutCreatedByInput | NotebookCreateOrConnectWithoutCreatedByInput[]
@@ -97044,6 +105994,34 @@ export namespace Prisma {
     update?: PasswordResetTokenUpdateWithWhereUniqueWithoutUserInput | PasswordResetTokenUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: PasswordResetTokenUpdateManyWithWhereWithoutUserInput | PasswordResetTokenUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
+  }
+
+  export type RefreshTokenUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
+    upsert?: RefreshTokenUpsertWithWhereUniqueWithoutUserInput | RefreshTokenUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RefreshTokenCreateManyUserInputEnvelope
+    set?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
+    disconnect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
+    delete?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
+    connect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
+    update?: RefreshTokenUpdateWithWhereUniqueWithoutUserInput | RefreshTokenUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RefreshTokenUpdateManyWithWhereWithoutUserInput | RefreshTokenUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RefreshTokenScalarWhereInput | RefreshTokenScalarWhereInput[]
+  }
+
+  export type CustomFieldUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<CustomFieldCreateWithoutCreatedByInput, CustomFieldUncheckedCreateWithoutCreatedByInput> | CustomFieldCreateWithoutCreatedByInput[] | CustomFieldUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: CustomFieldCreateOrConnectWithoutCreatedByInput | CustomFieldCreateOrConnectWithoutCreatedByInput[]
+    upsert?: CustomFieldUpsertWithWhereUniqueWithoutCreatedByInput | CustomFieldUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: CustomFieldCreateManyCreatedByInputEnvelope
+    set?: CustomFieldWhereUniqueInput | CustomFieldWhereUniqueInput[]
+    disconnect?: CustomFieldWhereUniqueInput | CustomFieldWhereUniqueInput[]
+    delete?: CustomFieldWhereUniqueInput | CustomFieldWhereUniqueInput[]
+    connect?: CustomFieldWhereUniqueInput | CustomFieldWhereUniqueInput[]
+    update?: CustomFieldUpdateWithWhereUniqueWithoutCreatedByInput | CustomFieldUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: CustomFieldUpdateManyWithWhereWithoutCreatedByInput | CustomFieldUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: CustomFieldScalarWhereInput | CustomFieldScalarWhereInput[]
   }
 
   export type VoiceNoteUpdateManyWithoutUploadedByNestedInput = {
@@ -97592,6 +106570,20 @@ export namespace Prisma {
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
   }
 
+  export type SavedFilterUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SavedFilterCreateWithoutUserInput, SavedFilterUncheckedCreateWithoutUserInput> | SavedFilterCreateWithoutUserInput[] | SavedFilterUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SavedFilterCreateOrConnectWithoutUserInput | SavedFilterCreateOrConnectWithoutUserInput[]
+    upsert?: SavedFilterUpsertWithWhereUniqueWithoutUserInput | SavedFilterUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SavedFilterCreateManyUserInputEnvelope
+    set?: SavedFilterWhereUniqueInput | SavedFilterWhereUniqueInput[]
+    disconnect?: SavedFilterWhereUniqueInput | SavedFilterWhereUniqueInput[]
+    delete?: SavedFilterWhereUniqueInput | SavedFilterWhereUniqueInput[]
+    connect?: SavedFilterWhereUniqueInput | SavedFilterWhereUniqueInput[]
+    update?: SavedFilterUpdateWithWhereUniqueWithoutUserInput | SavedFilterUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SavedFilterUpdateManyWithWhereWithoutUserInput | SavedFilterUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SavedFilterScalarWhereInput | SavedFilterScalarWhereInput[]
+  }
+
   export type NotebookUncheckedUpdateManyWithoutCreatedByNestedInput = {
     create?: XOR<NotebookCreateWithoutCreatedByInput, NotebookUncheckedCreateWithoutCreatedByInput> | NotebookCreateWithoutCreatedByInput[] | NotebookUncheckedCreateWithoutCreatedByInput[]
     connectOrCreate?: NotebookCreateOrConnectWithoutCreatedByInput | NotebookCreateOrConnectWithoutCreatedByInput[]
@@ -97646,6 +106638,34 @@ export namespace Prisma {
     update?: PasswordResetTokenUpdateWithWhereUniqueWithoutUserInput | PasswordResetTokenUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: PasswordResetTokenUpdateManyWithWhereWithoutUserInput | PasswordResetTokenUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
+  }
+
+  export type RefreshTokenUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
+    upsert?: RefreshTokenUpsertWithWhereUniqueWithoutUserInput | RefreshTokenUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RefreshTokenCreateManyUserInputEnvelope
+    set?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
+    disconnect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
+    delete?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
+    connect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
+    update?: RefreshTokenUpdateWithWhereUniqueWithoutUserInput | RefreshTokenUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RefreshTokenUpdateManyWithWhereWithoutUserInput | RefreshTokenUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RefreshTokenScalarWhereInput | RefreshTokenScalarWhereInput[]
+  }
+
+  export type CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<CustomFieldCreateWithoutCreatedByInput, CustomFieldUncheckedCreateWithoutCreatedByInput> | CustomFieldCreateWithoutCreatedByInput[] | CustomFieldUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: CustomFieldCreateOrConnectWithoutCreatedByInput | CustomFieldCreateOrConnectWithoutCreatedByInput[]
+    upsert?: CustomFieldUpsertWithWhereUniqueWithoutCreatedByInput | CustomFieldUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: CustomFieldCreateManyCreatedByInputEnvelope
+    set?: CustomFieldWhereUniqueInput | CustomFieldWhereUniqueInput[]
+    disconnect?: CustomFieldWhereUniqueInput | CustomFieldWhereUniqueInput[]
+    delete?: CustomFieldWhereUniqueInput | CustomFieldWhereUniqueInput[]
+    connect?: CustomFieldWhereUniqueInput | CustomFieldWhereUniqueInput[]
+    update?: CustomFieldUpdateWithWhereUniqueWithoutCreatedByInput | CustomFieldUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: CustomFieldUpdateManyWithWhereWithoutCreatedByInput | CustomFieldUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: CustomFieldScalarWhereInput | CustomFieldScalarWhereInput[]
   }
 
   export type VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput = {
@@ -100264,6 +109284,18 @@ export namespace Prisma {
     connect?: ClientWhereUniqueInput
   }
 
+  export type PipelineCreateNestedOneWithoutDealsInput = {
+    create?: XOR<PipelineCreateWithoutDealsInput, PipelineUncheckedCreateWithoutDealsInput>
+    connectOrCreate?: PipelineCreateOrConnectWithoutDealsInput
+    connect?: PipelineWhereUniqueInput
+  }
+
+  export type DealStageModelCreateNestedOneWithoutDealsInput = {
+    create?: XOR<DealStageModelCreateWithoutDealsInput, DealStageModelUncheckedCreateWithoutDealsInput>
+    connectOrCreate?: DealStageModelCreateOrConnectWithoutDealsInput
+    connect?: DealStageModelWhereUniqueInput
+  }
+
   export type DealActivityCreateNestedManyWithoutDealInput = {
     create?: XOR<DealActivityCreateWithoutDealInput, DealActivityUncheckedCreateWithoutDealInput> | DealActivityCreateWithoutDealInput[] | DealActivityUncheckedCreateWithoutDealInput[]
     connectOrCreate?: DealActivityCreateOrConnectWithoutDealInput | DealActivityCreateOrConnectWithoutDealInput[]
@@ -100318,6 +109350,26 @@ export namespace Prisma {
     delete?: ClientWhereInput | boolean
     connect?: ClientWhereUniqueInput
     update?: XOR<XOR<ClientUpdateToOneWithWhereWithoutDealsInput, ClientUpdateWithoutDealsInput>, ClientUncheckedUpdateWithoutDealsInput>
+  }
+
+  export type PipelineUpdateOneWithoutDealsNestedInput = {
+    create?: XOR<PipelineCreateWithoutDealsInput, PipelineUncheckedCreateWithoutDealsInput>
+    connectOrCreate?: PipelineCreateOrConnectWithoutDealsInput
+    upsert?: PipelineUpsertWithoutDealsInput
+    disconnect?: PipelineWhereInput | boolean
+    delete?: PipelineWhereInput | boolean
+    connect?: PipelineWhereUniqueInput
+    update?: XOR<XOR<PipelineUpdateToOneWithWhereWithoutDealsInput, PipelineUpdateWithoutDealsInput>, PipelineUncheckedUpdateWithoutDealsInput>
+  }
+
+  export type DealStageModelUpdateOneWithoutDealsNestedInput = {
+    create?: XOR<DealStageModelCreateWithoutDealsInput, DealStageModelUncheckedCreateWithoutDealsInput>
+    connectOrCreate?: DealStageModelCreateOrConnectWithoutDealsInput
+    upsert?: DealStageModelUpsertWithoutDealsInput
+    disconnect?: DealStageModelWhereInput | boolean
+    delete?: DealStageModelWhereInput | boolean
+    connect?: DealStageModelWhereUniqueInput
+    update?: XOR<XOR<DealStageModelUpdateToOneWithWhereWithoutDealsInput, DealStageModelUpdateWithoutDealsInput>, DealStageModelUncheckedUpdateWithoutDealsInput>
   }
 
   export type DealActivityUpdateManyWithoutDealNestedInput = {
@@ -101708,6 +110760,250 @@ export namespace Prisma {
     update?: XOR<XOR<AlumniUpdateToOneWithWhereWithoutEngagementsInput, AlumniUpdateWithoutEngagementsInput>, AlumniUncheckedUpdateWithoutEngagementsInput>
   }
 
+  export type UserCreateNestedOneWithoutSavedFiltersInput = {
+    create?: XOR<UserCreateWithoutSavedFiltersInput, UserUncheckedCreateWithoutSavedFiltersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSavedFiltersInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutSavedFiltersNestedInput = {
+    create?: XOR<UserCreateWithoutSavedFiltersInput, UserUncheckedCreateWithoutSavedFiltersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSavedFiltersInput
+    upsert?: UserUpsertWithoutSavedFiltersInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSavedFiltersInput, UserUpdateWithoutSavedFiltersInput>, UserUncheckedUpdateWithoutSavedFiltersInput>
+  }
+
+  export type DealStageModelCreateNestedManyWithoutPipelineInput = {
+    create?: XOR<DealStageModelCreateWithoutPipelineInput, DealStageModelUncheckedCreateWithoutPipelineInput> | DealStageModelCreateWithoutPipelineInput[] | DealStageModelUncheckedCreateWithoutPipelineInput[]
+    connectOrCreate?: DealStageModelCreateOrConnectWithoutPipelineInput | DealStageModelCreateOrConnectWithoutPipelineInput[]
+    createMany?: DealStageModelCreateManyPipelineInputEnvelope
+    connect?: DealStageModelWhereUniqueInput | DealStageModelWhereUniqueInput[]
+  }
+
+  export type DealCreateNestedManyWithoutPipelineInput = {
+    create?: XOR<DealCreateWithoutPipelineInput, DealUncheckedCreateWithoutPipelineInput> | DealCreateWithoutPipelineInput[] | DealUncheckedCreateWithoutPipelineInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutPipelineInput | DealCreateOrConnectWithoutPipelineInput[]
+    createMany?: DealCreateManyPipelineInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+  }
+
+  export type DealStageModelUncheckedCreateNestedManyWithoutPipelineInput = {
+    create?: XOR<DealStageModelCreateWithoutPipelineInput, DealStageModelUncheckedCreateWithoutPipelineInput> | DealStageModelCreateWithoutPipelineInput[] | DealStageModelUncheckedCreateWithoutPipelineInput[]
+    connectOrCreate?: DealStageModelCreateOrConnectWithoutPipelineInput | DealStageModelCreateOrConnectWithoutPipelineInput[]
+    createMany?: DealStageModelCreateManyPipelineInputEnvelope
+    connect?: DealStageModelWhereUniqueInput | DealStageModelWhereUniqueInput[]
+  }
+
+  export type DealUncheckedCreateNestedManyWithoutPipelineInput = {
+    create?: XOR<DealCreateWithoutPipelineInput, DealUncheckedCreateWithoutPipelineInput> | DealCreateWithoutPipelineInput[] | DealUncheckedCreateWithoutPipelineInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutPipelineInput | DealCreateOrConnectWithoutPipelineInput[]
+    createMany?: DealCreateManyPipelineInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+  }
+
+  export type DealStageModelUpdateManyWithoutPipelineNestedInput = {
+    create?: XOR<DealStageModelCreateWithoutPipelineInput, DealStageModelUncheckedCreateWithoutPipelineInput> | DealStageModelCreateWithoutPipelineInput[] | DealStageModelUncheckedCreateWithoutPipelineInput[]
+    connectOrCreate?: DealStageModelCreateOrConnectWithoutPipelineInput | DealStageModelCreateOrConnectWithoutPipelineInput[]
+    upsert?: DealStageModelUpsertWithWhereUniqueWithoutPipelineInput | DealStageModelUpsertWithWhereUniqueWithoutPipelineInput[]
+    createMany?: DealStageModelCreateManyPipelineInputEnvelope
+    set?: DealStageModelWhereUniqueInput | DealStageModelWhereUniqueInput[]
+    disconnect?: DealStageModelWhereUniqueInput | DealStageModelWhereUniqueInput[]
+    delete?: DealStageModelWhereUniqueInput | DealStageModelWhereUniqueInput[]
+    connect?: DealStageModelWhereUniqueInput | DealStageModelWhereUniqueInput[]
+    update?: DealStageModelUpdateWithWhereUniqueWithoutPipelineInput | DealStageModelUpdateWithWhereUniqueWithoutPipelineInput[]
+    updateMany?: DealStageModelUpdateManyWithWhereWithoutPipelineInput | DealStageModelUpdateManyWithWhereWithoutPipelineInput[]
+    deleteMany?: DealStageModelScalarWhereInput | DealStageModelScalarWhereInput[]
+  }
+
+  export type DealUpdateManyWithoutPipelineNestedInput = {
+    create?: XOR<DealCreateWithoutPipelineInput, DealUncheckedCreateWithoutPipelineInput> | DealCreateWithoutPipelineInput[] | DealUncheckedCreateWithoutPipelineInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutPipelineInput | DealCreateOrConnectWithoutPipelineInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutPipelineInput | DealUpsertWithWhereUniqueWithoutPipelineInput[]
+    createMany?: DealCreateManyPipelineInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutPipelineInput | DealUpdateWithWhereUniqueWithoutPipelineInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutPipelineInput | DealUpdateManyWithWhereWithoutPipelineInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
+  }
+
+  export type DealStageModelUncheckedUpdateManyWithoutPipelineNestedInput = {
+    create?: XOR<DealStageModelCreateWithoutPipelineInput, DealStageModelUncheckedCreateWithoutPipelineInput> | DealStageModelCreateWithoutPipelineInput[] | DealStageModelUncheckedCreateWithoutPipelineInput[]
+    connectOrCreate?: DealStageModelCreateOrConnectWithoutPipelineInput | DealStageModelCreateOrConnectWithoutPipelineInput[]
+    upsert?: DealStageModelUpsertWithWhereUniqueWithoutPipelineInput | DealStageModelUpsertWithWhereUniqueWithoutPipelineInput[]
+    createMany?: DealStageModelCreateManyPipelineInputEnvelope
+    set?: DealStageModelWhereUniqueInput | DealStageModelWhereUniqueInput[]
+    disconnect?: DealStageModelWhereUniqueInput | DealStageModelWhereUniqueInput[]
+    delete?: DealStageModelWhereUniqueInput | DealStageModelWhereUniqueInput[]
+    connect?: DealStageModelWhereUniqueInput | DealStageModelWhereUniqueInput[]
+    update?: DealStageModelUpdateWithWhereUniqueWithoutPipelineInput | DealStageModelUpdateWithWhereUniqueWithoutPipelineInput[]
+    updateMany?: DealStageModelUpdateManyWithWhereWithoutPipelineInput | DealStageModelUpdateManyWithWhereWithoutPipelineInput[]
+    deleteMany?: DealStageModelScalarWhereInput | DealStageModelScalarWhereInput[]
+  }
+
+  export type DealUncheckedUpdateManyWithoutPipelineNestedInput = {
+    create?: XOR<DealCreateWithoutPipelineInput, DealUncheckedCreateWithoutPipelineInput> | DealCreateWithoutPipelineInput[] | DealUncheckedCreateWithoutPipelineInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutPipelineInput | DealCreateOrConnectWithoutPipelineInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutPipelineInput | DealUpsertWithWhereUniqueWithoutPipelineInput[]
+    createMany?: DealCreateManyPipelineInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutPipelineInput | DealUpdateWithWhereUniqueWithoutPipelineInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutPipelineInput | DealUpdateManyWithWhereWithoutPipelineInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
+  }
+
+  export type PipelineCreateNestedOneWithoutStagesInput = {
+    create?: XOR<PipelineCreateWithoutStagesInput, PipelineUncheckedCreateWithoutStagesInput>
+    connectOrCreate?: PipelineCreateOrConnectWithoutStagesInput
+    connect?: PipelineWhereUniqueInput
+  }
+
+  export type DealCreateNestedManyWithoutStageRelationInput = {
+    create?: XOR<DealCreateWithoutStageRelationInput, DealUncheckedCreateWithoutStageRelationInput> | DealCreateWithoutStageRelationInput[] | DealUncheckedCreateWithoutStageRelationInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutStageRelationInput | DealCreateOrConnectWithoutStageRelationInput[]
+    createMany?: DealCreateManyStageRelationInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+  }
+
+  export type DealUncheckedCreateNestedManyWithoutStageRelationInput = {
+    create?: XOR<DealCreateWithoutStageRelationInput, DealUncheckedCreateWithoutStageRelationInput> | DealCreateWithoutStageRelationInput[] | DealUncheckedCreateWithoutStageRelationInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutStageRelationInput | DealCreateOrConnectWithoutStageRelationInput[]
+    createMany?: DealCreateManyStageRelationInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+  }
+
+  export type PipelineUpdateOneRequiredWithoutStagesNestedInput = {
+    create?: XOR<PipelineCreateWithoutStagesInput, PipelineUncheckedCreateWithoutStagesInput>
+    connectOrCreate?: PipelineCreateOrConnectWithoutStagesInput
+    upsert?: PipelineUpsertWithoutStagesInput
+    connect?: PipelineWhereUniqueInput
+    update?: XOR<XOR<PipelineUpdateToOneWithWhereWithoutStagesInput, PipelineUpdateWithoutStagesInput>, PipelineUncheckedUpdateWithoutStagesInput>
+  }
+
+  export type DealUpdateManyWithoutStageRelationNestedInput = {
+    create?: XOR<DealCreateWithoutStageRelationInput, DealUncheckedCreateWithoutStageRelationInput> | DealCreateWithoutStageRelationInput[] | DealUncheckedCreateWithoutStageRelationInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutStageRelationInput | DealCreateOrConnectWithoutStageRelationInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutStageRelationInput | DealUpsertWithWhereUniqueWithoutStageRelationInput[]
+    createMany?: DealCreateManyStageRelationInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutStageRelationInput | DealUpdateWithWhereUniqueWithoutStageRelationInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutStageRelationInput | DealUpdateManyWithWhereWithoutStageRelationInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
+  }
+
+  export type DealUncheckedUpdateManyWithoutStageRelationNestedInput = {
+    create?: XOR<DealCreateWithoutStageRelationInput, DealUncheckedCreateWithoutStageRelationInput> | DealCreateWithoutStageRelationInput[] | DealUncheckedCreateWithoutStageRelationInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutStageRelationInput | DealCreateOrConnectWithoutStageRelationInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutStageRelationInput | DealUpsertWithWhereUniqueWithoutStageRelationInput[]
+    createMany?: DealCreateManyStageRelationInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutStageRelationInput | DealUpdateWithWhereUniqueWithoutStageRelationInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutStageRelationInput | DealUpdateManyWithWhereWithoutStageRelationInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutCustomFieldsCreatedInput = {
+    create?: XOR<UserCreateWithoutCustomFieldsCreatedInput, UserUncheckedCreateWithoutCustomFieldsCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCustomFieldsCreatedInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type CustomFieldValueCreateNestedManyWithoutFieldInput = {
+    create?: XOR<CustomFieldValueCreateWithoutFieldInput, CustomFieldValueUncheckedCreateWithoutFieldInput> | CustomFieldValueCreateWithoutFieldInput[] | CustomFieldValueUncheckedCreateWithoutFieldInput[]
+    connectOrCreate?: CustomFieldValueCreateOrConnectWithoutFieldInput | CustomFieldValueCreateOrConnectWithoutFieldInput[]
+    createMany?: CustomFieldValueCreateManyFieldInputEnvelope
+    connect?: CustomFieldValueWhereUniqueInput | CustomFieldValueWhereUniqueInput[]
+  }
+
+  export type CustomFieldValueUncheckedCreateNestedManyWithoutFieldInput = {
+    create?: XOR<CustomFieldValueCreateWithoutFieldInput, CustomFieldValueUncheckedCreateWithoutFieldInput> | CustomFieldValueCreateWithoutFieldInput[] | CustomFieldValueUncheckedCreateWithoutFieldInput[]
+    connectOrCreate?: CustomFieldValueCreateOrConnectWithoutFieldInput | CustomFieldValueCreateOrConnectWithoutFieldInput[]
+    createMany?: CustomFieldValueCreateManyFieldInputEnvelope
+    connect?: CustomFieldValueWhereUniqueInput | CustomFieldValueWhereUniqueInput[]
+  }
+
+  export type EnumCustomFieldTypeFieldUpdateOperationsInput = {
+    set?: $Enums.CustomFieldType
+  }
+
+  export type UserUpdateOneWithoutCustomFieldsCreatedNestedInput = {
+    create?: XOR<UserCreateWithoutCustomFieldsCreatedInput, UserUncheckedCreateWithoutCustomFieldsCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCustomFieldsCreatedInput
+    upsert?: UserUpsertWithoutCustomFieldsCreatedInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCustomFieldsCreatedInput, UserUpdateWithoutCustomFieldsCreatedInput>, UserUncheckedUpdateWithoutCustomFieldsCreatedInput>
+  }
+
+  export type CustomFieldValueUpdateManyWithoutFieldNestedInput = {
+    create?: XOR<CustomFieldValueCreateWithoutFieldInput, CustomFieldValueUncheckedCreateWithoutFieldInput> | CustomFieldValueCreateWithoutFieldInput[] | CustomFieldValueUncheckedCreateWithoutFieldInput[]
+    connectOrCreate?: CustomFieldValueCreateOrConnectWithoutFieldInput | CustomFieldValueCreateOrConnectWithoutFieldInput[]
+    upsert?: CustomFieldValueUpsertWithWhereUniqueWithoutFieldInput | CustomFieldValueUpsertWithWhereUniqueWithoutFieldInput[]
+    createMany?: CustomFieldValueCreateManyFieldInputEnvelope
+    set?: CustomFieldValueWhereUniqueInput | CustomFieldValueWhereUniqueInput[]
+    disconnect?: CustomFieldValueWhereUniqueInput | CustomFieldValueWhereUniqueInput[]
+    delete?: CustomFieldValueWhereUniqueInput | CustomFieldValueWhereUniqueInput[]
+    connect?: CustomFieldValueWhereUniqueInput | CustomFieldValueWhereUniqueInput[]
+    update?: CustomFieldValueUpdateWithWhereUniqueWithoutFieldInput | CustomFieldValueUpdateWithWhereUniqueWithoutFieldInput[]
+    updateMany?: CustomFieldValueUpdateManyWithWhereWithoutFieldInput | CustomFieldValueUpdateManyWithWhereWithoutFieldInput[]
+    deleteMany?: CustomFieldValueScalarWhereInput | CustomFieldValueScalarWhereInput[]
+  }
+
+  export type CustomFieldValueUncheckedUpdateManyWithoutFieldNestedInput = {
+    create?: XOR<CustomFieldValueCreateWithoutFieldInput, CustomFieldValueUncheckedCreateWithoutFieldInput> | CustomFieldValueCreateWithoutFieldInput[] | CustomFieldValueUncheckedCreateWithoutFieldInput[]
+    connectOrCreate?: CustomFieldValueCreateOrConnectWithoutFieldInput | CustomFieldValueCreateOrConnectWithoutFieldInput[]
+    upsert?: CustomFieldValueUpsertWithWhereUniqueWithoutFieldInput | CustomFieldValueUpsertWithWhereUniqueWithoutFieldInput[]
+    createMany?: CustomFieldValueCreateManyFieldInputEnvelope
+    set?: CustomFieldValueWhereUniqueInput | CustomFieldValueWhereUniqueInput[]
+    disconnect?: CustomFieldValueWhereUniqueInput | CustomFieldValueWhereUniqueInput[]
+    delete?: CustomFieldValueWhereUniqueInput | CustomFieldValueWhereUniqueInput[]
+    connect?: CustomFieldValueWhereUniqueInput | CustomFieldValueWhereUniqueInput[]
+    update?: CustomFieldValueUpdateWithWhereUniqueWithoutFieldInput | CustomFieldValueUpdateWithWhereUniqueWithoutFieldInput[]
+    updateMany?: CustomFieldValueUpdateManyWithWhereWithoutFieldInput | CustomFieldValueUpdateManyWithWhereWithoutFieldInput[]
+    deleteMany?: CustomFieldValueScalarWhereInput | CustomFieldValueScalarWhereInput[]
+  }
+
+  export type CustomFieldCreateNestedOneWithoutValuesInput = {
+    create?: XOR<CustomFieldCreateWithoutValuesInput, CustomFieldUncheckedCreateWithoutValuesInput>
+    connectOrCreate?: CustomFieldCreateOrConnectWithoutValuesInput
+    connect?: CustomFieldWhereUniqueInput
+  }
+
+  export type CustomFieldUpdateOneRequiredWithoutValuesNestedInput = {
+    create?: XOR<CustomFieldCreateWithoutValuesInput, CustomFieldUncheckedCreateWithoutValuesInput>
+    connectOrCreate?: CustomFieldCreateOrConnectWithoutValuesInput
+    upsert?: CustomFieldUpsertWithoutValuesInput
+    connect?: CustomFieldWhereUniqueInput
+    update?: XOR<XOR<CustomFieldUpdateToOneWithWhereWithoutValuesInput, CustomFieldUpdateWithoutValuesInput>, CustomFieldUncheckedUpdateWithoutValuesInput>
+  }
+
+  export type UserCreateNestedOneWithoutRefreshTokensInput = {
+    create?: XOR<UserCreateWithoutRefreshTokensInput, UserUncheckedCreateWithoutRefreshTokensInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRefreshTokensInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutRefreshTokensNestedInput = {
+    create?: XOR<UserCreateWithoutRefreshTokensInput, UserUncheckedCreateWithoutRefreshTokensInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRefreshTokensInput
+    upsert?: UserUpsertWithoutRefreshTokensInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRefreshTokensInput, UserUpdateWithoutRefreshTokensInput>, UserUncheckedUpdateWithoutRefreshTokensInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -102348,6 +111644,23 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type NestedEnumCustomFieldTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.CustomFieldType | EnumCustomFieldTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CustomFieldType[]
+    notIn?: $Enums.CustomFieldType[]
+    not?: NestedEnumCustomFieldTypeFilter<$PrismaModel> | $Enums.CustomFieldType
+  }
+
+  export type NestedEnumCustomFieldTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CustomFieldType | EnumCustomFieldTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CustomFieldType[]
+    notIn?: $Enums.CustomFieldType[]
+    not?: NestedEnumCustomFieldTypeWithAggregatesFilter<$PrismaModel> | $Enums.CustomFieldType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCustomFieldTypeFilter<$PrismaModel>
+    _max?: NestedEnumCustomFieldTypeFilter<$PrismaModel>
   }
 
   export type AssignmentCreateWithoutCoordinatorInput = {
@@ -103337,6 +112650,8 @@ export namespace Prisma {
     assignedTo?: UserCreateNestedOneWithoutAssignedDealsInput
     project?: ProjectCreateNestedOneWithoutDealsInput
     client?: ClientCreateNestedOneWithoutDealsInput
+    pipeline?: PipelineCreateNestedOneWithoutDealsInput
+    stageRelation?: DealStageModelCreateNestedOneWithoutDealsInput
     activities?: DealActivityCreateNestedManyWithoutDealInput
   }
 
@@ -103357,6 +112672,8 @@ export namespace Prisma {
     assignedToId?: string | null
     projectId?: string | null
     clientId?: string | null
+    pipelineId?: string | null
+    stageId?: string | null
     activities?: DealActivityUncheckedCreateNestedManyWithoutDealInput
   }
 
@@ -103386,6 +112703,8 @@ export namespace Prisma {
     createdBy: UserCreateNestedOneWithoutCreatedDealsInput
     project?: ProjectCreateNestedOneWithoutDealsInput
     client?: ClientCreateNestedOneWithoutDealsInput
+    pipeline?: PipelineCreateNestedOneWithoutDealsInput
+    stageRelation?: DealStageModelCreateNestedOneWithoutDealsInput
     activities?: DealActivityCreateNestedManyWithoutDealInput
   }
 
@@ -103406,6 +112725,8 @@ export namespace Prisma {
     createdById: string
     projectId?: string | null
     clientId?: string | null
+    pipelineId?: string | null
+    stageId?: string | null
     activities?: DealActivityUncheckedCreateNestedManyWithoutDealInput
   }
 
@@ -103675,6 +112996,39 @@ export namespace Prisma {
     data: NotificationCreateManyUserInput | NotificationCreateManyUserInput[]
   }
 
+  export type SavedFilterCreateWithoutUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    entityType?: string
+    filterData: string
+    isDefault?: boolean
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SavedFilterUncheckedCreateWithoutUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    entityType?: string
+    filterData: string
+    isDefault?: boolean
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SavedFilterCreateOrConnectWithoutUserInput = {
+    where: SavedFilterWhereUniqueInput
+    create: XOR<SavedFilterCreateWithoutUserInput, SavedFilterUncheckedCreateWithoutUserInput>
+  }
+
+  export type SavedFilterCreateManyUserInputEnvelope = {
+    data: SavedFilterCreateManyUserInput | SavedFilterCreateManyUserInput[]
+  }
+
   export type NotebookCreateWithoutCreatedByInput = {
     id?: string
     title: string
@@ -103823,6 +113177,64 @@ export namespace Prisma {
 
   export type PasswordResetTokenCreateManyUserInputEnvelope = {
     data: PasswordResetTokenCreateManyUserInput | PasswordResetTokenCreateManyUserInput[]
+  }
+
+  export type RefreshTokenCreateWithoutUserInput = {
+    id?: string
+    token: string
+    expiresAt: Date | string
+    rotatedFrom?: string | null
+    createdAt?: Date | string
+  }
+
+  export type RefreshTokenUncheckedCreateWithoutUserInput = {
+    id?: string
+    token: string
+    expiresAt: Date | string
+    rotatedFrom?: string | null
+    createdAt?: Date | string
+  }
+
+  export type RefreshTokenCreateOrConnectWithoutUserInput = {
+    where: RefreshTokenWhereUniqueInput
+    create: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput>
+  }
+
+  export type RefreshTokenCreateManyUserInputEnvelope = {
+    data: RefreshTokenCreateManyUserInput | RefreshTokenCreateManyUserInput[]
+  }
+
+  export type CustomFieldCreateWithoutCreatedByInput = {
+    id?: string
+    name: string
+    type: $Enums.CustomFieldType
+    entityType: string
+    isRequired?: boolean
+    options?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    values?: CustomFieldValueCreateNestedManyWithoutFieldInput
+  }
+
+  export type CustomFieldUncheckedCreateWithoutCreatedByInput = {
+    id?: string
+    name: string
+    type: $Enums.CustomFieldType
+    entityType: string
+    isRequired?: boolean
+    options?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    values?: CustomFieldValueUncheckedCreateNestedManyWithoutFieldInput
+  }
+
+  export type CustomFieldCreateOrConnectWithoutCreatedByInput = {
+    where: CustomFieldWhereUniqueInput
+    create: XOR<CustomFieldCreateWithoutCreatedByInput, CustomFieldUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type CustomFieldCreateManyCreatedByInputEnvelope = {
+    data: CustomFieldCreateManyCreatedByInput | CustomFieldCreateManyCreatedByInput[]
   }
 
   export type VoiceNoteCreateWithoutUploadedByInput = {
@@ -104852,6 +114264,8 @@ export namespace Prisma {
     assignedToId?: StringNullableFilter<"Deal"> | string | null
     projectId?: StringNullableFilter<"Deal"> | string | null
     clientId?: StringNullableFilter<"Deal"> | string | null
+    pipelineId?: StringNullableFilter<"Deal"> | string | null
+    stageId?: StringNullableFilter<"Deal"> | string | null
   }
 
   export type DealUpsertWithWhereUniqueWithoutAssignedToInput = {
@@ -105078,6 +114492,38 @@ export namespace Prisma {
     postId?: StringNullableFilter<"Notification"> | string | null
   }
 
+  export type SavedFilterUpsertWithWhereUniqueWithoutUserInput = {
+    where: SavedFilterWhereUniqueInput
+    update: XOR<SavedFilterUpdateWithoutUserInput, SavedFilterUncheckedUpdateWithoutUserInput>
+    create: XOR<SavedFilterCreateWithoutUserInput, SavedFilterUncheckedCreateWithoutUserInput>
+  }
+
+  export type SavedFilterUpdateWithWhereUniqueWithoutUserInput = {
+    where: SavedFilterWhereUniqueInput
+    data: XOR<SavedFilterUpdateWithoutUserInput, SavedFilterUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SavedFilterUpdateManyWithWhereWithoutUserInput = {
+    where: SavedFilterScalarWhereInput
+    data: XOR<SavedFilterUpdateManyMutationInput, SavedFilterUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type SavedFilterScalarWhereInput = {
+    AND?: SavedFilterScalarWhereInput | SavedFilterScalarWhereInput[]
+    OR?: SavedFilterScalarWhereInput[]
+    NOT?: SavedFilterScalarWhereInput | SavedFilterScalarWhereInput[]
+    id?: StringFilter<"SavedFilter"> | string
+    name?: StringFilter<"SavedFilter"> | string
+    description?: StringNullableFilter<"SavedFilter"> | string | null
+    entityType?: StringFilter<"SavedFilter"> | string
+    filterData?: StringFilter<"SavedFilter"> | string
+    isDefault?: BoolFilter<"SavedFilter"> | boolean
+    isPublic?: BoolFilter<"SavedFilter"> | boolean
+    createdAt?: DateTimeFilter<"SavedFilter"> | Date | string
+    updatedAt?: DateTimeFilter<"SavedFilter"> | Date | string
+    userId?: StringFilter<"SavedFilter"> | string
+  }
+
   export type NotebookUpsertWithWhereUniqueWithoutCreatedByInput = {
     where: NotebookWhereUniqueInput
     update: XOR<NotebookUpdateWithoutCreatedByInput, NotebookUncheckedUpdateWithoutCreatedByInput>
@@ -105210,6 +114656,65 @@ export namespace Prisma {
     expiresAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
     usedAt?: DateTimeNullableFilter<"PasswordResetToken"> | Date | string | null
     createdAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
+  }
+
+  export type RefreshTokenUpsertWithWhereUniqueWithoutUserInput = {
+    where: RefreshTokenWhereUniqueInput
+    update: XOR<RefreshTokenUpdateWithoutUserInput, RefreshTokenUncheckedUpdateWithoutUserInput>
+    create: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput>
+  }
+
+  export type RefreshTokenUpdateWithWhereUniqueWithoutUserInput = {
+    where: RefreshTokenWhereUniqueInput
+    data: XOR<RefreshTokenUpdateWithoutUserInput, RefreshTokenUncheckedUpdateWithoutUserInput>
+  }
+
+  export type RefreshTokenUpdateManyWithWhereWithoutUserInput = {
+    where: RefreshTokenScalarWhereInput
+    data: XOR<RefreshTokenUpdateManyMutationInput, RefreshTokenUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type RefreshTokenScalarWhereInput = {
+    AND?: RefreshTokenScalarWhereInput | RefreshTokenScalarWhereInput[]
+    OR?: RefreshTokenScalarWhereInput[]
+    NOT?: RefreshTokenScalarWhereInput | RefreshTokenScalarWhereInput[]
+    id?: StringFilter<"RefreshToken"> | string
+    token?: StringFilter<"RefreshToken"> | string
+    userId?: StringFilter<"RefreshToken"> | string
+    expiresAt?: DateTimeFilter<"RefreshToken"> | Date | string
+    rotatedFrom?: StringNullableFilter<"RefreshToken"> | string | null
+    createdAt?: DateTimeFilter<"RefreshToken"> | Date | string
+  }
+
+  export type CustomFieldUpsertWithWhereUniqueWithoutCreatedByInput = {
+    where: CustomFieldWhereUniqueInput
+    update: XOR<CustomFieldUpdateWithoutCreatedByInput, CustomFieldUncheckedUpdateWithoutCreatedByInput>
+    create: XOR<CustomFieldCreateWithoutCreatedByInput, CustomFieldUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type CustomFieldUpdateWithWhereUniqueWithoutCreatedByInput = {
+    where: CustomFieldWhereUniqueInput
+    data: XOR<CustomFieldUpdateWithoutCreatedByInput, CustomFieldUncheckedUpdateWithoutCreatedByInput>
+  }
+
+  export type CustomFieldUpdateManyWithWhereWithoutCreatedByInput = {
+    where: CustomFieldScalarWhereInput
+    data: XOR<CustomFieldUpdateManyMutationInput, CustomFieldUncheckedUpdateManyWithoutCreatedByInput>
+  }
+
+  export type CustomFieldScalarWhereInput = {
+    AND?: CustomFieldScalarWhereInput | CustomFieldScalarWhereInput[]
+    OR?: CustomFieldScalarWhereInput[]
+    NOT?: CustomFieldScalarWhereInput | CustomFieldScalarWhereInput[]
+    id?: StringFilter<"CustomField"> | string
+    name?: StringFilter<"CustomField"> | string
+    type?: EnumCustomFieldTypeFilter<"CustomField"> | $Enums.CustomFieldType
+    entityType?: StringFilter<"CustomField"> | string
+    isRequired?: BoolFilter<"CustomField"> | boolean
+    options?: StringNullableFilter<"CustomField"> | string | null
+    createdById?: StringNullableFilter<"CustomField"> | string | null
+    createdAt?: DateTimeFilter<"CustomField"> | Date | string
+    updatedAt?: DateTimeFilter<"CustomField"> | Date | string
   }
 
   export type VoiceNoteUpsertWithWhereUniqueWithoutUploadedByInput = {
@@ -105611,6 +115116,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -105641,10 +115148,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -105667,6 +115177,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -105697,10 +115209,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -105770,6 +115285,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -105800,10 +115317,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -105826,6 +115346,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -105856,10 +115378,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -106664,6 +116189,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -106694,10 +116221,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -106720,6 +116250,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -106750,10 +116282,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -106781,6 +116316,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -106811,10 +116348,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -106837,6 +116377,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -106867,10 +116409,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -107402,6 +116947,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -107432,10 +116979,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -107458,6 +117008,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -107488,10 +117040,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -107525,6 +117080,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -107555,10 +117112,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -107581,6 +117141,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -107611,10 +117173,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -108015,6 +117580,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     createdSeekers?: SeekerCreateNestedManyWithoutCreatedByInput
@@ -108045,10 +117612,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -108071,6 +117641,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     createdSeekers?: SeekerUncheckedCreateNestedManyWithoutCreatedByInput
@@ -108101,10 +117673,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -108242,6 +117817,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     createdSeekers?: SeekerUpdateManyWithoutCreatedByNestedInput
@@ -108272,10 +117849,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -108298,6 +117878,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     createdSeekers?: SeekerUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -108328,10 +117910,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -108459,6 +118044,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
     createdSeekers?: SeekerCreateNestedManyWithoutCreatedByInput
@@ -108489,10 +118076,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -108515,6 +118105,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
     createdSeekers?: SeekerUncheckedCreateNestedManyWithoutCreatedByInput
@@ -108545,10 +118137,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -108713,6 +118308,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
     createdSeekers?: SeekerUpdateManyWithoutCreatedByNestedInput
@@ -108743,10 +118340,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -108769,6 +118369,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
     createdSeekers?: SeekerUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -108799,10 +118401,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -108975,6 +118580,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -109005,10 +118612,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -109031,6 +118641,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -109061,10 +118673,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -109138,6 +118753,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -109168,10 +118785,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -109194,6 +118814,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -109224,10 +118846,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -109250,6 +118875,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
     createdSeekers?: SeekerCreateNestedManyWithoutCreatedByInput
@@ -109280,10 +118907,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -109306,6 +118936,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
     createdSeekers?: SeekerUncheckedCreateNestedManyWithoutCreatedByInput
@@ -109336,10 +118968,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -109477,6 +119112,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
     createdSeekers?: SeekerUpdateManyWithoutCreatedByNestedInput
@@ -109507,10 +119144,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -109533,6 +119173,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
     createdSeekers?: SeekerUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -109563,10 +119205,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -109694,6 +119339,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -109724,10 +119371,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -109750,6 +119400,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -109780,10 +119432,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -109925,6 +119580,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -109955,10 +119612,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -109981,6 +119641,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -110011,10 +119673,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -110106,6 +119771,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -110136,10 +119803,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -110162,6 +119832,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -110192,10 +119864,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -110309,6 +119984,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -110339,10 +120016,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -110365,6 +120045,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -110395,10 +120077,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -110789,6 +120474,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -110819,10 +120506,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -110845,6 +120535,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -110875,10 +120567,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -110917,6 +120612,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -110947,10 +120644,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -110973,6 +120673,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -111003,10 +120705,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -111321,6 +121026,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -111351,10 +121058,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -111377,6 +121087,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -111407,10 +121119,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -111480,6 +121195,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -111510,10 +121227,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -111536,6 +121256,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -111566,10 +121288,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -111608,6 +121333,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -111638,10 +121365,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -111664,6 +121394,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -111694,10 +121426,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -111736,6 +121471,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -111766,10 +121503,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -111792,6 +121532,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -111822,10 +121564,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -112136,6 +121881,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -112166,10 +121913,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -112192,6 +121942,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -112222,10 +121974,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -112322,6 +122077,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -112352,10 +122109,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -112378,6 +122138,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -112408,10 +122170,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -112835,6 +122600,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -112865,10 +122632,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -112891,6 +122661,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -112921,10 +122693,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -112952,6 +122727,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -112982,10 +122759,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -113008,6 +122788,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -113038,10 +122820,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -113179,6 +122964,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -113209,10 +122996,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -113235,6 +123025,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -113265,10 +123057,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -113302,6 +123097,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -113332,10 +123129,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -113358,6 +123158,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -113388,10 +123190,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -113519,6 +123324,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -113549,10 +123356,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -113575,6 +123385,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -113605,10 +123417,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -113719,6 +123534,8 @@ export namespace Prisma {
     createdBy: UserCreateNestedOneWithoutCreatedDealsInput
     assignedTo?: UserCreateNestedOneWithoutAssignedDealsInput
     client?: ClientCreateNestedOneWithoutDealsInput
+    pipeline?: PipelineCreateNestedOneWithoutDealsInput
+    stageRelation?: DealStageModelCreateNestedOneWithoutDealsInput
     activities?: DealActivityCreateNestedManyWithoutDealInput
   }
 
@@ -113739,6 +123556,8 @@ export namespace Prisma {
     createdById: string
     assignedToId?: string | null
     clientId?: string | null
+    pipelineId?: string | null
+    stageId?: string | null
     activities?: DealActivityUncheckedCreateNestedManyWithoutDealInput
   }
 
@@ -113774,6 +123593,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -113804,10 +123625,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -113830,6 +123654,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -113860,10 +123686,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -113975,6 +123804,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -114005,10 +123836,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -114031,6 +123865,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -114061,10 +123897,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -114150,6 +123989,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -114180,10 +124021,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -114206,6 +124050,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -114236,10 +124082,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -114262,6 +124111,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -114292,10 +124143,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -114318,6 +124172,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -114348,10 +124204,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -114379,6 +124238,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -114409,10 +124270,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -114435,6 +124299,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -114465,10 +124331,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -114764,6 +124633,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -114794,10 +124665,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -114820,6 +124694,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -114850,10 +124726,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -114887,6 +124766,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -114917,10 +124798,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -114943,6 +124827,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -114973,10 +124859,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -115354,6 +125243,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -115384,10 +125275,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -115410,6 +125304,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -115440,10 +125336,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -115539,6 +125438,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -115569,10 +125470,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -115595,6 +125499,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -115625,10 +125531,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -115702,6 +125611,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -115732,10 +125643,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -115758,6 +125672,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -115788,10 +125704,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -115887,6 +125806,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -115917,10 +125838,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -115943,6 +125867,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -115973,10 +125899,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -116050,6 +125979,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -116080,10 +126011,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -116106,6 +126040,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -116136,10 +126072,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -116235,6 +126174,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -116265,10 +126206,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -116291,6 +126235,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -116321,10 +126267,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -116347,6 +126296,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -116377,10 +126328,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -116403,6 +126357,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -116433,10 +126389,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -116464,6 +126423,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -116494,10 +126455,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -116520,6 +126484,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -116550,10 +126516,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -116649,6 +126618,56 @@ export namespace Prisma {
     create: XOR<ClientCreateWithoutDealsInput, ClientUncheckedCreateWithoutDealsInput>
   }
 
+  export type PipelineCreateWithoutDealsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    stages?: DealStageModelCreateNestedManyWithoutPipelineInput
+  }
+
+  export type PipelineUncheckedCreateWithoutDealsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    stages?: DealStageModelUncheckedCreateNestedManyWithoutPipelineInput
+  }
+
+  export type PipelineCreateOrConnectWithoutDealsInput = {
+    where: PipelineWhereUniqueInput
+    create: XOR<PipelineCreateWithoutDealsInput, PipelineUncheckedCreateWithoutDealsInput>
+  }
+
+  export type DealStageModelCreateWithoutDealsInput = {
+    id?: string
+    name: string
+    order: number
+    probability?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    pipeline: PipelineCreateNestedOneWithoutStagesInput
+  }
+
+  export type DealStageModelUncheckedCreateWithoutDealsInput = {
+    id?: string
+    name: string
+    order: number
+    probability?: number
+    pipelineId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DealStageModelCreateOrConnectWithoutDealsInput = {
+    where: DealStageModelWhereUniqueInput
+    create: XOR<DealStageModelCreateWithoutDealsInput, DealStageModelUncheckedCreateWithoutDealsInput>
+  }
+
   export type DealActivityCreateWithoutDealInput = {
     id?: string
     type: $Enums.DealActivityType
@@ -116701,6 +126720,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -116731,10 +126752,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -116757,6 +126781,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -116787,10 +126813,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -116824,6 +126853,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -116854,10 +126885,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -116880,6 +126914,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -116910,10 +126946,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -117016,6 +127055,68 @@ export namespace Prisma {
     createdById?: StringFieldUpdateOperationsInput | string
   }
 
+  export type PipelineUpsertWithoutDealsInput = {
+    update: XOR<PipelineUpdateWithoutDealsInput, PipelineUncheckedUpdateWithoutDealsInput>
+    create: XOR<PipelineCreateWithoutDealsInput, PipelineUncheckedCreateWithoutDealsInput>
+    where?: PipelineWhereInput
+  }
+
+  export type PipelineUpdateToOneWithWhereWithoutDealsInput = {
+    where?: PipelineWhereInput
+    data: XOR<PipelineUpdateWithoutDealsInput, PipelineUncheckedUpdateWithoutDealsInput>
+  }
+
+  export type PipelineUpdateWithoutDealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stages?: DealStageModelUpdateManyWithoutPipelineNestedInput
+  }
+
+  export type PipelineUncheckedUpdateWithoutDealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stages?: DealStageModelUncheckedUpdateManyWithoutPipelineNestedInput
+  }
+
+  export type DealStageModelUpsertWithoutDealsInput = {
+    update: XOR<DealStageModelUpdateWithoutDealsInput, DealStageModelUncheckedUpdateWithoutDealsInput>
+    create: XOR<DealStageModelCreateWithoutDealsInput, DealStageModelUncheckedCreateWithoutDealsInput>
+    where?: DealStageModelWhereInput
+  }
+
+  export type DealStageModelUpdateToOneWithWhereWithoutDealsInput = {
+    where?: DealStageModelWhereInput
+    data: XOR<DealStageModelUpdateWithoutDealsInput, DealStageModelUncheckedUpdateWithoutDealsInput>
+  }
+
+  export type DealStageModelUpdateWithoutDealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    probability?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pipeline?: PipelineUpdateOneRequiredWithoutStagesNestedInput
+  }
+
+  export type DealStageModelUncheckedUpdateWithoutDealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    probability?: IntFieldUpdateOperationsInput | number
+    pipelineId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type DealActivityUpsertWithWhereUniqueWithoutDealInput = {
     where: DealActivityWhereUniqueInput
     update: XOR<DealActivityUpdateWithoutDealInput, DealActivityUncheckedUpdateWithoutDealInput>
@@ -117050,6 +127151,8 @@ export namespace Prisma {
     assignedTo?: UserCreateNestedOneWithoutAssignedDealsInput
     project?: ProjectCreateNestedOneWithoutDealsInput
     client?: ClientCreateNestedOneWithoutDealsInput
+    pipeline?: PipelineCreateNestedOneWithoutDealsInput
+    stageRelation?: DealStageModelCreateNestedOneWithoutDealsInput
   }
 
   export type DealUncheckedCreateWithoutActivitiesInput = {
@@ -117070,6 +127173,8 @@ export namespace Prisma {
     assignedToId?: string | null
     projectId?: string | null
     clientId?: string | null
+    pipelineId?: string | null
+    stageId?: string | null
   }
 
   export type DealCreateOrConnectWithoutActivitiesInput = {
@@ -117089,6 +127194,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -117119,10 +127226,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -117145,6 +127255,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -117175,10 +127287,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -117223,6 +127338,8 @@ export namespace Prisma {
     assignedTo?: UserUpdateOneWithoutAssignedDealsNestedInput
     project?: ProjectUpdateOneWithoutDealsNestedInput
     client?: ClientUpdateOneWithoutDealsNestedInput
+    pipeline?: PipelineUpdateOneWithoutDealsNestedInput
+    stageRelation?: DealStageModelUpdateOneWithoutDealsNestedInput
   }
 
   export type DealUncheckedUpdateWithoutActivitiesInput = {
@@ -117243,6 +127360,8 @@ export namespace Prisma {
     assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
     projectId?: NullableStringFieldUpdateOperationsInput | string | null
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    pipelineId?: NullableStringFieldUpdateOperationsInput | string | null
+    stageId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUpsertWithoutDealActivitiesInput = {
@@ -117268,6 +127387,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -117298,10 +127419,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -117324,6 +127448,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -117354,10 +127480,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -117380,6 +127509,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -117410,10 +127541,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -117436,6 +127570,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -117466,10 +127602,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -117502,6 +127641,8 @@ export namespace Prisma {
     createdBy: UserCreateNestedOneWithoutCreatedDealsInput
     assignedTo?: UserCreateNestedOneWithoutAssignedDealsInput
     project?: ProjectCreateNestedOneWithoutDealsInput
+    pipeline?: PipelineCreateNestedOneWithoutDealsInput
+    stageRelation?: DealStageModelCreateNestedOneWithoutDealsInput
     activities?: DealActivityCreateNestedManyWithoutDealInput
   }
 
@@ -117522,6 +127663,8 @@ export namespace Prisma {
     createdById: string
     assignedToId?: string | null
     projectId?: string | null
+    pipelineId?: string | null
+    stageId?: string | null
     activities?: DealActivityUncheckedCreateNestedManyWithoutDealInput
   }
 
@@ -117557,6 +127700,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -117587,10 +127732,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -117613,6 +127761,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -117643,10 +127793,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -117797,6 +127950,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -117827,10 +127982,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -117853,6 +128011,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -117883,10 +128043,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -117914,6 +128077,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -117944,10 +128109,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -117970,6 +128138,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -118000,10 +128170,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -118249,6 +128422,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -118279,10 +128454,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -118305,6 +128483,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -118335,10 +128515,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -118372,6 +128555,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -118402,10 +128587,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -118428,6 +128616,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -118458,10 +128648,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -118579,6 +128772,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -118609,10 +128804,13 @@ export namespace Prisma {
     postsAssignedTo?: SocialMediaPostCreateNestedManyWithoutAssignedToInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -118635,6 +128833,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -118665,10 +128865,13 @@ export namespace Prisma {
     postsAssignedTo?: SocialMediaPostUncheckedCreateNestedManyWithoutAssignedToInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -118760,6 +128963,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -118790,10 +128995,13 @@ export namespace Prisma {
     postsAssignedTo?: SocialMediaPostUpdateManyWithoutAssignedToNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -118816,6 +129024,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -118846,10 +129056,13 @@ export namespace Prisma {
     postsAssignedTo?: SocialMediaPostUncheckedUpdateManyWithoutAssignedToNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -118919,6 +129132,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -118949,10 +129164,13 @@ export namespace Prisma {
     postsAssignedTo?: SocialMediaPostCreateNestedManyWithoutAssignedToInput
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -118975,6 +129193,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -119005,10 +129225,13 @@ export namespace Prisma {
     postsAssignedTo?: SocialMediaPostUncheckedCreateNestedManyWithoutAssignedToInput
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -119100,6 +129323,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -119130,10 +129355,13 @@ export namespace Prisma {
     postsAssignedTo?: SocialMediaPostUpdateManyWithoutAssignedToNestedInput
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -119156,6 +129384,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -119186,10 +129416,13 @@ export namespace Prisma {
     postsAssignedTo?: SocialMediaPostUncheckedUpdateManyWithoutAssignedToNestedInput
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -119212,6 +129445,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -119242,10 +129477,13 @@ export namespace Prisma {
     postsAssignedTo?: SocialMediaPostCreateNestedManyWithoutAssignedToInput
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -119268,6 +129506,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -119298,10 +129538,13 @@ export namespace Prisma {
     postsAssignedTo?: SocialMediaPostUncheckedCreateNestedManyWithoutAssignedToInput
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -119387,6 +129630,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -119417,10 +129662,13 @@ export namespace Prisma {
     postsAssignedTo?: SocialMediaPostUpdateManyWithoutAssignedToNestedInput
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -119443,6 +129691,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -119473,10 +129723,13 @@ export namespace Prisma {
     postsAssignedTo?: SocialMediaPostUncheckedUpdateManyWithoutAssignedToNestedInput
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -119640,6 +129893,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -119671,9 +129926,12 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -119696,6 +129954,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -119727,9 +129987,12 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -119815,6 +130078,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -119846,9 +130111,12 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -119871,6 +130139,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -119902,9 +130172,12 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -120062,6 +130335,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -120093,9 +130368,12 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -120118,6 +130396,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -120149,9 +130429,12 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -120290,6 +130573,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -120321,9 +130606,12 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -120346,6 +130634,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -120377,9 +130667,12 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -120402,6 +130695,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -120433,9 +130728,12 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -120458,6 +130756,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -120489,9 +130789,12 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -120633,6 +130936,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -120664,9 +130969,12 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -120689,6 +130997,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -120720,9 +131030,12 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -120761,6 +131074,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -120792,9 +131107,12 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -120817,6 +131135,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -120848,9 +131168,12 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -120889,6 +131212,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -120920,9 +131245,12 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -120945,6 +131273,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -120976,9 +131306,12 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -121304,6 +131637,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -121335,10 +131670,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
     documentVersions?: DocumentVersionCreateNestedManyWithoutUploadedByInput
@@ -121360,6 +131698,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -121391,10 +131731,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
     documentVersions?: DocumentVersionUncheckedCreateNestedManyWithoutUploadedByInput
@@ -121537,6 +131880,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -121568,10 +131913,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
     documentVersions?: DocumentVersionUpdateManyWithoutUploadedByNestedInput
@@ -121593,6 +131941,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -121624,10 +131974,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
     documentVersions?: DocumentVersionUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -122106,6 +132459,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -122137,10 +132492,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
     documentVersions?: DocumentVersionCreateNestedManyWithoutUploadedByInput
@@ -122162,6 +132520,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -122193,10 +132553,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
     documentVersions?: DocumentVersionUncheckedCreateNestedManyWithoutUploadedByInput
@@ -122223,6 +132586,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -122254,10 +132619,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentVersions?: DocumentVersionCreateNestedManyWithoutUploadedByInput
@@ -122279,6 +132647,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -122310,10 +132680,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentVersions?: DocumentVersionUncheckedCreateNestedManyWithoutUploadedByInput
@@ -122528,6 +132901,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -122559,10 +132934,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
     documentVersions?: DocumentVersionUpdateManyWithoutUploadedByNestedInput
@@ -122584,6 +132962,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -122615,10 +132995,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
     documentVersions?: DocumentVersionUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -122651,6 +133034,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -122682,10 +133067,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentVersions?: DocumentVersionUpdateManyWithoutUploadedByNestedInput
@@ -122707,6 +133095,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -122738,10 +133128,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentVersions?: DocumentVersionUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -122828,6 +133221,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -122859,10 +133254,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -122884,6 +133282,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -122915,10 +133315,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -123011,6 +133414,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -123042,10 +133447,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -123067,6 +133475,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -123098,10 +133508,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -123257,6 +133670,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -123288,10 +133703,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -123313,6 +133731,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -123344,10 +133764,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -123531,6 +133954,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -123562,10 +133987,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -123587,6 +134015,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -123618,10 +134048,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -124062,6 +134495,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -124093,10 +134528,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -124118,6 +134556,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -124149,10 +134589,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -124233,6 +134676,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -124264,10 +134709,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -124289,6 +134737,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -124320,10 +134770,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -124345,6 +134798,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -124376,10 +134831,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -124401,6 +134859,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -124432,10 +134892,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -124502,6 +134965,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -124533,10 +134998,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -124558,6 +135026,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -124589,10 +135059,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -124918,6 +135391,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
     interactions?: InteractionCreateNestedManyWithoutUserInput
@@ -124949,10 +135424,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
     postComments?: PostCommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
@@ -124974,6 +135452,8 @@ export namespace Prisma {
     whatsappToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
     assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
     followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
@@ -125005,10 +135485,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
     postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
     createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
     createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
     createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
     voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
     documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
@@ -125069,6 +135552,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
     interactions?: InteractionUpdateManyWithoutUserNestedInput
@@ -125100,10 +135585,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
@@ -125125,6 +135613,8 @@ export namespace Prisma {
     whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
     assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
     followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
@@ -125156,10 +135646,13 @@ export namespace Prisma {
     postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
     postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
     createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
     createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
     createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
     voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
@@ -125662,6 +136155,1155 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserCreateWithoutSavedFiltersInput = {
+    id?: string
+    clerkId?: string | null
+    name: string
+    email: string
+    password?: string | null
+    role: $Enums.UserRole
+    isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
+    assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
+    followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
+    interactions?: InteractionCreateNestedManyWithoutUserInput
+    createdSeekers?: SeekerCreateNestedManyWithoutCreatedByInput
+    deletedSeekers?: SeekerCreateNestedManyWithoutDeletedByInput
+    userRoles?: UserRoleAssignmentCreateNestedManyWithoutUserInput
+    createdCampaigns?: CampaignCreateNestedManyWithoutCreatedByInput
+    createdCampaignTypes?: CampaignTypeCreateNestedManyWithoutCreatedByInput
+    taskActionHistory?: TaskActionHistoryCreateNestedManyWithoutUserInput
+    activityLogs?: UserActivityLogCreateNestedManyWithoutUserInput
+    whatsappMessages?: WhatsAppMessageCreateNestedManyWithoutUserInput
+    whatsappTemplates?: WhatsAppTemplateCreateNestedManyWithoutUserInput
+    emailMessages?: EmailMessageCreateNestedManyWithoutUserInput
+    createdMeetings?: MeetingCreateNestedManyWithoutCreatedByInput
+    assignedMeetings?: MeetingCreateNestedManyWithoutAssignedToInput
+    createdProjects?: ProjectCreateNestedManyWithoutCreatedByInput
+    projectMemberships?: ProjectMemberCreateNestedManyWithoutUserInput
+    createdTasks?: TaskCreateNestedManyWithoutCreatedByInput
+    assignedTasks?: TaskCreateNestedManyWithoutAssignedToInput
+    taskAttachments?: TaskAttachmentCreateNestedManyWithoutUploadedByInput
+    taskComments?: TaskCommentCreateNestedManyWithoutAuthorInput
+    taskTimeEntries?: TaskTimeEntryCreateNestedManyWithoutUserInput
+    createdDeals?: DealCreateNestedManyWithoutCreatedByInput
+    assignedDeals?: DealCreateNestedManyWithoutAssignedToInput
+    dealActivities?: DealActivityCreateNestedManyWithoutUserInput
+    createdClients?: ClientCreateNestedManyWithoutCreatedByInput
+    createdPosts?: SocialMediaPostCreateNestedManyWithoutCreatedByInput
+    postsAssignedTo?: SocialMediaPostCreateNestedManyWithoutAssignedToInput
+    postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
+    postComments?: PostCommentCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
+    createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+    createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
+    voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
+    documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
+    documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
+    documentVersions?: DocumentVersionCreateNestedManyWithoutUploadedByInput
+    documentRequests?: DocumentRequestCreateNestedManyWithoutRequestedByInput
+    recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
+    createdEvents?: EventCreateNestedManyWithoutCreatedByInput
+    smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserUncheckedCreateWithoutSavedFiltersInput = {
+    id?: string
+    clerkId?: string | null
+    name: string
+    email: string
+    password?: string | null
+    role: $Enums.UserRole
+    isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
+    assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
+    followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
+    interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
+    createdSeekers?: SeekerUncheckedCreateNestedManyWithoutCreatedByInput
+    deletedSeekers?: SeekerUncheckedCreateNestedManyWithoutDeletedByInput
+    userRoles?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+    createdCampaigns?: CampaignUncheckedCreateNestedManyWithoutCreatedByInput
+    createdCampaignTypes?: CampaignTypeUncheckedCreateNestedManyWithoutCreatedByInput
+    taskActionHistory?: TaskActionHistoryUncheckedCreateNestedManyWithoutUserInput
+    activityLogs?: UserActivityLogUncheckedCreateNestedManyWithoutUserInput
+    whatsappMessages?: WhatsAppMessageUncheckedCreateNestedManyWithoutUserInput
+    whatsappTemplates?: WhatsAppTemplateUncheckedCreateNestedManyWithoutUserInput
+    emailMessages?: EmailMessageUncheckedCreateNestedManyWithoutUserInput
+    createdMeetings?: MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+    assignedMeetings?: MeetingUncheckedCreateNestedManyWithoutAssignedToInput
+    createdProjects?: ProjectUncheckedCreateNestedManyWithoutCreatedByInput
+    projectMemberships?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+    createdTasks?: TaskUncheckedCreateNestedManyWithoutCreatedByInput
+    assignedTasks?: TaskUncheckedCreateNestedManyWithoutAssignedToInput
+    taskAttachments?: TaskAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+    taskComments?: TaskCommentUncheckedCreateNestedManyWithoutAuthorInput
+    taskTimeEntries?: TaskTimeEntryUncheckedCreateNestedManyWithoutUserInput
+    createdDeals?: DealUncheckedCreateNestedManyWithoutCreatedByInput
+    assignedDeals?: DealUncheckedCreateNestedManyWithoutAssignedToInput
+    dealActivities?: DealActivityUncheckedCreateNestedManyWithoutUserInput
+    createdClients?: ClientUncheckedCreateNestedManyWithoutCreatedByInput
+    createdPosts?: SocialMediaPostUncheckedCreateNestedManyWithoutCreatedByInput
+    postsAssignedTo?: SocialMediaPostUncheckedCreateNestedManyWithoutAssignedToInput
+    postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
+    postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
+    createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+    createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
+    voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
+    documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
+    documentVersions?: DocumentVersionUncheckedCreateNestedManyWithoutUploadedByInput
+    documentRequests?: DocumentRequestUncheckedCreateNestedManyWithoutRequestedByInput
+    recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
+    createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
+    smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserCreateOrConnectWithoutSavedFiltersInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSavedFiltersInput, UserUncheckedCreateWithoutSavedFiltersInput>
+  }
+
+  export type UserUpsertWithoutSavedFiltersInput = {
+    update: XOR<UserUpdateWithoutSavedFiltersInput, UserUncheckedUpdateWithoutSavedFiltersInput>
+    create: XOR<UserCreateWithoutSavedFiltersInput, UserUncheckedCreateWithoutSavedFiltersInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSavedFiltersInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSavedFiltersInput, UserUncheckedUpdateWithoutSavedFiltersInput>
+  }
+
+  export type UserUpdateWithoutSavedFiltersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
+    followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
+    interactions?: InteractionUpdateManyWithoutUserNestedInput
+    createdSeekers?: SeekerUpdateManyWithoutCreatedByNestedInput
+    deletedSeekers?: SeekerUpdateManyWithoutDeletedByNestedInput
+    userRoles?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
+    createdCampaigns?: CampaignUpdateManyWithoutCreatedByNestedInput
+    createdCampaignTypes?: CampaignTypeUpdateManyWithoutCreatedByNestedInput
+    taskActionHistory?: TaskActionHistoryUpdateManyWithoutUserNestedInput
+    activityLogs?: UserActivityLogUpdateManyWithoutUserNestedInput
+    whatsappMessages?: WhatsAppMessageUpdateManyWithoutUserNestedInput
+    whatsappTemplates?: WhatsAppTemplateUpdateManyWithoutUserNestedInput
+    emailMessages?: EmailMessageUpdateManyWithoutUserNestedInput
+    createdMeetings?: MeetingUpdateManyWithoutCreatedByNestedInput
+    assignedMeetings?: MeetingUpdateManyWithoutAssignedToNestedInput
+    createdProjects?: ProjectUpdateManyWithoutCreatedByNestedInput
+    projectMemberships?: ProjectMemberUpdateManyWithoutUserNestedInput
+    createdTasks?: TaskUpdateManyWithoutCreatedByNestedInput
+    assignedTasks?: TaskUpdateManyWithoutAssignedToNestedInput
+    taskAttachments?: TaskAttachmentUpdateManyWithoutUploadedByNestedInput
+    taskComments?: TaskCommentUpdateManyWithoutAuthorNestedInput
+    taskTimeEntries?: TaskTimeEntryUpdateManyWithoutUserNestedInput
+    createdDeals?: DealUpdateManyWithoutCreatedByNestedInput
+    assignedDeals?: DealUpdateManyWithoutAssignedToNestedInput
+    dealActivities?: DealActivityUpdateManyWithoutUserNestedInput
+    createdClients?: ClientUpdateManyWithoutCreatedByNestedInput
+    createdPosts?: SocialMediaPostUpdateManyWithoutCreatedByNestedInput
+    postsAssignedTo?: SocialMediaPostUpdateManyWithoutAssignedToNestedInput
+    postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
+    postComments?: PostCommentUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
+    createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+    createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
+    voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
+    documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
+    documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
+    documentVersions?: DocumentVersionUpdateManyWithoutUploadedByNestedInput
+    documentRequests?: DocumentRequestUpdateManyWithoutRequestedByNestedInput
+    recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
+    createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
+    smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSavedFiltersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
+    followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
+    interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
+    createdSeekers?: SeekerUncheckedUpdateManyWithoutCreatedByNestedInput
+    deletedSeekers?: SeekerUncheckedUpdateManyWithoutDeletedByNestedInput
+    userRoles?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+    createdCampaigns?: CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdCampaignTypes?: CampaignTypeUncheckedUpdateManyWithoutCreatedByNestedInput
+    taskActionHistory?: TaskActionHistoryUncheckedUpdateManyWithoutUserNestedInput
+    activityLogs?: UserActivityLogUncheckedUpdateManyWithoutUserNestedInput
+    whatsappMessages?: WhatsAppMessageUncheckedUpdateManyWithoutUserNestedInput
+    whatsappTemplates?: WhatsAppTemplateUncheckedUpdateManyWithoutUserNestedInput
+    emailMessages?: EmailMessageUncheckedUpdateManyWithoutUserNestedInput
+    createdMeetings?: MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+    assignedMeetings?: MeetingUncheckedUpdateManyWithoutAssignedToNestedInput
+    createdProjects?: ProjectUncheckedUpdateManyWithoutCreatedByNestedInput
+    projectMemberships?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+    createdTasks?: TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+    assignedTasks?: TaskUncheckedUpdateManyWithoutAssignedToNestedInput
+    taskAttachments?: TaskAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+    taskComments?: TaskCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    taskTimeEntries?: TaskTimeEntryUncheckedUpdateManyWithoutUserNestedInput
+    createdDeals?: DealUncheckedUpdateManyWithoutCreatedByNestedInput
+    assignedDeals?: DealUncheckedUpdateManyWithoutAssignedToNestedInput
+    dealActivities?: DealActivityUncheckedUpdateManyWithoutUserNestedInput
+    createdClients?: ClientUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdPosts?: SocialMediaPostUncheckedUpdateManyWithoutCreatedByNestedInput
+    postsAssignedTo?: SocialMediaPostUncheckedUpdateManyWithoutAssignedToNestedInput
+    postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
+    postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
+    voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
+    documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
+    documentVersions?: DocumentVersionUncheckedUpdateManyWithoutUploadedByNestedInput
+    documentRequests?: DocumentRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+    recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
+    createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
+    smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type DealStageModelCreateWithoutPipelineInput = {
+    id?: string
+    name: string
+    order: number
+    probability?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deals?: DealCreateNestedManyWithoutStageRelationInput
+  }
+
+  export type DealStageModelUncheckedCreateWithoutPipelineInput = {
+    id?: string
+    name: string
+    order: number
+    probability?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deals?: DealUncheckedCreateNestedManyWithoutStageRelationInput
+  }
+
+  export type DealStageModelCreateOrConnectWithoutPipelineInput = {
+    where: DealStageModelWhereUniqueInput
+    create: XOR<DealStageModelCreateWithoutPipelineInput, DealStageModelUncheckedCreateWithoutPipelineInput>
+  }
+
+  export type DealStageModelCreateManyPipelineInputEnvelope = {
+    data: DealStageModelCreateManyPipelineInput | DealStageModelCreateManyPipelineInput[]
+  }
+
+  export type DealCreateWithoutPipelineInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value?: number | null
+    currency?: string
+    stage?: $Enums.DealStage
+    probability?: number
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    source?: string | null
+    tags?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy: UserCreateNestedOneWithoutCreatedDealsInput
+    assignedTo?: UserCreateNestedOneWithoutAssignedDealsInput
+    project?: ProjectCreateNestedOneWithoutDealsInput
+    client?: ClientCreateNestedOneWithoutDealsInput
+    stageRelation?: DealStageModelCreateNestedOneWithoutDealsInput
+    activities?: DealActivityCreateNestedManyWithoutDealInput
+  }
+
+  export type DealUncheckedCreateWithoutPipelineInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value?: number | null
+    currency?: string
+    stage?: $Enums.DealStage
+    probability?: number
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    source?: string | null
+    tags?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+    assignedToId?: string | null
+    projectId?: string | null
+    clientId?: string | null
+    stageId?: string | null
+    activities?: DealActivityUncheckedCreateNestedManyWithoutDealInput
+  }
+
+  export type DealCreateOrConnectWithoutPipelineInput = {
+    where: DealWhereUniqueInput
+    create: XOR<DealCreateWithoutPipelineInput, DealUncheckedCreateWithoutPipelineInput>
+  }
+
+  export type DealCreateManyPipelineInputEnvelope = {
+    data: DealCreateManyPipelineInput | DealCreateManyPipelineInput[]
+  }
+
+  export type DealStageModelUpsertWithWhereUniqueWithoutPipelineInput = {
+    where: DealStageModelWhereUniqueInput
+    update: XOR<DealStageModelUpdateWithoutPipelineInput, DealStageModelUncheckedUpdateWithoutPipelineInput>
+    create: XOR<DealStageModelCreateWithoutPipelineInput, DealStageModelUncheckedCreateWithoutPipelineInput>
+  }
+
+  export type DealStageModelUpdateWithWhereUniqueWithoutPipelineInput = {
+    where: DealStageModelWhereUniqueInput
+    data: XOR<DealStageModelUpdateWithoutPipelineInput, DealStageModelUncheckedUpdateWithoutPipelineInput>
+  }
+
+  export type DealStageModelUpdateManyWithWhereWithoutPipelineInput = {
+    where: DealStageModelScalarWhereInput
+    data: XOR<DealStageModelUpdateManyMutationInput, DealStageModelUncheckedUpdateManyWithoutPipelineInput>
+  }
+
+  export type DealStageModelScalarWhereInput = {
+    AND?: DealStageModelScalarWhereInput | DealStageModelScalarWhereInput[]
+    OR?: DealStageModelScalarWhereInput[]
+    NOT?: DealStageModelScalarWhereInput | DealStageModelScalarWhereInput[]
+    id?: StringFilter<"DealStageModel"> | string
+    name?: StringFilter<"DealStageModel"> | string
+    order?: IntFilter<"DealStageModel"> | number
+    probability?: IntFilter<"DealStageModel"> | number
+    pipelineId?: StringFilter<"DealStageModel"> | string
+    createdAt?: DateTimeFilter<"DealStageModel"> | Date | string
+    updatedAt?: DateTimeFilter<"DealStageModel"> | Date | string
+  }
+
+  export type DealUpsertWithWhereUniqueWithoutPipelineInput = {
+    where: DealWhereUniqueInput
+    update: XOR<DealUpdateWithoutPipelineInput, DealUncheckedUpdateWithoutPipelineInput>
+    create: XOR<DealCreateWithoutPipelineInput, DealUncheckedCreateWithoutPipelineInput>
+  }
+
+  export type DealUpdateWithWhereUniqueWithoutPipelineInput = {
+    where: DealWhereUniqueInput
+    data: XOR<DealUpdateWithoutPipelineInput, DealUncheckedUpdateWithoutPipelineInput>
+  }
+
+  export type DealUpdateManyWithWhereWithoutPipelineInput = {
+    where: DealScalarWhereInput
+    data: XOR<DealUpdateManyMutationInput, DealUncheckedUpdateManyWithoutPipelineInput>
+  }
+
+  export type PipelineCreateWithoutStagesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deals?: DealCreateNestedManyWithoutPipelineInput
+  }
+
+  export type PipelineUncheckedCreateWithoutStagesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deals?: DealUncheckedCreateNestedManyWithoutPipelineInput
+  }
+
+  export type PipelineCreateOrConnectWithoutStagesInput = {
+    where: PipelineWhereUniqueInput
+    create: XOR<PipelineCreateWithoutStagesInput, PipelineUncheckedCreateWithoutStagesInput>
+  }
+
+  export type DealCreateWithoutStageRelationInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value?: number | null
+    currency?: string
+    stage?: $Enums.DealStage
+    probability?: number
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    source?: string | null
+    tags?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy: UserCreateNestedOneWithoutCreatedDealsInput
+    assignedTo?: UserCreateNestedOneWithoutAssignedDealsInput
+    project?: ProjectCreateNestedOneWithoutDealsInput
+    client?: ClientCreateNestedOneWithoutDealsInput
+    pipeline?: PipelineCreateNestedOneWithoutDealsInput
+    activities?: DealActivityCreateNestedManyWithoutDealInput
+  }
+
+  export type DealUncheckedCreateWithoutStageRelationInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value?: number | null
+    currency?: string
+    stage?: $Enums.DealStage
+    probability?: number
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    source?: string | null
+    tags?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+    assignedToId?: string | null
+    projectId?: string | null
+    clientId?: string | null
+    pipelineId?: string | null
+    activities?: DealActivityUncheckedCreateNestedManyWithoutDealInput
+  }
+
+  export type DealCreateOrConnectWithoutStageRelationInput = {
+    where: DealWhereUniqueInput
+    create: XOR<DealCreateWithoutStageRelationInput, DealUncheckedCreateWithoutStageRelationInput>
+  }
+
+  export type DealCreateManyStageRelationInputEnvelope = {
+    data: DealCreateManyStageRelationInput | DealCreateManyStageRelationInput[]
+  }
+
+  export type PipelineUpsertWithoutStagesInput = {
+    update: XOR<PipelineUpdateWithoutStagesInput, PipelineUncheckedUpdateWithoutStagesInput>
+    create: XOR<PipelineCreateWithoutStagesInput, PipelineUncheckedCreateWithoutStagesInput>
+    where?: PipelineWhereInput
+  }
+
+  export type PipelineUpdateToOneWithWhereWithoutStagesInput = {
+    where?: PipelineWhereInput
+    data: XOR<PipelineUpdateWithoutStagesInput, PipelineUncheckedUpdateWithoutStagesInput>
+  }
+
+  export type PipelineUpdateWithoutStagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deals?: DealUpdateManyWithoutPipelineNestedInput
+  }
+
+  export type PipelineUncheckedUpdateWithoutStagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deals?: DealUncheckedUpdateManyWithoutPipelineNestedInput
+  }
+
+  export type DealUpsertWithWhereUniqueWithoutStageRelationInput = {
+    where: DealWhereUniqueInput
+    update: XOR<DealUpdateWithoutStageRelationInput, DealUncheckedUpdateWithoutStageRelationInput>
+    create: XOR<DealCreateWithoutStageRelationInput, DealUncheckedCreateWithoutStageRelationInput>
+  }
+
+  export type DealUpdateWithWhereUniqueWithoutStageRelationInput = {
+    where: DealWhereUniqueInput
+    data: XOR<DealUpdateWithoutStageRelationInput, DealUncheckedUpdateWithoutStageRelationInput>
+  }
+
+  export type DealUpdateManyWithWhereWithoutStageRelationInput = {
+    where: DealScalarWhereInput
+    data: XOR<DealUpdateManyMutationInput, DealUncheckedUpdateManyWithoutStageRelationInput>
+  }
+
+  export type UserCreateWithoutCustomFieldsCreatedInput = {
+    id?: string
+    clerkId?: string | null
+    name: string
+    email: string
+    password?: string | null
+    role: $Enums.UserRole
+    isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
+    assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
+    followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
+    interactions?: InteractionCreateNestedManyWithoutUserInput
+    createdSeekers?: SeekerCreateNestedManyWithoutCreatedByInput
+    deletedSeekers?: SeekerCreateNestedManyWithoutDeletedByInput
+    userRoles?: UserRoleAssignmentCreateNestedManyWithoutUserInput
+    createdCampaigns?: CampaignCreateNestedManyWithoutCreatedByInput
+    createdCampaignTypes?: CampaignTypeCreateNestedManyWithoutCreatedByInput
+    taskActionHistory?: TaskActionHistoryCreateNestedManyWithoutUserInput
+    activityLogs?: UserActivityLogCreateNestedManyWithoutUserInput
+    whatsappMessages?: WhatsAppMessageCreateNestedManyWithoutUserInput
+    whatsappTemplates?: WhatsAppTemplateCreateNestedManyWithoutUserInput
+    emailMessages?: EmailMessageCreateNestedManyWithoutUserInput
+    createdMeetings?: MeetingCreateNestedManyWithoutCreatedByInput
+    assignedMeetings?: MeetingCreateNestedManyWithoutAssignedToInput
+    createdProjects?: ProjectCreateNestedManyWithoutCreatedByInput
+    projectMemberships?: ProjectMemberCreateNestedManyWithoutUserInput
+    createdTasks?: TaskCreateNestedManyWithoutCreatedByInput
+    assignedTasks?: TaskCreateNestedManyWithoutAssignedToInput
+    taskAttachments?: TaskAttachmentCreateNestedManyWithoutUploadedByInput
+    taskComments?: TaskCommentCreateNestedManyWithoutAuthorInput
+    taskTimeEntries?: TaskTimeEntryCreateNestedManyWithoutUserInput
+    createdDeals?: DealCreateNestedManyWithoutCreatedByInput
+    assignedDeals?: DealCreateNestedManyWithoutAssignedToInput
+    dealActivities?: DealActivityCreateNestedManyWithoutUserInput
+    createdClients?: ClientCreateNestedManyWithoutCreatedByInput
+    createdPosts?: SocialMediaPostCreateNestedManyWithoutCreatedByInput
+    postsAssignedTo?: SocialMediaPostCreateNestedManyWithoutAssignedToInput
+    postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
+    postComments?: PostCommentCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
+    createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
+    createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+    createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
+    documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
+    documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
+    documentVersions?: DocumentVersionCreateNestedManyWithoutUploadedByInput
+    documentRequests?: DocumentRequestCreateNestedManyWithoutRequestedByInput
+    recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
+    createdEvents?: EventCreateNestedManyWithoutCreatedByInput
+    smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserUncheckedCreateWithoutCustomFieldsCreatedInput = {
+    id?: string
+    clerkId?: string | null
+    name: string
+    email: string
+    password?: string | null
+    role: $Enums.UserRole
+    isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
+    assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
+    followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
+    interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
+    createdSeekers?: SeekerUncheckedCreateNestedManyWithoutCreatedByInput
+    deletedSeekers?: SeekerUncheckedCreateNestedManyWithoutDeletedByInput
+    userRoles?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+    createdCampaigns?: CampaignUncheckedCreateNestedManyWithoutCreatedByInput
+    createdCampaignTypes?: CampaignTypeUncheckedCreateNestedManyWithoutCreatedByInput
+    taskActionHistory?: TaskActionHistoryUncheckedCreateNestedManyWithoutUserInput
+    activityLogs?: UserActivityLogUncheckedCreateNestedManyWithoutUserInput
+    whatsappMessages?: WhatsAppMessageUncheckedCreateNestedManyWithoutUserInput
+    whatsappTemplates?: WhatsAppTemplateUncheckedCreateNestedManyWithoutUserInput
+    emailMessages?: EmailMessageUncheckedCreateNestedManyWithoutUserInput
+    createdMeetings?: MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+    assignedMeetings?: MeetingUncheckedCreateNestedManyWithoutAssignedToInput
+    createdProjects?: ProjectUncheckedCreateNestedManyWithoutCreatedByInput
+    projectMemberships?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+    createdTasks?: TaskUncheckedCreateNestedManyWithoutCreatedByInput
+    assignedTasks?: TaskUncheckedCreateNestedManyWithoutAssignedToInput
+    taskAttachments?: TaskAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+    taskComments?: TaskCommentUncheckedCreateNestedManyWithoutAuthorInput
+    taskTimeEntries?: TaskTimeEntryUncheckedCreateNestedManyWithoutUserInput
+    createdDeals?: DealUncheckedCreateNestedManyWithoutCreatedByInput
+    assignedDeals?: DealUncheckedCreateNestedManyWithoutAssignedToInput
+    dealActivities?: DealActivityUncheckedCreateNestedManyWithoutUserInput
+    createdClients?: ClientUncheckedCreateNestedManyWithoutCreatedByInput
+    createdPosts?: SocialMediaPostUncheckedCreateNestedManyWithoutCreatedByInput
+    postsAssignedTo?: SocialMediaPostUncheckedCreateNestedManyWithoutAssignedToInput
+    postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
+    postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
+    createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
+    createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+    createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
+    documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
+    documentVersions?: DocumentVersionUncheckedCreateNestedManyWithoutUploadedByInput
+    documentRequests?: DocumentRequestUncheckedCreateNestedManyWithoutRequestedByInput
+    recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
+    createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
+    smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserCreateOrConnectWithoutCustomFieldsCreatedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCustomFieldsCreatedInput, UserUncheckedCreateWithoutCustomFieldsCreatedInput>
+  }
+
+  export type CustomFieldValueCreateWithoutFieldInput = {
+    id?: string
+    entityId: string
+    value: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomFieldValueUncheckedCreateWithoutFieldInput = {
+    id?: string
+    entityId: string
+    value: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomFieldValueCreateOrConnectWithoutFieldInput = {
+    where: CustomFieldValueWhereUniqueInput
+    create: XOR<CustomFieldValueCreateWithoutFieldInput, CustomFieldValueUncheckedCreateWithoutFieldInput>
+  }
+
+  export type CustomFieldValueCreateManyFieldInputEnvelope = {
+    data: CustomFieldValueCreateManyFieldInput | CustomFieldValueCreateManyFieldInput[]
+  }
+
+  export type UserUpsertWithoutCustomFieldsCreatedInput = {
+    update: XOR<UserUpdateWithoutCustomFieldsCreatedInput, UserUncheckedUpdateWithoutCustomFieldsCreatedInput>
+    create: XOR<UserCreateWithoutCustomFieldsCreatedInput, UserUncheckedCreateWithoutCustomFieldsCreatedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCustomFieldsCreatedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCustomFieldsCreatedInput, UserUncheckedUpdateWithoutCustomFieldsCreatedInput>
+  }
+
+  export type UserUpdateWithoutCustomFieldsCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
+    followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
+    interactions?: InteractionUpdateManyWithoutUserNestedInput
+    createdSeekers?: SeekerUpdateManyWithoutCreatedByNestedInput
+    deletedSeekers?: SeekerUpdateManyWithoutDeletedByNestedInput
+    userRoles?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
+    createdCampaigns?: CampaignUpdateManyWithoutCreatedByNestedInput
+    createdCampaignTypes?: CampaignTypeUpdateManyWithoutCreatedByNestedInput
+    taskActionHistory?: TaskActionHistoryUpdateManyWithoutUserNestedInput
+    activityLogs?: UserActivityLogUpdateManyWithoutUserNestedInput
+    whatsappMessages?: WhatsAppMessageUpdateManyWithoutUserNestedInput
+    whatsappTemplates?: WhatsAppTemplateUpdateManyWithoutUserNestedInput
+    emailMessages?: EmailMessageUpdateManyWithoutUserNestedInput
+    createdMeetings?: MeetingUpdateManyWithoutCreatedByNestedInput
+    assignedMeetings?: MeetingUpdateManyWithoutAssignedToNestedInput
+    createdProjects?: ProjectUpdateManyWithoutCreatedByNestedInput
+    projectMemberships?: ProjectMemberUpdateManyWithoutUserNestedInput
+    createdTasks?: TaskUpdateManyWithoutCreatedByNestedInput
+    assignedTasks?: TaskUpdateManyWithoutAssignedToNestedInput
+    taskAttachments?: TaskAttachmentUpdateManyWithoutUploadedByNestedInput
+    taskComments?: TaskCommentUpdateManyWithoutAuthorNestedInput
+    taskTimeEntries?: TaskTimeEntryUpdateManyWithoutUserNestedInput
+    createdDeals?: DealUpdateManyWithoutCreatedByNestedInput
+    assignedDeals?: DealUpdateManyWithoutAssignedToNestedInput
+    dealActivities?: DealActivityUpdateManyWithoutUserNestedInput
+    createdClients?: ClientUpdateManyWithoutCreatedByNestedInput
+    createdPosts?: SocialMediaPostUpdateManyWithoutCreatedByNestedInput
+    postsAssignedTo?: SocialMediaPostUpdateManyWithoutAssignedToNestedInput
+    postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
+    postComments?: PostCommentUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
+    createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
+    createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+    createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
+    documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
+    documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
+    documentVersions?: DocumentVersionUpdateManyWithoutUploadedByNestedInput
+    documentRequests?: DocumentRequestUpdateManyWithoutRequestedByNestedInput
+    recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
+    createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
+    smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCustomFieldsCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
+    followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
+    interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
+    createdSeekers?: SeekerUncheckedUpdateManyWithoutCreatedByNestedInput
+    deletedSeekers?: SeekerUncheckedUpdateManyWithoutDeletedByNestedInput
+    userRoles?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+    createdCampaigns?: CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdCampaignTypes?: CampaignTypeUncheckedUpdateManyWithoutCreatedByNestedInput
+    taskActionHistory?: TaskActionHistoryUncheckedUpdateManyWithoutUserNestedInput
+    activityLogs?: UserActivityLogUncheckedUpdateManyWithoutUserNestedInput
+    whatsappMessages?: WhatsAppMessageUncheckedUpdateManyWithoutUserNestedInput
+    whatsappTemplates?: WhatsAppTemplateUncheckedUpdateManyWithoutUserNestedInput
+    emailMessages?: EmailMessageUncheckedUpdateManyWithoutUserNestedInput
+    createdMeetings?: MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+    assignedMeetings?: MeetingUncheckedUpdateManyWithoutAssignedToNestedInput
+    createdProjects?: ProjectUncheckedUpdateManyWithoutCreatedByNestedInput
+    projectMemberships?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+    createdTasks?: TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+    assignedTasks?: TaskUncheckedUpdateManyWithoutAssignedToNestedInput
+    taskAttachments?: TaskAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+    taskComments?: TaskCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    taskTimeEntries?: TaskTimeEntryUncheckedUpdateManyWithoutUserNestedInput
+    createdDeals?: DealUncheckedUpdateManyWithoutCreatedByNestedInput
+    assignedDeals?: DealUncheckedUpdateManyWithoutAssignedToNestedInput
+    dealActivities?: DealActivityUncheckedUpdateManyWithoutUserNestedInput
+    createdClients?: ClientUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdPosts?: SocialMediaPostUncheckedUpdateManyWithoutCreatedByNestedInput
+    postsAssignedTo?: SocialMediaPostUncheckedUpdateManyWithoutAssignedToNestedInput
+    postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
+    postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
+    createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
+    documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
+    documentVersions?: DocumentVersionUncheckedUpdateManyWithoutUploadedByNestedInput
+    documentRequests?: DocumentRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+    recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
+    createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
+    smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type CustomFieldValueUpsertWithWhereUniqueWithoutFieldInput = {
+    where: CustomFieldValueWhereUniqueInput
+    update: XOR<CustomFieldValueUpdateWithoutFieldInput, CustomFieldValueUncheckedUpdateWithoutFieldInput>
+    create: XOR<CustomFieldValueCreateWithoutFieldInput, CustomFieldValueUncheckedCreateWithoutFieldInput>
+  }
+
+  export type CustomFieldValueUpdateWithWhereUniqueWithoutFieldInput = {
+    where: CustomFieldValueWhereUniqueInput
+    data: XOR<CustomFieldValueUpdateWithoutFieldInput, CustomFieldValueUncheckedUpdateWithoutFieldInput>
+  }
+
+  export type CustomFieldValueUpdateManyWithWhereWithoutFieldInput = {
+    where: CustomFieldValueScalarWhereInput
+    data: XOR<CustomFieldValueUpdateManyMutationInput, CustomFieldValueUncheckedUpdateManyWithoutFieldInput>
+  }
+
+  export type CustomFieldValueScalarWhereInput = {
+    AND?: CustomFieldValueScalarWhereInput | CustomFieldValueScalarWhereInput[]
+    OR?: CustomFieldValueScalarWhereInput[]
+    NOT?: CustomFieldValueScalarWhereInput | CustomFieldValueScalarWhereInput[]
+    id?: StringFilter<"CustomFieldValue"> | string
+    fieldId?: StringFilter<"CustomFieldValue"> | string
+    entityId?: StringFilter<"CustomFieldValue"> | string
+    value?: StringFilter<"CustomFieldValue"> | string
+    createdAt?: DateTimeFilter<"CustomFieldValue"> | Date | string
+    updatedAt?: DateTimeFilter<"CustomFieldValue"> | Date | string
+  }
+
+  export type CustomFieldCreateWithoutValuesInput = {
+    id?: string
+    name: string
+    type: $Enums.CustomFieldType
+    entityType: string
+    isRequired?: boolean
+    options?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy?: UserCreateNestedOneWithoutCustomFieldsCreatedInput
+  }
+
+  export type CustomFieldUncheckedCreateWithoutValuesInput = {
+    id?: string
+    name: string
+    type: $Enums.CustomFieldType
+    entityType: string
+    isRequired?: boolean
+    options?: string | null
+    createdById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomFieldCreateOrConnectWithoutValuesInput = {
+    where: CustomFieldWhereUniqueInput
+    create: XOR<CustomFieldCreateWithoutValuesInput, CustomFieldUncheckedCreateWithoutValuesInput>
+  }
+
+  export type CustomFieldUpsertWithoutValuesInput = {
+    update: XOR<CustomFieldUpdateWithoutValuesInput, CustomFieldUncheckedUpdateWithoutValuesInput>
+    create: XOR<CustomFieldCreateWithoutValuesInput, CustomFieldUncheckedCreateWithoutValuesInput>
+    where?: CustomFieldWhereInput
+  }
+
+  export type CustomFieldUpdateToOneWithWhereWithoutValuesInput = {
+    where?: CustomFieldWhereInput
+    data: XOR<CustomFieldUpdateWithoutValuesInput, CustomFieldUncheckedUpdateWithoutValuesInput>
+  }
+
+  export type CustomFieldUpdateWithoutValuesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumCustomFieldTypeFieldUpdateOperationsInput | $Enums.CustomFieldType
+    entityType?: StringFieldUpdateOperationsInput | string
+    isRequired?: BoolFieldUpdateOperationsInput | boolean
+    options?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneWithoutCustomFieldsCreatedNestedInput
+  }
+
+  export type CustomFieldUncheckedUpdateWithoutValuesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumCustomFieldTypeFieldUpdateOperationsInput | $Enums.CustomFieldType
+    entityType?: StringFieldUpdateOperationsInput | string
+    isRequired?: BoolFieldUpdateOperationsInput | boolean
+    options?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCreateWithoutRefreshTokensInput = {
+    id?: string
+    clerkId?: string | null
+    name: string
+    email: string
+    password?: string | null
+    role: $Enums.UserRole
+    isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
+    assignedSeekers?: AssignmentCreateNestedManyWithoutCoordinatorInput
+    followUpTasks?: FollowUpTaskCreateNestedManyWithoutUserInput
+    interactions?: InteractionCreateNestedManyWithoutUserInput
+    createdSeekers?: SeekerCreateNestedManyWithoutCreatedByInput
+    deletedSeekers?: SeekerCreateNestedManyWithoutDeletedByInput
+    userRoles?: UserRoleAssignmentCreateNestedManyWithoutUserInput
+    createdCampaigns?: CampaignCreateNestedManyWithoutCreatedByInput
+    createdCampaignTypes?: CampaignTypeCreateNestedManyWithoutCreatedByInput
+    taskActionHistory?: TaskActionHistoryCreateNestedManyWithoutUserInput
+    activityLogs?: UserActivityLogCreateNestedManyWithoutUserInput
+    whatsappMessages?: WhatsAppMessageCreateNestedManyWithoutUserInput
+    whatsappTemplates?: WhatsAppTemplateCreateNestedManyWithoutUserInput
+    emailMessages?: EmailMessageCreateNestedManyWithoutUserInput
+    createdMeetings?: MeetingCreateNestedManyWithoutCreatedByInput
+    assignedMeetings?: MeetingCreateNestedManyWithoutAssignedToInput
+    createdProjects?: ProjectCreateNestedManyWithoutCreatedByInput
+    projectMemberships?: ProjectMemberCreateNestedManyWithoutUserInput
+    createdTasks?: TaskCreateNestedManyWithoutCreatedByInput
+    assignedTasks?: TaskCreateNestedManyWithoutAssignedToInput
+    taskAttachments?: TaskAttachmentCreateNestedManyWithoutUploadedByInput
+    taskComments?: TaskCommentCreateNestedManyWithoutAuthorInput
+    taskTimeEntries?: TaskTimeEntryCreateNestedManyWithoutUserInput
+    createdDeals?: DealCreateNestedManyWithoutCreatedByInput
+    assignedDeals?: DealCreateNestedManyWithoutAssignedToInput
+    dealActivities?: DealActivityCreateNestedManyWithoutUserInput
+    createdClients?: ClientCreateNestedManyWithoutCreatedByInput
+    createdPosts?: SocialMediaPostCreateNestedManyWithoutCreatedByInput
+    postsAssignedTo?: SocialMediaPostCreateNestedManyWithoutAssignedToInput
+    postApprovals?: PostApprovalCreateNestedManyWithoutApproverInput
+    postComments?: PostCommentCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterCreateNestedManyWithoutUserInput
+    createdNotebooks?: NotebookCreateNestedManyWithoutCreatedByInput
+    createdNotes?: NoteCreateNestedManyWithoutCreatedByInput
+    createdPromotionCodes?: PromotionCodeCreateNestedManyWithoutCreatedByInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldCreateNestedManyWithoutCreatedByInput
+    voiceNotes?: VoiceNoteCreateNestedManyWithoutUploadedByInput
+    documentsUploaded?: DocumentCreateNestedManyWithoutUploadedByInput
+    documentsVerified?: DocumentCreateNestedManyWithoutVerifiedByInput
+    documentVersions?: DocumentVersionCreateNestedManyWithoutUploadedByInput
+    documentRequests?: DocumentRequestCreateNestedManyWithoutRequestedByInput
+    recordedPayments?: PaymentCreateNestedManyWithoutRecordedByInput
+    createdEvents?: EventCreateNestedManyWithoutCreatedByInput
+    smsMessages?: SMSMessageCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserUncheckedCreateWithoutRefreshTokensInput = {
+    id?: string
+    clerkId?: string | null
+    name: string
+    email: string
+    password?: string | null
+    role: $Enums.UserRole
+    isActive?: boolean
+    whatsappInstanceId?: string | null
+    whatsappToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    mfaEnabled?: boolean
+    mfaSecret?: string | null
+    assignedSeekers?: AssignmentUncheckedCreateNestedManyWithoutCoordinatorInput
+    followUpTasks?: FollowUpTaskUncheckedCreateNestedManyWithoutUserInput
+    interactions?: InteractionUncheckedCreateNestedManyWithoutUserInput
+    createdSeekers?: SeekerUncheckedCreateNestedManyWithoutCreatedByInput
+    deletedSeekers?: SeekerUncheckedCreateNestedManyWithoutDeletedByInput
+    userRoles?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+    createdCampaigns?: CampaignUncheckedCreateNestedManyWithoutCreatedByInput
+    createdCampaignTypes?: CampaignTypeUncheckedCreateNestedManyWithoutCreatedByInput
+    taskActionHistory?: TaskActionHistoryUncheckedCreateNestedManyWithoutUserInput
+    activityLogs?: UserActivityLogUncheckedCreateNestedManyWithoutUserInput
+    whatsappMessages?: WhatsAppMessageUncheckedCreateNestedManyWithoutUserInput
+    whatsappTemplates?: WhatsAppTemplateUncheckedCreateNestedManyWithoutUserInput
+    emailMessages?: EmailMessageUncheckedCreateNestedManyWithoutUserInput
+    createdMeetings?: MeetingUncheckedCreateNestedManyWithoutCreatedByInput
+    assignedMeetings?: MeetingUncheckedCreateNestedManyWithoutAssignedToInput
+    createdProjects?: ProjectUncheckedCreateNestedManyWithoutCreatedByInput
+    projectMemberships?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+    createdTasks?: TaskUncheckedCreateNestedManyWithoutCreatedByInput
+    assignedTasks?: TaskUncheckedCreateNestedManyWithoutAssignedToInput
+    taskAttachments?: TaskAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+    taskComments?: TaskCommentUncheckedCreateNestedManyWithoutAuthorInput
+    taskTimeEntries?: TaskTimeEntryUncheckedCreateNestedManyWithoutUserInput
+    createdDeals?: DealUncheckedCreateNestedManyWithoutCreatedByInput
+    assignedDeals?: DealUncheckedCreateNestedManyWithoutAssignedToInput
+    dealActivities?: DealActivityUncheckedCreateNestedManyWithoutUserInput
+    createdClients?: ClientUncheckedCreateNestedManyWithoutCreatedByInput
+    createdPosts?: SocialMediaPostUncheckedCreateNestedManyWithoutCreatedByInput
+    postsAssignedTo?: SocialMediaPostUncheckedCreateNestedManyWithoutAssignedToInput
+    postApprovals?: PostApprovalUncheckedCreateNestedManyWithoutApproverInput
+    postComments?: PostCommentUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    savedFilters?: SavedFilterUncheckedCreateNestedManyWithoutUserInput
+    createdNotebooks?: NotebookUncheckedCreateNestedManyWithoutCreatedByInput
+    createdNotes?: NoteUncheckedCreateNestedManyWithoutCreatedByInput
+    createdPromotionCodes?: PromotionCodeUncheckedCreateNestedManyWithoutCreatedByInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    customFieldsCreated?: CustomFieldUncheckedCreateNestedManyWithoutCreatedByInput
+    voiceNotes?: VoiceNoteUncheckedCreateNestedManyWithoutUploadedByInput
+    documentsUploaded?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    documentsVerified?: DocumentUncheckedCreateNestedManyWithoutVerifiedByInput
+    documentVersions?: DocumentVersionUncheckedCreateNestedManyWithoutUploadedByInput
+    documentRequests?: DocumentRequestUncheckedCreateNestedManyWithoutRequestedByInput
+    recordedPayments?: PaymentUncheckedCreateNestedManyWithoutRecordedByInput
+    createdEvents?: EventUncheckedCreateNestedManyWithoutCreatedByInput
+    smsMessages?: SMSMessageUncheckedCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserCreateOrConnectWithoutRefreshTokensInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutRefreshTokensInput, UserUncheckedCreateWithoutRefreshTokensInput>
+  }
+
+  export type UserUpsertWithoutRefreshTokensInput = {
+    update: XOR<UserUpdateWithoutRefreshTokensInput, UserUncheckedUpdateWithoutRefreshTokensInput>
+    create: XOR<UserCreateWithoutRefreshTokensInput, UserUncheckedCreateWithoutRefreshTokensInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutRefreshTokensInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutRefreshTokensInput, UserUncheckedUpdateWithoutRefreshTokensInput>
+  }
+
+  export type UserUpdateWithoutRefreshTokensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedSeekers?: AssignmentUpdateManyWithoutCoordinatorNestedInput
+    followUpTasks?: FollowUpTaskUpdateManyWithoutUserNestedInput
+    interactions?: InteractionUpdateManyWithoutUserNestedInput
+    createdSeekers?: SeekerUpdateManyWithoutCreatedByNestedInput
+    deletedSeekers?: SeekerUpdateManyWithoutDeletedByNestedInput
+    userRoles?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
+    createdCampaigns?: CampaignUpdateManyWithoutCreatedByNestedInput
+    createdCampaignTypes?: CampaignTypeUpdateManyWithoutCreatedByNestedInput
+    taskActionHistory?: TaskActionHistoryUpdateManyWithoutUserNestedInput
+    activityLogs?: UserActivityLogUpdateManyWithoutUserNestedInput
+    whatsappMessages?: WhatsAppMessageUpdateManyWithoutUserNestedInput
+    whatsappTemplates?: WhatsAppTemplateUpdateManyWithoutUserNestedInput
+    emailMessages?: EmailMessageUpdateManyWithoutUserNestedInput
+    createdMeetings?: MeetingUpdateManyWithoutCreatedByNestedInput
+    assignedMeetings?: MeetingUpdateManyWithoutAssignedToNestedInput
+    createdProjects?: ProjectUpdateManyWithoutCreatedByNestedInput
+    projectMemberships?: ProjectMemberUpdateManyWithoutUserNestedInput
+    createdTasks?: TaskUpdateManyWithoutCreatedByNestedInput
+    assignedTasks?: TaskUpdateManyWithoutAssignedToNestedInput
+    taskAttachments?: TaskAttachmentUpdateManyWithoutUploadedByNestedInput
+    taskComments?: TaskCommentUpdateManyWithoutAuthorNestedInput
+    taskTimeEntries?: TaskTimeEntryUpdateManyWithoutUserNestedInput
+    createdDeals?: DealUpdateManyWithoutCreatedByNestedInput
+    assignedDeals?: DealUpdateManyWithoutAssignedToNestedInput
+    dealActivities?: DealActivityUpdateManyWithoutUserNestedInput
+    createdClients?: ClientUpdateManyWithoutCreatedByNestedInput
+    createdPosts?: SocialMediaPostUpdateManyWithoutCreatedByNestedInput
+    postsAssignedTo?: SocialMediaPostUpdateManyWithoutAssignedToNestedInput
+    postApprovals?: PostApprovalUpdateManyWithoutApproverNestedInput
+    postComments?: PostCommentUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUpdateManyWithoutUserNestedInput
+    createdNotebooks?: NotebookUpdateManyWithoutCreatedByNestedInput
+    createdNotes?: NoteUpdateManyWithoutCreatedByNestedInput
+    createdPromotionCodes?: PromotionCodeUpdateManyWithoutCreatedByNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUpdateManyWithoutCreatedByNestedInput
+    voiceNotes?: VoiceNoteUpdateManyWithoutUploadedByNestedInput
+    documentsUploaded?: DocumentUpdateManyWithoutUploadedByNestedInput
+    documentsVerified?: DocumentUpdateManyWithoutVerifiedByNestedInput
+    documentVersions?: DocumentVersionUpdateManyWithoutUploadedByNestedInput
+    documentRequests?: DocumentRequestUpdateManyWithoutRequestedByNestedInput
+    recordedPayments?: PaymentUpdateManyWithoutRecordedByNestedInput
+    createdEvents?: EventUpdateManyWithoutCreatedByNestedInput
+    smsMessages?: SMSMessageUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutRefreshTokensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    whatsappInstanceId?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mfaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedSeekers?: AssignmentUncheckedUpdateManyWithoutCoordinatorNestedInput
+    followUpTasks?: FollowUpTaskUncheckedUpdateManyWithoutUserNestedInput
+    interactions?: InteractionUncheckedUpdateManyWithoutUserNestedInput
+    createdSeekers?: SeekerUncheckedUpdateManyWithoutCreatedByNestedInput
+    deletedSeekers?: SeekerUncheckedUpdateManyWithoutDeletedByNestedInput
+    userRoles?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+    createdCampaigns?: CampaignUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdCampaignTypes?: CampaignTypeUncheckedUpdateManyWithoutCreatedByNestedInput
+    taskActionHistory?: TaskActionHistoryUncheckedUpdateManyWithoutUserNestedInput
+    activityLogs?: UserActivityLogUncheckedUpdateManyWithoutUserNestedInput
+    whatsappMessages?: WhatsAppMessageUncheckedUpdateManyWithoutUserNestedInput
+    whatsappTemplates?: WhatsAppTemplateUncheckedUpdateManyWithoutUserNestedInput
+    emailMessages?: EmailMessageUncheckedUpdateManyWithoutUserNestedInput
+    createdMeetings?: MeetingUncheckedUpdateManyWithoutCreatedByNestedInput
+    assignedMeetings?: MeetingUncheckedUpdateManyWithoutAssignedToNestedInput
+    createdProjects?: ProjectUncheckedUpdateManyWithoutCreatedByNestedInput
+    projectMemberships?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+    createdTasks?: TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+    assignedTasks?: TaskUncheckedUpdateManyWithoutAssignedToNestedInput
+    taskAttachments?: TaskAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+    taskComments?: TaskCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    taskTimeEntries?: TaskTimeEntryUncheckedUpdateManyWithoutUserNestedInput
+    createdDeals?: DealUncheckedUpdateManyWithoutCreatedByNestedInput
+    assignedDeals?: DealUncheckedUpdateManyWithoutAssignedToNestedInput
+    dealActivities?: DealActivityUncheckedUpdateManyWithoutUserNestedInput
+    createdClients?: ClientUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdPosts?: SocialMediaPostUncheckedUpdateManyWithoutCreatedByNestedInput
+    postsAssignedTo?: SocialMediaPostUncheckedUpdateManyWithoutAssignedToNestedInput
+    postApprovals?: PostApprovalUncheckedUpdateManyWithoutApproverNestedInput
+    postComments?: PostCommentUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    savedFilters?: SavedFilterUncheckedUpdateManyWithoutUserNestedInput
+    createdNotebooks?: NotebookUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdNotes?: NoteUncheckedUpdateManyWithoutCreatedByNestedInput
+    createdPromotionCodes?: PromotionCodeUncheckedUpdateManyWithoutCreatedByNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    customFieldsCreated?: CustomFieldUncheckedUpdateManyWithoutCreatedByNestedInput
+    voiceNotes?: VoiceNoteUncheckedUpdateManyWithoutUploadedByNestedInput
+    documentsUploaded?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    documentsVerified?: DocumentUncheckedUpdateManyWithoutVerifiedByNestedInput
+    documentVersions?: DocumentVersionUncheckedUpdateManyWithoutUploadedByNestedInput
+    documentRequests?: DocumentRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+    recordedPayments?: PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
+    createdEvents?: EventUncheckedUpdateManyWithoutCreatedByNestedInput
+    smsMessages?: SMSMessageUncheckedUpdateManyWithoutCreatedByNestedInput
+  }
+
   export type AssignmentCreateManyCoordinatorInput = {
     id?: string
     seekerId: string
@@ -126015,6 +137657,8 @@ export namespace Prisma {
     assignedToId?: string | null
     projectId?: string | null
     clientId?: string | null
+    pipelineId?: string | null
+    stageId?: string | null
   }
 
   export type DealCreateManyAssignedToInput = {
@@ -126034,6 +137678,8 @@ export namespace Prisma {
     createdById: string
     projectId?: string | null
     clientId?: string | null
+    pipelineId?: string | null
+    stageId?: string | null
   }
 
   export type DealActivityCreateManyUserInput = {
@@ -126126,6 +137772,18 @@ export namespace Prisma {
     postId?: string | null
   }
 
+  export type SavedFilterCreateManyUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    entityType?: string
+    filterData: string
+    isDefault?: boolean
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type NotebookCreateManyCreatedByInput = {
     id?: string
     title: string
@@ -126178,6 +137836,25 @@ export namespace Prisma {
     expiresAt: Date | string
     usedAt?: Date | string | null
     createdAt?: Date | string
+  }
+
+  export type RefreshTokenCreateManyUserInput = {
+    id?: string
+    token: string
+    expiresAt: Date | string
+    rotatedFrom?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CustomFieldCreateManyCreatedByInput = {
+    id?: string
+    name: string
+    type: $Enums.CustomFieldType
+    entityType: string
+    isRequired?: boolean
+    options?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type VoiceNoteCreateManyUploadedByInput = {
@@ -127414,6 +139091,8 @@ export namespace Prisma {
     assignedTo?: UserUpdateOneWithoutAssignedDealsNestedInput
     project?: ProjectUpdateOneWithoutDealsNestedInput
     client?: ClientUpdateOneWithoutDealsNestedInput
+    pipeline?: PipelineUpdateOneWithoutDealsNestedInput
+    stageRelation?: DealStageModelUpdateOneWithoutDealsNestedInput
     activities?: DealActivityUpdateManyWithoutDealNestedInput
   }
 
@@ -127434,6 +139113,8 @@ export namespace Prisma {
     assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
     projectId?: NullableStringFieldUpdateOperationsInput | string | null
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    pipelineId?: NullableStringFieldUpdateOperationsInput | string | null
+    stageId?: NullableStringFieldUpdateOperationsInput | string | null
     activities?: DealActivityUncheckedUpdateManyWithoutDealNestedInput
   }
 
@@ -127454,6 +139135,8 @@ export namespace Prisma {
     assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
     projectId?: NullableStringFieldUpdateOperationsInput | string | null
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    pipelineId?: NullableStringFieldUpdateOperationsInput | string | null
+    stageId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type DealUpdateWithoutAssignedToInput = {
@@ -127473,6 +139156,8 @@ export namespace Prisma {
     createdBy?: UserUpdateOneRequiredWithoutCreatedDealsNestedInput
     project?: ProjectUpdateOneWithoutDealsNestedInput
     client?: ClientUpdateOneWithoutDealsNestedInput
+    pipeline?: PipelineUpdateOneWithoutDealsNestedInput
+    stageRelation?: DealStageModelUpdateOneWithoutDealsNestedInput
     activities?: DealActivityUpdateManyWithoutDealNestedInput
   }
 
@@ -127493,6 +139178,8 @@ export namespace Prisma {
     createdById?: StringFieldUpdateOperationsInput | string
     projectId?: NullableStringFieldUpdateOperationsInput | string | null
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    pipelineId?: NullableStringFieldUpdateOperationsInput | string | null
+    stageId?: NullableStringFieldUpdateOperationsInput | string | null
     activities?: DealActivityUncheckedUpdateManyWithoutDealNestedInput
   }
 
@@ -127513,6 +139200,8 @@ export namespace Prisma {
     createdById?: StringFieldUpdateOperationsInput | string
     projectId?: NullableStringFieldUpdateOperationsInput | string | null
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    pipelineId?: NullableStringFieldUpdateOperationsInput | string | null
+    stageId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type DealActivityUpdateWithoutUserInput = {
@@ -127799,6 +139488,42 @@ export namespace Prisma {
     postId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type SavedFilterUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    entityType?: StringFieldUpdateOperationsInput | string
+    filterData?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SavedFilterUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    entityType?: StringFieldUpdateOperationsInput | string
+    filterData?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SavedFilterUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    entityType?: StringFieldUpdateOperationsInput | string
+    filterData?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type NotebookUpdateWithoutCreatedByInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -127965,6 +139690,65 @@ export namespace Prisma {
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RefreshTokenUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rotatedFrom?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RefreshTokenUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rotatedFrom?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RefreshTokenUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rotatedFrom?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomFieldUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumCustomFieldTypeFieldUpdateOperationsInput | $Enums.CustomFieldType
+    entityType?: StringFieldUpdateOperationsInput | string
+    isRequired?: BoolFieldUpdateOperationsInput | boolean
+    options?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    values?: CustomFieldValueUpdateManyWithoutFieldNestedInput
+  }
+
+  export type CustomFieldUncheckedUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumCustomFieldTypeFieldUpdateOperationsInput | $Enums.CustomFieldType
+    entityType?: StringFieldUpdateOperationsInput | string
+    isRequired?: BoolFieldUpdateOperationsInput | boolean
+    options?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    values?: CustomFieldValueUncheckedUpdateManyWithoutFieldNestedInput
+  }
+
+  export type CustomFieldUncheckedUpdateManyWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumCustomFieldTypeFieldUpdateOperationsInput | $Enums.CustomFieldType
+    entityType?: StringFieldUpdateOperationsInput | string
+    isRequired?: BoolFieldUpdateOperationsInput | boolean
+    options?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type VoiceNoteUpdateWithoutUploadedByInput = {
@@ -129856,6 +141640,8 @@ export namespace Prisma {
     createdById: string
     assignedToId?: string | null
     clientId?: string | null
+    pipelineId?: string | null
+    stageId?: string | null
   }
 
   export type ProjectMemberUpdateWithoutProjectInput = {
@@ -129960,6 +141746,8 @@ export namespace Prisma {
     createdBy?: UserUpdateOneRequiredWithoutCreatedDealsNestedInput
     assignedTo?: UserUpdateOneWithoutAssignedDealsNestedInput
     client?: ClientUpdateOneWithoutDealsNestedInput
+    pipeline?: PipelineUpdateOneWithoutDealsNestedInput
+    stageRelation?: DealStageModelUpdateOneWithoutDealsNestedInput
     activities?: DealActivityUpdateManyWithoutDealNestedInput
   }
 
@@ -129980,6 +141768,8 @@ export namespace Prisma {
     createdById?: StringFieldUpdateOperationsInput | string
     assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    pipelineId?: NullableStringFieldUpdateOperationsInput | string | null
+    stageId?: NullableStringFieldUpdateOperationsInput | string | null
     activities?: DealActivityUncheckedUpdateManyWithoutDealNestedInput
   }
 
@@ -130000,6 +141790,8 @@ export namespace Prisma {
     createdById?: StringFieldUpdateOperationsInput | string
     assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
     clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    pipelineId?: NullableStringFieldUpdateOperationsInput | string | null
+    stageId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TaskCreateManyParentTaskInput = {
@@ -130289,6 +142081,8 @@ export namespace Prisma {
     createdById: string
     assignedToId?: string | null
     projectId?: string | null
+    pipelineId?: string | null
+    stageId?: string | null
   }
 
   export type DealUpdateWithoutClientInput = {
@@ -130308,6 +142102,8 @@ export namespace Prisma {
     createdBy?: UserUpdateOneRequiredWithoutCreatedDealsNestedInput
     assignedTo?: UserUpdateOneWithoutAssignedDealsNestedInput
     project?: ProjectUpdateOneWithoutDealsNestedInput
+    pipeline?: PipelineUpdateOneWithoutDealsNestedInput
+    stageRelation?: DealStageModelUpdateOneWithoutDealsNestedInput
     activities?: DealActivityUpdateManyWithoutDealNestedInput
   }
 
@@ -130328,6 +142124,8 @@ export namespace Prisma {
     createdById?: StringFieldUpdateOperationsInput | string
     assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
     projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    pipelineId?: NullableStringFieldUpdateOperationsInput | string | null
+    stageId?: NullableStringFieldUpdateOperationsInput | string | null
     activities?: DealActivityUncheckedUpdateManyWithoutDealNestedInput
   }
 
@@ -130348,6 +142146,8 @@ export namespace Prisma {
     createdById?: StringFieldUpdateOperationsInput | string
     assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
     projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    pipelineId?: NullableStringFieldUpdateOperationsInput | string | null
+    stageId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PostApprovalCreateManyPostInput = {
@@ -131144,6 +142944,248 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealStageModelCreateManyPipelineInput = {
+    id?: string
+    name: string
+    order: number
+    probability?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DealCreateManyPipelineInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value?: number | null
+    currency?: string
+    stage?: $Enums.DealStage
+    probability?: number
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    source?: string | null
+    tags?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+    assignedToId?: string | null
+    projectId?: string | null
+    clientId?: string | null
+    stageId?: string | null
+  }
+
+  export type DealStageModelUpdateWithoutPipelineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    probability?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deals?: DealUpdateManyWithoutStageRelationNestedInput
+  }
+
+  export type DealStageModelUncheckedUpdateWithoutPipelineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    probability?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deals?: DealUncheckedUpdateManyWithoutStageRelationNestedInput
+  }
+
+  export type DealStageModelUncheckedUpdateManyWithoutPipelineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    probability?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealUpdateWithoutPipelineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: NullableFloatFieldUpdateOperationsInput | number | null
+    currency?: StringFieldUpdateOperationsInput | string
+    stage?: EnumDealStageFieldUpdateOperationsInput | $Enums.DealStage
+    probability?: IntFieldUpdateOperationsInput | number
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneRequiredWithoutCreatedDealsNestedInput
+    assignedTo?: UserUpdateOneWithoutAssignedDealsNestedInput
+    project?: ProjectUpdateOneWithoutDealsNestedInput
+    client?: ClientUpdateOneWithoutDealsNestedInput
+    stageRelation?: DealStageModelUpdateOneWithoutDealsNestedInput
+    activities?: DealActivityUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateWithoutPipelineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: NullableFloatFieldUpdateOperationsInput | number | null
+    currency?: StringFieldUpdateOperationsInput | string
+    stage?: EnumDealStageFieldUpdateOperationsInput | $Enums.DealStage
+    probability?: IntFieldUpdateOperationsInput | number
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    stageId?: NullableStringFieldUpdateOperationsInput | string | null
+    activities?: DealActivityUncheckedUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateManyWithoutPipelineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: NullableFloatFieldUpdateOperationsInput | number | null
+    currency?: StringFieldUpdateOperationsInput | string
+    stage?: EnumDealStageFieldUpdateOperationsInput | $Enums.DealStage
+    probability?: IntFieldUpdateOperationsInput | number
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    stageId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type DealCreateManyStageRelationInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value?: number | null
+    currency?: string
+    stage?: $Enums.DealStage
+    probability?: number
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    source?: string | null
+    tags?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+    assignedToId?: string | null
+    projectId?: string | null
+    clientId?: string | null
+    pipelineId?: string | null
+  }
+
+  export type DealUpdateWithoutStageRelationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: NullableFloatFieldUpdateOperationsInput | number | null
+    currency?: StringFieldUpdateOperationsInput | string
+    stage?: EnumDealStageFieldUpdateOperationsInput | $Enums.DealStage
+    probability?: IntFieldUpdateOperationsInput | number
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneRequiredWithoutCreatedDealsNestedInput
+    assignedTo?: UserUpdateOneWithoutAssignedDealsNestedInput
+    project?: ProjectUpdateOneWithoutDealsNestedInput
+    client?: ClientUpdateOneWithoutDealsNestedInput
+    pipeline?: PipelineUpdateOneWithoutDealsNestedInput
+    activities?: DealActivityUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateWithoutStageRelationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: NullableFloatFieldUpdateOperationsInput | number | null
+    currency?: StringFieldUpdateOperationsInput | string
+    stage?: EnumDealStageFieldUpdateOperationsInput | $Enums.DealStage
+    probability?: IntFieldUpdateOperationsInput | number
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    pipelineId?: NullableStringFieldUpdateOperationsInput | string | null
+    activities?: DealActivityUncheckedUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateManyWithoutStageRelationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: NullableFloatFieldUpdateOperationsInput | number | null
+    currency?: StringFieldUpdateOperationsInput | string
+    stage?: EnumDealStageFieldUpdateOperationsInput | $Enums.DealStage
+    probability?: IntFieldUpdateOperationsInput | number
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    pipelineId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CustomFieldValueCreateManyFieldInput = {
+    id?: string
+    entityId: string
+    value: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomFieldValueUpdateWithoutFieldInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    entityId?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomFieldValueUncheckedUpdateWithoutFieldInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    entityId?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomFieldValueUncheckedUpdateManyWithoutFieldInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    entityId?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

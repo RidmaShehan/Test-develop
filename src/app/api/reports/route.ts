@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, isAdminRole } from '@/lib/auth'
 import { SeekerStage } from '@prisma/client'
@@ -343,11 +344,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(reportData)
   } catch (error) {
-    console.error('Error fetching report data:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch report data' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

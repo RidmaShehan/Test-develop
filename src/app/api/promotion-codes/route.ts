@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth'
 
@@ -112,11 +113,7 @@ export async function GET(request: NextRequest) {
       },
     })
   } catch (error: any) {
-    console.error('Error fetching promotion codes:', error)
-    return NextResponse.json(
-      { error: error.message || 'Failed to fetch promotion codes' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -198,10 +195,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(promotionCode, { status: 201 })
   } catch (error: any) {
-    console.error('Error creating promotion code:', error)
-    return NextResponse.json(
-      { error: error.message || 'Failed to create promotion code' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

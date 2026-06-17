@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { requirePermission, ForbiddenError } from '@/lib/authorization'
 import { prisma } from '@/lib/prisma'
 import { deleteFromCloudinary } from '@/lib/cloudinary'
@@ -27,6 +28,6 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
   } catch (err: any) {
     if (err instanceof AuthenticationError) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     if (err instanceof ForbiddenError) return NextResponse.json({ error: err.message }, { status: 403 })
-    return NextResponse.json({ error: 'Delete failed' }, { status: 500 })
+    return handleApiError(err)
   }
 }

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { Prisma, FollowUpStatus, FollowUpPurpose } from '@prisma/client'
 import { requireAuth, isAdminRole, AuthenticationError } from '@/lib/auth'
+import { handleApiError } from '@/lib/handle-api-error'
 
 export async function GET(request: NextRequest) {
   try {
@@ -17,7 +19,7 @@ export async function GET(request: NextRequest) {
     const purpose = searchParams.get('purpose')
     
     // Build where clause based on user role
-    const where: any = {}
+    const where: Prisma.FollowUpTaskWhereInput = {}
     
     // If not ADMIN/ADMINISTRATOR/DEVELOPER, only show tasks assigned to the current user
     if (!isAdminRole(_user.role)) {
@@ -26,10 +28,10 @@ export async function GET(request: NextRequest) {
     
     // Add filter parameters
     if (status) {
-      where.status = status
+      where.status = status as FollowUpStatus
     }
     if (purpose) {
-      where.purpose = purpose
+      where.purpose = purpose as FollowUpPurpose
     }
     
     // Get total count for pagination
@@ -105,10 +107,6 @@ export async function GET(request: NextRequest) {
         { status: 401 }
       )
     }
-    console.error('Error fetching tasks:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch tasks' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

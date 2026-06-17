@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { hashPassword } from '@/lib/auth'
 
@@ -46,7 +47,6 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true, message: 'Password reset successfully' })
   } catch (err) {
-    console.error('Reset password error:', err)
-    return NextResponse.json({ error: 'Failed to reset password' }, { status: 500 })
+    return handleApiError(err)
   }
 }

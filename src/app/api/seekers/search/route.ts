@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, AuthenticationError } from '@/lib/auth'
 import { canViewAllInquiries } from '@/lib/inquiry-visibility'
@@ -81,11 +82,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 401 })
     }
 
-    console.error('Error searching seekers:', error)
-    return NextResponse.json(
-      { error: 'Failed to search seekers' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

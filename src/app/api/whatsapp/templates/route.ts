@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, isAdminRole } from '@/lib/auth'
 
@@ -38,8 +39,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ templates })
   } catch (error) {
-    console.error('Error fetching WhatsApp templates:', error)
-    return NextResponse.json({ error: 'Could not load templates. Please try again.' }, { status: 500 })
+    return handleApiError(error)
   }
 }
 
@@ -141,7 +141,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ template })
   } catch (error) {
-    console.error('Error creating WhatsApp template:', error)
-    return NextResponse.json({ error: 'Could not save template. Please try again.' }, { status: 500 })
+    return handleApiError(error)
   }
 }

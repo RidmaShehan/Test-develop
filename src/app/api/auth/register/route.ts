@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { register } from '@/lib/auth'
 
@@ -35,7 +36,6 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true, message: 'Account created successfully' }, { status: 201 })
   } catch (err) {
-    console.error('Register error:', err)
-    return NextResponse.json({ error: 'Registration failed' }, { status: 500 })
+    return handleApiError(err)
   }
 }

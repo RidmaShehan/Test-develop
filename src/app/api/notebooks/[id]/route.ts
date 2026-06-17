@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth'
 
@@ -55,11 +56,7 @@ export async function GET(
 
     return NextResponse.json(notebook)
   } catch (error) {
-    console.error('Error fetching notebook:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch notebook' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -114,11 +111,7 @@ export async function PUT(
 
     return NextResponse.json(notebook)
   } catch (error) {
-    console.error('Error updating notebook:', error)
-    return NextResponse.json(
-      { error: 'Failed to update notebook' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -152,11 +145,7 @@ export async function DELETE(
 
     return NextResponse.json({ message: 'Notebook deleted successfully' })
   } catch (error) {
-    console.error('Error deleting notebook:', error)
-    return NextResponse.json(
-      { error: 'Failed to delete notebook' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

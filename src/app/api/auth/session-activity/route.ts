@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { verifyToken } from '@/lib/auth'
 
 // Update session activity timestamp
@@ -41,11 +42,7 @@ export async function POST(request: NextRequest) {
 
     return response
   } catch (error) {
-    console.error('Session activity update error:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

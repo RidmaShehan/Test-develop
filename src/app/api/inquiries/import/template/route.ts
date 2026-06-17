@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import * as XLSX from 'xlsx'
 import { requireAuth, AuthenticationError } from '@/lib/auth'
 import {
@@ -30,7 +31,6 @@ export async function GET(request: NextRequest) {
     if (error instanceof AuthenticationError) {
       return NextResponse.json({ error: error.message }, { status: 401 })
     }
-    console.error('Error generating inquiry import template:', error)
-    return NextResponse.json({ error: 'Failed to generate template' }, { status: 500 })
+    return handleApiError(error)
   }
 }

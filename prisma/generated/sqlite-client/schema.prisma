@@ -55,6 +55,7 @@ model User {
   postApprovals   PostApproval[]    @relation("PostApprover")
   postComments    PostComment[]     @relation("PostCommenter")
   notifications   Notification[]    @relation("UserNotifications")
+  savedFilters    SavedFilter[]     @relation("UserSavedFilters")
 
   // Notebook system relations
   createdNotebooks      Notebook[]      @relation("NotebookCreatedBy")
@@ -63,6 +64,12 @@ model User {
 
   // Sprint A — Auth
   passwordResetTokens PasswordResetToken[]
+  refreshTokens       RefreshToken[]
+  mfaEnabled          Boolean              @default(false)
+  mfaSecret           String?
+
+  // Custom Fields
+  customFieldsCreated CustomField[] @relation("CustomFieldCreatedBy")
 
   // Sprint B — Voice Notes
   voiceNotes VoiceNote[] @relation("VoiceNoteUploader")
@@ -984,11 +991,15 @@ model Deal {
   assignedToId String?
   projectId    String?
   clientId     String?
+  pipelineId   String?
+  stageId      String?
 
-  createdBy  User     @relation("DealCreatedBy", fields: [createdById], references: [id])
-  assignedTo User?    @relation("DealAssignedTo", fields: [assignedToId], references: [id])
-  project    Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
-  client     Client?  @relation(fields: [clientId], references: [id], onDelete: SetNull)
+  createdBy     User            @relation("DealCreatedBy", fields: [createdById], references: [id])
+  assignedTo    User?           @relation("DealAssignedTo", fields: [assignedToId], references: [id])
+  project       Project?        @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  client        Client?         @relation(fields: [clientId], references: [id], onDelete: SetNull)
+  pipeline      Pipeline?       @relation("PipelineDeals", fields: [pipelineId], references: [id], onDelete: SetNull)
+  stageRelation DealStageModel? @relation("StageDeals", fields: [stageId], references: [id], onDelete: SetNull)
 
   // Deal activities
   activities DealActivity[]
@@ -1581,4 +1592,103 @@ model AlumniEngagement {
   createdAt DateTime @default(now())
 
   @@map("alumni_engagements")
+}
+
+model SavedFilter {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  entityType  String   @default("inquiry") // "inquiry", "task", "campaign", etc.
+  filterData  String // Serialized JSON filter state
+  isDefault   Boolean  @default(false)
+  isPublic    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  userId String
+  user   User   @relation("UserSavedFilters", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, name])
+  @@index([userId, entityType])
+  @@index([isDefault])
+  @@map("saved_filters")
+}
+
+model Pipeline {
+  id          String           @id @default(cuid())
+  name        String
+  description String?
+  isActive    Boolean          @default(true)
+  stages      DealStageModel[] @relation("PipelineStages")
+  deals       Deal[]           @relation("PipelineDeals")
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@map("pipelines")
+}
+
+model DealStageModel {
+  id          String   @id @default(cuid())
+  name        String
+  order       Int
+  probability Int      @default(10)
+  pipelineId  String
+  pipeline    Pipeline @relation("PipelineStages", fields: [pipelineId], references: [id], onDelete: Cascade)
+  deals       Deal[]   @relation("StageDeals")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([pipelineId, name])
+  @@map("deal_stages")
+}
+
+enum CustomFieldType {
+  TEXT
+  NUMBER
+  DATE
+  SELECT
+  BOOLEAN
+}
+
+model CustomField {
+  id          String             @id @default(cuid())
+  name        String
+  type        CustomFieldType
+  entityType  String // "CONTACT" | "DEAL"
+  isRequired  Boolean            @default(false)
+  options     String? // JSON array of options for SELECT type
+  createdById String?
+  createdBy   User?              @relation("CustomFieldCreatedBy", fields: [createdById], references: [id])
+  values      CustomFieldValue[]
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+
+  @@unique([entityType, name])
+  @@map("custom_fields")
+}
+
+model CustomFieldValue {
+  id        String      @id @default(cuid())
+  fieldId   String
+  field     CustomField @relation(fields: [fieldId], references: [id], onDelete: Cascade)
+  entityId  String // ID of the contact (seeker) or deal
+  value     String // Stored as string, parsed according to field type
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  @@unique([fieldId, entityId])
+  @@map("custom_field_values")
+}
+
+model RefreshToken {
+  id          String   @id @default(cuid())
+  token       String   @unique
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt   DateTime
+  rotatedFrom String? // Token that was rotated to create this one
+  createdAt   DateTime @default(now())
+
+  @@map("refresh_tokens")
 }

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { verifyPortalToken } from '@/lib/portal-token'
 import { prisma } from '@/lib/prisma'
 import { uploadToCloudinary, getStudentFolder, type DocumentCategory } from '@/lib/cloudinary'
@@ -68,6 +69,6 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ tok
 
     return NextResponse.json({ success: true, data: doc })
   } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 })
+    return handleApiError(err)
   }
 }

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth'
 import { canViewAllInquiries } from '@/lib/inquiry-visibility'
@@ -43,11 +44,7 @@ export async function GET(
 
     return NextResponse.json(tasks)
   } catch (error) {
-    console.error('Error fetching tasks:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch tasks' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -113,10 +110,6 @@ export async function POST(
 
     return NextResponse.json(task, { status: 201 })
   } catch (error) {
-    console.error('Error creating task:', error)
-    return NextResponse.json(
-      { error: 'Failed to create task' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

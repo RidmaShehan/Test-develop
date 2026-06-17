@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth'
 
@@ -31,11 +32,7 @@ export async function GET(
 
     return NextResponse.json(program)
   } catch (error) {
-    console.error('Error fetching program:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch program' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -184,14 +181,7 @@ export async function PUT(
       throw prismaError
     }
   } catch (error) {
-    console.error('Error updating program:', error)
-    return NextResponse.json(
-      { 
-        error: 'Failed to update program',
-        details: error instanceof Error ? error.message : 'Unknown error'
-      },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -235,10 +225,6 @@ export async function DELETE(
 
     return NextResponse.json({ message: 'Program deleted successfully' })
   } catch (error) {
-    console.error('Error deleting program:', error)
-    return NextResponse.json(
-      { error: 'Failed to delete program' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

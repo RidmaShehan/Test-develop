@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth'
 
@@ -27,8 +28,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(inquiries)
   } catch (error) {
-    console.error('Error fetching deleted inquiries:', error)
-    return NextResponse.json({ error: 'Failed to fetch deleted inquiries' }, { status: 500 })
+    return handleApiError(error)
   }
 }
 

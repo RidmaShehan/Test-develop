@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, AuthenticationError } from '@/lib/auth'
 
@@ -52,10 +53,7 @@ export async function DELETE(request: NextRequest) {
         { status: 401 }
       )
     }
-    return NextResponse.json(
-      { error: 'Failed to unsubscribe from push notifications' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

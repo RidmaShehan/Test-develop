@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { requireAuth } from '@/lib/auth'
 import { requestInquiryPrisma } from '@/lib/request-inquiry-prisma'
 import { prisma } from '@/lib/prisma'
@@ -54,11 +55,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(visitorsWithDetails)
   } catch (error) {
-    console.error('Error fetching request inquiries:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch request inquiries' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -107,10 +104,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(visitor, { status: 201 })
   } catch (error) {
-    console.error('Error creating request inquiry:', error)
-    return NextResponse.json(
-      { error: 'Failed to create request inquiry' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

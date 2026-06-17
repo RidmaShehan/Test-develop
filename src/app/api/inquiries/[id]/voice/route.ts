@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { requirePermission } from '@/lib/authorization'
 import { prisma } from '@/lib/prisma'
 import { uploadToCloudinary } from '@/lib/cloudinary'
@@ -18,7 +19,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
   } catch (err: any) {
     if (err.name === 'AuthenticationError') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     if (err.name === 'ForbiddenError') return NextResponse.json({ error: err.message }, { status: 403 })
-    return NextResponse.json({ error: 'Failed to fetch voice notes' }, { status: 500 })
+    return handleApiError(err)
   }
 }
 
@@ -62,8 +63,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
   } catch (err: any) {
     if (err.name === 'AuthenticationError') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     if (err.name === 'ForbiddenError') return NextResponse.json({ error: err.message }, { status: 403 })
-    console.error('Voice note upload error:', err)
-    return NextResponse.json({ error: 'Upload failed' }, { status: 500 })
+    return handleApiError(err)
   }
 }
 
@@ -81,6 +81,6 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
     return NextResponse.json({ success: true })
   } catch (err: any) {
     if (err.name === 'AuthenticationError') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    return NextResponse.json({ error: 'Delete failed' }, { status: 500 })
+    return handleApiError(err)
   }
 }

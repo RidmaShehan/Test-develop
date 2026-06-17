@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, isAdminRole } from '@/lib/auth'
 
@@ -52,10 +53,6 @@ export async function PATCH(
 
     return NextResponse.json(seeker)
   } catch (error) {
-    console.error('Error updating seeker:', error)
-    return NextResponse.json(
-      { error: 'Failed to update seeker' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

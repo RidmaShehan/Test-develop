@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { requirePermission, ForbiddenError } from '@/lib/authorization'
 import { prisma } from '@/lib/prisma'
 import { uploadToCloudinary, getStudentFolder, DocumentCategory } from '@/lib/cloudinary'
@@ -29,7 +30,7 @@ export async function GET(req: NextRequest) {
   } catch (err: any) {
     if (err instanceof AuthenticationError) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     if (err instanceof ForbiddenError) return NextResponse.json({ error: err.message }, { status: 403 })
-    return NextResponse.json({ error: 'Failed to fetch documents' }, { status: 500 })
+    return handleApiError(err)
   }
 }
 
@@ -168,7 +169,6 @@ export async function POST(req: NextRequest) {
   } catch (err: any) {
     if (err instanceof AuthenticationError) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     if (err instanceof ForbiddenError) return NextResponse.json({ error: err.message }, { status: 403 })
-    console.error('Document upload error:', err)
-    return NextResponse.json({ error: 'Upload failed' }, { status: 500 })
+    return handleApiError(err)
   }
 }

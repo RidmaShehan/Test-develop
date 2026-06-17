@@ -8,6 +8,7 @@ import {
 import { AuthenticationError, requireAuth } from '@/lib/auth'
 import { getClientIp, rateLimit } from '@/lib/rate-limit'
 import { getSafeErrorMessage } from '@/lib/safe-api-error'
+import { handleApiError } from '@/lib/handle-api-error'
 
 const MAX_MESSAGE_LENGTH = 4000
 const MAX_HISTORY_ITEMS = 20
@@ -28,8 +29,6 @@ const MODEL_CACHE_TTL_MS = 10 * 60 * 1000
 let modelCache: ModelCache | null = null
 
 async function discoverGeminiModels(apiKey: string) {
-  // Best-effort model discovery; the result is cached in-memory.
-  // In serverless, the cache may reset, but it still prevents repeated network calls.
   const now = Date.now()
   if (modelCache && now - modelCache.fetchedAt < MODEL_CACHE_TTL_MS) {
     return modelCache
@@ -108,7 +107,6 @@ function normalizeHistory(history: unknown) {
 
 export async function POST(request: NextRequest) {
   const requestStart = Date.now()
-  // Parse request body first (can only be read once)
   let requestBody: { message: string; history?: unknown; stream?: boolean }
   try {
     requestBody = await request.json()
@@ -124,7 +122,7 @@ export async function POST(request: NextRequest) {
   try {
     const user = await requireAuth(request)
     const clientIp = getClientIp(request)
-    const isAllowed = rateLimit(`chat:${user.id}:${clientIp}`, CHAT_RATE_LIMIT)
+    const isAllowed = await rateLimit(`chat:${user.id}:${clientIp}`, CHAT_RATE_LIMIT)
     if (!isAllowed) {
       return NextResponse.json(
         { error: 'Too many requests. Please wait and try again.' },
@@ -170,7 +168,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Initialize Gemini with API key
     let genAI: GoogleGenerativeAI
     try {
       genAI = new GoogleGenerativeAI(apiKey)
@@ -187,7 +184,6 @@ export async function POST(request: NextRequest) {
       ? process.env.GEMINI_AVAILABLE_MODELS.split(',').map((m) => m.trim()).filter(Boolean)
       : []
 
-    // If env is not set, discover compatible models.
     const discovered = envModels.length ? null : await discoverGeminiModels(apiKey)
 
     const availableModels = envModels.length
@@ -198,7 +194,6 @@ export async function POST(request: NextRequest) {
           : discovered?.generateModels || []
         : discovered?.generateModels || []
 
-    // Safety settings
     const safetySettings: SafetySetting[] = [
       {
         category: HarmCategory.HARM_CATEGORY_HARASSMENT,
@@ -218,7 +213,6 @@ export async function POST(request: NextRequest) {
       },
     ]
 
-    // Generation config
     const generationConfig = {
       temperature: 0.7,
       topK: 40,
@@ -246,8 +240,6 @@ export async function POST(request: NextRequest) {
         if (stream) {
           const encoder = new TextEncoder()
 
-          // If streaming is not supported for this specific model, fall back to
-          // non-stream generation while still returning SSE events.
           let resultStream: any = null
           try {
             resultStream = await chat.sendMessageStream(message)
@@ -343,12 +335,10 @@ export async function POST(request: NextRequest) {
         )
       } catch (modelError: any) {
         lastError = modelError
-        // If it's a 404, try next model
         if (modelError.message?.includes('404') || modelError.message?.includes('not found')) {
           console.log(`Model ${modelName} not available, trying next...`)
           continue
         }
-        // If it's a different error, throw it
         throw modelError
       }
     }
@@ -379,7 +369,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'No available AI model found.' }, { status: 502 })
     }
 
-    return NextResponse.json({ error: getSafeErrorMessage(error, 'Failed to get response from AI') }, { status: 500 })
+    return handleApiError(error)
   }
 }
-

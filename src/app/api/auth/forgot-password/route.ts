@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { sendEmailViaSMTP } from '@/lib/smtp'
 import crypto from 'crypto'
@@ -66,7 +67,6 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true, message: 'If that email exists, a reset link has been sent.' })
   } catch (err) {
-    console.error('Forgot password error:', err)
-    return NextResponse.json({ error: 'Failed to process request' }, { status: 500 })
+    return handleApiError(err)
   }
 }

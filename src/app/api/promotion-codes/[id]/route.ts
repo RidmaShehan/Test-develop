@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, isAdminRole } from '@/lib/auth'
 import { getSafeErrorMessage } from '@/lib/safe-api-error'
@@ -66,11 +67,7 @@ export async function GET(
       totalPaidLKR,
     })
   } catch (error) {
-    console.error('Error fetching promotion code:', error)
-    return NextResponse.json(
-      { error: getSafeErrorMessage(error, 'Failed to fetch promotion code') },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -138,11 +135,7 @@ export async function PUT(
 
     return NextResponse.json(promotionCode)
   } catch (error) {
-    console.error('Error updating promotion code:', error)
-    return NextResponse.json(
-      { error: getSafeErrorMessage(error, 'Failed to update promotion code') },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -194,10 +187,6 @@ export async function DELETE(
 
     return NextResponse.json({ message: 'Promotion code deleted successfully' })
   } catch (error) {
-    console.error('Error deleting promotion code:', error)
-    return NextResponse.json(
-      { error: getSafeErrorMessage(error, 'Failed to delete promotion code') },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

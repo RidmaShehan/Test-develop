@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireRole } from '@/lib/auth'
 
@@ -21,11 +22,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(levels)
   } catch (error) {
-    console.error('Error fetching levels:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch levels' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -47,10 +44,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(level, { status: 201 })
   } catch (error) {
-    console.error('Error creating level:', error)
-    return NextResponse.json(
-      { error: 'Failed to create level' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

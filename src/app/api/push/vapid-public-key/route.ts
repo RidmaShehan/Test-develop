@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 
 // GET /api/push/vapid-public-key - Get VAPID public key for client subscription
 export async function GET() {
@@ -17,11 +18,7 @@ export async function GET() {
 
     return NextResponse.json({ publicKey })
   } catch (error) {
-    console.error('Error getting VAPID public key:', error)
-    return NextResponse.json(
-      { error: 'Failed to get VAPID public key' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

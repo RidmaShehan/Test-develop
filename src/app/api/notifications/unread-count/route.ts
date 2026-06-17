@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, AuthenticationError } from '@/lib/auth'
 import {
@@ -43,9 +44,6 @@ export async function GET(request: NextRequest) {
         { status: 401 }
       )
     }
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to fetch unread count' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

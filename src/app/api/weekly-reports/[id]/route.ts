@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, isAdminRole } from '@/lib/auth'
 
@@ -28,11 +29,7 @@ export async function GET(
 
     return NextResponse.json(report)
   } catch (error) {
-    console.error('Error fetching weekly report:', error)
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to fetch report' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -114,11 +111,7 @@ export async function PUT(
 
     return NextResponse.json(updated)
   } catch (error) {
-    console.error('Error updating weekly report:', error)
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to update report' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -143,10 +136,6 @@ export async function DELETE(
     await prisma.weeklyReport.delete({ where: { id } })
     return NextResponse.json({ message: 'Report deleted successfully' })
   } catch (error) {
-    console.error('Error deleting weekly report:', error)
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to delete report' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

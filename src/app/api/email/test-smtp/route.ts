@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { requireAuth } from '@/lib/auth'
 import { verifySMTPConnection, getSMTPConfig } from '@/lib/smtp'
 
@@ -155,15 +156,7 @@ export async function GET(request: NextRequest) {
       }
     })
   } catch (error) {
-    console.error('Error testing SMTP:', error)
-    return NextResponse.json(
-      { 
-        success: false,
-        error: 'Failed to test SMTP configuration',
-        details: error instanceof Error ? error.message : 'Unknown error'
-      },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import * as XLSX from 'xlsx'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, AuthenticationError } from '@/lib/auth'
@@ -247,10 +248,6 @@ export async function POST(request: NextRequest) {
     if (error instanceof AuthenticationError) {
       return NextResponse.json({ error: error.message }, { status: 401 })
     }
-    console.error('Error importing inquiries:', error)
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Import failed.' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

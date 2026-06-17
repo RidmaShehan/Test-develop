@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, isAdminRole } from '@/lib/auth'
 
@@ -122,8 +123,7 @@ export async function PATCH(
 
     return NextResponse.json({ template })
   } catch (error) {
-    console.error('Error updating WhatsApp template:', error)
-    return NextResponse.json({ error: 'Could not update template. Please try again.' }, { status: 500 })
+    return handleApiError(error)
   }
 }
 
@@ -152,7 +152,6 @@ export async function DELETE(
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('Error deleting WhatsApp template:', error)
-    return NextResponse.json({ error: 'Could not delete template. Please try again.' }, { status: 500 })
+    return handleApiError(error)
   }
 }

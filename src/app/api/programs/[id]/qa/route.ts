@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth'
 
@@ -24,14 +25,7 @@ export async function GET(
 
     return NextResponse.json(qaItems)
   } catch (error) {
-    console.error('❌ ERROR in /api/programs/[id]/qa:', error)
-    return NextResponse.json(
-      { 
-        error: 'Failed to fetch Q&A items',
-        details: error instanceof Error ? error.message : 'Unknown error',
-      },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -77,13 +71,6 @@ export async function POST(
 
     return NextResponse.json(qaItem, { status: 201 })
   } catch (error) {
-    console.error('❌ ERROR creating Q&A item:', error)
-    return NextResponse.json(
-      { 
-        error: 'Failed to create Q&A item',
-        details: error instanceof Error ? error.message : 'Unknown error',
-      },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

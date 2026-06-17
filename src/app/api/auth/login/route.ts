@@ -2,12 +2,13 @@ import { NextRequest, NextResponse } from 'next/server'
 import { login } from '@/lib/auth'
 import { logLogin, logFailedLogin } from '@/lib/activity-logger'
 import { rateLimit, getClientIp } from '@/lib/rate-limit'
+import { handleApiError } from '@/lib/handle-api-error'
 
 export async function POST(request: NextRequest) {
   try {
     // Rate limit login attempts (e.g. 10 per minute per IP)
     const clientIp = getClientIp(request)
-    if (!rateLimit(clientIp, { limit: 10, windowSeconds: 60 })) {
+    if (!(await rateLimit(clientIp, { limit: 10, windowSeconds: 60 }))) {
       return NextResponse.json(
         { error: 'Too many login attempts. Please try again later.' },
         { status: 429 }
@@ -71,10 +72,6 @@ export async function POST(request: NextRequest) {
 
     return response
   } catch (error) {
-    console.error('Login error:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

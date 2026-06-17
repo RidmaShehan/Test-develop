@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, AuthenticationError } from '@/lib/auth'
 
@@ -50,10 +51,7 @@ export async function POST(
     if (error instanceof AuthenticationError) {
       return NextResponse.json({ error: error.message }, { status: 401 })
     }
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to add comment' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

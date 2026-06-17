@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, isAdminRole, AuthenticationError } from '@/lib/auth'
 
@@ -50,10 +51,6 @@ export async function GET(request: NextRequest) {
     if (error instanceof AuthenticationError) {
       return NextResponse.json({ error: error.message }, { status: 401 })
     }
-    console.error('Error fetching deleted campaigns:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch deleted campaigns' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

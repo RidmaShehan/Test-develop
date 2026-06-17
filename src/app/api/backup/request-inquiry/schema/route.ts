@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { requireAuth, isAdminRole } from '@/lib/auth'
 import { requestInquiryPrisma } from '@/lib/request-inquiry-prisma'
 
@@ -184,8 +185,7 @@ export async function GET(request: NextRequest) {
       },
     })
   } catch (err) {
-    console.error('Request Inquiry schema export error:', err)
-    return NextResponse.json({ error: 'Failed to generate Request Inquiry schema export' }, { status: 500 })
+    return handleApiError(err)
   }
 }
 

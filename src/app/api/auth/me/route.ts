@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { getCurrentUser } from '@/lib/auth'
 import { getEffectivePermissionsAndRolesForUser } from '@/lib/authorization'
 
@@ -63,10 +64,6 @@ export async function GET(request: NextRequest) {
 
     return response
   } catch (error) {
-    console.error('Get user error:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

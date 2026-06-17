@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, isAdminRole, AuthenticationError } from '@/lib/auth'
 
@@ -75,10 +76,7 @@ export async function GET(
     if (error instanceof AuthenticationError) {
       return NextResponse.json({ error: error.message }, { status: 401 })
     }
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to fetch post' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -165,10 +163,7 @@ export async function PUT(
     if (error instanceof AuthenticationError) {
       return NextResponse.json({ error: error.message }, { status: 401 })
     }
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to update post' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -217,9 +212,6 @@ export async function DELETE(
     if (error instanceof AuthenticationError) {
       return NextResponse.json({ error: error.message }, { status: 401 })
     }
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to delete post' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

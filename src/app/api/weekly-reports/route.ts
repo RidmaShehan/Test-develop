@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth'
 
@@ -38,11 +39,7 @@ export async function GET(request: NextRequest) {
       },
     })
   } catch (error) {
-    console.error('Error fetching weekly reports:', error)
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to fetch reports' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -117,10 +114,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(report, { status: 201 })
   } catch (error) {
-    console.error('Error creating weekly report:', error)
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to create report' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

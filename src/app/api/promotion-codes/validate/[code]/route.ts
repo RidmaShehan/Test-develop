@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { rateLimit, getClientIp } from '@/lib/rate-limit'
+import { handleApiError } from '@/lib/handle-api-error'
 
 export async function GET(
   request: NextRequest,
@@ -9,7 +10,7 @@ export async function GET(
   try {
     // Rate limit to prevent code enumeration (e.g. 30 requests per minute per IP)
     const clientIp = getClientIp(request)
-    if (!rateLimit(clientIp, { limit: 30, windowSeconds: 60 })) {
+    if (!(await rateLimit(clientIp, { limit: 30, windowSeconds: 60 }))) {
       return NextResponse.json(
         { error: 'Too many requests. Please try again later.' },
         { status: 429 }
@@ -52,10 +53,6 @@ export async function GET(
       paymentAmountLKR: promotionCode.paymentAmountLKR,
     })
   } catch (error) {
-    console.error('Error validating promotion code:', error)
-    return NextResponse.json(
-      { error: 'Failed to validate promotion code' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

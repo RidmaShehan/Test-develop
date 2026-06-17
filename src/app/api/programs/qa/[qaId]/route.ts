@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth'
 
@@ -35,14 +36,7 @@ export async function GET(
 
     return NextResponse.json(qaItem)
   } catch (error) {
-    console.error('❌ ERROR in /api/programs/qa/[qaId]:', error)
-    return NextResponse.json(
-      { 
-        error: 'Failed to fetch Q&A item',
-        details: error instanceof Error ? error.message : 'Unknown error',
-      },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -69,14 +63,7 @@ export async function PUT(
 
     return NextResponse.json(qaItem)
   } catch (error) {
-    console.error('❌ ERROR updating Q&A item:', error)
-    return NextResponse.json(
-      { 
-        error: 'Failed to update Q&A item',
-        details: error instanceof Error ? error.message : 'Unknown error',
-      },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -100,14 +87,7 @@ export async function DELETE(
 
     return NextResponse.json({ message: 'Q&A item deleted successfully', qaItem })
   } catch (error) {
-    console.error('❌ ERROR deleting Q&A item:', error)
-    return NextResponse.json(
-      { 
-        error: 'Failed to delete Q&A item',
-        details: error instanceof Error ? error.message : 'Unknown error',
-      },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

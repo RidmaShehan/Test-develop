@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { isAdminRole, hashPassword } from '@/lib/auth'
 import { requirePermission, ForbiddenError } from '@/lib/authorization'
@@ -45,11 +46,7 @@ export async function GET(
     if (error instanceof ForbiddenError) {
       return NextResponse.json({ error: error.message }, { status: 403 })
     }
-    console.error('Error fetching user:', error)
-    return NextResponse.json(
-      { error: getSafeErrorMessage(error, 'Failed to fetch user') },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -175,11 +172,7 @@ export async function PUT(
         { status: 400 }
       )
     }
-    console.error('Error updating user:', error)
-    return NextResponse.json(
-      { error: getSafeErrorMessage(error, 'Failed to update user') },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -237,10 +230,6 @@ export async function DELETE(
     if (error instanceof ForbiddenError) {
       return NextResponse.json({ error: error.message }, { status: 403 })
     }
-    console.error('Error deleting user:', error)
-    return NextResponse.json(
-      { error: getSafeErrorMessage(error, 'Failed to delete user') },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

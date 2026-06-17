@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth'
 import { canViewAllInquiries } from '@/lib/inquiry-visibility'
@@ -147,17 +148,10 @@ export async function GET(request: NextRequest) {
       return exportToExcel(inquiries, activityLogsBySeeker)
     }
   } catch (error) {
-    console.error('Error exporting inquiries:', error)
     if (error instanceof Error) {
-      return NextResponse.json(
-        { error: error.message },
-        { status: 500 }
-      )
+      return handleApiError(error)
     }
-    return NextResponse.json(
-      { error: 'Failed to export inquiries' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

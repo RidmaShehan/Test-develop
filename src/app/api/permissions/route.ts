@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { Permission } from '@prisma/client'
 import { requirePermission, ForbiddenError } from '@/lib/authorization'
@@ -33,11 +34,7 @@ export async function GET(request: NextRequest) {
     if (error instanceof ForbiddenError) {
       return NextResponse.json({ error: error.message }, { status: 403 })
     }
-    console.error('Error fetching permissions:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch permissions' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -93,10 +90,6 @@ export async function POST(request: NextRequest) {
     if (error instanceof ForbiddenError) {
       return NextResponse.json({ error: error.message }, { status: 403 })
     }
-    console.error('Error creating permission:', error)
-    return NextResponse.json(
-      { error: 'Failed to create permission' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { requireAuth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { uploadToS3 } from '@/lib/s3'
@@ -129,11 +130,7 @@ export async function POST(request: NextRequest) {
           savedMediaFile = await saveMediaFileLocally(mediaFile)
           console.log('Media file saved locally:', savedMediaFile)
         } catch (localError) {
-          console.error('Both S3 and local storage failed:', { s3Error, localError })
-          return NextResponse.json(
-            { error: 'Attachment could not be saved. Please try again or use a different file.' },
-            { status: 500 }
-          )
+          return handleApiError(localError)
         }
       }
     }
@@ -394,16 +391,10 @@ export async function POST(request: NextRequest) {
     console.error('Error in bulk WhatsApp send:', error)
     
     if (error instanceof Error) {
-      return NextResponse.json(
-        { error: error.message },
-        { status: 500 }
-      )
+      return handleApiError(error)
     }
     
-    return NextResponse.json(
-      { error: 'Message delivery failed. Please try again later.' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

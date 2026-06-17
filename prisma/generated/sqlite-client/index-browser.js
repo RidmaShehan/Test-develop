@@ -128,7 +128,9 @@ exports.Prisma.UserScalarFieldEnum = {
   whatsappInstanceId: 'whatsappInstanceId',
   whatsappToken: 'whatsappToken',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  mfaEnabled: 'mfaEnabled',
+  mfaSecret: 'mfaSecret'
 };
 
 exports.Prisma.RoleScalarFieldEnum = {
@@ -545,7 +547,9 @@ exports.Prisma.DealScalarFieldEnum = {
   createdById: 'createdById',
   assignedToId: 'assignedToId',
   projectId: 'projectId',
-  clientId: 'clientId'
+  clientId: 'clientId',
+  pipelineId: 'pipelineId',
+  stageId: 'stageId'
 };
 
 exports.Prisma.DealActivityScalarFieldEnum = {
@@ -886,6 +890,68 @@ exports.Prisma.AlumniEngagementScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.SavedFilterScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  entityType: 'entityType',
+  filterData: 'filterData',
+  isDefault: 'isDefault',
+  isPublic: 'isPublic',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+};
+
+exports.Prisma.PipelineScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DealStageModelScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  order: 'order',
+  probability: 'probability',
+  pipelineId: 'pipelineId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CustomFieldScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  type: 'type',
+  entityType: 'entityType',
+  isRequired: 'isRequired',
+  options: 'options',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CustomFieldValueScalarFieldEnum = {
+  id: 'id',
+  fieldId: 'fieldId',
+  entityId: 'entityId',
+  value: 'value',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.RefreshTokenScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  userId: 'userId',
+  expiresAt: 'expiresAt',
+  rotatedFrom: 'rotatedFrom',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1176,6 +1242,14 @@ exports.NotificationType = exports.$Enums.NotificationType = {
   REMINDER: 'REMINDER'
 };
 
+exports.CustomFieldType = exports.$Enums.CustomFieldType = {
+  TEXT: 'TEXT',
+  NUMBER: 'NUMBER',
+  DATE: 'DATE',
+  SELECT: 'SELECT',
+  BOOLEAN: 'BOOLEAN'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Role: 'Role',
@@ -1236,7 +1310,13 @@ exports.Prisma.ModelName = {
   SMSMessage: 'SMSMessage',
   SMSRecipient: 'SMSRecipient',
   Alumni: 'Alumni',
-  AlumniEngagement: 'AlumniEngagement'
+  AlumniEngagement: 'AlumniEngagement',
+  SavedFilter: 'SavedFilter',
+  Pipeline: 'Pipeline',
+  DealStageModel: 'DealStageModel',
+  CustomField: 'CustomField',
+  CustomFieldValue: 'CustomFieldValue',
+  RefreshToken: 'RefreshToken'
 };
 
 /**

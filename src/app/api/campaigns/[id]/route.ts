@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { isAdminRole, requireAuth } from '@/lib/auth'
 import { notifyCampaignStarted, notifyCampaignClosed } from '@/lib/notification-service'
@@ -96,11 +97,7 @@ export async function GET(
       },
     })
   } catch (error) {
-    console.error('Error fetching campaign:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch campaign' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -251,11 +248,7 @@ export async function PUT(
 
     return NextResponse.json(campaign)
   } catch (error) {
-    console.error('Error updating campaign:', error)
-    return NextResponse.json(
-      { error: 'Failed to update campaign' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -312,11 +305,7 @@ export async function DELETE(
       campaign 
     })
   } catch (error) {
-    console.error('Error deleting campaign:', error)
-    return NextResponse.json(
-      { error: 'Failed to delete campaign' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

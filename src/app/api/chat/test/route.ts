@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { isAdminRole, requireAuth } from '@/lib/auth'
 
 export async function GET(request: NextRequest) {
@@ -73,13 +74,7 @@ export async function GET(request: NextRequest) {
       })
     }
   } catch (error: any) {
-    return NextResponse.json(
-      { 
-        status: 'error',
-        message: error.message || 'Unknown error',
-      },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

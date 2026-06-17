@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth'
 import { sendEmailViaSMTP, verifySMTPConnection } from '@/lib/smtp'
@@ -78,16 +79,8 @@ export async function POST(request: NextRequest) {
         )
       }
     } catch (error) {
-      console.error('Failed to verify SMTP connection:', error)
       const errorMessage = error instanceof Error ? error.message : 'Unknown error'
-      return NextResponse.json(
-        {
-          error: 'SMTP configuration error',
-          details: errorMessage,
-          help: 'Please configure SMTP settings in environment variables. See SMTP_SETUP_GUIDE.md for setup instructions.'
-        },
-        { status: 500 }
-      )
+      return handleApiError(error)
     }
 
     // Create email message record
@@ -243,11 +236,7 @@ export async function POST(request: NextRequest) {
       results,
     })
   } catch (error) {
-    console.error('Error sending bulk emails:', error)
-    return NextResponse.json(
-      { error: 'Failed to send emails', details: error instanceof Error ? error.message : 'Unknown error' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 

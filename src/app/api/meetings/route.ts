@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireAuth, isAdminRole, AuthenticationError } from '@/lib/auth'
 
@@ -48,11 +49,7 @@ export async function GET(request: NextRequest) {
         { status: 401 }
       )
     }
-    console.error('Error fetching meetings:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch meetings' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -178,10 +175,6 @@ export async function POST(request: NextRequest) {
         { status: 401 }
       )
     }
-    console.error('Error creating meeting:', error)
-    return NextResponse.json(
-      { error: 'Failed to create meeting' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }

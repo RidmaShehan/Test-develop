@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { handleApiError } from '@/lib/handle-api-error'
 import { prisma } from '@/lib/prisma'
 import { requireRole } from '@/lib/auth'
 
@@ -39,11 +40,7 @@ export async function GET(
 
     return NextResponse.json(level)
   } catch (error) {
-    console.error('Error fetching level:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch level' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -70,11 +67,7 @@ export async function PUT(
 
     return NextResponse.json(level)
   } catch (error) {
-    console.error('Error updating level:', error)
-    return NextResponse.json(
-      { error: 'Failed to update level' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
 
@@ -104,10 +97,6 @@ export async function DELETE(
 
     return NextResponse.json({ message: 'Level deleted successfully' })
   } catch (error) {
-    console.error('Error deleting level:', error)
-    return NextResponse.json(
-      { error: 'Failed to delete level' },
-      { status: 500 }
-    )
+    return handleApiError(error)
   }
 }
