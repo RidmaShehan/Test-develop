@@ -151,6 +151,14 @@ export async function PATCH(
       )
     }
 
+    // Validate assignment change: non-admin users can only assign tasks to themselves or leave them unassigned
+    if (assignedToId !== undefined && assignedToId !== null && assignedToId !== user.id && !isAdmin) {
+      return NextResponse.json(
+        { error: 'Forbidden. Non-admin users can only assign tasks to themselves.' },
+        { status: 403 }
+      )
+    }
+
     // Update task
     const updatedTask = await prisma.task.update({
       where: { id },

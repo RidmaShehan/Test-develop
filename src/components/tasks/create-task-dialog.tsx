@@ -11,11 +11,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { toast } from 'sonner'
 import { Plus } from 'lucide-react'
 import { markTasksPendingRefresh } from '@/lib/tasks-refresh-sync'
+import { useAuth } from '@/hooks/use-auth'
 
 interface User {
   id: string
   name: string
   email: string
+  role?: string
 }
 
 interface CreateTaskDialogProps {
@@ -23,6 +25,7 @@ interface CreateTaskDialogProps {
 }
 
 export function CreateTaskDialog({ onTaskCreated }: CreateTaskDialogProps) {
+  const { user } = useAuth()
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [users, setUsers] = useState<User[]>([])
@@ -120,6 +123,12 @@ export function CreateTaskDialog({ onTaskCreated }: CreateTaskDialogProps) {
       }
     }
   }
+
+  const isAdmin = user?.role && ['ADMIN', 'ADMINISTRATOR', 'DEVELOPER'].includes(user.role)
+  const filteredUsers = isAdmin ? users : users.filter(u => u.id === user?.id)
+  const displayUsers = filteredUsers.length > 0 
+    ? filteredUsers 
+    : (user ? [{ id: user.id, name: user.name, email: user.email }] : [])
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -238,7 +247,7 @@ export function CreateTaskDialog({ onTaskCreated }: CreateTaskDialogProps) {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="unassigned">Unassigned</SelectItem>
-                        {users.map((user) => (
+                        {displayUsers.map((user) => (
                           <SelectItem key={user.id} value={user.id}>
                             {user.name} ({user.email})
                           </SelectItem>

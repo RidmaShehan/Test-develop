@@ -166,6 +166,14 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Validate assignment: non-admin users can only assign tasks to themselves or leave them unassigned
+    if (assignedToId && assignedToId !== user.id && !isAdminRole(user.role)) {
+      return NextResponse.json(
+        { error: 'Forbidden. Non-admin users can only assign tasks to themselves.' },
+        { status: 403 }
+      )
+    }
+
     // Create task
     const task = await prisma.task.create({
       data: {

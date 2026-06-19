@@ -21,6 +21,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import { isTaskReadOnly } from '@/lib/task-constants'
 import { onTasksRefreshNeeded, consumeTasksPendingRefresh } from '@/lib/tasks-refresh-sync'
+import { useAuth } from '@/hooks/use-auth'
 
 /** Unified task shape for display (follow-ups + normalized regular tasks from Create Task) */
 interface FollowUpTask {
@@ -30,12 +31,15 @@ interface FollowUpTask {
   dueAt: string
   notes?: string
   createdAt: string
+  assignedTo?: string
+  createdById?: string
   seeker: {
     id: string
     fullName: string
     phone: string
     registerNow: boolean
     stage: string
+    createdById?: string
   }
   user: {
     name: string
@@ -91,8 +95,8 @@ function normalizeRegularTask(raw: {
   status: string
   dueDate?: string | null
   createdAt: string
-  assignedTo?: { name: string } | null
-  createdBy?: { name: string } | null
+  assignedTo?: { id: string; name: string } | null
+  createdBy?: { id: string; name: string } | null
 }): FollowUpTask {
   return {
     id: raw.id,
@@ -101,12 +105,15 @@ function normalizeRegularTask(raw: {
     dueAt: raw.dueDate || raw.createdAt,
     notes: raw.description || undefined,
     createdAt: raw.createdAt,
+    assignedTo: raw.assignedTo?.id,
+    createdById: raw.createdBy?.id,
     seeker: {
       id: '',
       fullName: raw.title,
       phone: '',
       registerNow: false,
       stage: '',
+      createdById: raw.createdBy?.id,
     },
     user: {
       name: raw.assignedTo?.name || raw.createdBy?.name || 'Unassigned',
@@ -162,7 +169,7 @@ export function TasksInbox() {
         .map((t: FollowUpTask) => ({ ...t, taskType: 'followup' as const }))
       const regularNormalized: FollowUpTask[] = rawRegular
         .filter((r: { id?: string; status?: string }) => r?.id && r?.status)
-        .map((r: { id: string; title: string; description?: string | null; status: string; dueDate?: string | null; createdAt: string; assignedTo?: { name: string } | null; createdBy?: { name: string } | null }) =>
+        .map((r: { id: string; title: string; description?: string | null; status: string; dueDate?: string | null; createdAt: string; assignedTo?: { id: string; name: string } | null; createdBy?: { id: string; name: string } | null }) =>
           normalizeRegularTask(r)
         )
 
@@ -446,6 +453,8 @@ interface TaskTableProps {
 }
 
 function TaskTable({ tasks, title, onUpdateStatus, onClothingStationRegister, onClothingStationNotInterested, onDelete, getStatusColor, getStatusIcon }: TaskTableProps) {
+  const { user: currentUser } = useAuth()
+
   return (
     <Card>
       <CardHeader>
@@ -470,8 +479,20 @@ function TaskTable({ tasks, title, onUpdateStatus, onClothingStationRegister, on
               </TableRow>
             </TableHeader>
             <TableBody>
-              {tasks.map((task) => (
-                <TableRow key={task.id}>
+              {tasks.map((task) => {
+                const isAdmin = currentUser?.role && ['ADMIN', 'ADMINISTRATOR', 'DEVELOPER'].includes(currentUser.role)
+                let canDelete = false
+                if (task.taskType === 'regular') {
+                  canDelete = !!isAdmin || (task.createdById === currentUser?.id)
+                } else {
+                  // follow-up task
+                  const assignedToMe = task.assignedTo === currentUser?.id
+                  const inquiryCreatedByMe = task.seeker.createdById === currentUser?.id
+                  canDelete = !!isAdmin || (assignedToMe && inquiryCreatedByMe)
+                }
+
+                return (
+                  <TableRow key={task.id}>
                   <TableCell>
                     <div>
                       <p className="font-medium">{task.seeker.fullName}</p>
@@ -543,19 +564,21 @@ function TaskTable({ tasks, title, onUpdateStatus, onClothingStationRegister, on
                           <Phone className="h-4 w-4" />
                         </Button>
                       )}
-                      <Button 
-                        variant="ghost" 
-                        size="sm"
-                        onClick={() => onDelete(task)}
-                        className="hover:bg-red-50 hover:text-red-600"
-                        title="Delete Task"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
+                      {canDelete && (
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => onDelete(task)}
+                          className="hover:bg-red-50 hover:text-red-600"
+                          title="Delete Task"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      )}
                     </div>
                   </TableCell>
                 </TableRow>
-              ))}
+              )})}
             </TableBody>
           </Table>
         )}

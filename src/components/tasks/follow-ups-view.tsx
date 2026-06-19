@@ -55,6 +55,7 @@ import {
   type TaskStatusColumn
 } from '@/lib/task-constants'
 import { onTasksRefreshNeeded, consumeTasksPendingRefresh } from '@/lib/tasks-refresh-sync'
+import { useAuth } from '@/hooks/use-auth'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -76,12 +77,15 @@ interface FollowUpTask {
   dueAt: string
   notes?: string
   createdAt: string
+  assignedTo?: string
+  createdById?: string
   seeker: {
     id: string
     fullName: string
     phone: string
     registerNow: boolean
     stage: string
+    createdById?: string
   }
   user: {
     name: string
@@ -109,8 +113,8 @@ function normalizeRegularTask(raw: {
   status: string
   dueDate?: string | null
   createdAt: string
-  assignedTo?: { name: string } | null
-  createdBy?: { name: string } | null
+  assignedTo?: { id: string; name: string } | null
+  createdBy?: { id: string; name: string } | null
 }): FollowUpTask {
   return {
     id: raw.id,
@@ -119,12 +123,15 @@ function normalizeRegularTask(raw: {
     dueAt: raw.dueDate || raw.createdAt,
     notes: raw.description || undefined,
     createdAt: raw.createdAt,
+    assignedTo: raw.assignedTo?.id,
+    createdById: raw.createdBy?.id,
     seeker: {
       id: '',
       fullName: raw.title,
       phone: '',
       registerNow: false,
       stage: '',
+      createdById: raw.createdBy?.id,
     },
     user: {
       name: raw.assignedTo?.name || raw.createdBy?.name || 'Unassigned',
@@ -209,7 +216,7 @@ export function FollowUpsView() {
         .map((t: FollowUpTask) => ({ ...t, taskType: 'followup' as const }))
       const regularNormalized: FollowUpTask[] = rawRegular
         .filter((t: { id?: string; status?: string }) => t?.id && t?.status)
-        .map((t: { id: string; title: string; description?: string | null; status: string; dueDate?: string | null; createdAt: string; assignedTo?: { name: string } | null; createdBy?: { name: string } | null }) =>
+        .map((t: { id: string; title: string; description?: string | null; status: string; dueDate?: string | null; createdAt: string; assignedTo?: { id: string; name: string } | null; createdBy?: { id: string; name: string } | null }) =>
           normalizeRegularTask(t)
         )
 
@@ -642,6 +649,18 @@ export function FollowUpsView() {
     onDeleteClick: (task: FollowUpTask, e?: React.MouseEvent) => void
     onPhoneCall: (phone: string, e?: React.MouseEvent) => void
   }) {
+    const { user: currentUser } = useAuth()
+    const isAdmin = currentUser?.role && ['ADMIN', 'ADMINISTRATOR', 'DEVELOPER'].includes(currentUser.role)
+    let canDelete = false
+    if (task.taskType === 'regular') {
+      canDelete = !!isAdmin || (task.createdById === currentUser?.id)
+    } else {
+      // follow-up task
+      const assignedToMe = task.assignedTo === currentUser?.id || ('assignedTo' in task && task.assignedTo === currentUser?.id)
+      const inquiryCreatedByMe = task.seeker.createdById === currentUser?.id
+      canDelete = !!isAdmin || (assignedToMe && inquiryCreatedByMe)
+    }
+
     const {
       attributes,
       listeners,
@@ -831,7 +850,7 @@ export function FollowUpsView() {
                   <Eye className="h-3 w-3 mr-1" />
                   View
                 </Button>
-                {!isTaskReadOnly(task.seeker.stage) && (
+                {!isTaskReadOnly(task.seeker.stage) && canDelete && (
                   <Button
                     variant="outline"
                     size="sm"

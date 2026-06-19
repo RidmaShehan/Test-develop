@@ -8,8 +8,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Checkbox } from '@/components/ui/checkbox'
 import { TaskSearchFilter } from './task-search-filter'
-import { CreateTaskDialog } from './create-task-dialog'
 import { toast } from 'sonner'
+import { useAuth } from '@/hooks/use-auth'
 import { 
   CheckCircle, 
   Clock, 
@@ -70,12 +70,14 @@ interface FollowUpTask {
   dueAt: string
   notes?: string
   createdAt: string
+  assignedTo?: string // User ID
   seeker: {
     id: string
     fullName: string
     phone: string
     registerNow: boolean
     stage: string // Add stage to track seeker status
+    createdById?: string
   }
   user: {
     name: string
@@ -169,8 +171,22 @@ function SortableTaskCard({ task, onViewDetails, onViewHistory, onToggleRegister
   onClothingStationNotInterested: (task: TaskItem) => void
   onDelete: (task: TaskItem) => void
 }) {
+  const { user: currentUser } = useAuth()
   // Check if task is read-only (seeker has final status)
   const isReadOnly = task.type === 'followup' && 'seeker' in task && isTaskReadOnly(task.seeker.stage)
+
+  const isAdmin = currentUser?.role && ['ADMIN', 'ADMINISTRATOR', 'DEVELOPER'].includes(currentUser.role)
+  let canDelete = false
+  if (task.type === 'regular') {
+    const regularTask = task as RegularTask
+    canDelete = !!isAdmin || (regularTask.createdBy?.id === currentUser?.id)
+  } else {
+    // follow-up task
+    const followUpTask = task as FollowUpTask
+    const assignedToMe = followUpTask.assignedTo === currentUser?.id
+    const inquiryCreatedByMe = followUpTask.seeker?.createdById === currentUser?.id
+    canDelete = !!isAdmin || (assignedToMe && inquiryCreatedByMe)
+  }
   const {
     attributes,
     listeners,
@@ -288,7 +304,7 @@ function SortableTaskCard({ task, onViewDetails, onViewHistory, onToggleRegister
               >
                 <History className="h-3.5 w-3.5" />
               </Button>
-              {!isReadOnly && (
+              {!isReadOnly && canDelete && (
                 <Button
                   variant="ghost"
                   size="sm"
@@ -871,15 +887,6 @@ export function KanbanBoard() {
       onDragCancel={() => setActiveTask(null)}
     >
       <div className="space-y-6">
-        {/* Professional Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-gray-200">
-          <div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">Task Kanban Board</h2>
-            <p className="text-sm text-gray-600">Manage your tasks with drag-and-drop workflow</p>
-          </div>
-          <CreateTaskDialog onTaskCreated={refreshTasks} />
-        </div>
-
         {/* Search and Filter Component */}
         <TaskSearchFilter 
           tasks={allTasks} 

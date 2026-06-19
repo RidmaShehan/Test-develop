@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Kanban, List, Calendar } from 'lucide-react'
+import { CreateTaskDialog } from '@/components/tasks/create-task-dialog'
 
 // Lazy-load heavy tab content to reduce INP and initial JS (only active tab loads first)
 function TabLoader() {
@@ -33,9 +34,12 @@ export default function TasksPage() {
   return (
     <DashboardLayout>
       <div className="space-y-6">
-        <div className="pb-4 border-b border-border/60">
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">Tasks</h1>
-          <p className="text-sm text-muted-foreground">Manage and track all your tasks and follow-ups</p>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-border/60">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">Tasks</h1>
+            <p className="text-sm text-muted-foreground">Manage and track all your tasks and follow-ups</p>
+          </div>
+          <CreateTaskDialog onTaskCreated={() => {}} />
         </div>
 
         <Tabs defaultValue="followups" className="w-full">
