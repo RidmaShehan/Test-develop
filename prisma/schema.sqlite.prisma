@@ -82,6 +82,10 @@ model User {
   // Sprint F — SMS
   smsMessages SMSMessage[] @relation("SMSMessageCreator")
 
+  // OAuth email accounts and call logs
+  emailAccounts EmailAccount[]
+  callLogs      CallLog[]
+
   @@map("users")
 }
 
@@ -228,6 +232,10 @@ model Seeker {
   // Sprint G — Alumni
   alumni Alumni?
 
+  // Email threads and call logs
+  emailThreads EmailThread[]
+  callLogs     CallLog[]
+
   @@map("seekers")
 }
 
@@ -258,6 +266,7 @@ model FollowUpTask {
   user          User                @relation(fields: [assignedTo], references: [id])
   seeker        Seeker              @relation(fields: [seekerId], references: [id], onDelete: Cascade)
   actionHistory TaskActionHistory[]
+  callLog       CallLog?
 
   @@map("follow_up_tasks")
 }
@@ -559,6 +568,12 @@ enum ActivityType {
   CREATE_INQUIRY
   UPDATE_INQUIRY
   DELETE_INQUIRY
+  DATA_BACKUP
+  SCHEMA_EXPORT
+  PHONE_CALL
+  EMAIL_SYNC
+  EMAIL_SEND
+  PROJECT_ROLE_UPDATE
 }
 
 model UserActivityLog {
@@ -828,9 +843,9 @@ enum ProjectPriority {
 }
 
 model ProjectMember {
-  id       String   @id @default(cuid())
-  role     String // e.g., "Project Manager", "Developer", "Designer"
-  joinedAt DateTime @default(now())
+  id       String      @id @default(cuid())
+  role     ProjectRole @default(CONTRIBUTOR)
+  joinedAt DateTime    @default(now())
 
   // Relations
   projectId String
@@ -1581,4 +1596,102 @@ model AlumniEngagement {
   createdAt DateTime @default(now())
 
   @@map("alumni_engagements")
+}
+
+enum ProjectRole {
+  OWNER
+  MANAGER
+  CONTRIBUTOR
+  VIEWER
+}
+
+model EmailAccount {
+  id           String        @id @default(cuid())
+  userId       String
+  provider     String        // "GMAIL" or "MICROSOFT"
+  email        String        @unique
+  accessToken  String
+  refreshToken String
+  expiresAt    DateTime
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  threads      EmailThread[]
+
+  @@map("email_accounts")
+}
+
+model EmailThread {
+  id               String              @id @default(cuid())
+  providerThreadId String              // Thread ID from Gmail/Microsoft
+  emailAccountId   String
+  seekerId         String?             // Associated student/seeker ID (null if not matched)
+  subject          String
+  lastMessageAt    DateTime            @default(now())
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+
+  emailAccount     EmailAccount        @relation(fields: [emailAccountId], references: [id], onDelete: Cascade)
+  seeker           Seeker?             @relation(fields: [seekerId], references: [id], onDelete: SetNull)
+  messages         EmailInboxMessage[]
+
+  @@unique([emailAccountId, providerThreadId])
+  @@map("email_threads")
+}
+
+model EmailInboxMessage {
+  id                String                 @id @default(cuid())
+  providerMessageId String                 @unique // Message ID from Gmail/Microsoft
+  threadId          String
+  from              String
+  to                String
+  subject           String
+  body              String                 // HTML or plain text body
+  direction         String                 // "INBOUND" or "OUTBOUND"
+  sentAt            DateTime
+  isRead            Boolean                @default(false)
+  openCount         Int                    @default(0)
+  lastOpenedAt      DateTime?
+  createdAt         DateTime               @default(now())
+
+  thread            EmailThread            @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  attachments       EmailInboxAttachment[]
+
+  @@map("email_inbox_messages")
+}
+
+model EmailInboxAttachment {
+  id        String            @id @default(cuid())
+  filename  String
+  mimeType  String
+  size      Int
+  content   String?           // Base64 content or URL
+  messageId String
+  createdAt DateTime          @default(now())
+
+  message   EmailInboxMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@map("email_inbox_attachments")
+}
+
+model CallLog {
+  id             String        @id @default(cuid())
+  seekerId       String
+  userId         String
+  direction      String        // "INBOUND" or "OUTBOUND"
+  status         String        // "completed", "no-answer", "busy", "failed"
+  duration       Int           // duration in seconds
+  notes          String?
+  recordingUrl   String?
+  callSid        String?       @unique // twilio call sid
+  followUpTaskId String?       @unique
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  seeker         Seeker        @relation(fields: [seekerId], references: [id], onDelete: Cascade)
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  followUpTask   FollowUpTask? @relation(fields: [followUpTaskId], references: [id], onDelete: SetNull)
+
+  @@map("call_logs")
 }

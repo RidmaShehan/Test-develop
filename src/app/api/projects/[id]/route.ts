@@ -112,25 +112,26 @@ export async function PUT(
       color
     } = body
 
-    // Check if user has permission to update this project
-    const where: any = { id }
-    
-    // If not ADMIN/ADMINISTRATOR/DEVELOPER, only allow updating own projects or projects they're members of
-    if (!isAdminRole(user.role)) {
-      where.OR = [
-        { createdById: user.id },
-        { members: { some: { userId: user.id } } }
-      ]
-    }
-    
-    const existingProject = await prisma.project.findFirst({
-      where
+    // Check if task exists and user has OWNER role
+    const existingProject = await prisma.project.findUnique({
+      where: { id },
+      include: { members: true }
     })
 
     if (!existingProject) {
       return NextResponse.json(
-        { error: 'Project not found or access denied' },
+        { error: 'Project not found' },
         { status: 404 }
+      )
+    }
+
+    const { getProjectUserRole } = await import('@/lib/project-permissions')
+    const projectRole = await getProjectUserRole(id, user.id, user.role)
+
+    if (projectRole !== 'OWNER') {
+      return NextResponse.json(
+        { error: 'Unauthorized. Only project Owners can update project details.' },
+        { status: 403 }
       )
     }
 
@@ -145,9 +146,89 @@ export async function PUT(
     if (progress !== undefined) updateData.progress = progress
     if (color !== undefined) updateData.color = color
 
+    // Update project attributes
     const project = await prisma.project.update({
       where: { id },
       data: updateData,
+    })
+
+    // Handle project member sync with roles
+    if (body.members && Array.isArray(body.members)) {
+      const incomingMembers = body.members.map((m: any) => ({
+        userId: m.userId,
+        role: ['OWNER', 'MANAGER', 'CONTRIBUTOR', 'VIEWER'].includes(String(m.role).toUpperCase())
+          ? String(m.role).toUpperCase()
+          : 'CONTRIBUTOR'
+      }))
+
+      // Always ensure the original project creator remains OWNER
+      if (!incomingMembers.some((m: any) => m.userId === existingProject.createdById)) {
+        incomingMembers.push({ userId: existingProject.createdById, role: 'OWNER' })
+      }
+
+      const incomingUserIds = incomingMembers.map((m: any) => m.userId)
+
+      // Remove members no longer assigned
+      await prisma.projectMember.deleteMany({
+        where: {
+          projectId: id,
+          userId: { notIn: incomingUserIds }
+        }
+      })
+
+      // Upsert new/updated members
+      for (const member of incomingMembers) {
+        await prisma.projectMember.upsert({
+          where: {
+            projectId_userId: {
+              projectId: id,
+              userId: member.userId
+            }
+          },
+          update: { role: member.role },
+          create: {
+            projectId: id,
+            userId: member.userId,
+            role: member.role
+          }
+        })
+      }
+    } else if (body.memberIds && Array.isArray(body.memberIds)) {
+      // Backward compatibility fallback using memberIds list
+      const incomingUserIds = [...body.memberIds]
+      if (!incomingUserIds.includes(existingProject.createdById)) {
+        incomingUserIds.push(existingProject.createdById)
+      }
+
+      await prisma.projectMember.deleteMany({
+        where: {
+          projectId: id,
+          userId: { notIn: incomingUserIds }
+        }
+      })
+
+      for (const userId of incomingUserIds) {
+        const isCreator = userId === existingProject.createdById
+        await prisma.projectMember.upsert({
+          where: {
+            projectId_userId: {
+              projectId: id,
+              userId
+            }
+          },
+          update: {},
+          create: {
+            projectId: id,
+            userId,
+            role: isCreator ? 'OWNER' : 'CONTRIBUTOR'
+          }
+        })
+      }
+    }
+
+    // Return the updated project with full relationships loaded
+    const fullProject = await prisma.project.findUnique({
+      where: { id },
       include: {
         createdBy: {
           select: { id: true, name: true, email: true }
@@ -162,7 +243,15 @@ export async function PUT(
       }
     })
 
-    return NextResponse.json(project)
+    // Log user activity
+    const { logUserActivity } = await import('@/lib/audit')
+    await logUserActivity({
+      userId: user.id,
+      activityType: 'PROJECT_ROLE_UPDATE',
+      metadata: { projectId: id, action: 'sync_members' }
+    })
+
+    return NextResponse.json(fullProject)
   } catch (error) {
     return handleApiError(error)
   }
@@ -176,22 +265,24 @@ export async function DELETE(
     const user = await requireAuth(request)
     const { id } = await params
 
-    // Check if user is the creator of the project or is Admin/Administrator
-    const where: any = { id }
-    
-    // If not ADMIN/ADMINISTRATOR/DEVELOPER, only allow deleting own projects
-    if (!isAdminRole(user.role)) {
-      where.createdById = user.id
-    }
-    
-    const project = await prisma.project.findFirst({
-      where
+    const existingProject = await prisma.project.findUnique({
+      where: { id },
     })
 
-    if (!project) {
+    if (!existingProject) {
       return NextResponse.json(
-        { error: 'Project not found or access denied' },
+        { error: 'Project not found' },
         { status: 404 }
+      )
+    }
+
+    const { getProjectUserRole } = await import('@/lib/project-permissions')
+    const projectRole = await getProjectUserRole(id, user.id, user.role)
+
+    if (projectRole !== 'OWNER') {
+      return NextResponse.json(
+        { error: 'Unauthorized. Only project Owners can delete this project.' },
+        { status: 403 }
       )
     }
 

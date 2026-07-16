@@ -62,6 +62,7 @@ import {
 import { useQuery } from '@tanstack/react-query'
 import { formatTaskDate, getCalendarIcon, getTaskStatusIcon } from './task-board-utils'
 import { TaskBoardColumn } from './task-board-column'
+import { TaskCollaborationPanel } from './task-collaboration-panel'
 
 interface FollowUpTask {
   id: string
@@ -1043,6 +1044,8 @@ export function KanbanBoard() {
                       </CardContent>
                     </Card>
                   )}
+
+                  <TaskCollaborationPanel taskId={selectedTask.id} />
                   
                   <Card className="w-full overflow-hidden">
                     <CardHeader>

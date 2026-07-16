@@ -17,6 +17,8 @@ const eslintConfig = [
       ".next/**",
       "out/**",
       "build/**",
+      // Prisma clients are generated vendor code and must not be linted as app source.
+      "prisma/generated/**",
       "next-env.d.ts",
     ],
   },

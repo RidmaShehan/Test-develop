@@ -7,10 +7,6 @@ import { writeFile, mkdir } from 'fs/promises'
 import { join } from 'path'
 import { randomUUID } from 'crypto'
 
-// Default Ultramsg fallback configuration
-const DEFAULT_ULTRAMSG_INSTANCE = 'instance104497'
-const DEFAULT_ULTRAMSG_TOKEN = '8yk46hlsn78dbubl'
-
 // Media storage configuration
 const MEDIA_UPLOAD_DIR = join(process.cwd(), 'public', 'uploads', 'whatsapp-media')
 
@@ -80,8 +76,12 @@ export async function POST(request: NextRequest) {
     const systemInstanceId = systemSettings.find(s => s.key === 'whatsapp.instance_id')?.value
     const systemToken = systemSettings.find(s => s.key === 'whatsapp.token')?.value
 
-    const instanceId = sender?.whatsappInstanceId || systemInstanceId || DEFAULT_ULTRAMSG_INSTANCE
-    const token = sender?.whatsappToken || systemToken || DEFAULT_ULTRAMSG_TOKEN
+    const instanceId = sender?.whatsappInstanceId || systemInstanceId
+    const token = sender?.whatsappToken || systemToken
+
+    if (!instanceId || !token) {
+      return NextResponse.json({ error: 'UltraMsg credentials are not configured. Add them in Settings or to the sender profile.' }, { status: 503 })
+    }
     
     const activeApiUrl = `https://api.ultramsg.com/${instanceId}`
     const activeToken = token
@@ -424,8 +424,12 @@ export async function GET(request: Request) {
     const systemInstanceId = systemSettings.find(s => s.key === 'whatsapp.instance_id')?.value
     const systemToken = systemSettings.find(s => s.key === 'whatsapp.token')?.value
 
-    const instanceId = sender?.whatsappInstanceId || systemInstanceId || DEFAULT_ULTRAMSG_INSTANCE
-    const token = sender?.whatsappToken || systemToken || DEFAULT_ULTRAMSG_TOKEN
+    const instanceId = sender?.whatsappInstanceId || systemInstanceId
+    const token = sender?.whatsappToken || systemToken
+
+    if (!instanceId || !token) {
+      return NextResponse.json({ error: 'UltraMsg credentials are not configured.' }, { status: 503 })
+    }
 
     // Test connection to Ultramsg API
     const response = await fetch(`https://api.ultramsg.com/${instanceId}/status?token=${token}`, {

@@ -70,6 +70,12 @@ const navigation: NavigationItem[] = [
     permissions: ['READ_TASK']
   },
   { 
+    name: 'Shared Inbox', 
+    href: '/inbox', 
+    icon: Mail,
+    permissions: []
+  },
+  { 
     name: 'Calendar', 
     href: '/calendar', 
     icon: CalendarDays,
@@ -157,6 +163,12 @@ const navigation: NavigationItem[] = [
         href: '/reports', 
         icon: BarChart3,
         permissions: ['VIEW_REPORTS']
+      },
+      { 
+        name: 'Staff Workload', 
+        href: '/reports/workload', 
+        icon: Users,
+        permissions: ['READ_USER']
       },
       { 
         name: 'Weekly Reports', 

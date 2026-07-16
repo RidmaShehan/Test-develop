@@ -166,12 +166,56 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Validate assignment: non-admin users can only assign tasks to themselves or leave them unassigned
-    if (assignedToId && assignedToId !== user.id && !isAdminRole(user.role)) {
+    // A task may only be created in a project the user can access and has correct permissions on.
+    let projectMemberIds: string[] | null = null
+    let canAssignProjectTasks = false
+
+    if (projectId) {
+      const { getProjectUserRole } = await import('@/lib/project-permissions')
+      const projectRole = await getProjectUserRole(projectId, user.id, user.role)
+
+      if (!projectRole) {
+        return NextResponse.json({ error: 'Project not found or access denied.' }, { status: 403 })
+      }
+
+      if (projectRole === 'VIEWER') {
+        return NextResponse.json({ error: 'Unauthorized. Viewers cannot create tasks in a project.' }, { status: 403 })
+      }
+
+      const project = await prisma.project.findUnique({
+        where: { id: projectId },
+        select: { members: { select: { userId: true } } },
+      })
+      projectMemberIds = project?.members.map((member) => member.userId) || []
+      
+      // Project OWNER and MANAGER can create and assign tasks.
+      // CONTRIBUTORS can only create unassigned or self-assigned tasks.
+      canAssignProjectTasks = projectRole === 'OWNER' || projectRole === 'MANAGER'
+    } else {
+      // Personal task (outside any project)
+      canAssignProjectTasks = true
+    }
+
+    // Only project OWNER/MANAGER or Admin can assign tasks to another employee.
+    if (assignedToId && assignedToId !== user.id && !canAssignProjectTasks) {
       return NextResponse.json(
-        { error: 'Forbidden. Non-admin users can only assign tasks to themselves.' },
+        { error: 'Only a project owner, manager, or administrator can assign this task to another employee.' },
         { status: 403 }
       )
+    }
+
+    if (assignedToId && projectMemberIds && !projectMemberIds.includes(assignedToId) && assignedToId !== user.id) {
+      return NextResponse.json({ error: 'Tasks can only be assigned to project members.' }, { status: 400 })
+    }
+
+    if (assignedToId) {
+      const assignee = await prisma.user.findFirst({
+        where: { id: assignedToId, isActive: true },
+        select: { id: true },
+      })
+      if (!assignee) {
+        return NextResponse.json({ error: 'Assignee not found or inactive.' }, { status: 400 })
+      }
     }
 
     // Create task

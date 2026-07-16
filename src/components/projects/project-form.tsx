@@ -40,7 +40,7 @@ export function ProjectForm({ project, onSave, onCancel, loading = false }: Proj
   })
   
   const [users, setUsers] = useState<User[]>([])
-  const [selectedMembers, setSelectedMembers] = useState<User[]>([])
+  const [selectedMembers, setSelectedMembers] = useState<Array<User & { role: string }>>([])
   const [errors, setErrors] = useState<Record<string, string>>({})
   const { addNotification } = useNotifications()
 
@@ -58,7 +58,10 @@ export function ProjectForm({ project, onSave, onCancel, loading = false }: Proj
         color: project.color || '#3b82f6'
       })
       if (project.members) {
-        setSelectedMembers(project.members.map((m: any) => m.user))
+        setSelectedMembers(project.members.map((m: any) => ({
+          ...m.user,
+          role: m.role || 'CONTRIBUTOR'
+        })))
       }
     }
   }, [project])
@@ -88,12 +91,16 @@ export function ProjectForm({ project, onSave, onCancel, loading = false }: Proj
 
   const addMember = (user: User) => {
     if (!selectedMembers.find(m => m.id === user.id)) {
-      setSelectedMembers(prev => [...prev, user])
+      setSelectedMembers(prev => [...prev, { ...user, role: 'CONTRIBUTOR' }])
     }
   }
 
   const removeMember = (userId: string) => {
     setSelectedMembers(prev => prev.filter(m => m.id !== userId))
+  }
+
+  const updateMemberRole = (userId: string, role: string) => {
+    setSelectedMembers(prev => prev.map(m => m.id === userId ? { ...m, role } : m))
   }
 
   const validateForm = () => {
@@ -127,7 +134,7 @@ export function ProjectForm({ project, onSave, onCancel, loading = false }: Proj
       budget: formData.budget ? Number(formData.budget) : null,
       startDate: formData.startDate?.toISOString(),
       endDate: formData.endDate?.toISOString(),
-      memberIds: selectedMembers.map(m => m.id)
+      members: selectedMembers.map(m => ({ userId: m.id, role: m.role }))
     }
 
     // Send notification for project creation/update
@@ -313,20 +320,39 @@ export function ProjectForm({ project, onSave, onCancel, loading = false }: Proj
       <div>
         <Label>Team Members</Label>
         <div className="space-y-3">
-          {/* Selected Members */}
+          {/* Selected Members with Roles */}
           {selectedMembers.length > 0 && (
-            <div className="flex flex-wrap gap-2">
+            <div className="space-y-2 border rounded-md p-3 bg-muted/30 max-h-[220px] overflow-y-auto">
               {selectedMembers.map((member) => (
-                <Badge key={member.id} variant="secondary" className="flex items-center gap-1">
-                  {member.name}
-                  <button
-                    type="button"
-                    onClick={() => removeMember(member.id)}
-                    className="ml-1 hover:text-red-500"
-                  >
-                    <X className="h-3 w-3" />
-                  </button>
-                </Badge>
+                <div key={member.id} className="flex items-center justify-between gap-4 p-2 bg-background border rounded-md">
+                  <div className="flex flex-col min-w-0">
+                    <span className="text-sm font-medium truncate">{member.name}</span>
+                    <span className="text-xs text-muted-foreground truncate">{member.email}</span>
+                  </div>
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    <Select
+                      value={member.role}
+                      onValueChange={(value) => updateMemberRole(member.id, value)}
+                    >
+                      <SelectTrigger className="w-[120px] h-8 text-xs">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="OWNER">Owner</SelectItem>
+                        <SelectItem value="MANAGER">Manager</SelectItem>
+                        <SelectItem value="CONTRIBUTOR">Contributor</SelectItem>
+                        <SelectItem value="VIEWER">Viewer</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <button
+                      type="button"
+                      onClick={() => removeMember(member.id)}
+                      className="p-1 text-muted-foreground hover:text-red-500 transition-colors"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
               ))}
             </div>
           )}

@@ -53,7 +53,7 @@ model User {
   createdPosts      SocialMediaPost[]  @relation("PostCreatedBy")
   postsAssignedTo   SocialMediaPost[]  @relation("PostAssignedTo")
   postApprovals     PostApproval[]     @relation("PostApprover")
-  postComments      PostComment[]     @relation("PostCommenter")
+  postComments      PostComment[]      @relation("PostCommenter")
   notifications     Notification[]     @relation("UserNotifications")
   pushSubscriptions PushSubscription[] @relation("UserPushSubscriptions")
 
@@ -89,6 +89,10 @@ model User {
 
   // Sprint F — SMS
   smsMessages SMSMessage[] @relation("SMSMessageCreator")
+
+  // OAuth email accounts and call logs
+  emailAccounts EmailAccount[]
+  callLogs      CallLog[]
 
   @@map("users")
 }
@@ -154,16 +158,16 @@ model Level {
 }
 
 model Program {
-  id               String            @id @default(cuid())
-  name             String
-  levelId          String?
-  level            String?
-  campus           String
-  nextIntakeDate   DateTime?
-  description      String? // Rich text description
-  imageUrl         String? // Program image URL
-  createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @updatedAt
+  id                   String                       @id @default(cuid())
+  name                 String
+  levelId              String?
+  level                String?
+  campus               String
+  nextIntakeDate       DateTime?
+  description          String? // Rich text description
+  imageUrl             String? // Program image URL
+  createdAt            DateTime                     @default(now())
+  updatedAt            DateTime                     @updatedAt
   levelRelation        Level?                       @relation(fields: [levelId], references: [id])
   seekers              Seeker[] // Keep for backward compatibility
   preferredBy          SeekerProgram[] // New many-to-many relationship
@@ -176,52 +180,53 @@ model Program {
 }
 
 model Seeker {
-  id                   String              @id @default(cuid())
-  fullName             String
-  phone                String              @unique
-  whatsapp             Boolean             @default(false)
-  whatsappNumber       String?
-  notAnswering         Boolean             @default(false)
-  email                String?
-  emailNotAnswering    Boolean             @default(false)
-  city                 String?
-  ageBand              String?
-  guardianPhone        String?
-  programInterestId    String? // Keep for backward compatibility
-  marketingSource      String
-  campaignId           String?
-  preferredContactTime String?
-  preferredStatus      Int?
-  followUpAgain        Boolean             @default(false)
-  followUpDate         String?
-  followUpTime         String?
-  description          String?
-  stage                SeekerStage         @default(NEW)
-  consent              Boolean             @default(false)
-  registerNow          Boolean             @default(false)
-  isDeleted            Boolean             @default(false)
-  deletedAt            DateTime?
-  createdAt            DateTime            @default(now())
-  updatedAt            DateTime            @updatedAt
-  createdById          String?
-  deletedById          String?
-  assignments          Assignment[]
-  followUpTasks        FollowUpTask[]
-  interactions         Interaction[]
-  meetings             Meeting[]
-  createdBy            User?               @relation("SeekerCreatedBy", fields: [createdById], references: [id])
-  deletedBy            User?               @relation("SeekerDeletedBy", fields: [deletedById], references: [id])
-  programInterest      Program?            @relation(fields: [programInterestId], references: [id])
-  preferredPrograms    SeekerProgram[] // New many-to-many relationship
-  campaigns            CampaignSeeker[]
-  whatsappRecipients   WhatsAppRecipient[]
-  emailRecipients      EmailRecipient[]
-  promotionCodeId      String?
-  promotionCode        PromotionCode?      @relation(fields: [promotionCodeId], references: [id])
+  id                    String                 @id @default(cuid())
+  fullName              String
+  phone                 String                 @unique
+  whatsapp              Boolean                @default(false)
+  whatsappNumber        String?
+  notAnswering          Boolean                @default(false)
+  email                 String?
+  emailNotAnswering     Boolean                @default(false)
+  city                  String?
+  ageBand               String?
+  guardianPhone         String?
+  programInterestId     String? // Keep for backward compatibility
+  marketingSource       String
+  campaignId            String?
+  preferredContactTime  String?
+  preferredStatus       Int?
+  followUpAgain         Boolean                @default(false)
+  followUpDate          String?
+  followUpTime          String?
+  description           String?
+  stage                 SeekerStage            @default(NEW)
+  consent               Boolean                @default(false)
+  registerNow           Boolean                @default(false)
+  isDeleted             Boolean                @default(false)
+  deletedAt             DateTime?
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  createdById           String?
+  deletedById           String?
+  assignments           Assignment[]
+  followUpTasks         FollowUpTask[]
+  interactions          Interaction[]
+  meetings              Meeting[]
+  createdBy             User?                  @relation("SeekerCreatedBy", fields: [createdById], references: [id])
+  deletedBy             User?                  @relation("SeekerDeletedBy", fields: [deletedById], references: [id])
+  programInterest       Program?               @relation(fields: [programInterestId], references: [id])
+  preferredPrograms     SeekerProgram[] // New many-to-many relationship
+  campaigns             CampaignSeeker[]
+  whatsappRecipients    WhatsAppRecipient[]
+  whatsappInboxMessages WhatsAppInboxMessage[]
+  emailRecipients       EmailRecipient[]
+  promotionCodeId       String?
+  promotionCode         PromotionCode?         @relation(fields: [promotionCodeId], references: [id])
 
   // Sprint B — Lead Scoring & Voice Notes
-  leadScore   LeadScore?
-  voiceNotes  VoiceNote[]
+  leadScore  LeadScore?
+  voiceNotes VoiceNote[]
 
   // Sprint C — Documents
   documents        Document[]
@@ -236,6 +241,10 @@ model Seeker {
   // Sprint G — Alumni
   alumni Alumni?
 
+  // Email threads and call logs
+  emailThreads EmailThread[]
+  callLogs     CallLog[]
+
   // Performance indexes for common queries
   @@index([createdAt])
   @@index([stage])
@@ -244,7 +253,6 @@ model Seeker {
   @@index([createdById, createdAt])
   @@index([followUpAgain, followUpDate])
   @@index([notAnswering, registerNow])
-
   @@map("seekers")
 }
 
@@ -275,6 +283,7 @@ model FollowUpTask {
   user          User                @relation(fields: [assignedTo], references: [id])
   seeker        Seeker              @relation(fields: [seekerId], references: [id], onDelete: Cascade)
   actionHistory TaskActionHistory[]
+  callLog       CallLog?
 
   @@map("follow_up_tasks")
 }
@@ -580,6 +589,10 @@ enum ActivityType {
   DELETE_INQUIRY
   DATA_BACKUP
   SCHEMA_EXPORT
+  PHONE_CALL
+  EMAIL_SYNC
+  EMAIL_SEND
+  PROJECT_ROLE_UPDATE
 }
 
 model UserActivityLog {
@@ -650,6 +663,29 @@ model WhatsAppMessage {
   recipients WhatsAppRecipient[]
 
   @@map("whatsapp_messages")
+}
+
+// Individual inbound and one-to-one outbound messages for the student-support inbox.
+model WhatsAppInboxMessage {
+  id                String   @id @default(cuid())
+  providerMessageId String   @unique
+  instanceId        String
+  phoneNumber       String
+  body              String?  @db.Text
+  direction         String
+  messageType       String   @default("chat")
+  status            String?
+  rawPayload        Json?
+  sentById          String?
+  receivedAt        DateTime
+  createdAt         DateTime @default(now())
+
+  seekerId String?
+  seeker   Seeker? @relation(fields: [seekerId], references: [id], onDelete: SetNull)
+
+  @@index([phoneNumber, receivedAt])
+  @@index([seekerId, receivedAt])
+  @@map("whatsapp_inbox_messages")
 }
 
 model WhatsAppTemplate {
@@ -856,9 +892,9 @@ enum ProjectPriority {
 }
 
 model ProjectMember {
-  id       String   @id @default(cuid())
-  role     String // e.g., "Project Manager", "Developer", "Designer"
-  joinedAt DateTime @default(now())
+  id       String      @id @default(cuid())
+  role     ProjectRole @default(CONTRIBUTOR)
+  joinedAt DateTime    @default(now())
 
   // Relations
   projectId String
@@ -1095,9 +1131,9 @@ model Client {
 model SocialMediaPost {
   id        String     @id @default(cuid())
   caption   String
-  imageUrl  String?    // Image URL (uploaded or link e.g. Google Drive)
-  videoUrl  String?    // Video URL (link e.g. Google Drive, YouTube; playable in CRM)
-  mediaType String?    // 'image' | 'video' — which media to show
+  imageUrl  String? // Image URL (uploaded or link e.g. Google Drive)
+  videoUrl  String? // Video URL (link e.g. Google Drive, YouTube; playable in CRM)
+  mediaType String? // 'image' | 'video' — which media to show
   budget    Float?
   startDate DateTime
   endDate   DateTime
@@ -1114,7 +1150,7 @@ model SocialMediaPost {
   createdBy   User   @relation("PostCreatedBy", fields: [createdById], references: [id])
 
   assignedToId String? // When rejected, assign to this user to revise and resubmit
-  assignedTo   User?  @relation("PostAssignedTo", fields: [assignedToId], references: [id])
+  assignedTo   User?   @relation("PostAssignedTo", fields: [assignedToId], references: [id])
 
   // Approval workflow
   approvals     PostApproval[]
@@ -1309,20 +1345,20 @@ model Note {
 }
 
 model PromotionCode {
-  id                 String   @id @default(cuid())
-  code               String   @unique // A0001, A0002, etc.
+  id                 String              @id @default(cuid())
+  code               String              @unique // A0001, A0002, etc.
   promoterName       String
   promoterAddress    String
   promoterPhone      String
   promoterIdNumber   String
   discountAmountLKR  Float // Discount given to child in LKR
   paymentAmountLKR   Float // Amount paid to promoter in LKR
-  isActive           Boolean  @default(true)
-  totalInquiries     Int      @default(0) // Total inquiries using this code
-  totalRegistrations Int      @default(0) // Total registrations using this code
-  totalPaidLKR       Float    @default(0) // Total amount paid to promoter
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  isActive           Boolean             @default(true)
+  totalInquiries     Int                 @default(0) // Total inquiries using this code
+  totalRegistrations Int                 @default(0) // Total registrations using this code
+  totalPaidLKR       Float               @default(0) // Total amount paid to promoter
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
   createdById        String?
   createdBy          User?               @relation("PromotionCodeCreatedBy", fields: [createdById], references: [id])
   seekers            Seeker[] // Seekers who used this promotion code
@@ -1447,19 +1483,19 @@ enum DocumentCategory {
 }
 
 model DocumentType {
-  id              String                       @id @default(cuid())
-  name            String
-  code            String                       @unique
-  category        DocumentCategory
-  description     String?
-  isRequired      Boolean                      @default(true)
-  acceptedFormats String                       @default("pdf,jpg,png")
-  maxSizeMb       Int                          @default(5)
-  hasExpiry       Boolean                      @default(false)
-  programs        ProgramDocumentRequirement[]
-  documents       Document[]
+  id               String                       @id @default(cuid())
+  name             String
+  code             String                       @unique
+  category         DocumentCategory
+  description      String?
+  isRequired       Boolean                      @default(true)
+  acceptedFormats  String                       @default("pdf,jpg,png")
+  maxSizeMb        Int                          @default(5)
+  hasExpiry        Boolean                      @default(false)
+  programs         ProgramDocumentRequirement[]
+  documents        Document[]
   documentRequests DocumentRequest[]
-  createdAt       DateTime                     @default(now())
+  createdAt        DateTime                     @default(now())
 
   @@map("document_types")
 }
@@ -1478,7 +1514,7 @@ model ProgramDocumentRequirement {
 }
 
 model Document {
-  id              String          @id @default(cuid())
+  id              String            @id @default(cuid())
   seekerId        String
   documentTypeId  String
   uploadedById    String
@@ -1490,17 +1526,17 @@ model Document {
   fileSize        Int
   fileFormat      String
   folder          String
-  status          DocumentStatus  @default(PENDING)
+  status          DocumentStatus    @default(PENDING)
   rejectionReason String?
   notes           String?
   expiryDate      DateTime?
   deletedAt       DateTime?
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
-  seeker          Seeker          @relation(fields: [seekerId], references: [id], onDelete: Cascade)
-  documentType    DocumentType    @relation(fields: [documentTypeId], references: [id])
-  uploadedBy      User            @relation("DocumentUploader", fields: [uploadedById], references: [id])
-  verifiedBy      User?           @relation("DocumentVerifier", fields: [verifiedById], references: [id])
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  seeker          Seeker            @relation(fields: [seekerId], references: [id], onDelete: Cascade)
+  documentType    DocumentType      @relation(fields: [documentTypeId], references: [id])
+  uploadedBy      User              @relation("DocumentUploader", fields: [uploadedById], references: [id])
+  verifiedBy      User?             @relation("DocumentVerifier", fields: [verifiedById], references: [id])
   versions        DocumentVersion[]
 
   @@map("documents")
@@ -1742,7 +1778,7 @@ model SavedFilter {
   name        String
   description String?
   entityType  String   @default("inquiry") // "inquiry", "task", "campaign", etc.
-  filterData  Json     // Serialized filter state (searchQuery, stages, dateRange, etc.)
+  filterData  Json // Serialized filter state (searchQuery, stages, dateRange, etc.)
   isDefault   Boolean  @default(false)
   isPublic    Boolean  @default(false)
   createdAt   DateTime @default(now())
@@ -1756,4 +1792,102 @@ model SavedFilter {
   @@index([userId, entityType])
   @@index([isDefault])
   @@map("saved_filters")
+}
+
+enum ProjectRole {
+  OWNER
+  MANAGER
+  CONTRIBUTOR
+  VIEWER
+}
+
+model EmailAccount {
+  id           String        @id @default(cuid())
+  userId       String
+  provider     String        // "GMAIL" or "MICROSOFT"
+  email        String        @unique
+  accessToken  String
+  refreshToken String
+  expiresAt    DateTime
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  threads      EmailThread[]
+
+  @@map("email_accounts")
+}
+
+model EmailThread {
+  id               String              @id @default(cuid())
+  providerThreadId String              // Thread ID from Gmail/Microsoft
+  emailAccountId   String
+  seekerId         String?             // Associated student/seeker ID (null if not matched)
+  subject          String
+  lastMessageAt    DateTime            @default(now())
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+
+  emailAccount     EmailAccount        @relation(fields: [emailAccountId], references: [id], onDelete: Cascade)
+  seeker           Seeker?             @relation(fields: [seekerId], references: [id], onDelete: SetNull)
+  messages         EmailInboxMessage[]
+
+  @@unique([emailAccountId, providerThreadId])
+  @@map("email_threads")
+}
+
+model EmailInboxMessage {
+  id                String                 @id @default(cuid())
+  providerMessageId String                 @unique // Message ID from Gmail/Microsoft
+  threadId          String
+  from              String
+  to                String
+  subject           String
+  body              String                 // HTML or plain text body
+  direction         String                 // "INBOUND" or "OUTBOUND"
+  sentAt            DateTime
+  isRead            Boolean                @default(false)
+  openCount         Int                    @default(0)
+  lastOpenedAt      DateTime?
+  createdAt         DateTime               @default(now())
+
+  thread            EmailThread            @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  attachments       EmailInboxAttachment[]
+
+  @@map("email_inbox_messages")
+}
+
+model EmailInboxAttachment {
+  id        String            @id @default(cuid())
+  filename  String
+  mimeType  String
+  size      Int
+  content   String?           // Base64 content or URL
+  messageId String
+  createdAt DateTime          @default(now())
+
+  message   EmailInboxMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@map("email_inbox_attachments")
+}
+
+model CallLog {
+  id             String        @id @default(cuid())
+  seekerId       String
+  userId         String
+  direction      String        // "INBOUND" or "OUTBOUND"
+  status         String        // "completed", "no-answer", "busy", "failed"
+  duration       Int           // duration in seconds
+  notes          String?
+  recordingUrl   String?
+  callSid        String?       @unique // twilio call sid
+  followUpTaskId String?       @unique
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  seeker         Seeker        @relation(fields: [seekerId], references: [id], onDelete: Cascade)
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  followUpTask   FollowUpTask? @relation(fields: [followUpTaskId], references: [id], onDelete: SetNull)
+
+  @@map("call_logs")
 }

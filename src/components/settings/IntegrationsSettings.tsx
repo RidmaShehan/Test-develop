@@ -144,8 +144,9 @@ export function IntegrationsSettings() {
           <CardContent className="space-y-4">
             <SettingField label="UltraMsg Instance ID" name="whatsapp.instance_id" value={settings['whatsapp.instance_id'] || ''} onChange={set} placeholder="instance12345" />
             <SettingField label="UltraMsg API Token" name="whatsapp.token" value={settings['whatsapp.token'] || ''} onChange={set} secret placeholder="••••••••" />
-            <div className="bg-yellow-50 dark:bg-yellow-950/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-3 text-xs text-yellow-700 dark:text-yellow-300">
-              ⚠ These settings require a server restart to take effect.
+            <SettingField label="Webhook Secret" name="whatsapp.webhook_secret" value={settings['whatsapp.webhook_secret'] || ''} onChange={set} secret placeholder="Use a long random value" />
+            <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3 text-xs text-blue-700 dark:text-blue-300">
+              Set the UltraMsg webhook URL to <code>/api/webhooks/ultramsg?secret=YOUR_WEBHOOK_SECRET</code> and enable “Webhook on Received”.
             </div>
             <SaveButton onClick={() => save('whatsapp')} isLoading={isSaving} />
           </CardContent>

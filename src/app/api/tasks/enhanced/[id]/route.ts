@@ -137,26 +137,82 @@ export async function PATCH(
       )
     }
 
-    // Check permissions: Admin/Administrator can update any task, others must be creator, assignee, or project member
-    const isAdmin = isAdminRole(user.role)
-    const hasPermission = isAdmin ||
-      existingTask.createdById === user.id ||
-      existingTask.assignedToId === user.id ||
-      existingTask.project?.members.some(m => m.userId === user.id)
+    // Check project-level roles
+    const { getProjectUserRole } = await import('@/lib/project-permissions')
+    const projectIdVal = existingTask.projectId
+    let projectRole = null
+    if (projectIdVal) {
+      projectRole = await getProjectUserRole(projectIdVal, user.id, user.role)
+    }
 
-    if (!hasPermission) {
+    const isAdmin = isAdminRole(user.role)
+
+    // Enforce role-based restrictions
+    if (!isAdmin) {
+      if (projectIdVal && !projectRole) {
+        return NextResponse.json({ error: 'Unauthorized. You are not a member of this project.' }, { status: 403 })
+      }
+
+      if (projectRole === 'VIEWER') {
+        return NextResponse.json({ error: 'Unauthorized. Viewers cannot update tasks.' }, { status: 403 })
+      }
+
+      if (projectRole === 'CONTRIBUTOR') {
+        const isAssigned = existingTask.assignedToId === user.id || existingTask.createdById === user.id
+        if (!isAssigned) {
+          return NextResponse.json(
+            { error: 'Unauthorized. Contributors can only update tasks assigned to or created by them.' },
+            { status: 403 }
+          )
+        }
+
+        // Contributors are only allowed to update status, progress or checklists.
+        // Restrict modifications to title, description, priority, dueDate, assignee, or projectId.
+        const tryingToUpdateRestrictedFields =
+          title !== undefined ||
+          description !== undefined ||
+          priority !== undefined ||
+          dueDate !== undefined ||
+          assignedToId !== undefined ||
+          projectId !== undefined
+
+        if (tryingToUpdateRestrictedFields) {
+          return NextResponse.json(
+            { error: 'Unauthorized. Contributors can only update task status or progress.' },
+            { status: 403 }
+          )
+        }
+      }
+    }
+
+    const effectiveProjectId = projectId !== undefined ? projectId : existingTask.projectId
+    const effectiveProject = effectiveProjectId
+      ? await prisma.project.findUnique({
+          where: { id: effectiveProjectId },
+          select: { id: true, createdById: true, members: { select: { userId: true } } },
+        })
+      : null
+
+    if (effectiveProjectId && !effectiveProject) {
+      return NextResponse.json({ error: 'Project not found.' }, { status: 400 })
+    }
+
+    const canAssign = isAdmin || effectiveProject?.createdById === user.id
+    // Only the project owner or an administrator can assign another employee.
+    if (assignedToId !== undefined && assignedToId !== null && assignedToId !== user.id && !canAssign) {
       return NextResponse.json(
-        { error: 'Unauthorized' },
+        { error: 'Only a project owner or administrator can assign this task to another employee.' },
         { status: 403 }
       )
     }
 
-    // Validate assignment change: non-admin users can only assign tasks to themselves or leave them unassigned
-    if (assignedToId !== undefined && assignedToId !== null && assignedToId !== user.id && !isAdmin) {
-      return NextResponse.json(
-        { error: 'Forbidden. Non-admin users can only assign tasks to themselves.' },
-        { status: 403 }
-      )
+    if (assignedToId && effectiveProject && !effectiveProject.members.some((member) => member.userId === assignedToId)) {
+      return NextResponse.json({ error: 'Tasks can only be assigned to project members.' }, { status: 400 })
+    }
+
+    if (assignedToId) {
+      const assignee = await prisma.user.findFirst({ where: { id: assignedToId, isActive: true }, select: { id: true } })
+      if (!assignee) return NextResponse.json({ error: 'Assignee not found or inactive.' }, { status: 400 })
     }
 
     // Update task
@@ -224,13 +280,17 @@ export async function DELETE(
       )
     }
 
-    // Check permissions: Admin/Administrator can delete any task, others must be creator
+    // Check permissions: Admin/Administrator, project Owner, or task creator can delete tasks
+    const { getProjectUserRole } = await import('@/lib/project-permissions')
+    const projectRole = existingTask.projectId ? await getProjectUserRole(existingTask.projectId, user.id, user.role) : null
+    
     const isAdmin = isAdminRole(user.role)
-    const hasPermission = isAdmin || existingTask.createdById === user.id
+    const isOwner = projectRole === 'OWNER'
+    const isCreator = existingTask.createdById === user.id
 
-    if (!hasPermission) {
+    if (!isAdmin && !isOwner && !isCreator) {
       return NextResponse.json(
-        { error: 'Unauthorized. Only task creators and admins can delete tasks.' },
+        { error: 'Unauthorized. Only project Owners, task creators, and admins can delete tasks.' },
         { status: 403 }
       )
     }
@@ -272,4 +332,3 @@ export async function DELETE(
     return handleApiError(error)
   }
 }
-
