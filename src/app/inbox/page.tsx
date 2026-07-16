@@ -56,7 +56,7 @@ type EmailThread = {
   messages: ThreadMessage[]
 }
 
-export default function InboxPage() {
+function InboxPageContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [accounts, setAccounts] = useState<ConnectedAccount[]>([])
@@ -479,6 +479,22 @@ export default function InboxPage() {
         </div>
       </div>
     </DashboardLayout>
+  )
+}
+
+import { Suspense } from 'react'
+
+export default function InboxPage() {
+  return (
+    <Suspense fallback={
+      <DashboardLayout>
+        <div className="flex items-center justify-center min-h-[400px]">
+          <p className="text-sm text-muted-foreground animate-pulse">Loading Inbox...</p>
+        </div>
+      </DashboardLayout>
+    }>
+      <InboxPageContent />
+    </Suspense>
   )
 }
 
