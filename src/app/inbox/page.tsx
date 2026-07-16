@@ -272,10 +272,10 @@ export default function InboxPage() {
                 )}
                 {/* Connect Buttons */}
                 <div className="grid grid-cols-2 gap-2 pt-1">
-                  <Button variant="outline" size="xs" className="text-xs h-8 border-blue-500/30 hover:bg-blue-50/50 dark:hover:bg-blue-950/20" onClick={() => handleConnect('google')}>
+                  <Button variant="outline" size="sm" className="text-xs h-8 border-blue-500/30 hover:bg-blue-50/50 dark:hover:bg-blue-950/20" onClick={() => handleConnect('google')}>
                     + Connect Gmail
                   </Button>
-                  <Button variant="outline" size="xs" className="text-xs h-8 border-orange-500/30 hover:bg-orange-50/50 dark:hover:bg-orange-950/20" onClick={() => handleConnect('microsoft')}>
+                  <Button variant="outline" size="sm" className="text-xs h-8 border-orange-500/30 hover:bg-orange-50/50 dark:hover:bg-orange-950/20" onClick={() => handleConnect('microsoft')}>
                     + Connect Outlook
                   </Button>
                 </div>

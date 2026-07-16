@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
       data: {
         seekerId: callLog.seekerId,
         userId: callLog.userId,
-        channel: 'PHONE',
+        channel: 'CALL',
         outcome: interactionOutcome,
         notes: `Call finished. Duration: ${duration} seconds. Twilio status: ${status}.`
       }
@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
         seekerId: callLog.seekerId,
         assignedTo: callLog.userId,
         dueAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // Due in 24 hours
-        purpose: 'CALL',
+        purpose: 'CALLBACK',
         status: 'OPEN',
         notes: `Auto-generated follow-up task from call log. Status was ${status}. ${
           isCompleted ? 'Follow up with next steps.' : 'Retry connecting with the student.'

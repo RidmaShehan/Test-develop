@@ -6,7 +6,7 @@ import {
   fetchGmailMessages,
   fetchMicrosoftMessages,
 } from '@/lib/oauth'
-import { handleApiError } from '@/lib/api'
+import { handleApiError } from '@/lib/handle-api-error'
 
 // Helper to extract email addresses from headers like '"John Doe" <john@example.com>'
 function extractEmailAddress(header: string): string {
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
       try {
         const token = await getValidAccessToken(account.id)
         
-        let rawMessages = []
+        let rawMessages: any[] = []
         if (account.provider === 'GMAIL') {
           rawMessages = await fetchGmailMessages(token, 15)
         } else if (account.provider === 'MICROSOFT') {
@@ -106,7 +106,7 @@ export async function POST(request: NextRequest) {
                   seekerId: seeker.id,
                   userId: user.id,
                   channel: 'EMAIL',
-                  outcome: 'ANSWERED',
+                  outcome: 'CONNECTED_INTERESTED',
                   notes: `Auto-logged inbound email thread: "${msg.subject}"`,
                 },
               })

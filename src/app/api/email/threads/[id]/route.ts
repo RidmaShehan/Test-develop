@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth'
 import { getValidAccessToken, sendGmailReply, sendMicrosoftReply } from '@/lib/oauth'
-import { handleApiError } from '@/lib/api'
+import { handleApiError } from '@/lib/handle-api-error'
 
 export async function GET(
   request: NextRequest,

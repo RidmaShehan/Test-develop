@@ -374,7 +374,7 @@ export function SeekerViewDialog({ seeker, open, onOpenChange }: SeekerViewDialo
                       </div>
                       <Button
                         variant="outline"
-                        size="xs"
+                        size="sm"
                         className="h-7 text-xs border-primary/30 hover:bg-primary hover:text-white"
                         onClick={() => setShowCallDialog(true)}
                       >
@@ -602,7 +602,7 @@ export function SeekerViewDialog({ seeker, open, onOpenChange }: SeekerViewDialo
                       <h4 className="text-xs font-semibold truncate text-foreground">{currentThread.subject}</h4>
                       <p className="text-[10px] text-muted-foreground">via {currentThread.emailAccount.email}</p>
                     </div>
-                    <Button variant="ghost" size="xs" className="text-[10px] h-7 px-2" onClick={() => setSelectedThreadId(null)}>
+                    <Button variant="ghost" size="sm" className="text-[10px] h-7 px-2" onClick={() => setSelectedThreadId(null)}>
                       Back to threads
                     </Button>
                   </div>
@@ -678,7 +678,7 @@ export function SeekerViewDialog({ seeker, open, onOpenChange }: SeekerViewDialo
                   <div className="flex justify-between items-center">
                     <h3 className="text-sm font-semibold">Email Threads</h3>
                     {emailAccounts.length > 0 && (
-                      <Button size="xs" onClick={() => setIsStartingNewEmail(true)} className="text-xs h-7">
+                      <Button size="sm" onClick={() => setIsStartingNewEmail(true)} className="text-xs h-7">
                         <Plus className="h-3 w-3 mr-1" />
                         New Email
                       </Button>
@@ -694,7 +694,7 @@ export function SeekerViewDialog({ seeker, open, onOpenChange }: SeekerViewDialo
                       {emailAccounts.length === 0 ? (
                         <p className="text-[10px] text-muted-foreground mt-1">Connect your email account in settings or inbox to write emails</p>
                       ) : (
-                        <Button size="xs" className="mt-3 text-xs h-7" onClick={() => setIsStartingNewEmail(true)}>
+                        <Button size="sm" className="mt-3 text-xs h-7" onClick={() => setIsStartingNewEmail(true)}>
                           Start Conversation
                         </Button>
                       )}

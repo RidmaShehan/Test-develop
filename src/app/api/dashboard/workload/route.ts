@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth'
-import { handleApiError } from '@/lib/api'
+import { handleApiError } from '@/lib/handle-api-error'
 
 export async function GET(request: NextRequest) {
   try {
@@ -91,7 +91,7 @@ export async function GET(request: NextRequest) {
       })
 
       const interactionStats = {
-        phone: interactions.filter(i => i.channel === 'PHONE').length,
+        phone: interactions.filter(i => i.channel === 'CALL').length,
         email: interactions.filter(i => i.channel === 'EMAIL').length,
         whatsapp: interactions.filter(i => i.channel === 'WHATSAPP').length,
         total: interactions.length
