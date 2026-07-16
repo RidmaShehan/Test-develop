@@ -166,40 +166,36 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // A task may only be created in a project the user can access and has correct permissions on.
+    // A task may only be created in a project the user can access. This prevents
+    // a user from attaching work to a project they cannot see.
     let projectMemberIds: string[] | null = null
-    let canAssignProjectTasks = false
-
+    let canAssignProjectTasks = isAdminRole(user.role)
     if (projectId) {
-      const { getProjectUserRole } = await import('@/lib/project-permissions')
-      const projectRole = await getProjectUserRole(projectId, user.id, user.role)
+      const project = await prisma.project.findFirst({
+        where: isAdminRole(user.role)
+          ? { id: projectId }
+          : {
+              id: projectId,
+              OR: [
+                { createdById: user.id },
+                { members: { some: { userId: user.id } } },
+              ],
+            },
+        select: { id: true, createdById: true, members: { select: { userId: true } } },
+      })
 
-      if (!projectRole) {
+      if (!project) {
         return NextResponse.json({ error: 'Project not found or access denied.' }, { status: 403 })
       }
-
-      if (projectRole === 'VIEWER') {
-        return NextResponse.json({ error: 'Unauthorized. Viewers cannot create tasks in a project.' }, { status: 403 })
-      }
-
-      const project = await prisma.project.findUnique({
-        where: { id: projectId },
-        select: { members: { select: { userId: true } } },
-      })
-      projectMemberIds = project?.members.map((member) => member.userId) || []
-      
-      // Project OWNER and MANAGER can create and assign tasks.
-      // CONTRIBUTORS can only create unassigned or self-assigned tasks.
-      canAssignProjectTasks = projectRole === 'OWNER' || projectRole === 'MANAGER'
-    } else {
-      // Personal task (outside any project)
-      canAssignProjectTasks = true
+      projectMemberIds = project.members.map((member) => member.userId)
+      canAssignProjectTasks ||= project.createdById === user.id
     }
 
-    // Only project OWNER/MANAGER or Admin can assign tasks to another employee.
+    // Project owners and admins may assign work, but only to people on that project.
+    // Other users can create personal tasks only for themselves.
     if (assignedToId && assignedToId !== user.id && !canAssignProjectTasks) {
       return NextResponse.json(
-        { error: 'Only a project owner, manager, or administrator can assign this task to another employee.' },
+        { error: 'Only a project owner or administrator can assign this task to another employee.' },
         { status: 403 }
       )
     }

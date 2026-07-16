@@ -21,7 +21,6 @@ export function TaskCollaborationPanel({ taskId }: { taskId: string }) {
   const [comments, setComments] = useState<Comment[]>([])
   const [timeEntries, setTimeEntries] = useState<TimeEntry[]>([])
   const [trackedMinutes, setTrackedMinutes] = useState(0)
-  const [projectRole, setProjectRole] = useState<string | null>(null)
   const [comment, setComment] = useState('')
   const [checklistTitle, setChecklistTitle] = useState('')
   const [timeDescription, setTimeDescription] = useState('')
@@ -40,7 +39,6 @@ export function TaskCollaborationPanel({ taskId }: { taskId: string }) {
       setComments(data.comments)
       setTimeEntries(data.timeEntries)
       setTrackedMinutes(data.trackedMinutes)
-      setProjectRole(data.projectRole)
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'Could not load task collaboration')
     } finally {
@@ -91,8 +89,8 @@ export function TaskCollaborationPanel({ taskId }: { taskId: string }) {
         </TabsList>
         <TabsContent value="comments" className="space-y-3 pt-3">
           <div className="space-y-2">
-            <Textarea value={comment} onChange={(event) => setComment(event.target.value)} placeholder={projectRole === 'VIEWER' ? "Viewers cannot post comments." : "Write an update for the team…"} disabled={projectRole === 'VIEWER'} />
-            <Button disabled={saving || !comment.trim() || projectRole === 'VIEWER'} onClick={async () => { if (await request({ action: 'comment', content: comment })) setComment('') }}>
+            <Textarea value={comment} onChange={(event) => setComment(event.target.value)} placeholder="Write an update for the team…" />
+            <Button disabled={saving || !comment.trim()} onClick={async () => { if (await request({ action: 'comment', content: comment })) setComment('') }}>
               <Send className="mr-2 h-4 w-4" />Post comment
             </Button>
           </div>
@@ -104,27 +102,15 @@ export function TaskCollaborationPanel({ taskId }: { taskId: string }) {
           </div>
         </TabsContent>
         <TabsContent value="checklist" className="space-y-3 pt-3">
-          <div className="flex gap-2">
-            <Input value={checklistTitle} onChange={(event) => setChecklistTitle(event.target.value)} placeholder={projectRole === 'VIEWER' ? "Viewers cannot add items" : "Add a checklist item"} disabled={projectRole === 'VIEWER'} />
-            <Button size="icon" disabled={saving || !checklistTitle.trim() || projectRole === 'VIEWER'} onClick={async () => { if (await request({ action: 'checklist', title: checklistTitle })) setChecklistTitle('') }}><Plus className="h-4 w-4" /></Button>
-          </div>
-          {checklists.length === 0 ? <p className="text-sm text-muted-foreground">No checklist items yet.</p> : checklists.map((item) => (
-            <label key={item.id} className="flex cursor-pointer items-center gap-3 rounded-md border p-3 text-sm">
-              <Checkbox checked={item.completed} disabled={projectRole === 'VIEWER'} onCheckedChange={async (checked) => {
-                const response = await fetch(`/api/tasks/enhanced/${taskId}/collaboration`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'checklist', checklistId: item.id, completed: checked === true }) })
-                if (!response.ok) toast.error('Could not update checklist item'); else void load()
-              }} />
-              <span className={item.completed ? 'text-muted-foreground line-through' : ''}>{item.title}</span>
-            </label>
-          ))}
+          <div className="flex gap-2"><Input value={checklistTitle} onChange={(event) => setChecklistTitle(event.target.value)} placeholder="Add a checklist item" /><Button size="icon" disabled={saving || !checklistTitle.trim()} onClick={async () => { if (await request({ action: 'checklist', title: checklistTitle })) setChecklistTitle('') }}><Plus className="h-4 w-4" /></Button></div>
+          {checklists.length === 0 ? <p className="text-sm text-muted-foreground">No checklist items yet.</p> : checklists.map((item) => <label key={item.id} className="flex cursor-pointer items-center gap-3 rounded-md border p-3 text-sm"><Checkbox checked={item.completed} onCheckedChange={async (checked) => {
+            const response = await fetch(`/api/tasks/enhanced/${taskId}/collaboration`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'checklist', checklistId: item.id, completed: checked === true }) })
+            if (!response.ok) toast.error('Could not update checklist item'); else void load()
+          }} /><span className={item.completed ? 'text-muted-foreground line-through' : ''}>{item.title}</span></label>)}
         </TabsContent>
         <TabsContent value="time" className="space-y-3 pt-3">
-          <div className="grid gap-2 sm:grid-cols-3">
-            <Input type="datetime-local" value={startTime} onChange={(event) => setStartTime(event.target.value)} disabled={projectRole === 'VIEWER'} />
-            <Input type="datetime-local" value={endTime} onChange={(event) => setEndTime(event.target.value)} disabled={projectRole === 'VIEWER'} />
-            <Input value={timeDescription} onChange={(event) => setTimeDescription(event.target.value)} placeholder={projectRole === 'VIEWER' ? "Viewers cannot log time" : "What did you work on?"} disabled={projectRole === 'VIEWER'} />
-          </div>
-          <Button disabled={saving || !startTime || projectRole === 'VIEWER'} onClick={async () => { if (await request({ action: 'time-entry', startTime, endTime: endTime || undefined, description: timeDescription })) { setStartTime(''); setEndTime(''); setTimeDescription('') } }}><Clock3 className="mr-2 h-4 w-4" />Log time</Button>
+          <div className="grid gap-2 sm:grid-cols-3"><Input type="datetime-local" value={startTime} onChange={(event) => setStartTime(event.target.value)} /><Input type="datetime-local" value={endTime} onChange={(event) => setEndTime(event.target.value)} /><Input value={timeDescription} onChange={(event) => setTimeDescription(event.target.value)} placeholder="What did you work on?" /></div>
+          <Button disabled={saving || !startTime} onClick={async () => { if (await request({ action: 'time-entry', startTime, endTime: endTime || undefined, description: timeDescription })) { setStartTime(''); setEndTime(''); setTimeDescription('') } }}><Clock3 className="mr-2 h-4 w-4" />Log time</Button>
           <div className="space-y-2 border-t pt-3">{timeEntries.length === 0 ? <p className="text-sm text-muted-foreground">No time logged yet.</p> : timeEntries.map((entry) => <div key={entry.id} className="flex items-center justify-between rounded-lg bg-muted/50 p-3 text-sm"><div><p className="font-medium">{entry.user.name}</p><p className="text-muted-foreground">{entry.description || 'Time entry'} · {new Date(entry.startTime).toLocaleString()}</p></div><Badge variant="secondary">{entry.duration ?? 0} min</Badge></div>)}</div>
         </TabsContent>
       </Tabs>

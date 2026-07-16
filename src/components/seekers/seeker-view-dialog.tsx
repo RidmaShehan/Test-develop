@@ -7,49 +7,8 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Textarea } from '@/components/ui/textarea'
-import { Input } from '@/components/ui/input'
-import {
-  Phone,
-  Mail,
-  User,
-  MapPin,
-  Clock,
-  Eye,
-  Check,
-  CheckCheck,
-  Plus,
-  RefreshCw,
-  Send,
-  ExternalLink,
-  ChevronRight,
-} from 'lucide-react'
+import { Phone, Mail, User, MapPin, Clock } from 'lucide-react'
 import { LogInteractionDialog } from './log-interaction-dialog'
-import { toast } from 'sonner'
-import { formatDistanceToNow } from 'date-fns'
-
-type ThreadMessage = {
-  id: string
-  from: string
-  to: string
-  subject: string
-  body: string
-  direction: 'INBOUND' | 'OUTBOUND'
-  sentAt: string
-  isRead: boolean
-  openCount: number
-  lastOpenedAt: string | null
-}
-
-type EmailThread = {
-  id: string
-  subject: string
-  lastMessageAt: string
-  emailAccount: { email: string; provider: string }
-  messages: ThreadMessage[]
-}
 
 interface Seeker {
   id: string
@@ -104,28 +63,6 @@ export function SeekerViewDialog({ seeker, open, onOpenChange }: SeekerViewDialo
   const [loading, setLoading] = useState(false)
   const [showLogInteraction, setShowLogInteraction] = useState(false)
 
-  // Email Integration States
-  const [emailThreads, setEmailThreads] = useState<EmailThread[]>([])
-  const [loadingEmails, setLoadingEmails] = useState(false)
-  const [selectedThreadId, setSelectedThreadId] = useState<string | null>(null)
-  const [currentThread, setCurrentThread] = useState<EmailThread | null>(null)
-  const [replyText, setReplyText] = useState('')
-  const [sendingReply, setSendingReply] = useState(false)
-  const [loadingMessages, setLoadingMessages] = useState(false)
-
-  // Connect & New Email Compose States
-  const [emailAccounts, setEmailAccounts] = useState<any[]>([])
-  const [selectedAccountId, setSelectedAccountId] = useState('')
-  const [newEmailSubject, setNewEmailSubject] = useState('')
-  const [newEmailContent, setNewEmailContent] = useState('')
-  const [sendingNewEmail, setSendingNewEmail] = useState(false)
-  const [isStartingNewEmail, setIsStartingNewEmail] = useState(false)
-
-  // Telephony call trigger states
-  const [showCallDialog, setShowCallDialog] = useState(false)
-  const [agentPhone, setAgentPhone] = useState('')
-  const [calling, setCalling] = useState(false)
-
   const fetchSeekerDetails = useCallback(async () => {
     setLoading(true)
     try {
@@ -150,151 +87,11 @@ export function SeekerViewDialog({ seeker, open, onOpenChange }: SeekerViewDialo
     }
   }, [seeker?.id])
 
-  const fetchEmailThreads = useCallback(async () => {
-    if (!seeker.email) return
-    setLoadingEmails(true)
-    try {
-      const res = await fetch(`/api/email/threads?seekerId=${seeker.id}`)
-      if (res.ok) {
-        const data = await res.json()
-        setEmailThreads(data)
-      }
-    } catch (err) {
-      console.error(err)
-    } finally {
-      setLoadingEmails(false)
-    }
-  }, [seeker.id, seeker.email])
-
-  const fetchEmailAccounts = useCallback(async () => {
-    try {
-      const res = await fetch('/api/email/accounts')
-      if (res.ok) {
-        const data = await res.json()
-        setEmailAccounts(data)
-        if (data.length > 0) setSelectedAccountId(data[0].id)
-      }
-    } catch (err) {
-      console.error(err)
-    }
-  }, [])
-
-  const fetchThreadDetails = useCallback(async (id: string) => {
-    setLoadingMessages(true)
-    try {
-      const res = await fetch(`/api/email/threads/${id}`)
-      if (res.ok) {
-        const data = await res.json()
-        setCurrentThread(data)
-      }
-    } catch (err) {
-      console.error(err)
-    } finally {
-      setLoadingMessages(false)
-    }
-  }, [])
-
-  useEffect(() => {
-    if (selectedThreadId) {
-      fetchThreadDetails(selectedThreadId)
-    } else {
-      setCurrentThread(null)
-    }
-  }, [selectedThreadId, fetchThreadDetails])
-
   useEffect(() => {
     if (open && seeker) {
       fetchSeekerDetails()
-      fetchEmailThreads()
-      fetchEmailAccounts()
-
-      const savedPhone = localStorage.getItem('crm_agent_phone')
-      if (savedPhone) setAgentPhone(savedPhone)
     }
-  }, [open, seeker, fetchSeekerDetails, fetchEmailThreads, fetchEmailAccounts])
-
-  const handleSendReply = async () => {
-    if (!replyText.trim() || !selectedThreadId) return
-    setSendingReply(true)
-    try {
-      const res = await fetch(`/api/email/threads/${selectedThreadId}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: replyText.replace(/\n/g, '<br/>') }),
-      })
-      if (res.ok) {
-        toast.success('Reply sent successfully')
-        setReplyText('')
-        fetchThreadDetails(selectedThreadId)
-        fetchEmailThreads()
-      } else {
-        const data = await res.json()
-        toast.error(data.error || 'Failed to send reply')
-      }
-    } catch (err) {
-      toast.error('Error sending reply')
-    } finally {
-      setSendingReply(false)
-    }
-  }
-
-  const handleStartNewEmail = async () => {
-    if (!newEmailSubject.trim() || !newEmailContent.trim() || !selectedAccountId) return
-    setSendingNewEmail(true)
-    try {
-      const res = await fetch('/api/email/threads', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          emailAccountId: selectedAccountId,
-          seekerId: seeker.id,
-          subject: newEmailSubject,
-          content: newEmailContent.replace(/\n/g, '<br/>')
-        }),
-      })
-      if (res.ok) {
-        toast.success('Email conversation started!')
-        setNewEmailSubject('')
-        setNewEmailContent('')
-        setIsStartingNewEmail(false)
-        fetchEmailThreads()
-      } else {
-        const data = await res.json()
-        toast.error(data.error || 'Failed to start conversation')
-      }
-    } catch (err) {
-      toast.error('Error starting conversation')
-    } finally {
-      setSendingNewEmail(false)
-    }
-  }
-
-  const handleInitiateCall = async () => {
-    if (!agentPhone.trim()) {
-      toast.error('Please enter your phone number to bridge the call.')
-      return
-    }
-    setCalling(true)
-    try {
-      localStorage.setItem('crm_agent_phone', agentPhone)
-      const res = await fetch('/api/telephony/call', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ seekerId: seeker.id, agentPhone }),
-      })
-      const data = await res.json()
-      if (res.ok) {
-        toast.success('Call initiated! Twilio is dialing your phone first.')
-        setShowCallDialog(false)
-      } else {
-        toast.error(data.error || 'Failed to place call')
-      }
-    } catch (err) {
-      toast.error('Error placing call')
-    } finally {
-      setCalling(false)
-    }
-  }
+  }, [open, seeker, fetchSeekerDetails])
 
   const getStageColor = (stage: string) => {
     const colors: Record<string, string> = {
@@ -345,11 +142,10 @@ export function SeekerViewDialog({ seeker, open, onOpenChange }: SeekerViewDialo
           </DialogHeader>
 
           <Tabs defaultValue="overview" className="w-full">
-            <TabsList className="grid w-full grid-cols-5">
+            <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="interactions">Interactions</TabsTrigger>
               <TabsTrigger value="tasks">Tasks</TabsTrigger>
-              <TabsTrigger value="emails">Emails</TabsTrigger>
               <TabsTrigger value="timeline">Timeline</TabsTrigger>
             </TabsList>
 
@@ -364,23 +160,12 @@ export function SeekerViewDialog({ seeker, open, onOpenChange }: SeekerViewDialo
                       <User className="h-4 w-4 text-gray-500" />
                       <span className="font-medium">{seeker.fullName}</span>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <Phone className="h-4 w-4 text-gray-500" />
-                        <span>{seeker.phone}</span>
-                        {seeker.whatsapp && (
-                          <Badge variant="secondary" className="text-xs">WhatsApp</Badge>
-                        )}
-                      </div>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="h-7 text-xs border-primary/30 hover:bg-primary hover:text-white"
-                        onClick={() => setShowCallDialog(true)}
-                      >
-                        <Phone className="h-3 w-3 mr-1" />
-                        Call
-                      </Button>
+                    <div className="flex items-center space-x-2">
+                      <Phone className="h-4 w-4 text-gray-500" />
+                      <span>{seeker.phone}</span>
+                      {seeker.whatsapp && (
+                        <Badge variant="secondary" className="text-xs">WhatsApp</Badge>
+                      )}
                     </div>
                     {seeker.email && (
                       <div className="flex items-center space-x-2">
@@ -542,189 +327,6 @@ export function SeekerViewDialog({ seeker, open, onOpenChange }: SeekerViewDialo
               )}
             </TabsContent>
 
-            <TabsContent value="emails" className="space-y-4">
-              {isStartingNewEmail ? (
-                <Card>
-                  <CardHeader className="p-4 pb-2">
-                    <CardTitle className="text-sm">New Email Conversation</CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-4 pt-0 space-y-3">
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-semibold text-muted-foreground">Send From Account</label>
-                      <Select value={selectedAccountId} onValueChange={setSelectedAccountId}>
-                        <SelectTrigger className="text-xs h-8">
-                          <SelectValue placeholder="Select email account" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {emailAccounts.map(acc => (
-                            <SelectItem key={acc.id} value={acc.id} className="text-xs">
-                              {acc.email} ({acc.provider})
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-semibold text-muted-foreground">Subject</label>
-                      <Input
-                        type="text"
-                        placeholder="Enter email subject"
-                        value={newEmailSubject}
-                        onChange={(e) => setNewEmailSubject(e.target.value)}
-                        className="text-xs h-8"
-                      />
-                    </div>
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-semibold text-muted-foreground">Message Body</label>
-                      <Textarea
-                        placeholder="Write your email here..."
-                        value={newEmailContent}
-                        onChange={(e) => setNewEmailContent(e.target.value)}
-                        rows={5}
-                        className="text-xs"
-                      />
-                    </div>
-                    <div className="flex justify-end gap-2 pt-2">
-                      <Button variant="outline" size="sm" className="text-xs h-8" onClick={() => setIsStartingNewEmail(false)}>
-                        Cancel
-                      </Button>
-                      <Button size="sm" className="text-xs h-8" disabled={sendingNewEmail || !newEmailSubject.trim() || !newEmailContent.trim()} onClick={handleStartNewEmail}>
-                        {sendingNewEmail ? 'Sending...' : 'Send Email'}
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ) : selectedThreadId && currentThread ? (
-                <div className="flex flex-col border rounded-lg bg-card h-[400px]">
-                  {/* Internal header */}
-                  <div className="p-3 border-b flex items-center justify-between bg-muted/10">
-                    <div className="min-w-0">
-                      <h4 className="text-xs font-semibold truncate text-foreground">{currentThread.subject}</h4>
-                      <p className="text-[10px] text-muted-foreground">via {currentThread.emailAccount.email}</p>
-                    </div>
-                    <Button variant="ghost" size="sm" className="text-[10px] h-7 px-2" onClick={() => setSelectedThreadId(null)}>
-                      Back to threads
-                    </Button>
-                  </div>
-
-                  {/* Messages list */}
-                  <ScrollArea className="flex-1 p-3">
-                    <div className="space-y-3">
-                      {currentThread.messages.map((message) => {
-                        const isOutbound = message.direction === 'OUTBOUND'
-                        return (
-                          <div
-                            key={message.id}
-                            className={`flex flex-col max-w-[85%] rounded-lg p-2.5 border ${
-                              isOutbound ? 'bg-primary/5 border-primary/20 ml-auto' : 'bg-muted/20 border-border/60 mr-auto'
-                            }`}
-                          >
-                            <div className="flex justify-between gap-4 mb-1 text-[9px] text-muted-foreground">
-                              <span className="font-semibold text-foreground">
-                                {isOutbound ? 'You' : seeker.fullName}
-                              </span>
-                              <span>{new Date(message.sentAt).toLocaleString()}</span>
-                            </div>
-                            <div
-                              className="text-[11px] whitespace-pre-line text-foreground"
-                              dangerouslySetInnerHTML={{ __html: message.body.replace(/<img[^>]+track\/open[^>]+>/gi, '') }}
-                            />
-                            {isOutbound && (
-                              <div className="flex justify-end items-center gap-1 mt-1 text-[9px] text-muted-foreground">
-                                {message.openCount > 0 ? (
-                                  <>
-                                    <Eye className="h-2.5 w-2.5 text-green-500" />
-                                    <span className="text-green-600 dark:text-green-400 font-medium">
-                                      Opened {message.openCount}x
-                                    </span>
-                                  </>
-                                ) : (
-                                  <>
-                                    <CheckCheck className="h-2.5 w-2.5 text-muted-foreground" />
-                                    <span>Sent</span>
-                                  </>
-                                )}
-                              </div>
-                            )}
-                          </div>
-                        )
-                      })}
-                    </div>
-                  </ScrollArea>
-
-                  {/* Reply form */}
-                  <div className="p-3 border-t bg-muted/10">
-                    <div className="flex gap-2">
-                      <Textarea
-                        placeholder="Type reply..."
-                        value={replyText}
-                        onChange={(e) => setReplyText(e.target.value)}
-                        rows={2}
-                        className="resize-none text-xs"
-                      />
-                      <Button
-                        size="icon"
-                        disabled={sendingReply || !replyText.trim()}
-                        onClick={handleSendReply}
-                        className="h-9 w-9 self-end flex-shrink-0"
-                      >
-                        <Send className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center">
-                    <h3 className="text-sm font-semibold">Email Threads</h3>
-                    {emailAccounts.length > 0 && (
-                      <Button size="sm" onClick={() => setIsStartingNewEmail(true)} className="text-xs h-7">
-                        <Plus className="h-3 w-3 mr-1" />
-                        New Email
-                      </Button>
-                    )}
-                  </div>
-
-                  {loadingEmails ? (
-                    <div className="text-center py-8 text-xs text-muted-foreground">Loading emails...</div>
-                  ) : emailThreads.length === 0 ? (
-                    <div className="text-center py-12 border border-dashed rounded-lg bg-muted/10 text-muted-foreground">
-                      <Mail className="h-8 w-8 mx-auto mb-2 text-muted-foreground/60 stroke-[1.2]" />
-                      <p className="text-xs">No email conversation history with this student</p>
-                      {emailAccounts.length === 0 ? (
-                        <p className="text-[10px] text-muted-foreground mt-1">Connect your email account in settings or inbox to write emails</p>
-                      ) : (
-                        <Button size="sm" className="mt-3 text-xs h-7" onClick={() => setIsStartingNewEmail(true)}>
-                          Start Conversation
-                        </Button>
-                      )}
-                    </div>
-                  ) : (
-                    <div className="border rounded-md divide-y divide-border/60">
-                      {emailThreads.map((thread) => {
-                        const lastMsg = thread.messages[0]
-                        return (
-                          <div
-                            key={thread.id}
-                            onClick={() => setSelectedThreadId(thread.id)}
-                            className="p-3 hover:bg-muted/40 cursor-pointer transition-colors flex items-center justify-between text-xs"
-                          >
-                            <div className="min-w-0 flex-1">
-                              <p className="font-semibold text-foreground truncate">{thread.subject}</p>
-                              <p className="text-[10px] text-muted-foreground truncate">
-                                Last message {formatDistanceToNow(new Date(thread.lastMessageAt))} ago
-                              </p>
-                            </div>
-                            <ChevronRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                          </div>
-                        )
-                      })}
-                    </div>
-                  )}
-                </div>
-              )}
-            </TabsContent>
-
             <TabsContent value="timeline" className="space-y-4">
               <h3 className="text-lg font-medium">Activity Timeline</h3>
               <div className="space-y-4">
@@ -738,37 +340,16 @@ export function SeekerViewDialog({ seeker, open, onOpenChange }: SeekerViewDialo
         </DialogContent>
       </Dialog>
 
-      {showCallDialog && (
-        <Dialog open={showCallDialog} onOpenChange={setShowCallDialog}>
-          <DialogContent className="max-w-md">
-            <DialogHeader>
-              <DialogTitle className="text-sm font-semibold">Initiate Click-to-Call</DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4 py-2">
-              <p className="text-xs text-muted-foreground">
-                Enter your phone number (e.g. +1234567890). Twilio will call your phone first, and when you answer, it will dial the student and bridge both lines.
-              </p>
-              <div className="space-y-1">
-                <label className="text-[11px] font-semibold text-muted-foreground">Your Phone Number</label>
-                <Input
-                  type="text"
-                  placeholder="+1..."
-                  value={agentPhone}
-                  onChange={(e) => setAgentPhone(e.target.value)}
-                  className="w-full text-xs h-9"
-                />
-              </div>
-              <div className="flex justify-end gap-2 pt-2">
-                <Button variant="outline" size="sm" className="text-xs" onClick={() => setShowCallDialog(false)}>
-                  Cancel
-                </Button>
-                <Button size="sm" className="text-xs" disabled={calling || !agentPhone.trim()} onClick={handleInitiateCall}>
-                  {calling ? 'Connecting...' : 'Call Now'}
-                </Button>
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
+      {showLogInteraction && (
+        <LogInteractionDialog
+          seeker={seeker}
+          open={showLogInteraction}
+          onOpenChange={setShowLogInteraction}
+          onSuccess={() => {
+            fetchSeekerDetails()
+            setShowLogInteraction(false)
+          }}
+        />
       )}
     </>
   )

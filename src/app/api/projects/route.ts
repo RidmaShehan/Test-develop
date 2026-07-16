@@ -74,32 +74,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Build members creation array with roles
-    const membersData: { userId: string; role: any }[] = []
-    membersData.push({ userId: user.id, role: 'OWNER' })
-
-    if (body.members && Array.isArray(body.members)) {
-      body.members.forEach((m: any) => {
-        if (m.userId && m.userId !== user.id) {
-          const role = ['OWNER', 'MANAGER', 'CONTRIBUTOR', 'VIEWER'].includes(String(m.role).toUpperCase())
-            ? String(m.role).toUpperCase()
-            : 'CONTRIBUTOR'
-          // Avoid duplicate member record if creator was explicitly passed in list
-          if (!membersData.some(existing => existing.userId === m.userId)) {
-            membersData.push({ userId: m.userId, role })
-          }
-        }
-      })
-    } else if (memberIds && Array.isArray(memberIds)) {
-      memberIds.forEach((memberId: string) => {
-        if (memberId !== user.id) {
-          if (!membersData.some(existing => existing.userId === memberId)) {
-            membersData.push({ userId: memberId, role: 'CONTRIBUTOR' })
-          }
-        }
-      })
-    }
-
     // Create project
     const project = await prisma.project.create({
       data: {
@@ -113,7 +87,10 @@ export async function POST(request: NextRequest) {
         color,
         createdById: user.id,
         members: {
-          create: membersData
+          create: memberIds.map((memberId: string) => ({
+            userId: memberId,
+            role: 'Member'
+          }))
         }
       },
       include: {

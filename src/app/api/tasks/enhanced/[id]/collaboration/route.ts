@@ -41,11 +41,8 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
       }),
     ])
 
-    const { getProjectUserRole } = await import('@/lib/project-permissions')
-    const projectRole = task.projectId ? await getProjectUserRole(task.projectId, user.id, user.role) : null
-
     const trackedMinutes = timeEntries.reduce((sum, entry) => sum + (entry.duration || 0), 0)
-    return NextResponse.json({ checklists, comments, timeEntries, trackedMinutes, projectRole })
+    return NextResponse.json({ checklists, comments, timeEntries, trackedMinutes })
   } catch (error) {
     return handleApiError(error)
   }
@@ -57,15 +54,6 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     const { id } = await params
     const task = await findAccessibleTask(id, user.id, user.role)
     if (!task) return NextResponse.json({ error: 'Task not found or access denied.' }, { status: 404 })
-
-    // Check project role permissions
-    if (task.projectId) {
-      const { getProjectUserRole } = await import('@/lib/project-permissions')
-      const projectRole = await getProjectUserRole(task.projectId, user.id, user.role)
-      if (projectRole === 'VIEWER') {
-        return NextResponse.json({ error: 'Unauthorized. Viewers cannot modify task details, comment, or log time.' }, { status: 403 })
-      }
-    }
 
     const body = await request.json()
     const action = body?.action
@@ -135,15 +123,6 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     const { id } = await params
     const task = await findAccessibleTask(id, user.id, user.role)
     if (!task) return NextResponse.json({ error: 'Task not found or access denied.' }, { status: 404 })
-
-    // Check project role permissions
-    if (task.projectId) {
-      const { getProjectUserRole } = await import('@/lib/project-permissions')
-      const projectRole = await getProjectUserRole(task.projectId, user.id, user.role)
-      if (projectRole === 'VIEWER') {
-        return NextResponse.json({ error: 'Unauthorized. Viewers cannot modify checklist items.' }, { status: 403 })
-      }
-    }
 
     const body = await request.json()
     if (body?.action !== 'checklist' || typeof body.checklistId !== 'string' || typeof body.completed !== 'boolean') {
